@@ -1,11 +1,11 @@
-import { expect, Page, Locator } from '@playwright/test';
+import { Page, Locator } from '@playwright/test';
 import { DateTime } from 'luxon';
 import * as path from 'path';
-import { getRandomInt, getRandomElement } from '@helpers/Utils';
-import { VetifyWebAppLoggedBasePage } from '@pages/vetify/webapp/LoggedBasePage';
+import { getRandomInt, getRandomElement } from '@helpers/automation-utils';
+import { VetifyWebappLoggedBasePage } from '@pages/vetify/webapp/LoggedBasePage';
 import { VetifyWebappCalendarSchedulingComponent } from '@pages/vetify/webapp/videocall/CalendarSchedulingComponent';
 
-export class VetifyWebappVideocallFormPage extends VetifyWebAppLoggedBasePage {
+export class VetifyWebappVideocallFormPage extends VetifyWebappLoggedBasePage {
     readonly pageContainer: Locator;
     readonly pageTitle: Locator;
 
@@ -51,15 +51,9 @@ export class VetifyWebappVideocallFormPage extends VetifyWebAppLoggedBasePage {
     async waitForPageLoaded() {
         await Promise.all([
             super.waitForPageLoaded(),
-            this.page.waitForResponse(response =>
-                response.url().includes('/api/services/service/detail/493') && response.status() === 200
-            ),
-            this.page.waitForResponse(response =>
-                response.url().includes('/create/questions/grouped?isNow=false') && response.status() === 200
-            ),
-            this.page.waitForResponse(response =>
-                response.url().includes('/api/services/pets/available-time-schedules') && response.status() === 200
-            ),
+            this.page.waitForResponse((response) => response.url().includes('/api/services/service/detail/493') && response.status() === 200),
+            this.page.waitForResponse((response) => response.url().includes('/create/questions/grouped?isNow=false') && response.status() === 200),
+            this.page.waitForResponse((response) => response.url().includes('/api/services/pets/available-time-schedules') && response.status() === 200),
         ]);
     }
 
@@ -67,12 +61,7 @@ export class VetifyWebappVideocallFormPage extends VetifyWebAppLoggedBasePage {
         const monthOffset = getRandomInt(0, 3);
         const dayOffset = getRandomInt(1, 10);
         const selectedDay = DateTime.now().plus({ days: dayOffset, months: monthOffset });
-        const {
-            petName,
-            reason = `Consulta ${Date.now()}`,
-            date = selectedDay,
-            time
-        } = data || {};
+        const { petName, reason = `Consulta ${Date.now()}`, date = selectedDay, time } = data || {};
 
         // Select pet option (click matching name or random)
         const petItems = await this.petOptions.all();
@@ -111,13 +100,13 @@ export class VetifyWebappVideocallFormPage extends VetifyWebAppLoggedBasePage {
         await this.page.getByRole('button', { name: 'Adjuntar foto o video' }).click();
         const fileChooser = await fileChooserPromise;
         const [response] = await Promise.all([
-            this.page.waitForResponse(reponse =>
-                (reponse.url()).includes('/api/files/upload/pets') && reponse.status() === 200
-            ),
+            this.page.waitForResponse((reponse) => reponse.url().includes('/api/files/upload/pets') && reponse.status() === 200),
             fileChooser.setFiles(filePath),
         ]);
         const { id: fileId } = await response.json();
-        expect(fileId).toBeDefined();
+        if (typeof fileId !== 'string' || fileId.length === 0) {
+            throw new Error('Upload response did not return a valid file id');
+        }
 
         return fileId;
     }

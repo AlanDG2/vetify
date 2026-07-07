@@ -1,43 +1,88 @@
 stages:
-  - lint
-  - e2e_regression
+    - lint
+    - e2e
+    - report
 
 workflow:
-  rules:
-    - if: '$CI_COMMIT_BRANCH == "develop" || $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "develop"'
-    - when: never
+    rules:
+        # Manual pipeline from GitLab UI
+        - if: '$CI_PIPELINE_SOURCE == "web"'
+        # Webhook / API trigger
+        - if: '$CI_PIPELINE_SOURCE == "trigger"'
+        # Merge requests to develop
+        - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "develop"'
+        # Branch pipelines
+        - if: '$CI_COMMIT_BRANCH =~ /^(develop|main)$/'
+        # fallback: block everything else
+        - when: never
 
+# -----------------------
+# LINT JOB
+# -----------------------
 lint:
-  stage: lint
-  image: node:22
-  script:
-    - npm ci
-    - npm run lint
-    - npm run typecheck
+    stage: lint
+    image: node:22
+    script:
+        - npm ci
+        - npm run lint
+        - npm run typecheck
 
+# -----------------------
+# E2E TESTS (Playwright)
+# -----------------------
 e2e_regression:
-  stage: e2e_regression
-  image: mcr.microsoft.com/playwright:v1.60.0-noble
-  needs:
-    - lint
-  rules:
-    - if: '$CI_COMMIT_BRANCH == "develop" || $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "develop"'
-      variables:
-        CI_ENVIRONMENT_NAME: "QA"
-    - if: '$CI_COMMIT_BRANCH == "main" || $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main"'
-      variables:
-        CI_ENVIRONMENT_NAME: "prod"
-    - when: always
-      variables:
-        CI_ENVIRONMENT_NAME: "dev"
-  environment:
-    name: $CI_ENVIRONMENT_NAME
-  script:
-    - npm ci
-    - npm run setup
-    - npm test
-  artifacts:
+    stage: e2e
+    image: mcr.microsoft.com/playwright:v1.60.0-noble
+    needs:
+        - lint
+
+    rules:
+        - if: '$CI_COMMIT_BRANCH == "develop" || $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "develop"'
+          variables:
+              CI_ENVIRONMENT_NAME: 'QA'
+
+        - if: '$CI_COMMIT_BRANCH == "main" || $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main"'
+          variables:
+              CI_ENVIRONMENT_NAME: 'prod'
+
+        - when: always
+          variables:
+              CI_ENVIRONMENT_NAME: 'dev'
+
+    environment:
+        name: $CI_ENVIRONMENT_NAME
+
+    script:
+        - npm ci
+        - npm run setup
+        - npm test
+
+    artifacts:
+        when: always
+        paths:
+            - allure-results/
+            - src/fixtures/users/fresh-users.json
+        expire_in: 1 week
+
+# -----------------------
+# ALLURE REPORT GENERATION
+# -----------------------
+allure_report:
+    stage: report
+    image: node:22
     when: always
-    paths:
-      - playwright-report/
-    expire_in: 1 week
+    needs:
+        - job: e2e_regression
+          artifacts: true
+          optional: true
+
+    script:
+        - npm ci
+        - npm run allure:generate
+
+    artifacts:
+        when: always
+        expose_as: 'Allure Report'
+        paths:
+            - allure-report/
+        expire_in: 1 week

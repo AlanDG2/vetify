@@ -1,7 +1,7 @@
-import { type Page, type Locator } from '@playwright/test';
-import { VetifyWebAppBasePage } from './BasePage';
+import { type Locator, type Page } from '@playwright/test';
+import { VetifyWebappBasePage } from './BasePage';
 
-export class VetifyWebAppRegistrationPage extends VetifyWebAppBasePage {
+export class VetifyWebappRegistrationPage extends VetifyWebappBasePage {
     readonly emailInput: Locator;
     readonly passwordInput: Locator;
     readonly submitButton: Locator;
@@ -17,34 +17,33 @@ export class VetifyWebAppRegistrationPage extends VetifyWebAppBasePage {
 
     async register(
         data: {
-            email: string, password: string
+            email: string;
+            password: string;
         },
         options?: {
-            registrationSuccessful: boolean,
-        }
+            registrationSuccessful: boolean;
+        },
     ): Promise<void> {
         const { email, password } = data;
 
         const { registrationSuccessful = true } = options || {};
 
-
         await this.emailInput.fill(email);
         await this.passwordInput.fill(password);
 
         const expectedActions = [
-            this.page.waitForResponse(response => response.url().includes('/api/users/create') && response.status() === (registrationSuccessful ? 200 : 400)),
+            this.page.waitForResponse((response) => response.url().includes('/api/users/create') && response.status() === (registrationSuccessful ? 200 : 400)),
             this.submitButton.click(),
         ];
 
-        // If the registration is not successful the user is not redirected
+        // If the registration is not successful, the user is not redirected
         if (registrationSuccessful) {
             expectedActions.concat([
                 // Validate that the user is redirected to the Policy Validation page after registration
                 this.page.waitForURL(`${this.baseUrl}/validation/policy`),
                 // Wait for the Policy Validation page to load after registration
-                this.page.waitForResponse(response => response.url().includes('/api/services/sse/assistance_updates') && response.status() === 200),
-                this.page.waitForResponse(response => response.url().includes('/validation/policy.json') && response.status() === 200),
-                this.page.waitForResponse(response => response.url().includes('/api/brand/vetify-qa.ikeapp.com/identification-types') && response.status() === 200),
+                this.page.waitForResponse((response) => response.url().includes('/validation/policy.json') && response.status() === 200),
+                this.page.waitForResponse((response) => response.url().includes('/api/brand/vetify-qa.ikeapp.com/identification-types') && response.status() === 200),
             ]);
         }
 
@@ -53,11 +52,10 @@ export class VetifyWebAppRegistrationPage extends VetifyWebAppBasePage {
 
     async getValidationMessage(): Promise<string> {
         await this.messageParagraph.waitFor({ state: 'visible' });
-        if (!await this.messageParagraph.isVisible()) {
+        if (!(await this.messageParagraph.isVisible())) {
             throw new Error('Validation message is not visible');
         }
         const message = await this.messageParagraph.textContent();
         return message ? message.trim() : '';
     }
-
 }

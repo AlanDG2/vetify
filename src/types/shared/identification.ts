@@ -1,5 +1,4 @@
 export interface Identification {
-  number: string;
-  type: string;
+    number: string;
+    type: string;
 }
-

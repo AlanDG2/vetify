@@ -1,8 +1,8 @@
 import { type Page, type Locator } from '@playwright/test';
-import { VetifyWebAppBasePage } from '@pages/vetify/webapp/BasePage';
+import { VetifyWebappBasePage } from '@pages/vetify/webapp/BasePage';
 import { VetifyWebappSideMenuSection } from './SideMenuSection';
 
-export class VetifyWebAppLoggedBasePage extends VetifyWebAppBasePage {
+export class VetifyWebappLoggedBasePage extends VetifyWebappBasePage {
     readonly sideMenuTriggerDesktopBtn: Locator;
     readonly sideMenuTriggerMobileBtn: Locator;
 
@@ -25,5 +25,4 @@ export class VetifyWebAppLoggedBasePage extends VetifyWebAppBasePage {
             await this.sideMenuTriggerDesktopBtn.click();
         }
     }
-
 }

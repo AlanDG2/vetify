@@ -20,23 +20,19 @@ export class VetifyWebappCancelVideocallModal extends BasePage {
         this.closeBtn = this.container.locator('button[data-part="close-trigger"]');
         this.titleLbl = this.container.locator('//p[1]');
         this.subTitleLbl = this.container.locator('//p[2]');
-        this.confirmationBtn = this.container.getByRole('button', { name: 'Cancelar turno' })
+        this.confirmationBtn = this.container.getByRole('button', { name: 'Cancelar turno' });
         this.reasonSelect = this.container.locator('select');
         this.reasonsOptions = this.reasonSelect.locator('option');
     }
 
     async waitForComponentLoaded() {
-        await this.page.waitForResponse(response =>
-            response.url().includes('/api/services/pets/cancel_reasons') && response.status() === 200
-        );
+        await this.page.waitForResponse((response) => response.url().includes('/api/services/pets/cancel_reasons') && response.status() === 200);
     }
 
     async confirmCancelation(): Promise<void> {
         await Promise.all([
             this.confirmationBtn.click(),
-            this.page.waitForResponse(response =>
-                response.url().includes(`/api/services/pets/cancel/${this.assistanceId}`) && response.status() === 200
-            ),
+            this.page.waitForResponse((response) => response.url().includes(`/api/services/pets/cancel/${this.assistanceId}`) && response.status() === 200),
         ]);
     }
 }

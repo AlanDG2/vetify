@@ -1,32 +1,45 @@
 {
-  "name": "automation",
-  "version": "1.0.0",
-  "private": true,
-  "scripts": {
-    "test": "playwright test",
-    "test:ui": "playwright test --ui",
-    "test:headed": "playwright test --headed",
-    "setup": "ts-node -r tsconfig-paths/register src/scripts/setup.ts",
-    "report": "playwright show-report",
-    "lint": "eslint . --ext .ts",
-    "lint:fix": "eslint . --ext .ts --fix",
-    "typecheck": "tsc --noEmit"
-  },
-  "dependencies": {
-    "@playwright/test": "^1.60.0",
-    "@types/node": "^22.15.0",
-    "@typescript-eslint/eslint-plugin": "^8.60.1",
-    "@typescript-eslint/parser": "^8.60.1",
-    "dotenv": "^16.5.0",
-    "eslint": "^8.57.1",
-    "eslint-plugin-playwright": "^2.10.4",
-    "luxon": "^3.7.2",
-    "ts-node": "^10.9.1",
-    "tsconfig-paths": "^4.0.0",
-    "typescript": "^5.8.0",
-    "zod": "^3.24.0"
-  },
-  "devDependencies": {
-    "@types/luxon": "^3.7.1"
-  }
+    "name": "automation",
+    "version": "1.0.0",
+    "private": true,
+    "scripts": {
+        "get-tags": "playwright test --list --reporter=./src/scripts/tag-analyzer-setup.ts",
+        "test": "playwright test",
+        "test:unit": "playwright test -c playwright.unit.config.ts",
+        "test:ui": "playwright test --ui",
+        "test:headed": "playwright test --headed",
+        "setup": "ts-node -r tsconfig-paths/register src/scripts/setup.ts",
+        "report": "playwright show-report",
+        "allure:generate": "allure generate ./allure-results --config ./allurerc.js --output ./allure-report",
+        "allure:open": "allure open ./allure-report",
+        "allure:report": "npm run allure:generate && npm run allure:open",
+        "lint": "eslint . --ext .ts",
+        "lint:fix": "eslint . --ext .ts --fix",
+        "typecheck": "tsc --noEmit",
+        "format": "prettier . --write",
+        "format:check": "prettier . --check"
+    },
+    "dependencies": {
+        "@playwright/test": "^1.60.0",
+        "@types/node": "^22.15.0",
+        "@typescript-eslint/eslint-plugin": "^8.60.1",
+        "@typescript-eslint/parser": "^8.60.1",
+        "allure": "^3.13.1",
+        "allure-js-commons": "^3.10.1",
+        "allure-playwright": "^3.10.1",
+        "dotenv": "^16.5.0",
+        "eslint": "^8.57.1",
+        "eslint-plugin-playwright": "^2.10.4",
+        "luxon": "^3.7.2",
+        "prettier": "^3.9.4",
+        "ts-node": "^10.9.1",
+        "tsconfig-paths": "^4.0.0",
+        "typescript": "^5.8.0",
+        "uuid": "^14.0.1",
+        "zod": "^3.24.0"
+    },
+    "devDependencies": {
+        "@types/luxon": "^3.7.1",
+        "@types/uuid": "^10.0.0"
+    }
 }

@@ -1,14 +1,13 @@
 import { type Page, type Locator } from '@playwright/test';
-import { VetifyWebAppLoggedBasePage } from './LoggedBasePage';
+import { VetifyWebappLoggedBasePage } from './LoggedBasePage';
 
 export type ProfileTab = 'MisDatos' | 'MisPlanes';
 
-export class VetifyWebappHomePage extends VetifyWebAppLoggedBasePage {
+export class VetifyWebappMyProfilePage extends VetifyWebappLoggedBasePage {
     private readonly plansContainer: Locator;
     private readonly tabs: Locator;
     private readonly selectedTab: Locator;
     private readonly loadCredentialButtons: Locator;
-
 
     constructor(page: Page) {
         super(page, '/section/myprofile');
@@ -50,5 +49,4 @@ export class VetifyWebappHomePage extends VetifyWebAppLoggedBasePage {
 
         await loadCredentialButtons.nth(0).click();
     }
-
 }

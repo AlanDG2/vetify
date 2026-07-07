@@ -1,22 +1,34 @@
-import { UserHelper } from '@helpers/UsersHelper';
-import { wait } from '@helpers/Utils';
-import { execSync } from 'child_process'
-
+import { UserFactory } from '@providers/user/user-factory';
+import { wait } from '@helpers/automation-utils';
+import { execSync } from 'child_process';
+import { SiteId } from '@config/environment';
 
 async function newUserCreationProcessor(tags: string[]): Promise<boolean> {
     // ===== Vetify ====
     // Get vetify user creations
-    const vetifyUserTags = tags.filter(t => t.startsWith('@NewVetify'));
+    const vetifyUserTags = tags.filter((t) => t.startsWith('@NewVetify'));
+    const osdeUserTags = tags.filter((t) => t.startsWith('@NewOsde'));
 
     console.log(`  ➡ Number of Vetify users to create: ${vetifyUserTags.length}`);
+    console.log(`  ➡ Number of Osde users to create: ${osdeUserTags.length}`);
 
-    if (vetifyUserTags.length === 0) return false;
+    if (vetifyUserTags.length === 0 && osdeUserTags.length === 0) return false;
 
     try {
-        await UserHelper.generateTestUsers(vetifyUserTags.map((vut: string) => ({
-            numberOfPlans: vut.includes('+') ? parseInt(vut.split('+')[1]) : 1,
-            registration: vut.startsWith('NewVetifyUser'),
-        })));
+        await UserFactory.generateTestUsers(
+            vetifyUserTags.map((vut: string) => ({
+                numberOfPlans: vut.includes('+') ? parseInt(vut.split('+')[1]) : 1,
+                registration: vut.startsWith('@NewVetifyUser'),
+                brand: SiteId.VETIFY_ADQUIRIENTE,
+            })),
+        );
+        await UserFactory.generateTestUsers(
+            osdeUserTags.map((out: string) => ({
+                numberOfPlans: out.includes('+') ? parseInt(out.split('+')[1]) : 1,
+                registration: out.startsWith('@NewOsdeUser'),
+                brand: SiteId.OSDE_ADQUIRIENTE,
+            })),
+        );
         return true;
     } catch (err: any) {
         console.error('⚠️ Failed to create Vetify users:', err?.message ?? err);
@@ -27,12 +39,22 @@ async function newUserCreationProcessor(tags: string[]): Promise<boolean> {
 
 export async function execute(): Promise<void> {
     console.log('🚀 Setup started');
+
+    const ignoreUserCreation = (process.env.IGNORE_USER_CREATION ?? '').trim().toLowerCase() === 'true';
+    if (ignoreUserCreation) {
+        console.log('⏭️ IGNORE_USER_CREATION=true, skipping test user creation setup.');
+        console.log('✅ Setup finished');
+        return;
+    }
+
     console.log('🔍 Scanning tests (listing, no execution)...');
 
     // 1. Ask Playwright to output the test list as json without running them
     let rawJson = '[]';
     try {
-        rawJson = execSync('npx playwright test --list --reporter=./src/scripts/tag-analyzer-setup.ts', { encoding: 'utf-8' });
+        rawJson = execSync('npm run get-tags', { encoding: 'utf-8' });
+        // Remove the first 4 lines of output (Playwright banner)
+        rawJson = rawJson.split('\n').splice(4).join('\n').trim();
     } catch (err: any) {
         // eslint-disable-next-line no-console
         console.error('⚠️ Failed to list Playwright tests:', err?.message ?? err);

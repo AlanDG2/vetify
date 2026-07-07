@@ -1,14 +1,14 @@
 import type { Reporter, FullConfig, Suite } from '@playwright/test/reporter';
 
-
 class PreExecuteReporter implements Reporter {
     onBegin(config: FullConfig, suite: Suite) {
         // Using a standard array to preserve all duplicates
         let allTags: string[] = [];
         const processedParentIds: string[] = [];
 
-        suite.allTests()
-            .filter(test => test.expectedStatus !== 'skipped')
+        suite
+            .allTests()
+            .filter((test) => test.expectedStatus !== 'skipped')
             .forEach((test: any) => {
                 const currentParent: any | undefined = test.parent;
 

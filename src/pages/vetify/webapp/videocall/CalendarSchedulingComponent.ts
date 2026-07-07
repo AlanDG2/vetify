@@ -1,8 +1,7 @@
 import { type Page, type Locator } from '@playwright/test';
 import { DateTime } from 'luxon';
 import { BasePage } from '@pages/BasePage';
-import { getRandomElement } from '@helpers/Utils';
-
+import { getRandomElement } from '@helpers/automation-utils';
 
 export class VetifyWebappCalendarSchedulingComponent extends BasePage {
     readonly timeOptions: Locator;
@@ -13,9 +12,7 @@ export class VetifyWebappCalendarSchedulingComponent extends BasePage {
     }
 
     async selectAssistanceDay(date: DateTime, options?: { waitForResponse: boolean }) {
-        const {
-            waitForResponse = true,
-        } = options || {};
+        const { waitForResponse = true } = options || {};
         const selectedDate = date.toLocaleString(DateTime.DATE_FULL);
         const dateLocator = this.page.locator(`[aria-label="${selectedDate}"]`);
 
@@ -35,15 +32,13 @@ export class VetifyWebappCalendarSchedulingComponent extends BasePage {
             throw new Error(`Date ${selectedDate} not visible after ${attempts} navigation attempts`);
         }
 
-        const waitFor: Promise<any>[] = [
-            dateLocator.click()
-        ];
+        const waitFor: Promise<any>[] = [dateLocator.click()];
 
         if (waitForResponse) {
             waitFor.push(
-                this.page.waitForResponse(response =>
-                    response.url().includes(`/api/services/pets/available-time-schedules?date=${date.toFormat('yyyy-MM-dd')}`) && response.status() === 200
-                )
+                this.page.waitForResponse(
+                    (response) => response.url().includes(`/api/services/pets/available-time-schedules?date=${date.toFormat('yyyy-MM-dd')}`) && response.status() === 200,
+                ),
             );
         }
 

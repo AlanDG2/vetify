@@ -1,9 +1,8 @@
-
 import { Page, Locator } from '@playwright/test';
-import { VetifyWebAppLoggedBasePage } from '@pages/vetify/webapp/LoggedBasePage';
+import { VetifyWebappLoggedBasePage } from '@pages/vetify/webapp/LoggedBasePage';
 import { VetifyWebappCalendarSchedulingComponent } from '@pages/vetify/webapp/videocall/CalendarSchedulingComponent';
 
-export class VetifyWebappRescheduleVideocallPage extends VetifyWebAppLoggedBasePage {
+export class VetifyWebappRescheduleVideocallPage extends VetifyWebappLoggedBasePage {
     private assistanceId: string;
 
     // Calendar component
@@ -13,7 +12,7 @@ export class VetifyWebappRescheduleVideocallPage extends VetifyWebAppLoggedBaseP
     readonly backBtn: Locator;
     readonly saveBtn: Locator;
 
-    constructor(page: Page, assistanceId: string,) {
+    constructor(page: Page, assistanceId: string) {
         super(page, `/petsAssistance/reprogramarTurno/${assistanceId}`);
         this.assistanceId = assistanceId;
 
@@ -28,9 +27,7 @@ export class VetifyWebappRescheduleVideocallPage extends VetifyWebAppLoggedBaseP
     async waitForPageLoaded() {
         await Promise.all([
             super.waitForPageLoaded(),
-            this.page.waitForResponse(response =>
-                response.url().includes(`/api/services/pets/appointment/${this.assistanceId}`) && response.status() === 200
-            ),
+            this.page.waitForResponse((response) => response.url().includes(`/api/services/pets/appointment/${this.assistanceId}`) && response.status() === 200),
         ]);
     }
 }

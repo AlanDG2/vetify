@@ -4,13 +4,12 @@ dist/
 test-results/
 playwright-report/
 blob-report/
-playwright/.cache/
 **/.DS_Store
-.ai/
 .vscode/
 .idea/
 *.log
 *.tmp
-data-set/
-storageState.json
 playwright/
+allure-results/
+allure-report/
+src/fixtures/users/fresh-users.json

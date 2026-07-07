@@ -1,34 +1,29 @@
-import { Page, Locator } from '@playwright/test';
-import { wait } from '@helpers/Utils';
-import { VetifyWebAppLoggedBasePage } from '@pages/vetify/webapp/LoggedBasePage';
+import { Locator, Page } from '@playwright/test';
+import { wait } from '@helpers/automation-utils';
+import { VetifyWebappLoggedBasePage } from '@pages/vetify/webapp/LoggedBasePage';
 
-export class VetifyWebappVideocallViewPage extends VetifyWebAppLoggedBasePage {
-    private assistanceId: string;
-
+export class VetifyWebappVideocallViewPage extends VetifyWebappLoggedBasePage {
     readonly pageContainer: Locator;
     readonly pageTitle: Locator;
     readonly pageSubTitle: Locator;
-
     // Form
     readonly petsList: Locator;
     readonly scheduledDateLbl: Locator;
     readonly scheduledTimeLbl: Locator;
     readonly rescheduleBtn: Locator;
     readonly reasonInput: Locator;
-
     // Actions
     readonly cancelVideocallBtn: Locator;
     readonly backBtn: Locator;
     readonly saveBtn: Locator;
-
     // Re-schedule Modal
     readonly rescheduleModalConfirmBtn: Locator;
-
     // Re-schedule Confirmation Modal
     readonly rescheduleConfirmationModalTitleLbl: Locator;
     readonly rescheduleConfirmationModalOkBtn: Locator;
+    private assistanceId: string;
 
-    constructor(page: Page, assistanceId: string,) {
+    constructor(page: Page, assistanceId: string) {
         super(page, `/petsAssistance/${assistanceId}`);
         this.assistanceId = assistanceId;
 
@@ -59,12 +54,8 @@ export class VetifyWebappVideocallViewPage extends VetifyWebAppLoggedBasePage {
     async waitForPageLoaded() {
         await Promise.all([
             super.waitForPageLoaded(),
-            this.page.waitForResponse(response =>
-                response.url().includes(`/api/services/pets/appointment/${this.assistanceId}`) && response.status() === 200
-            ),
-            this.page.waitForResponse(response =>
-                response.url().includes('/api/services/pets/my-products') && response.status() === 200
-            ),
+            this.page.waitForResponse((response) => response.url().includes(`/api/services/pets/appointment/${this.assistanceId}`) && response.status() === 200),
+            this.page.waitForResponse((response) => response.url().includes('/api/services/pets/my-products') && response.status() === 200),
             this.saveBtn.waitFor({ state: 'visible' }),
         ]);
         // Wait for the re-render of the UI
@@ -76,14 +67,13 @@ export class VetifyWebappVideocallViewPage extends VetifyWebAppLoggedBasePage {
         const petsList = await this.petsList.all();
 
         // Prevent hover affect tests
-        await this.backBtn.hover()
+        await this.backBtn.hover();
 
         let selectedPet: Locator | undefined;
         for (const pet of petsList) {
             const backgroundColor = await pet.evaluate((el) => {
                 return window.getComputedStyle(el).backgroundColor;
             });
-            console.log({ backgroundColor });
             if (backgroundColor === 'rgb(209, 211, 212)') {
                 selectedPet = pet;
                 break;

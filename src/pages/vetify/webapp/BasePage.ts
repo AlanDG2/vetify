@@ -1,9 +1,9 @@
-import { expect, type Page } from '@playwright/test';
-import { siteBaseUrls } from '@config/environment';
+import { type Page } from '@playwright/test';
+import { getWebappBaseUrl, SiteId } from '@config/environment';
 
-export class VetifyWebAppBasePage {
+export class VetifyWebappBasePage {
     protected page: Page;
-    protected baseUrl: string = siteBaseUrls.vetifyWebapp;
+    protected baseUrl: string = getWebappBaseUrl(SiteId.VETIFY_ADQUIRIENTE);
     protected path?: string;
 
     constructor(page: Page, path?: string) {
@@ -15,6 +15,10 @@ export class VetifyWebAppBasePage {
 
     getBaseUrl() {
         return this.baseUrl;
+    }
+
+    setPath(path: string): void {
+        this.path = path;
     }
 
     getPath() {
@@ -43,6 +47,6 @@ export class VetifyWebAppBasePage {
         if (!this.path) {
             throw new Error('Path is no defined for this page');
         }
-        await expect(this.page).toHaveURL(`${this.baseUrl}${this.path}`);
+        await this.page.waitForURL(`${this.baseUrl}${this.path}`);
     }
 }

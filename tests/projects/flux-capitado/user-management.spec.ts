@@ -287,7 +287,7 @@ test.describe('Gestión de Usuario Test Suite', () => {
         });
     });
 
-    test.describe('TS-03 Activación de Cuenta', { tag: ['@NewCapitadoOSDE'] }, () => {
+    test.describe('TS-03 Activación de Cuenta', { tag: ['@NewCapitadoFlux'] }, () => {
         let user: TestUser | undefined;
         // Prevent reserving more than one user for the execution
         test.describe.configure({ retries: 0, mode: 'serial' });

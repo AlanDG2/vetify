@@ -12,7 +12,7 @@ export class OsdeAdquirienteInstitutionalPage extends BasePage {
     }
 
     async load(): Promise<void> {
-        await this.page.goto(getInstitutionalBaseUrl(SiteId.OSDE_ADQUIRIENTE));
+        await this.page.goto(getInstitutionalBaseUrl(SiteId.OSDE_ADQUIRENTE));
     }
 
     async goToSection(sectionId: 'planes'): Promise<void> {

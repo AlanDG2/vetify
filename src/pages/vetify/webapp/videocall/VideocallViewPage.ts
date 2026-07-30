@@ -1,6 +1,6 @@
-import { Locator, Page } from '@playwright/test';
 import { wait } from '@helpers/automation-utils';
 import { VetifyWebappLoggedBasePage } from '@pages/vetify/webapp/LoggedBasePage';
+import { Locator, Page } from '@playwright/test';
 
 export class VetifyWebappVideocallViewPage extends VetifyWebappLoggedBasePage {
     readonly pageContainer: Locator;

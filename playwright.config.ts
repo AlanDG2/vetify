@@ -1,7 +1,7 @@
-import { defineConfig, devices } from '@playwright/test';
-import sites from './src/config/sites';
-import { getWebappBaseUrl } from './src/config/environment';
 import { GENERAL_COOKIES_STORAGE_STATE_PATH } from '@config/test-configuration';
+import { defineConfig, devices } from '@playwright/test';
+import { getWebappBaseUrl } from './src/config/environment';
+import sites from './src/config/sites';
 
 export default defineConfig({
     // Allow running tests by tags using the TAGS env var. Examples:

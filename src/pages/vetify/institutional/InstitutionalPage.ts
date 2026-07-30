@@ -1,6 +1,6 @@
-import type { Page } from '@playwright/test';
 import { getInstitutionalBaseUrl, SiteId } from '@config/environment';
 import { BasePage } from '@pages/BasePage';
+import type { Page } from '@playwright/test';
 import { PlansSection } from './sections/PlansSection';
 
 export class VetifyInstitutionalPage extends BasePage {
@@ -12,7 +12,7 @@ export class VetifyInstitutionalPage extends BasePage {
     }
 
     async load(): Promise<void> {
-        await this.page.goto(getInstitutionalBaseUrl(SiteId.VETIFY_ADQUIRIENTE));
+        await this.page.goto(getInstitutionalBaseUrl(SiteId.VETIFY_ADQUIRENTE));
     }
 
     async goToSection(sectionId: 'planes' | 'contacto' | 'atencion' | 'footer'): Promise<void> {

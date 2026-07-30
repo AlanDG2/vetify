@@ -1,6 +1,6 @@
-import { Page, Locator } from '@playwright/test';
 import { VetifyWebappLoggedBasePage } from '@pages/vetify/webapp/LoggedBasePage';
 import { VetifyWebappCalendarSchedulingComponent } from '@pages/vetify/webapp/videocall/CalendarSchedulingComponent';
+import { Locator, Page } from '@playwright/test';
 
 export class VetifyWebappRescheduleVideocallPage extends VetifyWebappLoggedBasePage {
     private assistanceId: string;

@@ -1,37 +1,77 @@
-import { UserFactory } from '@providers/user/user-factory';
-import { wait } from '@helpers/automation-utils';
-import { execSync } from 'child_process';
 import { SiteId } from '@config/environment';
+import { wait } from '@helpers/automation-utils';
+import { UserFactory } from '@providers/user/user-factory';
+import { execSync } from 'child_process';
+
+type UserCreationTagConfig = {
+    label: string;
+    baseTag: string;
+    registrationTag: string;
+    siteId: SiteId;
+};
+
+const USER_CREATION_TAG_CONFIGS: UserCreationTagConfig[] = [
+    {
+        label: 'Vetify B2C',
+        baseTag: '@NewVetifyB2C',
+        registrationTag: '@NewVetifyB2CUser',
+        siteId: SiteId.VETIFY_ADQUIRENTE,
+    },
+    {
+        label: 'Adquirente OSDE',
+        baseTag: '@NewAdquirenteOSDE',
+        registrationTag: '@NewAdquirenteOSDEUser',
+        siteId: SiteId.OSDE_ADQUIRENTE,
+    },
+    {
+        label: 'Capitado OSDE',
+        baseTag: '@NewCapitadoOSDE',
+        registrationTag: '@NewCapitadoOSDEUser',
+        siteId: SiteId.OSDE_CAPITADO,
+    },
+    {
+        label: 'Capitado Flux',
+        baseTag: '@NewCapitadoFlux',
+        registrationTag: '@NewCapitadoFluxUser',
+        siteId: SiteId.FLUX_CAPITADO,
+    },
+];
+
+function getNumberOfPlans(tag: string): number {
+    if (!tag.includes('+')) return 1;
+    const parsedPlanCount = parseInt(tag.split('+')[1], 10);
+    return Number.isNaN(parsedPlanCount) ? 1 : parsedPlanCount;
+}
 
 async function newUserCreationProcessor(tags: string[]): Promise<boolean> {
-    // ===== Vetify ====
-    // Get vetify user creations
-    const vetifyUserTags = tags.filter((t) => t.startsWith('@NewVetify'));
-    const osdeUserTags = tags.filter((t) => t.startsWith('@NewOsde'));
+    const creationRequests = USER_CREATION_TAG_CONFIGS.flatMap((config) => {
+        const typeTags = tags.filter((tag) => tag.startsWith(config.baseTag));
+        console.log(`  ➡ Number of ${config.label} users to create: ${typeTags.length}`);
 
-    console.log(`  ➡ Number of Vetify users to create: ${vetifyUserTags.length}`);
-    console.log(`  ➡ Number of Osde users to create: ${osdeUserTags.length}`);
+        return typeTags.map((tag) => ({
+            numberOfPlans: getNumberOfPlans(tag),
+            registration: tag.startsWith(config.registrationTag),
+            siteId: config.siteId,
+            configLabel: config.label,
+        }));
+    });
 
-    if (vetifyUserTags.length === 0 && osdeUserTags.length === 0) return false;
+    if (creationRequests.length === 0) return false;
 
     try {
-        await UserFactory.generateTestUsers(
-            vetifyUserTags.map((vut: string) => ({
-                numberOfPlans: vut.includes('+') ? parseInt(vut.split('+')[1]) : 1,
-                registration: vut.startsWith('@NewVetifyUser'),
-                brand: SiteId.VETIFY_ADQUIRIENTE,
-            })),
-        );
-        await UserFactory.generateTestUsers(
-            osdeUserTags.map((out: string) => ({
-                numberOfPlans: out.includes('+') ? parseInt(out.split('+')[1]) : 1,
-                registration: out.startsWith('@NewOsdeUser'),
-                brand: SiteId.OSDE_ADQUIRIENTE,
-            })),
-        );
+        const createdCountByLabel = await UserFactory.generateTestUsers(creationRequests);
+
+        USER_CREATION_TAG_CONFIGS.forEach((config) => {
+            const planned = creationRequests.filter((req) => req.configLabel === config.label).length;
+            const created = createdCountByLabel[config.label] ?? 0;
+            if (planned > 0) {
+                console.log(`  ✅ Created ${created} of ${planned} ${config.label} users`);
+            }
+        });
+
         return true;
     } catch (err: any) {
-        console.error('⚠️ Failed to create Vetify users:', err?.message ?? err);
+        console.error('⚠️ Failed to create requested setup users:', err?.message ?? err);
         console.warn('The API for creating users seems unavailable — skipping user creation and continuing setup.');
         return false;
     }
@@ -73,7 +113,7 @@ export async function execute(): Promise<void> {
     }
 
     // Detect each creation user tag and proceed with the creation
-    // Example: Each @NewVetifyUser tag will result in a Vetify user
+    // Example: Each @NewVetifyB2CUser tag will result in a Vetify B2C user
     console.log('🛠️ Processing user creation tags...');
     const hasNewUsers = await newUserCreationProcessor(allTags);
 

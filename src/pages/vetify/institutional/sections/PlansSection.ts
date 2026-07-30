@@ -1,7 +1,7 @@
-import { type Page } from '@playwright/test';
 import type { Plan } from '@models/vetify/institutional';
-import { PlanCard } from '../components/PlanCard';
+import { type Page } from '@playwright/test';
 import { BaseSection } from '../components/BaseSection';
+import { PlanCard } from '../components/PlanCard';
 
 export class PlansSection extends BaseSection {
     constructor(page: Page) {

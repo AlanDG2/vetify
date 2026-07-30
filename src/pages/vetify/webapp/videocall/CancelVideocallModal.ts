@@ -1,5 +1,5 @@
-import { type Locator, type Page } from '@playwright/test';
 import { BasePage } from '@pages/BasePage';
+import { type Locator, type Page } from '@playwright/test';
 
 export class VetifyWebappCancelVideocallModal extends BasePage {
     readonly assistanceId: string;

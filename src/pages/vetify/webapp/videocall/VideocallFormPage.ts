@@ -1,9 +1,9 @@
-import { Page, Locator } from '@playwright/test';
-import { DateTime } from 'luxon';
-import * as path from 'path';
-import { getRandomInt, getRandomElement } from '@helpers/automation-utils';
+import { getRandomElement, getRandomInt } from '@helpers/automation-utils';
 import { VetifyWebappLoggedBasePage } from '@pages/vetify/webapp/LoggedBasePage';
 import { VetifyWebappCalendarSchedulingComponent } from '@pages/vetify/webapp/videocall/CalendarSchedulingComponent';
+import { Locator, Page } from '@playwright/test';
+import { DateTime } from 'luxon';
+import * as path from 'path';
 
 export class VetifyWebappVideocallFormPage extends VetifyWebappLoggedBasePage {
     readonly pageContainer: Locator;

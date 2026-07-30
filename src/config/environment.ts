@@ -1,5 +1,5 @@
-import { z } from 'zod';
 import dotenv from 'dotenv';
+import { z } from 'zod';
 
 dotenv.config();
 
@@ -9,15 +9,15 @@ const environmentSchema = z.object({
     VETIFY_WEBAPP_BASE_URL: z.string().url(),
     VETIFY_INSTITUTIONAL_BASE_URL: z.string().url(),
     OSDE_CAPITADO_INSTITUTIONAL_BASE_URL: z.string().url(),
-    OSDE_ADQUIRIENTE_INSTITUTIONAL_BASE_URL: z.string().url(),
+    OSDE_ADQUIRENTE_INSTITUTIONAL_BASE_URL: z.string().url(),
     FLUX_CAPITADO_INSTITUTIONAL_BASE_URL: z.string().url(),
 });
 
 export type AppEnvironment = z.infer<typeof environmentSchema>['APP_ENV'];
 
 export enum SiteId {
-    VETIFY_ADQUIRIENTE = 'VETIFY_ADQUIRIENTE',
-    OSDE_ADQUIRIENTE = 'OSDE_ADQUIRIENTE',
+    VETIFY_ADQUIRENTE = 'VETIFY_ADQUIRENTE',
+    OSDE_ADQUIRENTE = 'OSDE_ADQUIRENTE',
     OSDE_CAPITADO = 'OSDE_CAPITADO',
     FLUX_CAPITADO = 'FLUX_CAPITADO',
 }
@@ -36,9 +36,9 @@ export const environment = environmentSchema.parse(process.env);
 // Mapping of site IDs (used by Playwright projects) to the webapp base URL.
 // Add additional sites here as needed.
 export const siteWebappBaseUrls: Record<SiteIdType, string> = {
-    [SiteId.VETIFY_ADQUIRIENTE]: environment.VETIFY_WEBAPP_BASE_URL,
+    [SiteId.VETIFY_ADQUIRENTE]: environment.VETIFY_WEBAPP_BASE_URL,
     [SiteId.OSDE_CAPITADO]: environment.VETIFY_WEBAPP_BASE_URL,
-    [SiteId.OSDE_ADQUIRIENTE]: environment.VETIFY_WEBAPP_BASE_URL,
+    [SiteId.OSDE_ADQUIRENTE]: environment.VETIFY_WEBAPP_BASE_URL,
     [SiteId.FLUX_CAPITADO]: environment.VETIFY_WEBAPP_BASE_URL,
 };
 
@@ -47,9 +47,9 @@ export function getWebappBaseUrl(siteId: SiteId): string {
 }
 
 export const siteInstitutionalBaseUrls: Record<SiteIdType, string> = {
-    [SiteId.VETIFY_ADQUIRIENTE]: environment.VETIFY_INSTITUTIONAL_BASE_URL,
+    [SiteId.VETIFY_ADQUIRENTE]: environment.VETIFY_INSTITUTIONAL_BASE_URL,
     [SiteId.OSDE_CAPITADO]: environment.OSDE_CAPITADO_INSTITUTIONAL_BASE_URL,
-    [SiteId.OSDE_ADQUIRIENTE]: environment.OSDE_ADQUIRIENTE_INSTITUTIONAL_BASE_URL,
+    [SiteId.OSDE_ADQUIRENTE]: environment.OSDE_ADQUIRENTE_INSTITUTIONAL_BASE_URL,
     [SiteId.FLUX_CAPITADO]: environment.FLUX_CAPITADO_INSTITUTIONAL_BASE_URL,
 };
 

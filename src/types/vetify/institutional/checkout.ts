@@ -1,5 +1,5 @@
-import type { Identification } from '@models/shared';
 import type { TokenVentaMercadoPago } from '@models/mercadoPago/paymentTokens';
+import type { Identification } from '@models/shared';
 
 export interface CheckoutPayload {
     calculateParam: CalculateParam;

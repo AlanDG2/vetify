@@ -1,7 +1,7 @@
-import { type Page, type Locator } from '@playwright/test';
-import { DateTime } from 'luxon';
-import { BasePage } from '@pages/BasePage';
 import { getRandomElement } from '@helpers/automation-utils';
+import { BasePage } from '@pages/BasePage';
+import { type Locator, type Page } from '@playwright/test';
+import { DateTime } from 'luxon';
 
 export class VetifyWebappCalendarSchedulingComponent extends BasePage {
     readonly timeOptions: Locator;

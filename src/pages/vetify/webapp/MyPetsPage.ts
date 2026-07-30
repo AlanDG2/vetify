@@ -1,5 +1,5 @@
-import type { Locator, Page } from '@playwright/test';
 import { VetifyWebappLoggedBasePage } from '@pages/vetify/webapp/LoggedBasePage';
+import type { Locator, Page } from '@playwright/test';
 
 export class VetifyWebappMyPetsPage extends VetifyWebappLoggedBasePage {
     readonly backButton: Locator;
@@ -19,7 +19,7 @@ export class VetifyWebappMyPetsPage extends VetifyWebappLoggedBasePage {
     async waitForPageLoaded() {
         await Promise.all([
             this.page.waitForResponse((response) => response.url().includes('/api/users/me') && response.status() === 200),
-            this.page.waitForResponse((response) => response.url().includes('/api/services/assistance/history') && response.status() === 200),
+            this.page.waitForResponse((response) => response.url().includes('/api/services/pets/my-products') && response.status() === 200),
         ]);
     }
 }

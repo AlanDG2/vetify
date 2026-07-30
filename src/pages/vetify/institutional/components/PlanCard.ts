@@ -1,5 +1,5 @@
-import { type Locator, type Page } from '@playwright/test';
 import type { Plan } from '@models/vetify/institutional';
+import { type Locator, type Page } from '@playwright/test';
 
 export class PlanCard {
     constructor(

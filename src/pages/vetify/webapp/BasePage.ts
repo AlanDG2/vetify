@@ -1,9 +1,9 @@
-import { type Page } from '@playwright/test';
 import { getWebappBaseUrl, SiteId } from '@config/environment';
+import { type Page } from '@playwright/test';
 
 export class VetifyWebappBasePage {
     protected page: Page;
-    protected baseUrl: string = getWebappBaseUrl(SiteId.VETIFY_ADQUIRIENTE);
+    protected baseUrl: string = getWebappBaseUrl(SiteId.VETIFY_ADQUIRENTE);
     protected path?: string;
 
     constructor(page: Page, path?: string) {

@@ -1,186 +1,229 @@
 {
-  "users": [
-    {
-      "id": "48852916-14f0-43f7-8341-1a2b6ba16b93",
-      "email": "user_1782845996861@automation.com",
-      "password": "Te1!ebca47e8",
-      "identification": {
-        "type": "DNI",
-        "number": "1203963334"
-      },
-      "numberOfPlans": 2,
-      "source": "fresh",
-      "brand": "vetify",
-      "registration": true,
-      "leadIds": [
-        "00QO200000UHoiHMAT",
-        "00QO200000UHoiHMAT"
-      ],
-      "tags": [
-        "ACTIVE",
-        "WITH_PET",
-        "PLAN_WITHOUT_PET"
-      ],
-      "reserved": false
-    },
-    {
-      "id": "aab3f335-f742-47d2-95c7-3b7b754eebac",
-      "email": "user_1782769599580@automation.com",
-      "password": "Te1!33ff8962",
-      "identification": {
-        "type": "DNI",
-        "number": "439995039"
-      },
-      "numberOfPlans": 1,
-      "source": "fresh",
-      "brand": "osde",
-      "registration": true,
-      "leadIds": [
-        "00QO200000UFECmMAP"
-      ],
-      "tags": [
-        "ACTIVE",
-        "NO_PET",
-        "PLAN_WITHOUT_PET"
-      ],
-      "reserved": false
-    },
-    {
-      "id": "27ddd82b-b822-41ad-9804-da50f3bb68a5",
-      "email": "user_1782236080748@automation.com",
-      "password": "Test_1782236080748$",
-      "identification": {
-        "number": "104809586",
-        "type": "DNI"
-      },
-      "source": "pooled",
-      "numberOfPlans": 1,
-      "tags": [
-        "UNREGISTERED"
-      ],
-      "reserved": false
-    },
-    {
-      "id": "5b7ddfa2-190f-4f70-8dc4-4f5d1c8aee8b",
-      "email": "user_1782309368512@automation.com",
-      "password": "Test_1782309368512$",
-      "identification": {
-        "type": "DNI",
-        "number": "837687950"
-      },
-      "source": "pooled",
-      "numberOfPlans": 1,
-      "brand": "Vetify",
-      "leadIds": [
-        "00QO200000U59ciMAB"
-      ],
-      "tags": [
-        "ACTIVE",
-        "WITH_PET",
-        "NO_EMPTY_PLAN"
-      ],
-      "reserved": false
-    },
-    {
-      "id": "83451de1-0886-426a-b847-49c790253d2e",
-      "email": "user_1782309546559@automation.com",
-      "password": "Test_1782309546559$",
-      "identification": {
-        "type": "DNI",
-        "number": "839461407"
-      },
-      "source": "pooled",
-      "numberOfPlans": 1,
-      "brand": "Vetify",
-      "leadIds": [
-        "00QO200000U58GeMAJ"
-      ],
-      "tags": [
-        "ACTIVE",
-        "NO_PET",
-        "PLAN_WITHOUT_PET"
-      ],
-      "reserved": false
-    },
-    {
-      "id": "e6d9da1b-2b36-4a9b-9aeb-29155a7d6228",
-      "email": "user_1782490106446@automation.com",
-      "password": "Te1!0f09a5dc$26Automation",
-      "identification": {
-        "type": "DNI",
-        "number": "645060016"
-      },
-      "source": "pooled",
-      "numberOfPlans": 1,
-      "tags": [
-        "UNREGISTERED"
-      ],
-      "reserved": false
-    },
-    {
-      "id": "452f3aa0-3a53-451e-a416-01d730b6e081",
-      "email": "user_1782499435430@automation.com",
-      "password": "Te1!4c013d6b$26Automation",
-      "identification": {
-        "type": "DNI",
-        "number": "738350272"
-      },
-      "numberOfPlans": 1,
-      "source": "pooled",
-      "brand": "vetify",
-      "leadIds": [
-        "00QO200000UABIfMAP"
-      ],
-      "tags": [
-        "ACTIVE",
-        "WITH_PET",
-        "NO_EMPTY_PLAN"
-      ],
-      "reserved": false
-    },
-    {
-      "id": "0f26d14f-a0bf-4f4f-9649-11ae34526721",
-      "email": "user_1782769446332@automation.com",
-      "password": "Te1!0685f68b",
-      "identification": {
-        "type": "DNI",
-        "number": "438462881"
-      },
-      "numberOfPlans": 1,
-      "source": "fresh",
-      "brand": "vetify",
-      "registration": false,
-      "leadIds": [
-        "00QO200000UFLAvMAP"
-      ],
-      "tags": [
-        "REGISTERED",
-        "WITH_PET",
-        "NO_EMPTY_PLAN"
-      ],
-      "reserved": false
-    },
-    {
-      "id": "a57c244e-ebb3-47b4-92af-7649f8774ce7",
-      "email": "user_1782769587577@automation.com",
-      "password": "Te1!733001dc",
-      "identification": {
-        "type": "DNI",
-        "number": "439876254"
-      },
-      "numberOfPlans": 1,
-      "source": "fresh",
-      "brand": "vetify",
-      "registration": false,
-      "leadIds": [
-        "00QO200000UF4QJMA1"
-      ],
-      "tags": [
-        "ACTIVE",
-        "WITH_PET",
-        "NO_EMPTY_PLAN"
-      ],
-      "reserved": false
+    "users": {
+        "VETIFY_ADQUIRENTE": [
+            {
+                "id": "48852916-14f0-43f7-8341-1a2b6ba16b93",
+                "siteId": "VETIFY_ADQUIRENTE",
+                "email": "user_1782845996861@automation.com",
+                "password": "Te1!ebca47e8",
+                "identification": {
+                    "type": "DNI",
+                    "number": "1203963334"
+                },
+                "numberOfPlans": 2,
+                "source": "fresh",
+                "registration": true,
+                "leadIds": ["00QO200000UHoiHMAT", "00QO200000UHoiHMAT"],
+                "tags": ["ACTIVE", "WITH_PET", "PLAN_WITHOUT_PET"],
+                "reserved": false
+            },
+            {
+                "id": "27ddd82b-b822-41ad-9804-da50f3bb68a5",
+                "siteId": "VETIFY_ADQUIRENTE",
+                "email": "user_1782236080748@automation.com",
+                "password": "Test_1782236080748$",
+                "identification": {
+                    "number": "104809586",
+                    "type": "DNI"
+                },
+                "source": "pooled",
+                "numberOfPlans": 1,
+                "tags": ["UNREGISTERED"],
+                "reserved": false
+            },
+            {
+                "id": "5b7ddfa2-190f-4f70-8dc4-4f5d1c8aee8b",
+                "siteId": "VETIFY_ADQUIRENTE",
+                "email": "user_1782309368512@automation.com",
+                "password": "Test_1782309368512$",
+                "identification": {
+                    "type": "DNI",
+                    "number": "837687950"
+                },
+                "source": "pooled",
+                "numberOfPlans": 1,
+                "leadIds": ["00QO200000U59ciMAB"],
+                "tags": ["ACTIVE", "WITH_PET", "NO_EMPTY_PLAN"],
+                "reserved": false
+            },
+            {
+                "id": "83451de1-0886-426a-b847-49c790253d2e",
+                "siteId": "VETIFY_ADQUIRENTE",
+                "email": "user_1782309546559@automation.com",
+                "password": "Test_1782309546559$",
+                "identification": {
+                    "type": "DNI",
+                    "number": "839461407"
+                },
+                "source": "pooled",
+                "numberOfPlans": 1,
+                "leadIds": ["00QO200000U58GeMAJ"],
+                "tags": ["ACTIVE", "NO_PET", "PLAN_WITHOUT_PET"],
+                "reserved": false
+            },
+            {
+                "id": "e6d9da1b-2b36-4a9b-9aeb-29155a7d6228",
+                "siteId": "VETIFY_ADQUIRENTE",
+                "email": "user_1782490106446@automation.com",
+                "password": "Te1!0f09a5dc$26Automation",
+                "identification": {
+                    "type": "DNI",
+                    "number": "645060016"
+                },
+                "source": "pooled",
+                "numberOfPlans": 1,
+                "tags": ["UNREGISTERED"],
+                "reserved": false
+            },
+            {
+                "id": "452f3aa0-3a53-451e-a416-01d730b6e081",
+                "siteId": "VETIFY_ADQUIRENTE",
+                "email": "user_1782499435430@automation.com",
+                "password": "Te1!4c013d6b$26Automation",
+                "identification": {
+                    "type": "DNI",
+                    "number": "738350272"
+                },
+                "numberOfPlans": 1,
+                "source": "pooled",
+                "leadIds": ["00QO200000UABIfMAP"],
+                "tags": ["ACTIVE", "WITH_PET", "NO_EMPTY_PLAN"],
+                "reserved": false
+            },
+            {
+                "id": "0f26d14f-a0bf-4f4f-9649-11ae34526721",
+                "siteId": "VETIFY_ADQUIRENTE",
+                "email": "user_1782769446332@automation.com",
+                "password": "Te1!0685f68b",
+                "identification": {
+                    "type": "DNI",
+                    "number": "438462881"
+                },
+                "numberOfPlans": 1,
+                "source": "fresh",
+                "registration": false,
+                "leadIds": ["00QO200000UFLAvMAP"],
+                "tags": ["REGISTERED", "WITH_PET", "NO_EMPTY_PLAN"],
+                "reserved": false
+            },
+            {
+                "id": "a57c244e-ebb3-47b4-92af-7649f8774ce7",
+                "siteId": "VETIFY_ADQUIRENTE",
+                "email": "user_1782769587577@automation.com",
+                "password": "Te1!733001dc",
+                "identification": {
+                    "type": "DNI",
+                    "number": "439876254"
+                },
+                "numberOfPlans": 1,
+                "source": "fresh",
+                "registration": false,
+                "leadIds": ["00QO200000UF4QJMA1"],
+                "tags": ["ACTIVE", "WITH_PET", "NO_EMPTY_PLAN"],
+                "reserved": false
+            }
+        ],
+        "OSDE_ADQUIRENTE": [
+            {
+                "id": "aab3f335-f742-47d2-95c7-3b7b754eebac",
+                "siteId": "OSDE_ADQUIRENTE",
+                "email": "user_1782769599580@automation.com",
+                "password": "Te1!33ff8962",
+                "identification": {
+                    "type": "DNI",
+                    "number": "439995039"
+                },
+                "numberOfPlans": 1,
+                "source": "fresh",
+                "registration": true,
+                "leadIds": ["00QO200000UFECmMAP"],
+                "tags": ["ACTIVE", "NO_PET", "PLAN_WITHOUT_PET"],
+                "reserved": false
+            },
+            {
+                "id": "234e0799-aba2-4903-ac0e-13c3136be43b",
+                "siteId": "OSDE_ADQUIRENTE",
+                "email": "user_1784314599596_8e8bacdf@automation.com",
+                "password": "Te1!d4fe37ac",
+                "identification": {
+                    "type": "DNI",
+                    "number": "1889991916"
+                },
+                "numberOfPlans": 1,
+                "leadIds": ["00QO200000UzC6DMAV"],
+                "registration": false,
+                "source": "fresh",
+                "tags": ["REGISTERED", "NO_PET", "PLAN_WITHOUT_PET"],
+                "reserved": false
+            }
+        ],
+        "OSDE_CAPITADO": [
+            {
+                "id": "8d60028c-1f2b-4ab4-90bb-bdd0acbc45a9",
+                "siteId": "OSDE_CAPITADO",
+                "email": "user_1783951005615@automation.com",
+                "password": "Te1!0685f68b",
+                "identification": {
+                    "type": "DNI",
+                    "number": "12540524"
+                },
+                "numberOfPlans": 1,
+                "source": "pooled",
+                "registration": true,
+                "leadIds": [],
+                "tags": ["ACTIVE", "WITH_PET", "NO_EMPTY_PLAN"],
+                "reserved": false
+            },
+            {
+                "id": "cfedaef5-c42b-4db5-9ab6-2df85fb93b0c",
+                "siteId": "OSDE_CAPITADO",
+                "email": "user_1784732342305_69985b8e@automation.com",
+                "password": "Te1!97e3b240",
+                "identification": {
+                    "type": "DNI",
+                    "number": "167424201"
+                },
+                "numberOfPlans": 1,
+                "leadIds": [],
+                "registration": true,
+                "source": "pooled",
+                "tags": ["NO_PET", "PLAN_WITHOUT_PET", "ACTIVE"],
+                "reserved": false
+            },
+            {
+                "id": "f8690c77-4c94-474a-8b52-0cc70796674e",
+                "siteId": "OSDE_CAPITADO",
+                "email": "user_1784816945816_ece7183c@automation.com",
+                "password": "Te1!5632c6be",
+                "identification": {
+                    "type": "DNI",
+                    "number": "1913450260"
+                },
+                "numberOfPlans": 1,
+                "leadIds": [],
+                "registration": false,
+                "source": "pooled",
+                "tags": ["REGISTERED", "NO_PET", "PLAN_WITHOUT_PET"],
+                "reserved": false
+            }
+        ],
+        "FLUX_CAPITADO": [
+            {
+                "id": "a00496b1-a957-4c30-aaec-e74202861546",
+                "siteId": "FLUX_CAPITADO",
+                "email": "user_1785245387146_cbf32975@automation.com",
+                "password": "Te1!dfbd21b7",
+                "identification": {
+                    "type": "DNI",
+                    "number": "1197871684"
+                },
+                "numberOfPlans": 1,
+                "leadIds": [],
+                "registration": true,
+                "source": "fresh",
+                "tags": ["ACTIVE", "NO_PET", "PLAN_WITHOUT_PET"],
+                "reserved": false
+            }
+        ]
     }
-  ]
 }

@@ -1,5 +1,5 @@
-import type { APIRequestContext, APIResponse } from '@playwright/test';
 import { wait } from '@helpers/automation-utils';
+import type { APIRequestContext, APIResponse } from '@playwright/test';
 
 type RetryOptions = {
     retries?: number;

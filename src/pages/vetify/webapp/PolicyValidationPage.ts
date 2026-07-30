@@ -1,6 +1,6 @@
-import { type Page, type Locator } from '@playwright/test';
-import { VetifyWebappBasePage } from './BasePage';
 import { Identification } from '@models/shared';
+import type { Locator, Page, Response } from '@playwright/test';
+import { VetifyWebappBasePage } from './BasePage';
 
 export interface PolicyValidationData {
     firstName: string;
@@ -51,6 +51,11 @@ export class VetifyWebappPolicyValidationPage extends VetifyWebappBasePage {
         }
         const message = await this.messageParagraph.textContent();
         return message ? message.trim() : '';
+    }
+
+    async validateCoverage(): Promise<Response> {
+        const [response] = await Promise.all([this.page.waitForResponse((response) => response.url().includes('/api/users/update_for_signup')), this.submitButton.click()]);
+        return response;
     }
 
     async confirmValidation(): Promise<void> {

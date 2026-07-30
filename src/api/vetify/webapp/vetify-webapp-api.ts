@@ -1,10 +1,10 @@
-import { expect, type Page } from '@playwright/test';
-import { APIRequestContext } from 'playwright-core';
-import { DateTime } from 'luxon';
-import { getRandomElement, getRandomInt } from '@helpers/automation-utils';
 import { BaseApiClient } from '@api/base-api';
 import { environment } from '@config/environment';
+import { getRandomElement, getRandomInt } from '@helpers/automation-utils';
 import { Identification } from '@models/shared/identification';
+import { expect, type Page } from '@playwright/test';
+import { DateTime } from 'luxon';
+import { APIRequestContext } from 'playwright-core';
 
 export interface ActivatePolicyRequest {
     idType: string;

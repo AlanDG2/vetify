@@ -1,8 +1,8 @@
-import path from 'path';
 import fs from 'fs';
-import { UserPool } from './user-pool';
+import path from 'path';
 import type { TestUser, UserRequest } from './types';
 import { UserSource } from './types';
+import { UserPool } from './user-pool';
 
 const pool = new UserPool();
 

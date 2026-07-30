@@ -1,6 +1,6 @@
-import { APIRequestContext } from 'playwright-core';
 import { BaseApiClient } from '@api/base-api';
 import { environment } from '@config/environment';
+import { APIRequestContext } from 'playwright-core';
 
 export interface UserAuthCredentials {
     email: string;

@@ -1,4 +1,4 @@
-export type { MercadoPagoCheckoutPaymentData, MercadoPagoCard, MercadoPagoCardBrand, MercadoPagoPaymentStatus, MercadoPagoPaymentStatusCode } from './cards';
+export type { MercadoPagoCard, MercadoPagoCardBrand, MercadoPagoCheckoutPaymentData, MercadoPagoPaymentStatus, MercadoPagoPaymentStatusCode } from './cards';
 export type {
     Cardholder,
     InstallmentRateCollector,
@@ -12,9 +12,9 @@ export type {
     MercadoPagoIssuer,
     MercadoPagoPayerCost,
     MercadoPagoPayerCostLabel,
-    PaymentTokenPayload,
     PayerCost,
     PayerCostLabel,
+    PaymentTokenPayload,
     TokenCardholder,
     TokenGeneradoMercadoPago,
     TokenIdentification,

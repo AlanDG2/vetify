@@ -1,6 +1,6 @@
 import { UserFactory } from '@providers/user/user-factory';
-import { setupGeneralCookiesStorageState } from './setup/cookies-setup';
 import { activateFreshAccounts } from './setup/account-activation-setup';
+import { setupGeneralCookiesStorageState } from './setup/cookies-setup';
 
 export default async function globalSetup() {
     console.log('==================== Global Setup ====================');

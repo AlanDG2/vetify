@@ -1,8 +1,8 @@
-import fs from 'fs';
-import { type Cookie } from '@playwright/test';
-import { GENERAL_COOKIES_STORAGE_STATE_PATH } from '@config/test-configuration';
-import Sites from '@config/sites';
 import { getInstitutionalBaseUrl, getWebappBaseUrl } from '@config/environment';
+import Sites from '@config/sites';
+import { GENERAL_COOKIES_STORAGE_STATE_PATH } from '@config/test-configuration';
+import { type Cookie } from '@playwright/test';
+import fs from 'fs';
 
 function parseUrlDomain(url: string): string {
     let domain = 'localhost';

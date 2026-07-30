@@ -12,7 +12,8 @@ export function getRandomPassword(): string {
 }
 
 export function getRandomEmail(): string {
-    return `user_${Date.now()}@automation.com`;
+    const randomString = crypto.randomUUID().replace(/-/g, '').slice(0, 8);
+    return `user_${Date.now()}_${randomString}@automation.com`;
 }
 
 /**

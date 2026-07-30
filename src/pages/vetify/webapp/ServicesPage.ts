@@ -1,4 +1,4 @@
-import { type Page, type Locator } from '@playwright/test';
+import { type Locator, type Page } from '@playwright/test';
 import { VetifyWebappLoggedBasePage } from './LoggedBasePage';
 
 export class VetifyWebappServicesPage extends VetifyWebappLoggedBasePage {

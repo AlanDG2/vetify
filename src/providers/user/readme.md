@@ -4,9 +4,11 @@
 
 This document defines the strategy for managing test users within the Playwright automation framework.
 
-The objective is to provide a scalable and maintainable approach that supports different types of test users while keeping tests independent of the underlying provisioning mechanism.
+The objective is to provide a scalable and maintainable approach that supports different types of test users while
+keeping tests independent of the underlying provisioning mechanism.
 
-This document describes the architectural decisions and guiding principles. It intentionally avoids implementation details.
+This document describes the architectural decisions and guiding principles. It intentionally avoids implementation
+details.
 
 ---
 
@@ -30,13 +32,15 @@ Two categories of test users are supported.
 
 Reusable accounts that are shared across test executions.
 
-These users are pre-generated and maintained outside of the test execution lifecycle. They are intended for scenarios where user isolation is not required.
+These users are pre-generated and maintained outside of the test execution lifecycle. They are intended for scenarios
+where user isolation is not required.
 
 ## Fresh Users
 
 Isolated accounts created specifically for a test execution.
 
-Fresh users are provisioned during the test environment setup, before any tests begin running. Since user creation is a lengthy process, provisioning is considered an infrastructure responsibility rather than part of test execution.
+Fresh users are provisioned during the test environment setup, before any tests begin running. Since user creation is a
+lengthy process, provisioning is considered an infrastructure responsibility rather than part of test execution.
 
 ---
 
@@ -59,13 +63,15 @@ If the requested user type is unavailable, the request should fail rather than s
 
 # Architecture
 
-The runtime architecture consists of a single public entry point responsible for retrieving test users from the requested source.
+The runtime architecture consists of a single public entry point responsible for retrieving test users from the
+requested source.
 
 The framework separates concerns as follows:
 
 - **UserProvider** serves as the public entry point for all user requests.
 - **PooledUserSource** manages reusable accounts and handles reservation/release lifecycle.
-- **FreshUserSource** manages pre-provisioned isolated accounts and handles reservation only (fresh users are never released).
+- **FreshUserSource** manages pre-provisioned isolated accounts and handles reservation only (fresh users are never
+  released).
 
 User provisioning is intentionally excluded from the runtime architecture and is performed during the test setup phase.
 
@@ -102,17 +108,22 @@ Both `pooled-users.json` and `fresh-users.json` follow the same structure:
 
 ```json
 {
-    "users": [
-        {
-            "id": "user-001",
-            "email": "user001@example.com",
-            "password": "SecurePassword123",
-            "source": "pooled",
-            "reserved": false
-        }
-    ]
+    "users": {
+        "VETIFY_ADQUIRENTE": [
+            {
+                "id": "user-001",
+                "siteId": "VETIFY_ADQUIRENTE",
+                "email": "user001@example.com",
+                "password": "SecurePassword123",
+                "source": "pooled",
+                "reserved": false
+            }
+        ]
+    }
 }
 ```
+
+Users are grouped by `siteId` under the `users` object, and each user still keeps its own `siteId` field.
 
 The `reserved` flag is managed at runtime and is never persisted to disk.
 
@@ -143,16 +154,19 @@ Tags are optional string arrays on each user. Use `UserTag` enum values:
 
 ```json
 {
-    "users": [
-        {
-            "id": "pooled-001",
-            "email": "user@example.com",
-            "password": "password",
-            "source": "pooled",
-            "reserved": false,
-            "tags": ["VERIFIED", "KYC_PASSED", "PREMIUM"]
-        }
-    ]
+    "users": {
+        "VETIFY_ADQUIRENTE": [
+            {
+                "id": "pooled-001",
+                "siteId": "VETIFY_ADQUIRENTE",
+                "email": "user@example.com",
+                "password": "password",
+                "source": "pooled",
+                "reserved": false,
+                "tags": ["VERIFIED", "KYC_PASSED", "PREMIUM"]
+            }
+        ]
+    }
 }
 ```
 
@@ -162,26 +176,30 @@ Request a user with specific tags using the `UserTag` enum:
 
 ```typescript
 import { UserProvider, UserSource, UserTag } from '@providers/user';
+import { SiteId } from '@config/environment';
 
 // Get any pooled user (no tag filter)
-const anyUser = UserProvider.getUser({ source: UserSource.Pooled });
+const anyUser = UserProvider.getUser({ source: UserSource.Pooled, siteId: SiteId.VETIFY_ADQUIRENTE });
 
 // Get a pooled user with specific tags (all tags must match)
 const verifiedUser = UserProvider.getUser({
     source: UserSource.Pooled,
+    siteId: SiteId.VETIFY_ADQUIRENTE,
     tags: [UserTag.VERIFIED, UserTag.KYC_PASSED],
 });
 
 // Works with fresh users too
 const premiumFreshUser = UserProvider.getUser({
     source: UserSource.Fresh,
+    siteId: SiteId.VETIFY_ADQUIRENTE,
     tags: [UserTag.PREMIUM],
 });
 ```
 
 ### Matching Behavior
 
-- **Tags optional in request**: If no tags are specified, any unreserved user is returned
+- **SiteId required in request**: Every request must specify `siteId` and only users from that site are considered
+- **Tags optional in request**: If no tags are specified, any unreserved user from the requested site is returned
 - **All tags required**: If tags are specified, the user must have ALL requested tags (AND logic)
 - **Missing user**: If no user matches the criteria, an error is thrown with the requested tags in the message
 
@@ -198,14 +216,15 @@ Tests import the public API and request users explicitly:
 
 ```typescript
 import { UserProvider, UserSource } from '@providers/user';
+import { SiteId } from '@config/environment';
 
 // Get a pooled user (reusable)
-const pooledUser = UserProvider.getUser({ source: UserSource.Pooled });
+const pooledUser = UserProvider.getUser({ source: UserSource.Pooled, siteId: SiteId.VETIFY_ADQUIRENTE });
 // ... test executes ...
 UserProvider.releaseUser(pooledUser); // Returns user to pool
 
 // Get a fresh user (isolated)
-const freshUser = UserProvider.getUser({ source: UserSource.Fresh });
+const freshUser = UserProvider.getUser({ source: UserSource.Fresh, siteId: SiteId.VETIFY_ADQUIRENTE });
 // ... test executes ...
 UserProvider.releaseUser(freshUser); // No-op for fresh users (remain reserved)
 ```
@@ -247,7 +266,8 @@ Each user source maintains its own lock file to ensure thread-safe access across
 - **Lock acquisition**: Atomic file creation with exponential backoff (50ms intervals)
 - **Lock timeout**: 10 seconds
 - **Stale lock cleanup**: Locks older than 30 seconds are automatically removed
-- **Supported parallelism**: Safe for 2+ workers on a single machine; higher concurrency benefits from a named mutex or external lock service
+- **Supported parallelism**: Safe for 2+ workers on a single machine; higher concurrency benefits from a named mutex or
+  external lock service
 
 The lock mechanism ensures that:
 
@@ -341,7 +361,8 @@ User acquisition should always produce deterministic behavior. The framework sho
 
 ## Extensibility
 
-The design should allow new user sources, provisioning mechanisms, or filtering capabilities to be introduced without affecting test code.
+The design should allow new user sources, provisioning mechanisms, or filtering capabilities to be introduced without
+affecting test code.
 
 ## Test Simplicity
 

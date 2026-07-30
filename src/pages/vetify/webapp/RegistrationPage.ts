@@ -1,4 +1,4 @@
-import { type Locator, type Page } from '@playwright/test';
+import type { Locator, Page, Response } from '@playwright/test';
 import { VetifyWebappBasePage } from './BasePage';
 
 export class VetifyWebappRegistrationPage extends VetifyWebappBasePage {
@@ -48,6 +48,11 @@ export class VetifyWebappRegistrationPage extends VetifyWebappBasePage {
         }
 
         await Promise.all(expectedActions);
+    }
+
+    async clickRegistrationButton(): Promise<Response> {
+        const [response] = await Promise.all([this.page.waitForResponse((response) => response.url().includes('/api/users/create')), this.submitButton.click()]);
+        return response;
     }
 
     async getValidationMessage(): Promise<string> {

@@ -1,0 +1,52 @@
+{
+    "cupons": [
+        {
+            "code": "VETIFY10",
+            "type": "reusable",
+            "universal": true,
+            "percentageDiscount": 0.1
+        },
+        {
+            "code": "VETIFY20",
+            "type": "reusable",
+            "universal": true,
+            "percentageDiscount": 0.2
+        },
+        {
+            "code": "VETIFY50",
+            "type": "reusable",
+            "universal": true,
+            "percentageDiscount": 0.5
+        },
+        {
+            "code": "VETIFY20X3",
+            "type": "reusable",
+            "universal": true,
+            "percentageDiscount": 0.2
+        },
+        {
+            "code": "VETIFY50X3",
+            "type": "reusable",
+            "universal": true,
+            "percentageDiscount": 0.5
+        },
+        {
+            "code": "V3t1fy#9!",
+            "type": "reusable",
+            "universal": true,
+            "percentageDiscount": 0.99
+        },
+        {
+            "code": "COMAFI35X3",
+            "type": "reusable",
+            "universal": true,
+            "percentageDiscount": 0.35
+        },
+        {
+            "code": "MASOSDE30",
+            "type": "reusable",
+            "projects": ["OSDE_ADQUIRENTE"],
+            "percentageDiscount": 0.3
+        }
+    ]
+}

@@ -1,9 +1,9 @@
-import { APIRequestContext } from 'playwright-core';
 import { BaseApiClient } from '@api/base-api';
 import { environment } from '@config/environment';
 import type { MercadoPagoCreateCardTokenResponse, PaymentTokenPayload } from '@models/mercadoPago';
-import type { CheckoutPayload, PlanList } from '@models/vetify/institutional';
 import { Identification } from '@models/shared';
+import type { CheckoutPayload, PlanList } from '@models/vetify/institutional';
+import { APIRequestContext } from 'playwright-core';
 
 const CAMPAIGN_ID = '701O200000lHMtlIAG';
 
@@ -43,31 +43,21 @@ interface PaymentConfirmationStepOptions {
     leadId: string;
 }
 
+interface RegisterUserCapitadoOptions {
+    firstName: string;
+    lastName: string;
+    phone: string;
+    documentType: string;
+    documentNumber: string;
+    email: string;
+    token: string;
+}
+
 export class VetifyInstitutionalApiClient extends BaseApiClient {
     private authToken: string | null = null;
 
     constructor(request: APIRequestContext) {
         super(request, environment.VETIFY_INSTITUTIONAL_BASE_URL);
-    }
-
-    private async getAuthToken(): Promise<string> {
-        if (!this.authToken) {
-            const response = await this.get('/api/quantum/jauth/token');
-
-            if (!response.ok()) {
-                throw new Error(`Failed to get token: ${response.status()} ${response.statusText()}`);
-            }
-
-            const data = await response.json();
-
-            if (!data.accessToken) {
-                throw new Error('Access token not found in response');
-            }
-
-            this.authToken = data.accessToken as string;
-        }
-
-        return this.authToken;
     }
 
     async getPlans(options?: GetPlanOptions): Promise<PlanList> {
@@ -281,5 +271,52 @@ export class VetifyInstitutionalApiClient extends BaseApiClient {
         }
 
         return response.json();
+    }
+
+    async registerUserCapitado(options: RegisterUserCapitadoOptions): Promise<any> {
+        const { firstName, lastName, phone, documentType, documentNumber, email, token } = options;
+
+        const payload = {
+            nombre: firstName,
+            apellido: lastName,
+            telefono: phone,
+            tipoDocumento: documentType,
+            documento: documentNumber,
+            mail: email,
+            token,
+        };
+
+        const response = await this.post('/api/registro', {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            data: payload,
+        });
+
+        if (!response.ok()) {
+            throw new Error(`Failed to register user: ${response.status()} ${response.statusText()}`);
+        }
+
+        return response.json();
+    }
+
+    private async getAuthToken(): Promise<string> {
+        if (!this.authToken) {
+            const response = await this.get('/api/quantum/jauth/token');
+
+            if (!response.ok()) {
+                throw new Error(`Failed to get token: ${response.status()} ${response.statusText()}`);
+            }
+
+            const data = await response.json();
+
+            if (!data.accessToken) {
+                throw new Error('Access token not found in response');
+            }
+
+            this.authToken = data.accessToken as string;
+        }
+
+        return this.authToken;
     }
 }

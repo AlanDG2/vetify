@@ -13,6 +13,7 @@ Automation repository for Playwright UI and API tests.
 cp .env.example .env
 npm install
 npx playwright install
+npm setup
 npm test
 ```
 
@@ -20,7 +21,7 @@ npm test
 
 | Command                   | Description                                             |
 | ------------------------- | ------------------------------------------------------- |
-| `npm run setup`           | Test user generation                                    |
+| `npm run setup`           | Prepare fresh test users from setup tags                |
 | `npm test`                | Run all Playwright projects                             |
 | `npm run test:unit`       | Unit tests for internal helpers                         |
 | `npm run test:ui`         | Playwright UI mode                                      |
@@ -79,8 +80,12 @@ src/
 tests/
 │
 ├── setup/
-├── vetify/
-├── ike/
+├── projects/
+│   ├── flux-capitado/
+│   ├── osde-adquirente/
+│   ├── osde-capitado/
+│   ├── vetify-b2c/
+│   └── webapp/
 └── .../
 ```
 
@@ -95,41 +100,47 @@ tests/
 > Since the creation process takes aproximatelly 10min we group all the requests for new test users
 > and create them first and start the tests when they are available
 
+## Setup script (`npm run setup`)
+
+This script prepares user-related test preconditions before the main test run.
+
+It is responsible for:
+
+- Scanning Playwright tests in list mode (no execution) to collect setup tags.
+- Translating `@New...` tags into concrete fresh-user creation requests.
+- Creating requested users before tests start, including plan count suffixes like `+3`.
+- Waiting after successful creation so downstream data (plans) is available to tests.
+
+Operational behavior:
+
+- `IGNORE_USER_CREATION=true` skips user creation and finishes setup immediately.
+- If test listing or tag parsing fails, setup continues with an empty tag list.
+- If user-provisioning APIs are unavailable, setup logs the failure and continues.
+- The script only waits when new users were actually created.
+
 ### Tags
 
-**Vetify**
+Tag format rules:
 
-- `@NewVetify`: One person purchase one plan without register itself
-- `@NewVetify+{X}`: One person purchase X amount of plans without register itself (e.g. `@NewVetify+3`, `@NewVetify+8`)
-- `@NewVetifyUser`: New register user with one plan
-- `@NewVetifyUser+{X}`: New register user with X amount of plans (e.g. `@NewVetifyUser+1`, `@NewVetifyUser+4`)
+- Base tag (without `User`) creates a user without post-creation registration.
+- `...User` tag creates a user that must be registered post creation.
+- `+{X}` suffix sets how many plans are purchased (examples: `+1`, `+3`, `+8`).
 
-## Testing
+Supported user creation tags:
 
-This project runs Playwright tests per supported website. Each site has a test folder in `tests/<siteId>/`.
-
-Required env vars
-
-- `VETIFY_WEBAPP_BASE_URL` — base URL for the Vetify webapp.
-
-Run examples
-
-Run all projects (all sites):
-
-```bash
-npx playwright test
-```
-
-Run both projects for a single site (replace `vetify` with your siteId):
-
-```bash
-npx playwright test --project=vetify-desktop --project=vetify-android
-```
-
-Run only the Android project for a site:
-
-```bash
-npx playwright test --project=vetify-android
-```
-
-See `config/sites.ts` for the list of configured sites and the env var names used for each site.
+- **Vetify B2C**
+    - `@NewVetifyB2C`
+    - `@NewVetifyB2C+{X}`
+    - `@NewVetifyB2CUser`
+    - `@NewVetifyB2CUser+{X}`
+- **Adquirente OSDE**
+    - `@NewAdquirenteOSDE`
+    - `@NewAdquirenteOSDE+{X}`
+    - `@NewAdquirenteOSDEUser`
+    - `@NewAdquirenteOSDEUser+{X}`
+- **Capitado OSDE**
+    - `@NewCapitadoOSDE`
+    - `@NewCapitadoOSDEUser`
+- **Capitado Flux**
+    - `@NewCapitadoFlux`
+    - `@NewCapitadoFluxUser`

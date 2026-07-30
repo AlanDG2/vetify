@@ -1,6 +1,6 @@
-import type { Locator, Page } from '@playwright/test';
-import { VetifyWebappLoggedBasePage } from '@pages/vetify/webapp/LoggedBasePage';
 import { getRandomElement, wait } from '@helpers/automation-utils';
+import { VetifyWebappLoggedBasePage } from '@pages/vetify/webapp/LoggedBasePage';
+import type { Locator, Page } from '@playwright/test';
 import { DateTime } from 'luxon';
 
 type AgeSelectorModeType = 'DateInput' | 'YearsMonthsSelect';

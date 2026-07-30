@@ -1,8 +1,8 @@
-import { UserFactory } from '@providers/user/user-factory';
-import { chromium } from '@playwright/test';
-import { TestUser, UserTag } from '@providers/user';
 import { GENERAL_COOKIES_STORAGE_STATE_PATH } from '@config/test-configuration';
 import { VetifyWebappLoginPage, VetifyWebappPolicyValidationPage, VetifyWebappRegistrationPage } from '@pages/vetify/webapp';
+import { chromium } from '@playwright/test';
+import { TestUser, UserTag } from '@providers/user';
+import { UserFactory } from '@providers/user/user-factory';
 
 function shouldActivate(account: TestUser) {
     return account.registration && account.tags.includes(UserTag.UNREGISTERED);

@@ -1,5 +1,5 @@
-import { type Page, type Locator } from '@playwright/test';
 import { VetifyWebappBasePage } from '@pages/vetify/webapp/BasePage';
+import { type Locator, type Page } from '@playwright/test';
 import { VetifyWebappSideMenuSection } from './SideMenuSection';
 
 export class VetifyWebappLoggedBasePage extends VetifyWebappBasePage {

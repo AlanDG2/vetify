@@ -1,5 +1,5 @@
-import type { APIRequestContext, APIResponse } from '@playwright/test';
 import { retryWithExponentialBackoff } from '@helpers/automation-utils';
+import type { APIRequestContext, APIResponse } from '@playwright/test';
 
 export class BaseApiClient {
     protected maxRetries: number = 3;

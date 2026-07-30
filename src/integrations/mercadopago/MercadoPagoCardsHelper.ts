@@ -1,6 +1,6 @@
+import type { MercadoPagoCard, MercadoPagoCardBrand, MercadoPagoCheckoutPaymentData, MercadoPagoPaymentStatusCode } from '@models/mercadoPago';
 import { MERCADOPAGO_CREDIT_CARDS, MERCADOPAGO_DEBIT_CARDS } from './mercadoPagoCardProviders';
 import { MERCADOPAGO_PAYMENT_STATUSES } from './mercadoPagoPaymentStatuses';
-import type { MercadoPagoCheckoutPaymentData, MercadoPagoPaymentStatusCode, MercadoPagoCard, MercadoPagoCardBrand } from '@models/mercadoPago';
 
 /**
  * Mercado Pago test credit cards and payment scenarios.

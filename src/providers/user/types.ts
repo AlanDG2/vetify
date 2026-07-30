@@ -1,3 +1,4 @@
+import { SiteId } from '@config/environment';
 import { Identification } from '@models/shared';
 import { UserTag } from './tags';
 
@@ -8,7 +9,7 @@ export enum UserSource {
 
 export interface TestUser {
     id: string;
-    brand: string;
+    siteId: SiteId;
     email: string;
     password: string;
     identification: Identification;
@@ -21,6 +22,7 @@ export interface TestUser {
 
 export interface UserRequest {
     source: UserSource;
+    siteId: SiteId;
     tags?: UserTag[];
     numberOfPlans?: number;
     reserve?: boolean; // Optional flag to indicate if the user should be reserved or not

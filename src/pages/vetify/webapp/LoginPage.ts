@@ -1,17 +1,24 @@
-import { type Page, type Locator } from '@playwright/test';
-import { VetifyWebappBasePage } from './BasePage';
+import type { Locator, Page, Response } from '@playwright/test';
 import { TestUser, UserProvider, UserRequest } from '@providers/user/user-provider';
+import { VetifyWebappBasePage } from './BasePage';
 
 export class VetifyWebappLoginPage extends VetifyWebappBasePage {
     readonly emailInput: Locator;
     readonly passwordInput: Locator;
     readonly submitButton: Locator;
+    readonly errorMessageLbl: Locator;
 
     constructor(page: Page) {
         super(page, '/auth/login');
         this.emailInput = this.page.locator('input[name="email"]');
         this.passwordInput = this.page.locator('input[name="password"]');
         this.submitButton = this.page.locator('button[data-cy="submitButton"]');
+        this.errorMessageLbl = this.page.locator('div[data-cy="messageBox"] p p');
+    }
+
+    async clickLoginButton(): Promise<Response> {
+        const [response] = await Promise.all([this.page.waitForResponse((response) => response.url().includes('/oauth/token')), this.submitButton.click()]);
+        return response;
     }
 
     async login(email: string, password: string): Promise<void> {
@@ -24,7 +31,7 @@ export class VetifyWebappLoginPage extends VetifyWebappBasePage {
         const testUser = await UserProvider.getUser(userRequest);
 
         if (!testUser) {
-            console.log(`No available test user with source: ${userRequest.source} and tags: ${userRequest.tags?.join(', ')}`);
+            console.log(`No available test user with source: ${userRequest.source}, siteId: ${userRequest.siteId} and tags: ${userRequest.tags?.join(', ')}`);
             return undefined;
         }
 

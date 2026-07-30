@@ -2,7 +2,7 @@
  * Standard tags for categorizing and filtering test users.
  *
  * Tests can request users with specific tags:
- * UserProvider.getUser({ source: UserSource.Pooled, tags: [UserTag.VERIFIED] })
+ * UserProvider.getUser({ source: UserSource.Pooled, siteId: SiteId.VETIFY_ADQUIRENTE, tags: [UserTag.VERIFIED] })
  */
 export enum UserTag {
     /** Error on account registration/activation */

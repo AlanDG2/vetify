@@ -1,14 +1,24 @@
 import fs from 'fs';
 import path from 'path';
 
+import { SiteId } from '@config/environment';
 import { type TestUser, type UserRequest, UserSource } from './types';
 
 interface UserRecord extends TestUser {
     reserved: boolean;
 }
 
+type UsersBySite = Record<string, UserRecord[]>;
+
 interface UserState {
-    users: UserRecord[];
+    users: UsersBySite;
+}
+
+interface ReserveUserOptions {
+    siteId: SiteId;
+    reserve?: boolean;
+    ignoreReserved?: boolean;
+    numberOfPlans?: number;
 }
 
 const LOCK_RETRY_INTERVAL_MS = 50;
@@ -51,13 +61,38 @@ function releaseLock(lockFile: string): void {
 
 function readState(stateFile: string): UserState {
     if (!fs.existsSync(stateFile)) {
-        return { users: [] };
+        return { users: {} };
     }
-    return JSON.parse(fs.readFileSync(stateFile, 'utf-8')) as UserState;
+    const parsed = JSON.parse(fs.readFileSync(stateFile, 'utf-8')) as { users?: unknown };
+
+    if (parsed.users && typeof parsed.users === 'object') {
+        return { users: parsed.users as UsersBySite };
+    }
+
+    return { users: {} };
 }
 
 function writeState(stateFile: string, state: UserState): void {
     fs.writeFileSync(stateFile, JSON.stringify(state, null, 2), 'utf-8');
+}
+
+function groupUsersBySite(users: UserRecord[]): UsersBySite {
+    const grouped: UsersBySite = {};
+    for (const user of users) {
+        if (!grouped[user.siteId]) {
+            grouped[user.siteId] = [];
+        }
+        grouped[user.siteId].push(user);
+    }
+    return grouped;
+}
+
+function getSiteUsers(state: UserState, siteId: SiteId): UserRecord[] {
+    return state.users[siteId] ?? [];
+}
+
+function getAllUsers(state: UserState): UserRecord[] {
+    return Object.values(state.users).flat();
 }
 
 // Pooled user fixture paths
@@ -77,18 +112,20 @@ class PooledUserSource {
         this.lockFile = POOLED_USERS_LOCK_FILE;
     }
 
-    reserveUser(tags?: string[], options?: { reserve?: boolean; ignoreReserved?: boolean; numberOfPlans?: number }): TestUser | undefined {
-        const { reserve = true, ignoreReserved = false, numberOfPlans } = options || {};
+    reserveUser(tags: string[] | undefined, options: ReserveUserOptions): TestUser | undefined {
+        const { siteId, reserve = true, ignoreReserved = false, numberOfPlans } = options;
         acquireLock(this.lockFile);
         try {
             const state = readState(this.stateFile);
-            const record = state.users.find(
-                (u) => (ignoreReserved || !u.reserved) && this.matchesTags(u.tags, tags) && (numberOfPlans === undefined || u.numberOfPlans === numberOfPlans),
+            const siteUsers = getSiteUsers(state, siteId);
+            const record = siteUsers.find(
+                (u) =>
+                    u.siteId === siteId && (ignoreReserved || !u.reserved) && this.matchesTags(u.tags, tags) && (numberOfPlans === undefined || u.numberOfPlans === numberOfPlans),
             );
             if (!record) {
                 const tagStr = tags?.length ? ` with tags [${tags.join(', ')}]` : '';
                 const plansStr = numberOfPlans !== undefined ? ` and ${numberOfPlans} plans` : '';
-                console.log(`No available pooled user${tagStr}${plansStr} in the pool`);
+                console.log(`No available pooled user for siteId ${siteId}${tagStr}${plansStr} in the pool`);
                 return undefined; // Return undefined instead of throwing an error
             }
             record.reserved = reserve; // Mark the user as reserved if requested
@@ -104,7 +141,7 @@ class PooledUserSource {
         acquireLock(this.lockFile);
         try {
             const state = readState(this.stateFile);
-            const record = state.users.find((u) => u.email === userEmail);
+            const record = getAllUsers(state).find((u) => u.email === userEmail);
             if (record) {
                 record.reserved = false;
                 writeState(this.stateFile, state);
@@ -119,7 +156,12 @@ class PooledUserSource {
         try {
             const state = readState(this.stateFile);
             const records: UserRecord[] = users.map((u) => ({ ...u, reserved: false }));
-            state.users.push(...records);
+            for (const record of records) {
+                if (!state.users[record.siteId]) {
+                    state.users[record.siteId] = [];
+                }
+                state.users[record.siteId].push(record);
+            }
             writeState(this.stateFile, state);
         } finally {
             releaseLock(this.lockFile);
@@ -130,7 +172,7 @@ class PooledUserSource {
         acquireLock(this.lockFile);
         try {
             const state = readState(this.stateFile);
-            for (const user of state.users) {
+            for (const user of getAllUsers(state)) {
                 user.reserved = false;
             }
             writeState(this.stateFile, state);
@@ -159,18 +201,20 @@ class FreshUserSource {
         this.lockFile = FRESH_USERS_LOCK_FILE;
     }
 
-    async reserveUser(tags?: string[], options?: { reserve?: boolean; ignoreReserved?: boolean; numberOfPlans?: number }): Promise<TestUser | undefined> {
-        const { reserve = true, ignoreReserved = false, numberOfPlans } = options || {};
+    async reserveUser(tags: string[] | undefined, options: ReserveUserOptions): Promise<TestUser | undefined> {
+        const { siteId, reserve = true, ignoreReserved = false, numberOfPlans } = options;
         acquireLock(this.lockFile);
         try {
             const state = readState(this.stateFile);
-            const record = state.users.find(
-                (u) => (ignoreReserved || !u.reserved) && this.matchesTags(u.tags, tags) && (numberOfPlans === undefined || u.numberOfPlans === numberOfPlans),
+            const siteUsers = getSiteUsers(state, siteId);
+            const record = siteUsers.find(
+                (u) =>
+                    u.siteId === siteId && (ignoreReserved || !u.reserved) && this.matchesTags(u.tags, tags) && (numberOfPlans === undefined || u.numberOfPlans === numberOfPlans),
             );
             if (!record) {
                 const tagStr = tags?.length ? ` with tags [${tags.join(', ')}]` : '';
                 const plansStr = numberOfPlans !== undefined ? ` and ${numberOfPlans} plans` : '';
-                console.log(`No available fresh user${tagStr}${plansStr} in the pool`);
+                console.log(`No available fresh user for siteId ${siteId}${tagStr}${plansStr} in the pool`);
                 return undefined; // Return undefined instead of throwing an error
             }
             record.reserved = reserve; // Mark the user as reserved if requested
@@ -192,7 +236,12 @@ class FreshUserSource {
         try {
             const state = readState(this.stateFile);
             const records: UserRecord[] = users.map((u) => ({ ...u, reserved: false }));
-            state.users.push(...records);
+            for (const record of records) {
+                if (!state.users[record.siteId]) {
+                    state.users[record.siteId] = [];
+                }
+                state.users[record.siteId].push(record);
+            }
             writeState(this.stateFile, state);
         } finally {
             releaseLock(this.lockFile);
@@ -203,7 +252,7 @@ class FreshUserSource {
         acquireLock(this.lockFile);
         try {
             const state = readState(this.stateFile);
-            state.users = users.map((u) => ({ ...u, reserved: false }));
+            state.users = groupUsersBySite(users.map((u) => ({ ...u, reserved: false })));
             writeState(this.stateFile, state);
         } finally {
             releaseLock(this.lockFile);
@@ -214,7 +263,7 @@ class FreshUserSource {
         acquireLock(this.lockFile);
         try {
             const state = readState(this.stateFile);
-            for (const user of state.users) {
+            for (const user of getAllUsers(state)) {
                 user.reserved = false;
             }
             writeState(this.stateFile, state);
@@ -239,11 +288,11 @@ export class UserPool {
     private freshSource = new FreshUserSource();
 
     async reserveUser(request: UserRequest): Promise<TestUser | undefined> {
-        const { source, tags, reserve = true, ignoreReserved = false, numberOfPlans } = request;
+        const { source, siteId, tags, reserve = true, ignoreReserved = false, numberOfPlans } = request;
         if (source === UserSource.Pooled) {
-            return this.pooledSource.reserveUser(tags, { reserve, ignoreReserved, numberOfPlans });
+            return this.pooledSource.reserveUser(tags, { siteId, reserve, ignoreReserved, numberOfPlans });
         } else {
-            return this.freshSource.reserveUser(tags, { reserve, ignoreReserved, numberOfPlans });
+            return this.freshSource.reserveUser(tags, { siteId, reserve, ignoreReserved, numberOfPlans });
         }
     }
 
@@ -273,6 +322,6 @@ export class UserPool {
 
     getFreshAccounts(): TestUser[] {
         const state = readState(FRESH_USERS_STATE_FILE);
-        return state.users;
+        return getAllUsers(state).map(({ reserved: _reserved, ...user }) => user);
     }
 }

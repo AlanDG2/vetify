@@ -73,25 +73,6 @@ const test = base.extend<{
     user: TestUser | undefined;
     userRequest: UserRequest | undefined;
     allureAnnotations: void;
-    institutionalPage: OsdeAdquirenteInstitutionalPage;
-    checkoutPage: OsdeAdquirenteCheckoutPage;
-    osdeCapitadoLandingPage: OsdeCapitadoInstitutionalPage;
-    fluxCapitadoLandingPage: FluxCapitadoInstitutionalPage;
-    homePage: VetifyWebappHomePage;
-    loginPage: VetifyWebappLoginPage;
-    myProfilePage: VetifyWebappMyProfilePage;
-    servicesPage: VetifyWebappServicesPage;
-    registrationPage: VetifyWebappRegistrationPage;
-    policyValidationPage: VetifyWebappPolicyValidationPage;
-    sideMenuSection: VetifyWebappSideMenuSection;
-    videocallFormPage: VetifyWebappVideocallFormPage;
-    videocallViewPage: VetifyWebappVideocallViewPage;
-    rescheduleVideocallPage: VetifyWebappRescheduleVideocallPage;
-    cancelVideocallModal: VetifyWebappCancelVideocallModal;
-    calendarSchedulingComponent: VetifyWebappCalendarSchedulingComponent;
-    myPetsPage: VetifyWebappMyPetsPage;
-    addPetFormPage: VetifyWebappAddPetFormPage;
-    viewPetPage: VetifyWebappViewPetPage;
 }>({
     userRequest: [undefined, { option: true }],
     videocallId: [undefined, { option: true }],
@@ -134,63 +115,6 @@ const test = base.extend<{
                 webapp,
             },
         });
-    },
-    institutionalPage: async ({ container }, use) => {
-        await use(container.osdeAdquiriente.landingPage);
-    },
-    checkoutPage: async ({ container }, use) => {
-        await use(container.osdeAdquiriente.checkoutPage);
-    },
-    osdeCapitadoLandingPage: async ({ container }, use) => {
-        await use(container.osdeCapitado.landingPage);
-    },
-    fluxCapitadoLandingPage: async ({ container }, use) => {
-        await use(container.fluxCapitado.landingPage);
-    },
-    homePage: async ({ container }, use) => {
-        await use(container.vetify.webapp.homePage);
-    },
-    loginPage: async ({ container }, use) => {
-        await use(container.vetify.webapp.loginPage);
-    },
-    myProfilePage: async ({ container }, use) => {
-        await use(container.vetify.webapp.myProfilePage);
-    },
-    servicesPage: async ({ container }, use) => {
-        await use(container.vetify.webapp.servicesPage);
-    },
-    registrationPage: async ({ container }, use) => {
-        await use(container.vetify.webapp.registrationPage);
-    },
-    policyValidationPage: async ({ container }, use) => {
-        await use(container.vetify.webapp.policyValidationPage);
-    },
-    sideMenuSection: async ({ container }, use) => {
-        await use(container.vetify.webapp.sideMenuSection);
-    },
-    videocallFormPage: async ({ container }, use) => {
-        await use(container.vetify.webapp.videocallFormPage);
-    },
-    videocallViewPage: async ({ container, videocallId }, use) => {
-        await use(container.vetify.webapp.createVideocallViewPage(videocallId!));
-    },
-    rescheduleVideocallPage: async ({ container, videocallId }, use) => {
-        await use(container.vetify.webapp.createRescheduleVideocallPage(videocallId!));
-    },
-    cancelVideocallModal: async ({ container, videocallId }, use) => {
-        await use(container.vetify.webapp.createCancelVideocallModal(videocallId!));
-    },
-    calendarSchedulingComponent: async ({ container }, use) => {
-        await use(container.vetify.webapp.calendarSchedulingComponent);
-    },
-    myPetsPage: async ({ container }, use) => {
-        await use(container.vetify.webapp.myPetsPage);
-    },
-    addPetFormPage: async ({ container }, use) => {
-        await use(container.vetify.webapp.addPetFormPage);
-    },
-    viewPetPage: async ({ container }, use) => {
-        await use(container.vetify.webapp.viewPetPage);
     },
     user: [
         async ({ userRequest, container }, use) => {

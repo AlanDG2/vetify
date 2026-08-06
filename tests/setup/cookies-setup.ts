@@ -3,6 +3,7 @@ import Sites from '@config/sites';
 import { GENERAL_COOKIES_STORAGE_STATE_PATH } from '@config/test-configuration';
 import { type Cookie } from '@playwright/test';
 import fs from 'fs';
+import path from 'path';
 
 function parseUrlDomain(url: string): string {
     let domain = 'localhost';
@@ -77,7 +78,7 @@ export async function setupGeneralCookiesStorageState(): Promise<void> {
         origins,
     };
 
-    fs.mkdirSync(GENERAL_COOKIES_STORAGE_STATE_PATH.substring(0, GENERAL_COOKIES_STORAGE_STATE_PATH.lastIndexOf('/')), { recursive: true });
+    fs.mkdirSync(path.dirname(GENERAL_COOKIES_STORAGE_STATE_PATH), { recursive: true });
 
     fs.writeFileSync(GENERAL_COOKIES_STORAGE_STATE_PATH, JSON.stringify(storageState, null, 2));
 }

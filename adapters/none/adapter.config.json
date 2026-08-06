@@ -1,0 +1,14 @@
+{
+  "name": "none",
+  "description": "Adaptador por defecto: el template funciona sin ningún gestor de tickets. Todas las operaciones de la interfaz son no-ops. El DoD son solo los 5 criterios universales.",
+  "active": false,
+  "dodTicketFile": "dod-ticket.md",
+  "operations": {
+    "fetchStory": "no-op → el usuario pega la HU a mano",
+    "listLinkedTests": "no-op → devuelve []",
+    "importTests": "no-op → el tests.md queda local, no se importa",
+    "createDefect": "no-op → el bug queda como docs/bugs/<slug>.md",
+    "getDoDTicketCriteria": "no-op → devuelve '' (DoD = 5 universales)",
+    "checkClosable": "no-op → {closable: true, missing: []}"
+  }
+}

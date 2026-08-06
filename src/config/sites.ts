@@ -38,6 +38,12 @@ export const sites: Site[] = [
         name: 'FLUX Capitado',
         baseUrlEnvVar: 'VETIFY_WEBAPP_BASE_URL',
     },
+    {
+        id: SiteId.IKE_WEBAPP,
+        testFolder: './tests/projects/ike-webapp',
+        name: 'Ike WebApp',
+        baseUrlEnvVar: 'IKE_WEBAPP_BASE_URL',
+    },
 ];
 
 export default sites;

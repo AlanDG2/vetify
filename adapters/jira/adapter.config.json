@@ -1,0 +1,21 @@
+{
+  "name": "jira",
+  "description": "Adaptador REAL (no stub) para Jira sin Xray. Envuelve scripts/jira/jira-client.mjs, que ya está operativo en este proyecto (issues, subtasks, comentarios, transiciones, búsqueda JQL vía /search/jql). No hay gestor de test-management (Xray/Zephyr): listLinkedTests/importTests son no-ops documentados a propósito, no TODOs sin implementar.",
+  "active": true,
+  "dodTicketFile": "dod-ticket.md",
+  "clientFile": "client.mjs",
+  "envVars": [
+    "JIRA_BASE_URL",
+    "JIRA_EMAIL",
+    "JIRA_API_TOKEN",
+    "JIRA_PROJECT_KEY"
+  ],
+  "operations": {
+    "fetchStory": "real → getIssue(id) formateado a texto HU.md (summary + description + subtasks)",
+    "listLinkedTests": "no-op documentado → devuelve [] (no hay Xray/Zephyr en este proyecto; los casos viven en documentation/Casos de Prueba.xlsx y docs/coverage-register.md)",
+    "importTests": "no-op documentado → no hay gestor de test-management donde importar; devuelve errors[] explicando dónde registrar los casos manualmente",
+    "createDefect": "real → createChildTask (subtask bajo la HU) + addComment con el reporte + linkIssues si aplica",
+    "getDoDTicketCriteria": "real → lee dod-ticket.md de este adaptador",
+    "checkClosable": "real → getIssue(id) + revisa issuelinks tipo Bug no resueltos y el status del issue"
+  }
+}

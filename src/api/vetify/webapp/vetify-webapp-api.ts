@@ -89,6 +89,16 @@ export class VetifyWebappApiClient extends BaseApiClient {
         return response.json();
     }
 
+    async userHasPlanWithPet(): Promise<boolean> {
+        const pets = await this.getUserPets();
+        return pets.some((p: any) => p.estado === 'OCUPADO');
+    }
+
+    async getPlanWithoutPet(): Promise<any | undefined> {
+        const pets = await this.getUserPets();
+        return pets.find((p: any) => p.estado !== 'OCUPADO');
+    }
+
     // =========================================================================
     // Section: Videocalls
     // =========================================================================
@@ -201,7 +211,7 @@ export class VetifyWebappApiClient extends BaseApiClient {
         });
 
         if (!response.ok()) {
-            throw new Error('Error scheduling a videocall');
+            throw new Error(`Error scheduling a videocall: ${response.status()} ${await response.text()}`);
         }
 
         const { assistanceId } = await response.json();
@@ -219,34 +229,18 @@ export class VetifyWebappApiClient extends BaseApiClient {
         };
     }
 
-    async getCancelationReasons(): Promise<any[]> {
-        const response = await super.get('/api/services/pets/cancel_reasons', {
-            headers: {
-                Authorization: `Bearer ${this.authToken}`,
-            },
-        });
-
-        if (!response.ok()) {
-            throw new Error('Error getting the reasons to cancel a videocall');
-        }
-
-        return response.json();
-    }
-
-    async cancelVideoCall(videocallId: string, reasonId?: number): Promise<any> {
-        if (reasonId === undefined) {
-            const rasonsApi = await this.getCancelationReasons();
-            const randomReason = getRandomElement(rasonsApi);
-            reasonId = randomReason.id;
-        }
-
+    async cancelVideoCall(videocallId: string): Promise<any> {
+        // El modal de cancelación real (rediseño IMAS-3894, ver CancelVideocallModal.ts) no tiene
+        // selector de motivo. `GET /cancel_reasons` es de la pantalla vieja (con selector) y
+        // devuelve 500 de forma consistente en QA — nunca hace falta llamarlo. El backend, sin
+        // embargo, sí requiere `motivo_id` en el body (un body vacío da 500); confirmado por
+        // prueba directa contra la API que `1` es un motivo válido que el backend acepta siempre
+        // — se usa como valor fijo ya que la UI real no expone ningún selector para elegir otro.
         const response = await super.put(`/api/services/pets/cancel/${videocallId}`, {
             headers: {
                 Authorization: `Bearer ${this.authToken}`,
             },
-            data: {
-                motivo_id: reasonId,
-            },
+            data: { motivo_id: 1 },
         });
 
         if (!response.ok()) {
@@ -254,5 +248,12 @@ export class VetifyWebappApiClient extends BaseApiClient {
         }
 
         return response.json();
+    }
+
+    async cancelAllScheduledVideocalls(): Promise<void> {
+        const scheduledVideocalls = await this.getScheduledVideocalls();
+        for (const videocall of scheduledVideocalls) {
+            await this.cancelVideoCall(videocall.id ?? videocall.assistanceId).catch(() => {});
+        }
     }
 }

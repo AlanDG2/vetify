@@ -1,0 +1,4214 @@
+WEBVTT
+
+48beff04-247c-43f0-8ec9-56161038a170/5-0
+00:00:09.270 --> 00:00:09.870
+<v Javier Caballero (EXT)>Bueno.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/6-0
+00:00:09.390 --> 00:00:10.630
+<v Alan David Guzman (EXT)>Listo, ya le di grabar.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/7-0
+00:00:11.270 --> 00:00:12.230
+<v Javier Caballero (EXT)>Perfecto.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/8-0
+00:00:12.990 --> 00:00:14.150
+<v Javier Caballero (EXT)>Entonces.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/10-0
+00:00:15.470 --> 00:00:17.950
+<v Javier Caballero (EXT)>Tenemos, tenemos el bandlog.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/11-0
+00:00:20.190 --> 00:00:25.732
+<v Javier Caballero (EXT)>Vamos entonces a ver,
+acá está todo el backlog de,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/11-1
+00:00:25.732 --> 00:00:30.513
+<v Javier Caballero (EXT)>yo más o menos estimé,
+es Sun Story Points,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/11-2
+00:00:30.513 --> 00:00:38.229
+<v Javier Caballero (EXT)>serie Fibonacci por complejidad,
+no por tiempo, si no es por duración,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/11-3
+00:00:38.229 --> 00:00:40.510
+<v Javier Caballero (EXT)>sino por complejidad.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/12-0
+00:00:42.230 --> 00:00:42.750
+<v Javier Caballero (EXT)>Um.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/13-0
+00:00:47.390 --> 00:00:53.134
+<v Javier Caballero (EXT)>Después estas tareas vamos a hablar en
+detalle cada tarea durante la</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/13-1
+00:00:53.134 --> 00:00:57.879
+<v Javier Caballero (EXT)>automatización,
+porque quiero abordar también cuáles son</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/13-2
+00:00:57.879 --> 00:01:02.373
+<v Javier Caballero (EXT)>las features.
+El objetivo de esto es entender cómo se</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/13-3
+00:01:02.373 --> 00:01:07.950
+<v Javier Caballero (EXT)>trabaja, como UA dentro del equipo,
+cómo agregar las tareas y cómo</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/14-0
+00:01:08.110 --> 00:01:11.543
+<v Javier Caballero (EXT)>cuáles son las estrategias de
+priorización y cómo te enteras qué</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/14-1
+00:01:11.543 --> 00:01:13.550
+<v Javier Caballero (EXT)>tickets tenés para probar manualmente.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/15-0
+00:01:15.390 --> 00:01:19.470
+<v Javier Caballero (EXT)>Esto es todo el backlog, como ves, ya.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/17-0
+00:01:22.190 --> 00:01:27.965
+<v Javier Caballero (EXT)>Que sería Lucía crea hoy que le llaman
+loop acá cortan todos los nombres,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/17-1
+00:01:27.965 --> 00:01:33.037
+<v Javier Caballero (EXT)>así que van a ser va a ser loop quien
+crea los sprint. Como ves,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/17-2
+00:01:33.037 --> 00:01:36.470
+<v Javier Caballero (EXT)>hay varios ya creados acá. Bueno,
+me faltó.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/16-0
+00:01:35.430 --> 00:01:37.110
+<v Alan David Guzman (EXT)>Luego es la peor o la peor.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/18-0
+00:01:38.910 --> 00:01:44.670
+<v Javier Caballero (EXT)>Liliana es la PO, la product owner,
+Lu es la Scrum Master.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/19-0
+00:01:44.950 --> 00:01:46.150
+<v Alan David Guzman (EXT)>Okey, cada muestro que.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/20-0
+00:01:47.390 --> 00:01:51.270
+<v Javier Caballero (EXT)>Exacto, Alexis es el technical owner.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/21-0
+00:01:52.990 --> 00:01:53.710
+<v Javier Caballero (EXT)>Y.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/22-0
+00:01:54.910 --> 00:02:00.430
+<v Javier Caballero (EXT)>Óscar va a ser como el ti,
+el technical lead, sí.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/23-0
+00:02:01.830 --> 00:02:05.030
+<v Alan David Guzman (EXT)>¿Cuántos somos en esta en este squat o
+célula?</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/24-0
+00:02:06.270 --> 00:02:14.559
+<v Javier Caballero (EXT)>Es como equipo de mascotas, se llama,
+se le llama equipo y está Alexis,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/24-1
+00:02:14.559 --> 00:02:15.710
+<v Javier Caballero (EXT)>que es el.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/25-0
+00:02:18.590 --> 00:02:19.310
+<v Javier Caballero (EXT)>El te o.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/26-0
+00:02:20.990 --> 00:02:25.866
+<v Javier Caballero (EXT)>Óscar es el técnica lead,
+él está de vacaciones y creo que vuelve</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/26-1
+00:02:25.866 --> 00:02:30.150
+<v Javier Caballero (EXT)>no la semana que viene,
+sino la segunda semana de agosto.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/28-0
+00:02:31.270 --> 00:02:34.750
+<v Alan David Guzman (EXT)>¿Oscar sería mi sería mi jefe directo o
+quién sería?</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/27-0
+00:02:31.390 --> 00:02:32.350
+<v Javier Caballero (EXT)>Luego viene.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/29-0
+00:02:35.070 --> 00:02:35.470
+<v Javier Caballero (EXT)>No.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/30-0
+00:02:36.550 --> 00:02:41.670
+<v Javier Caballero (EXT)>Tu jefe directo es Alexis,
+vos reportas en teoría Alexis, sí.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/31-0
+00:02:42.990 --> 00:02:48.326
+<v Javier Caballero (EXT)>Oscar es el TL.
+La idea es que si bien vos reportas</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/31-1
+00:02:48.326 --> 00:02:56.431
+<v Javier Caballero (EXT)>Alexis, todos tus si necesitas acceso,
+si necesitas tomar decisiones técnicas,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/31-2
+00:02:56.431 --> 00:03:01.150
+<v Javier Caballero (EXT)>si necesitas decisiones de
+automatizaciones o</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/32-0
+00:03:01.790 --> 00:03:06.190
+<v Javier Caballero (EXT)>¿Quier cuestión relacionada técnica lo
+ves con Oscar?</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/33-0
+00:03:09.710 --> 00:03:13.978
+<v Javier Caballero (EXT)>Él es nuevo,
+es una consideración porque como es nuevo,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/33-1
+00:03:13.978 --> 00:03:16.950
+<v Javier Caballero (EXT)>hay cosas que él no sabe de la empresa.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/34-0
+00:03:17.790 --> 00:03:24.926
+<v Javier Caballero (EXT)>Sí, es un dato bastante importante.
+Entonces hay un poco de paciencia con él.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/34-1
+00:03:24.926 --> 00:03:31.329
+<v Javier Caballero (EXT)>Sobre eso no sabe mucho cómo no se maneja
+el equipo de las dinámicas,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/34-2
+00:03:31.329 --> 00:03:36.451
+<v Javier Caballero (EXT)>así que él estuvo entre una y 2 semanas
+en el proyecto,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/34-3
+00:03:36.451 --> 00:03:40.110
+<v Javier Caballero (EXT)>así que no tiene tan tan buen manejo de.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/35-0
+00:03:40.310 --> 00:03:44.577
+<v Javier Caballero (EXT)>La dinámica de equipo,
+eso es un dato bastante interesante para</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/35-1
+00:03:44.577 --> 00:03:45.710
+<v Javier Caballero (EXT)>que lo sepas, sí.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/36-0
+00:03:46.910 --> 00:03:51.070
+<v Javier Caballero (EXT)>Porque estuvo 2 semanas y se fue de
+vacaciones y ya creo que ya estuvo 2</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/36-1
+00:03:51.070 --> 00:03:54.433
+<v Javier Caballero (EXT)>semanas. No, sí,
+creo que también está la semana que viene</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/36-2
+00:03:54.433 --> 00:03:55.230
+<v Javier Caballero (EXT)>de vacaciones.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/37-0
+00:03:56.990 --> 00:03:57.990
+<v Javier Caballero (EXT)>Entonces.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/38-0
+00:03:59.390 --> 00:04:06.550
+<v Javier Caballero (EXT)>Todo el todo el equipo responde Alexis,
+ese es el technical owner.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/39-0
+00:04:07.390 --> 00:04:11.338
+<v Javier Caballero (EXT)>Lilian en realidad no responde al
+technical owner,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/39-1
+00:04:11.338 --> 00:04:16.602
+<v Javier Caballero (EXT)>es de producto y tiene su propio jefe.
+Y en realidad entre los dos,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/39-2
+00:04:16.602 --> 00:04:21.169
+<v Javier Caballero (EXT)>entre comillas, grandes comillas,
+son los pocos los jefes.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/39-3
+00:04:21.169 --> 00:04:25.891
+<v Javier Caballero (EXT)>Vos tenés que tratar de estar bien con
+Liliana y con Alexis.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/39-4
+00:04:25.891 --> 00:04:28.910
+<v Javier Caballero (EXT)>Y lo que te importa a vos es que Alexis</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/40-0
+00:04:28.990 --> 00:04:35.732
+<v Javier Caballero (EXT)>y Liliana vean que acepta que trabajas.
+El resto del equipo no te importa si que</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/40-1
+00:04:35.732 --> 00:04:41.309
+<v Javier Caballero (EXT)>trabajas o que no trabajas.
+Enfócate solamente en que ellos dos lo</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/40-2
+00:04:41.309 --> 00:04:47.801
+<v Javier Caballero (EXT)>sepan y que ellos dos estén contentos.
+La cuestión es que no son de dar mucho</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/40-3
+00:04:47.801 --> 00:04:48.550
+<v Javier Caballero (EXT)>feedback.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/41-0
+00:04:48.910 --> 00:04:53.150
+<v Javier Caballero (EXT)>Así que no son unas personas bastante
+como.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/42-0
+00:04:54.230 --> 00:04:59.252
+<v Javier Caballero (EXT)>expresivas. Eso es un.
+Es algo muy en contra para saber si las</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/42-1
+00:04:59.252 --> 00:05:05.549
+<v Javier Caballero (EXT)>cosas van bien o van mal, si van bien,
+no tan en el que vos se los te lo hacen</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/42-2
+00:05:05.549 --> 00:05:11.367
+<v Javier Caballero (EXT)>llegar. Si las cosas van mal. Bueno,
+lo que me pasó a mi directamente me</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/42-3
+00:05:11.367 --> 00:05:15.990
+<v Javier Caballero (EXT)>dieron che te va.
+Igual hoy en la Daily estaban todo como</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/43-0
+00:05:18.310 --> 00:05:22.338
+<v Javier Caballero (EXT)>Como diciendo sí,
+pero trabajabas bárbaro y demás,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/43-1
+00:05:22.338 --> 00:05:28.497
+<v Javier Caballero (EXT)>y la razón en teoría me dijeron que era
+por que dijo el cliente era que tengo</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/43-2
+00:05:28.497 --> 00:05:30.550
+<v Javier Caballero (EXT)>bajo rendimiento entonces.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/44-0
+00:05:32.670 --> 00:05:38.072
+<v Javier Caballero (EXT)>Para evitar que vuelva a pasar y para que
+no repitas mi situación,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/44-1
+00:05:38.072 --> 00:05:43.150
+<v Javier Caballero (EXT)>es que Liliana es tener siempre más que
+nada con Liliana y Lu.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/45-0
+00:05:44.270 --> 00:05:49.844
+<v Javier Caballero (EXT)>Ay, yo tenía un chat, trata con ellas dos,
+tengas una conversación,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/45-1
+00:05:49.844 --> 00:05:54.270
+<v Javier Caballero (EXT)>trata de ser lo más como comunicativos
+con ellos dos.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/45-2
+00:05:54.270 --> 00:06:00.582
+<v Javier Caballero (EXT)>Creo que yo un poco haciendo como una
+retrospectiva para tratar de darte los</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/45-3
+00:06:00.582 --> 00:06:04.270
+<v Javier Caballero (EXT)>mejores consejos para para tu éxito,
+porque.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/46-0
+00:06:04.350 --> 00:06:08.519
+<v Javier Caballero (EXT)>Honestamente,
+realmente te deseo lo mejor porque el</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/46-1
+00:06:08.519 --> 00:06:11.966
+<v Javier Caballero (EXT)>equipo,
+equipo es realmente bárbaro porque</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/46-2
+00:06:11.966 --> 00:06:16.695
+<v Javier Caballero (EXT)>Liliana es una falsa,
+pero si no te importa eso, no te va,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/46-3
+00:06:16.695 --> 00:06:23.269
+<v Javier Caballero (EXT)>no cae con comentarios negativos ni nada.
+Así que sabiendo manejar con ellos dos,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/46-4
+00:06:23.269 --> 00:06:24.150
+<v Javier Caballero (EXT)>suficiente.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/47-0
+00:06:24.630 --> 00:06:29.727
+<v Javier Caballero (EXT)>Lu te pone reuniones,
+te pregunta de estado de los tickets si</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/47-1
+00:06:29.727 --> 00:06:32.110
+<v Javier Caballero (EXT)>pasa mucho tiempo en testing.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/48-0
+00:06:34.110 --> 00:06:40.600
+<v Javier Caballero (EXT)>Hay una cosa que es el proyecto está cada
+vez yendo un poco más siendo organizado,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/48-1
+00:06:40.600 --> 00:06:46.854
+<v Javier Caballero (EXT)>pero tiene bastantes desorganizaciones.
+Entonces trata de tener cuidado con eso</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/48-2
+00:06:46.854 --> 00:06:47.870
+<v Javier Caballero (EXT)>porque si no.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/49-0
+00:06:50.750 --> 00:06:54.742
+<v Javier Caballero (EXT)>Se te puede,
+se te pueden tener cosas prioritarias,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/49-1
+00:06:54.742 --> 00:06:59.501
+<v Javier Caballero (EXT)>tratar de revisar todo y en la daily
+repasar. Che, preguntar,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/49-2
+00:06:59.501 --> 00:07:03.800
+<v Javier Caballero (EXT)>tengo estos tickets asignados.
+¿Cuál es más importante?</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/49-3
+00:07:03.800 --> 00:07:06.870
+<v Javier Caballero (EXT)>Si bien ellos usan el costo de priority.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/50-0
+00:07:08.030 --> 00:07:09.710
+<v Javier Caballero (EXT)>Hay veces que le ponen.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/51-0
+00:07:10.670 --> 00:07:15.485
+<v Javier Caballero (EXT)>íconos y demás y tenés que estar bastante
+al tanto y de gastar bastante en darte</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/51-1
+00:07:15.485 --> 00:07:20.002
+<v Javier Caballero (EXT)>cuenta cuál es más prioritario que otro.
+Normalmente te lo hacen llegar por</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/51-2
+00:07:20.002 --> 00:07:24.697
+<v Javier Caballero (EXT)>mensaje y todo y te estás probando algo
+que es importante y de repente te dice</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/51-3
+00:07:24.697 --> 00:07:28.561
+<v Javier Caballero (EXT)>necesito probar esto para salir ya y de
+nuevo tenés que cambiar,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/51-4
+00:07:28.561 --> 00:07:29.630
+<v Javier Caballero (EXT)>tenés que volver a</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/52-0
+00:07:29.710 --> 00:07:34.190
+<v Javier Caballero (EXT)>Todo para atrás es algo como para que
+tengas en cuenta.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/54-0
+00:07:38.670 --> 00:07:43.560
+<v Javier Caballero (EXT)>Vamos a te voy a mostrar el sprint actual.
+Supongamos que vos planificaste estos 3.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/54-1
+00:07:43.560 --> 00:07:45.830
+<v Javier Caballero (EXT)>Sí, supongamos que esto fue tu esto es.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/55-0
+00:07:47.150 --> 00:07:51.190
+<v Javier Caballero (EXT)>Hoy es lunes, primer día de sprint,
+cada sprint son 2 semanas.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/56-0
+00:07:52.030 --> 00:07:56.163
+<v Javier Caballero (EXT)>Vas a comenzar el sprint.
+Entonces vos decís perfecto,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/56-1
+00:07:56.163 --> 00:08:02.325
+<v Javier Caballero (EXT)>vos sabés qué caso de automatización vas
+a hacer porque la idea es que siempre se</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/56-2
+00:08:02.325 --> 00:08:07.060
+<v Javier Caballero (EXT)>vaya automatizando algo.
+El objetivo principal es que a ver si</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/56-3
+00:08:07.060 --> 00:08:07.510
+<v Javier Caballero (EXT)>pongo.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/57-0
+00:08:08.430 --> 00:08:10.790
+<v Javier Caballero (EXT)>Es que si vos tenés, vamos a crear.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/58-0
+00:08:11.550 --> 00:08:18.950
+<v Javier Caballero (EXT)>un nuevo documento y te voy a ir como
+mostrando. La idea es que.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/59-0
+00:08:19.950 --> 00:08:23.270
+<v Javier Caballero (EXT)>El sprint dura 2 semanas, sí.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/60-0
+00:08:26.270 --> 00:08:30.190
+<v Javier Caballero (EXT)>Si en esta semana lo han desarrollado lo
+empiezan a trabajar en la feature.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/61-0
+00:08:31.630 --> 00:08:38.070
+<v Javier Caballero (EXT)>En la feature uno, sí, o sea,
+si esta feature uno entra en dead.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/62-0
+00:08:39.710 --> 00:08:42.870
+<v Javier Caballero (EXT)>La idea es que vos al mismo tiempo.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/63-0
+00:08:45.310 --> 00:08:47.710
+<v Javier Caballero (EXT)>Ya empiezas a crear los casos de prueba.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/64-0
+00:08:53.150 --> 00:08:58.653
+<v Javier Caballero (EXT)>Así,
+idealmente la feature uno tiene lo</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/64-1
+00:08:58.653 --> 00:09:02.230
+<v Javier Caballero (EXT)>empezás a automatizar acá.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/65-0
+00:09:03.870 --> 00:09:10.378
+<v Javier Caballero (EXT)>Y en la que está la review que hacen la
+presentación de lo que está,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/65-1
+00:09:10.378 --> 00:09:12.830
+<v Javier Caballero (EXT)>se muestra la feature uno.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/66-0
+00:09:16.590 --> 00:09:19.670
+<v Javier Caballero (EXT)>Pese a mostrar y la salida pro.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/67-0
+00:09:22.670 --> 00:09:26.746
+<v Javier Caballero (EXT)>Ese es, digamos,
+es el escenario un poco ideal,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/67-1
+00:09:26.746 --> 00:09:30.990
+<v Javier Caballero (EXT)>a veces que esto es se puede lograr en un
+sprint.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/68-0
+00:09:32.190 --> 00:09:33.830
+<v Javier Caballero (EXT)>Si el feature es chiquito.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/69-0
+00:09:33.190 --> 00:09:37.261
+<v Alan David Guzman (EXT)>Pero una pregunta,
+dice que cuando está en dep ya tengo que</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/69-1
+00:09:37.261 --> 00:09:42.145
+<v Alan David Guzman (EXT)>tener que dar los casos de prueba.
+Eso este lo pruebo ahí mismo en dep,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/69-2
+00:09:42.145 --> 00:09:46.350
+<v Alan David Guzman (EXT)>o eso pasa a Cuba o es un ambiente o solo
+o solo es un stage.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/70-0
+00:09:43.710 --> 00:09:49.554
+<v Javier Caballero (EXT)>A vamos de nuevo,
+vamos de nuevo en tema de ambientes.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/70-1
+00:09:49.554 --> 00:09:53.910
+<v Javier Caballero (EXT)>Existe el ambiente de D, de Kua y de Pro.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/71-0
+00:09:57.270 --> 00:09:59.030
+<v Javier Caballero (EXT)>Este es el ambiente que haces prueba.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/72-0
+00:10:03.470 --> 00:10:04.470
+<v Javier Caballero (EXT)>Esto es.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/73-0
+00:10:05.910 --> 00:10:08.270
+<v Javier Caballero (EXT)>Solo desarrolladores.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/74-0
+00:10:12.230 --> 00:10:15.190
+<v Javier Caballero (EXT)>Y este es ambiente de producción no se
+puede testear.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/76-0
+00:10:19.110 --> 00:10:20.110
+<v Javier Caballero (EXT)>Yes.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/77-0
+00:10:22.790 --> 00:10:28.390
+<v Javier Caballero (EXT)>Salvo excepciones, sí,
+este es el ambiente que siempre tenés que</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/77-1
+00:10:28.390 --> 00:10:32.870
+<v Javier Caballero (EXT)>usar para probar.
+El tema es que no es estable, sí.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/78-0
+00:10:35.190 --> 00:10:40.453
+<v Javier Caballero (EXT)>De mientras vos está probando una feature
+y la feature impacta en una pantalla,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/78-1
+00:10:40.453 --> 00:10:45.584
+<v Javier Caballero (EXT)>alguien está tocando el backend y puede
+romper todo a mitad del testing de la</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/78-2
+00:10:45.584 --> 00:10:46.110
+<v Javier Caballero (EXT)>feature.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/79-0
+00:10:47.430 --> 00:10:53.570
+<v Javier Caballero (EXT)>Entonces vos o afecta los resultados del
+testing y decís que reportemos todos los</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/79-1
+00:10:53.570 --> 00:10:57.090
+<v Javier Caballero (EXT)>bugs que en teoría estarían relacionado a
+ese,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/79-2
+00:10:57.090 --> 00:11:02.630
+<v Javier Caballero (EXT)>pero en realidad están relacionado a otra
+cosa que cambia es un quilombo.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/80-0
+00:11:03.870 --> 00:11:07.766
+<v Javier Caballero (EXT)>No es un ambiente estable,
+tendría que haber un ambiente acá. O sea,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/80-1
+00:11:07.766 --> 00:11:12.170
+<v Javier Caballero (EXT)>el ambiente de QA debería hacerse como un
+freeze. O sea, pueden cambiar todo.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/80-2
+00:11:12.170 --> 00:11:14.710
+<v Javier Caballero (EXT)>Todo está en QA. Arrancaste ustedes,
+no hay.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/81-0
+00:11:16.230 --> 00:11:19.110
+<v Javier Caballero (EXT)>Es acá creas todos los casos de cuando.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/82-0
+00:11:22.030 --> 00:11:27.670
+<v Javier Caballero (EXT)>Vamos a ir acá a un pasito también más
+para atrás. Esta es la plan, sí.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/83-0
+00:11:29.070 --> 00:11:33.189
+<v Javier Caballero (EXT)>La planning,
+vamos a trabajar en la feature uno y en</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/83-1
+00:11:33.189 --> 00:11:34.510
+<v Javier Caballero (EXT)>la feature 2, sí.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/84-0
+00:11:35.750 --> 00:11:37.150
+<v Javier Caballero (EXT)>Acá hay una estimación.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/85-0
+00:11:41.670 --> 00:11:50.622
+<v Javier Caballero (EXT)>Es de la complejidad,
+no en la y esa es el average de D más Q A.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/85-1
+00:11:50.622 --> 00:12:00.950
+<v Javier Caballero (EXT)>Sí, es qué tan complejo puede ser.
+Puede ser un 8, a veces usan el mínimo.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/86-0
+00:12:03.910 --> 00:12:08.150
+<v Javier Caballero (EXT)>Usan el mínimo, es no van a no van a ser.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/87-0
+00:12:09.110 --> 00:12:12.073
+<v Javier Caballero (EXT)>Bueno, vas a usar el average.
+A veces digo, ok,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/87-1
+00:12:12.073 --> 00:12:15.468
+<v Javier Caballero (EXT)>yo cual iba a esto es súper simple,
+perdón, el máximo,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/87-2
+00:12:15.468 --> 00:12:19.974
+<v Javier Caballero (EXT)>esto es súper simple y dice no,
+pero desarrollo tengo que mil cosas para</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/87-3
+00:12:19.974 --> 00:12:23.060
+<v Javier Caballero (EXT)>probar. Ok,
+o a veces desarrollo es súper simple.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/87-4
+00:12:23.060 --> 00:12:26.085
+<v Javier Caballero (EXT)>Entonces en teoría, de nuevo,
+esto es la teoría.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/87-5
+00:12:26.085 --> 00:12:28.430
+<v Javier Caballero (EXT)>Recién este print se empezó a aplicar.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/88-0
+00:12:28.550 --> 00:12:33.659
+<v Javier Caballero (EXT)>Así que está muy en pañales la situación.
+La semana que viene,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/88-1
+00:12:33.659 --> 00:12:37.956
+<v Javier Caballero (EXT)>no la semana siguiente,
+la segunda semana de agosto,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/88-2
+00:12:37.956 --> 00:12:40.550
+<v Javier Caballero (EXT)>vas a tener tu primera planning.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/89-0
+00:12:41.990 --> 00:12:44.985
+<v Javier Caballero (EXT)>Trata de antes de la planning,
+vos ya veas,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/89-1
+00:12:44.985 --> 00:12:50.090
+<v Javier Caballero (EXT)>el tema es que van a trabajar fin de
+semana y ellos van a tener 1 hora más</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/89-2
+00:12:50.090 --> 00:12:55.670
+<v Javier Caballero (EXT)>para ver qué es lo que va a haber en el
+Spring, lo cual no te no está a tu favor.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/90-0
+00:12:57.030 --> 00:13:01.815
+<v Javier Caballero (EXT)>Fíjate si el viernes puedes hablar con
+Lili y preguntarle que te de un avance de</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/90-1
+00:13:01.815 --> 00:13:03.350
+<v Javier Caballero (EXT)>los tickets que van a ver.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/91-0
+00:13:05.110 --> 00:13:08.070
+<v Javier Caballero (EXT)>Pero bueno, esa es una estimación altavoz.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/92-0
+00:13:09.110 --> 00:13:13.590
+<v Javier Caballero (EXT)>¿Vas a saber o puedes poner tus vas a
+agregar subtareas?</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/93-0
+00:13:15.350 --> 00:13:17.790
+<v Javier Caballero (EXT)>Este documento que te debe pasar, sabes,
+no te preocupes.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/94-0
+00:13:19.910 --> 00:13:21.350
+<v Javier Caballero (EXT)>¿Vas a crear tus subtareas?</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/95-0
+00:13:22.550 --> 00:13:26.442
+<v Javier Caballero (EXT)>A veces,
+y también vas a poder decir si es</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/95-1
+00:13:26.442 --> 00:13:33.230
+<v Javier Caballero (EXT)>solamente tus sub tareas, o sea,
+las sub tareas van a ser crear los casos.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/96-0
+00:13:34.870 --> 00:13:40.239
+<v Javier Caballero (EXT)>O hoy es crear porque básicamente son
+todo crear o actualizar los casos.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/96-1
+00:13:40.239 --> 00:13:46.195
+<v Javier Caballero (EXT)>Tenés que tenés que agregar este ticket
+porque si no tenés que ser súper en modo</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/96-2
+00:13:46.195 --> 00:13:49.946
+<v Javier Caballero (EXT)>verbose,
+tenés que decir todo lo que vas a hacer y</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/96-3
+00:13:49.946 --> 00:13:53.990
+<v Javier Caballero (EXT)>poner todos subtareas. Es más,
+si testeaste un ticket.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/97-0
+00:13:54.630 --> 00:13:55.070
+<v Javier Caballero (EXT)>Sí.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/98-0
+00:13:56.150 --> 00:13:59.070
+<v Javier Caballero (EXT)>Eso vamos en tema del proceso,
+vamos a ver acá.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/99-0
+00:14:00.390 --> 00:14:05.070
+<v Javier Caballero (EXT)>Vamos a ver un tickets este.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/100-0
+00:14:08.950 --> 00:14:12.426
+<v Javier Caballero (EXT)>Este es el ticket, cierto?
+Viste que hice validar QA?</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/100-1
+00:14:12.426 --> 00:14:14.550
+<v Javier Caballero (EXT)>Este es el ticket, yo lo trabajo.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/101-0
+00:14:16.070 --> 00:14:21.402
+<v Javier Caballero (EXT)>Lo comienzo, después lo termino.
+Supongamos que en esa validación encontré</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/101-1
+00:14:21.402 --> 00:14:27.018
+<v Javier Caballero (EXT)>un bug, ese bug vuelve a desarrollo.
+La desarrolladora Paula en este caso va a</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/101-2
+00:14:27.018 --> 00:14:31.070
+<v Javier Caballero (EXT)>agregar otro su tarea que es desarrollar
+el fix del bug.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/102-0
+00:14:32.150 --> 00:14:37.167
+<v Javier Caballero (EXT)>vuelve a vos y cuando vuelve a vos de
+nuevo tenés que agregar otro,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/102-1
+00:14:37.167 --> 00:14:41.298
+<v Javier Caballero (EXT)>validar en QA otro, no el mismo,
+otro súper importante.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/102-2
+00:14:41.298 --> 00:14:47.273
+<v Javier Caballero (EXT)>Cada vez que haces algo es cada vez que
+haces cada interacción que vos tenés con</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/102-3
+00:14:47.273 --> 00:14:51.109
+<v Javier Caballero (EXT)>el ticket es una sub tarea.
+Y lo otro es que bueno,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/102-4
+00:14:51.109 --> 00:14:52.510
+<v Javier Caballero (EXT)>este no tiene nada.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/103-0
+00:14:52.990 --> 00:14:58.357
+<v Javier Caballero (EXT)>pero normalmente los tickets tienen
+comentarios, es encontré este bug,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/103-1
+00:14:58.357 --> 00:15:03.119
+<v Javier Caballero (EXT)>se vuelve para atrás,
+todo en español y dejas el comentario de</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/103-2
+00:15:03.119 --> 00:15:05.310
+<v Javier Caballero (EXT)>qué es lo que estuvo pasando.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/104-0
+00:15:08.110 --> 00:15:15.190
+<v Javier Caballero (EXT)>¿Entonces supones que vos vamos de nuevo,
+tuki entonces?</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/105-0
+00:15:16.230 --> 00:15:20.673
+<v Javier Caballero (EXT)>A veces tenés que crear los casos de
+prueba, decís ok, en la plan y decís ok,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/105-1
+00:15:20.673 --> 00:15:24.830
+<v Javier Caballero (EXT)>acá voy a actualizar unos casos que ya
+tengo hecho porque no sé tocar un</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/105-2
+00:15:24.830 --> 00:15:28.361
+<v Javier Caballero (EXT)>credencial y van a mejorarlo.
+No tengo que crear ningún caso.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/105-3
+00:15:28.361 --> 00:15:31.550
+<v Javier Caballero (EXT)>Ya tengo que actualizar caso listo,
+actualizar o crear.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/106-0
+00:15:32.350 --> 00:15:36.597
+<v Javier Caballero (EXT)>Es depende,
+luego es tengo que validar en QA,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/106-1
+00:15:36.597 --> 00:15:39.550
+<v Javier Caballero (EXT)>pero así mismo es validar en QA.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/107-0
+00:15:41.710 --> 00:15:46.510
+<v Javier Caballero (EXT)>Fíjate que siempre es validar encua,
+eso hace referencia a el ambiente.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/108-0
+00:15:47.510 --> 00:15:50.990
+<v Javier Caballero (EXT)>Validad en qua es sólo la.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/109-0
+00:15:52.030 --> 00:15:58.593
+<v Javier Caballero (EXT)>Y acá si tenés que hacer una mini
+regresión por la duda que no rompieron</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/109-1
+00:15:58.593 --> 00:16:00.750
+<v Javier Caballero (EXT)>otra cosa, es regresión.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/110-0
+00:16:02.990 --> 00:16:05.670
+<v Javier Caballero (EXT)>Y acá aclara que vas a regresionar.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/111-0
+00:16:10.030 --> 00:16:16.030
+<v Javier Caballero (EXT)>Y esto es decirlo en la planning.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/112-0
+00:16:18.150 --> 00:16:21.536
+<v Javier Caballero (EXT)>De nuevo,
+en estos dos meses y medio jamás esto</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/112-1
+00:16:21.536 --> 00:16:26.613
+<v Javier Caballero (EXT)>pasó, jamás hubo la planinera,
+venía la P O con 50 tickets y decía esto</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/112-2
+00:16:26.613 --> 00:16:32.043
+<v Javier Caballero (EXT)>es súper importante que salí con todos
+estos bugs porque tenemos la salida y</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/112-3
+00:16:32.043 --> 00:16:37.403
+<v Javier Caballero (EXT)>nada, había que probar. No había,
+no había estimaciones, no había subtarea,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/112-4
+00:16:37.403 --> 00:16:38.390
+<v Javier Caballero (EXT)>no había nada.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/113-0
+00:16:38.790 --> 00:16:42.713
+<v Javier Caballero (EXT)>llegábamos con la capacity, nadie sabía,
+no importaba.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/113-1
+00:16:42.713 --> 00:16:48.491
+<v Javier Caballero (EXT)>Habían 100 tickets para hacer en todo el
+sprint, los que pudiéramos, no importa,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/113-2
+00:16:48.491 --> 00:16:54.197
+<v Javier Caballero (EXT)>del más prioritario hagan lo que puedan.
+Es básicamente la Kanban en un spring,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/113-3
+00:16:54.197 --> 00:16:56.550
+<v Javier Caballero (EXT)>era una cosa, era cualquier cosa.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/114-0
+00:16:57.390 --> 00:16:58.150
+<v Javier Caballero (EXT)>Entonces.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/115-0
+00:16:59.950 --> 00:17:04.562
+<v Javier Caballero (EXT)>En tu planning puede definir qué vas a
+hacer y lo tenés que definir y ser y</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/115-1
+00:17:04.562 --> 00:17:08.203
+<v Javier Caballero (EXT)>tenés que decirlo.
+Muy importante de nuevo ser verbal sobre</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/115-2
+00:17:08.203 --> 00:17:10.752
+<v Javier Caballero (EXT)>esto,
+qué vas a hacer si vas a hacer o no</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/115-3
+00:17:10.752 --> 00:17:13.846
+<v Javier Caballero (EXT)>regresión,
+si vas a solo validar y hacer los casos</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/115-4
+00:17:13.846 --> 00:17:16.759
+<v Javier Caballero (EXT)>de prueba.
+A veces que los casos pruebas no son</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/115-5
+00:17:16.759 --> 00:17:17.790
+<v Javier Caballero (EXT)>necesarios hacer.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/116-0
+00:17:17.950 --> 00:17:20.377
+<v Javier Caballero (EXT)>Ese es nada,
+solo esto es dale solo válido.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/116-1
+00:17:20.377 --> 00:17:23.409
+<v Javier Caballero (EXT)>Yo mi recomendación es crear caso de
+prueba para todo,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/116-2
+00:17:23.409 --> 00:17:26.221
+<v Javier Caballero (EXT)>no hay caso de prueba para nada,
+así que es listo.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/116-3
+00:17:26.221 --> 00:17:29.916
+<v Javier Caballero (EXT)>Esto bien que era el caso de prueba,
+documentación, documentación.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/116-4
+00:17:29.916 --> 00:17:31.790
+<v Javier Caballero (EXT)>Eso te va a ayudar después porque.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/117-0
+00:17:33.550 --> 00:17:35.821
+<v Javier Caballero (EXT)>Quieren que haya documentación de casos
+de prueba,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/117-1
+00:17:35.821 --> 00:17:39.070
+<v Javier Caballero (EXT)>pero al mismo tiempo no te dan el tiempo.
+Entonces la esta es la excusa.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/118-0
+00:17:40.990 --> 00:17:45.049
+<v Javier Caballero (EXT)>Entonces, cuando vos comienza el sprint,
+pues ya sabes que tenés que hacer los</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/118-1
+00:17:45.049 --> 00:17:45.870
+<v Javier Caballero (EXT)>casos de prueba.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/119-0
+00:17:47.990 --> 00:17:54.350
+<v Javier Caballero (EXT)>La cosa es que a veces lo puede estar con
+su tarea y yo tengo un ticket que es.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/120-0
+00:17:56.230 --> 00:17:58.350
+<v Javier Caballero (EXT)>Vamos al sprint que es.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/121-0
+00:18:00.750 --> 00:18:04.468
+<v Javier Caballero (EXT)>Creación de los casos de prueba,
+rediseño y videollamada me tengo que</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/121-1
+00:18:04.468 --> 00:18:06.910
+<v Javier Caballero (EXT)>crear un ticket aparte, sí,
+no como su tarea.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/122-0
+00:18:08.990 --> 00:18:14.489
+<v Javier Caballero (EXT)>Entonces este a veces como ticket aparte.
+¿Por qué a ticket aparte?</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/122-1
+00:18:14.489 --> 00:18:21.120
+<v Javier Caballero (EXT)>Porque así vos podés tenerlo en progreso
+mediante el ticket de desarrollo está en</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/122-2
+00:18:21.120 --> 00:18:25.001
+<v Javier Caballero (EXT)>progreso.
+Y si igual está bueno que los linkeé,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/122-3
+00:18:25.001 --> 00:18:27.750
+<v Javier Caballero (EXT)>pero acá tenía que linkear como 5.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/123-0
+00:18:28.670 --> 00:18:33.950
+<v Javier Caballero (EXT)>No, más como 10 Joseph Story,
+así que dije, ya fue, creo, hecho chao.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/124-0
+00:18:36.910 --> 00:18:42.190
+<v Javier Caballero (EXT)>Entonces,
+la idea que había hablado yo con.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/125-0
+00:18:46.110 --> 00:18:50.341
+<v Javier Caballero (EXT)>¿Cómo se llama?
+La idea que yo había hablado con Liliana</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/125-1
+00:18:50.341 --> 00:18:53.977
+<v Javier Caballero (EXT)>era que yo la feature,
+en el mejor de los casos,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/125-2
+00:18:53.977 --> 00:18:57.910
+<v Javier Caballero (EXT)>la pruebo en el mismo sprint, que es,
+o sea, acá la.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/126-0
+00:18:58.990 --> 00:19:03.938
+<v Javier Caballero (EXT)>La semana 2 es la feature uno,
+en teoría va a automatizar,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/126-1
+00:19:03.938 --> 00:19:05.950
+<v Javier Caballero (EXT)>pero en realidad lo que.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/127-0
+00:19:07.150 --> 00:19:10.630
+<v Javier Caballero (EXT)>La fecha uno acá es pruebas.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/128-0
+00:19:15.150 --> 00:19:18.310
+<v Javier Caballero (EXT)>Y en el esto es.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/129-0
+00:19:27.870 --> 00:19:29.270
+<v Javier Caballero (EXT)>En el sprint 2.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/130-0
+00:19:30.230 --> 00:19:31.790
+<v Javier Caballero (EXT)>En la semana uno.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/131-0
+00:19:32.750 --> 00:19:34.350
+<v Javier Caballero (EXT)>Es la feature uno.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/132-0
+00:19:35.790 --> 00:19:36.950
+<v Javier Caballero (EXT)>Automatización.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/133-0
+00:19:40.510 --> 00:19:45.870
+<v Javier Caballero (EXT)>Esa es la estrategia acordada con ello y
+es acá en automatizar.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/134-0
+00:19:47.150 --> 00:19:49.970
+<v Javier Caballero (EXT)>O sea,
+automatizar la feature 2 y en la feature</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/134-1
+00:19:49.970 --> 00:19:50.910
+<v Javier Caballero (EXT)>uno ya empezará.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/135-0
+00:19:52.270 --> 00:19:54.070
+<v Javier Caballero (EXT)>Crear casos de prueba.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/136-0
+00:19:54.910 --> 00:19:59.568
+<v Javier Caballero (EXT)>Si es esto,
+va a ser más o menos tu estándar de</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/136-1
+00:19:59.568 --> 00:20:04.807
+<v Javier Caballero (EXT)>trabajo. Esto se habló,
+es más o menos lo importante.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/136-2
+00:20:04.807 --> 00:20:09.270
+<v Javier Caballero (EXT)>Lo importante es que a cuando acá el
+viernes.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/137-0
+00:20:10.430 --> 00:20:18.900
+<v Javier Caballero (EXT)>Sí que el viernes de la primera semana,
+pero no me deja que el viernes en la</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/137-1
+00:20:18.900 --> 00:20:19.670
+<v Javier Caballero (EXT)>review.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/138-0
+00:20:23.030 --> 00:20:24.350
+<v Javier Caballero (EXT)>Pueda mostrar.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/139-0
+00:20:25.750 --> 00:20:26.550
+<v Javier Caballero (EXT)>The feature.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/141-0
+00:20:28.070 --> 00:20:32.910
+<v Javier Caballero (EXT)>Y decir que está en prod,
+este es el objetivo.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/142-0
+00:20:33.750 --> 00:20:40.446
+<v Javier Caballero (EXT)>Tu objetivo es que la feature esté lista
+para prod al fin, digamos,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/142-1
+00:20:40.446 --> 00:20:43.990
+<v Javier Caballero (EXT)>and el jueves a la tarde como mucho.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/143-0
+00:20:47.150 --> 00:20:51.270
+<v Javier Caballero (EXT)>Jueves 16 horas, Argentina.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/144-0
+00:20:52.470 --> 00:20:53.110
+<v Javier Caballero (EXT)>Deadline.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/145-0
+00:20:54.390 --> 00:20:59.110
+<v Javier Caballero (EXT)>Esto es para que le dé tiempo a ellos de
+pasarlo a producción.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/146-0
+00:21:00.230 --> 00:21:03.790
+<v Javier Caballero (EXT)>Y el viernes se muestra en la mañana de
+Argentina.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/147-0
+00:21:04.790 --> 00:21:10.478
+<v Javier Caballero (EXT)>Por eso te digo que esto es como un poco
+el timeline entre comillas ideal,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/147-1
+00:21:10.478 --> 00:21:14.725
+<v Javier Caballero (EXT)>porque bueno, nada,
+si vemos entonces el sprint actual,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/147-2
+00:21:14.725 --> 00:21:17.910
+<v Javier Caballero (EXT)>hay siete tareas en tickets en validation.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/148-0
+00:21:19.510 --> 00:21:20.070
+<v Javier Caballero (EXT)>Sí.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/149-0
+00:21:21.430 --> 00:21:24.890
+<v Javier Caballero (EXT)>Y acá este es un este acá le decimos un
+choclo.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/149-1
+00:21:24.890 --> 00:21:29.647
+<v Javier Caballero (EXT)>Esto es una cosa enorme que parece re
+sencillo del lado del coso.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/149-2
+00:21:29.647 --> 00:21:35.630
+<v Javier Caballero (EXT)>Tenés usuarios de Betify que es lo que te
+nombré y usuarios de Ike Mascotas que es</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/149-3
+00:21:35.630 --> 00:21:36.350
+<v Javier Caballero (EXT)>la Legacy.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/150-0
+00:21:37.190 --> 00:21:38.870
+<v Javier Caballero (EXT)>Y tenés que saber que.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/151-0
+00:21:41.430 --> 00:21:45.630
+<v Javier Caballero (EXT)>Usuario con que tengan Betify pueden
+acceder a la web app de Ike.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/151-1
+00:21:45.630 --> 00:21:50.339
+<v Javier Caballero (EXT)>En realidad tenés que hacer los cuatro,
+la combinatoria compraron en Ike,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/151-2
+00:21:50.339 --> 00:21:54.665
+<v Javier Caballero (EXT)>pueden acceder a Betify,
+compraron en Betify, pueden acceder a Ike,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/151-3
+00:21:54.665 --> 00:21:59.310
+<v Javier Caballero (EXT)>compraron en Ike, acceden a Ike,
+compraron en Betify y acceden a Betify.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/152-0
+00:21:59.550 --> 00:22:00.670
+<v Javier Caballero (EXT)>Esa es la cosa.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/153-0
+00:22:02.390 --> 00:22:03.350
+<v Javier Caballero (EXT)>Um.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/154-0
+00:22:04.430 --> 00:22:08.007
+<v Javier Caballero (EXT)>O sea, tenés que hacer los cuatro.
+No es tan largo,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/154-1
+00:22:08.007 --> 00:22:12.960
+<v Javier Caballero (EXT)>pero el problema es que tenés que
+hacerlos. Yo no tengo usuario de iké,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/154-2
+00:22:12.960 --> 00:22:18.257
+<v Javier Caballero (EXT)>no anda a comprar planes de iké porque
+acá yo si me vengo para probar en QA,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/154-3
+00:22:18.257 --> 00:22:22.178
+<v Javier Caballero (EXT)>si necesito un usuario de Petify de QA,
+vengo acá en QA,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/154-4
+00:22:22.178 --> 00:22:24.310
+<v Javier Caballero (EXT)>contratar completo y acá pongo.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/155-0
+00:22:24.550 --> 00:22:29.000
+<v Javier Caballero (EXT)>test1@test.
+com y acá un número de documento o lo que</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/155-1
+00:22:29.000 --> 00:22:35.757
+<v Javier Caballero (EXT)>quiera el número que yo ponga listo este
+ya está este es usuario listo después me</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/155-2
+00:22:35.757 --> 00:22:42.102
+<v Javier Caballero (EXT)>lo creo con esto creo un usuario y
+contraseña y este es el plan y chao tengo</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/155-3
+00:22:42.102 --> 00:22:43.750
+<v Javier Caballero (EXT)>un usuario en Betify</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/156-0
+00:22:44.790 --> 00:22:46.390
+<v Javier Caballero (EXT)>En Ike no es tan fácil.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/157-0
+00:22:49.670 --> 00:22:54.459
+<v Javier Caballero (EXT)>Es entonces la estrategia.
+Los tickets llegan a invalidation y te lo</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/157-1
+00:22:54.459 --> 00:22:58.137
+<v Javier Caballero (EXT)>asignan a vos. Sí,
+entonces los tickets que llegan a</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/157-2
+00:22:58.137 --> 00:23:03.550
+<v Javier Caballero (EXT)>invalidation y te los asignan a vos son
+tickets que están listos para probar.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/158-0
+00:23:05.110 --> 00:23:08.430
+<v Javier Caballero (EXT)>Luego es esos tickets, sí.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/159-0
+00:23:06.590 --> 00:23:10.856
+<v Alan David Guzman (EXT)>¿Disculpa, cómo me los asignan?
+¿Me ponen un tag de cubame o lo pasan por</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/159-1
+00:23:10.856 --> 00:23:12.470
+<v Alan David Guzman (EXT)>un para una por una columna?</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/160-0
+00:23:11.710 --> 00:23:13.950
+<v Javier Caballero (EXT)>Te lo asignan, te lo asignan.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/161-0
+00:23:14.870 --> 00:23:15.390
+<v Alan David Guzman (EXT)>Okay.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/162-0
+00:23:16.710 --> 00:23:21.350
+<v Javier Caballero (EXT)>Literal, te pasan e ticket a voz.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/163-0
+00:23:22.670 --> 00:23:25.830
+<v Javier Caballero (EXT)>Lo mueven a la columna invalidation.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/165-0
+00:23:26.710 --> 00:23:31.569
+<v Alan David Guzman (EXT)>¿Una pregunta, cuando tú vas a probar,
+este lo haces solo con el contenido del</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/164-0
+00:23:26.790 --> 00:23:28.470
+<v Javier Caballero (EXT)>Cuando llegue, sí.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/165-1
+00:23:31.569 --> 00:23:35.136
+<v Alan David Guzman (EXT)>historio de usuario,
+te reúnes con el de para que te haga</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/165-2
+00:23:35.136 --> 00:23:36.550
+<v Alan David Guzman (EXT)>entrega de la historia?</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/166-0
+00:23:38.550 --> 00:23:41.830
+<v Javier Caballero (EXT)>La historia normalmente está acá,
+está completamente acá.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/167-0
+00:23:43.430 --> 00:23:48.050
+<v Javier Caballero (EXT)>No es necesario que te reúnas con el dedo,
+a veces que sí, no,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/167-1
+00:23:48.050 --> 00:23:52.670
+<v Javier Caballero (EXT)>yo no he necesitado porque las historias
+son bastante simples.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/168-0
+00:23:53.430 --> 00:23:58.713
+<v Javier Caballero (EXT)>No son tan complejas,
+no tienen tantas cosas raras igualmente,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/168-1
+00:23:58.713 --> 00:24:00.390
+<v Javier Caballero (EXT)>si no lo vas viendo.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/169-0
+00:24:02.790 --> 00:24:03.430
+<v Javier Caballero (EXT)>¿Se entiende?</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/170-0
+00:24:04.230 --> 00:24:04.590
+<v Alan David Guzman (EXT)>Sí.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/171-0
+00:24:04.350 --> 00:24:05.910
+<v Javier Caballero (EXT)>Responde otra pregunta, OK.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/172-0
+00:24:05.910 --> 00:24:06.630
+<v Alan David Guzman (EXT)>Sí, señor.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/173-0
+00:24:07.190 --> 00:24:10.390
+<v Javier Caballero (EXT)>Entonces, te llega la tarea invalidation.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/174-0
+00:24:11.830 --> 00:24:17.563
+<v Javier Caballero (EXT)>Si no tiene el tickets,
+agregas pruebas QA o pruebas en QA, sí,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/174-1
+00:24:17.563 --> 00:24:24.190
+<v Javier Caballero (EXT)>y lo pones a in progress. Entonces,
+a partir de ese momento, ese tickets.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/175-0
+00:24:25.990 --> 00:24:29.774
+<v Javier Caballero (EXT)>Es tuyo y vos estás al tener esto en
+progreso y pruebas en cuá,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/175-1
+00:24:29.774 --> 00:24:32.670
+<v Javier Caballero (EXT)>estás diciendo que vos estás trabajando
+en esto.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/176-0
+00:24:33.910 --> 00:24:34.590
+<v Javier Caballero (EXT)>Punto.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/177-0
+00:24:35.510 --> 00:24:41.181
+<v Javier Caballero (EXT)>Por regla solo puedes tener una tarea
+trabajando al mismo tiempo y te van a</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/177-1
+00:24:41.181 --> 00:24:47.150
+<v Javier Caballero (EXT)>molestar mucho para que eso se cumpla.
+Trata de siempre tener una tarea y por y</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/177-2
+00:24:47.150 --> 00:24:53.044
+<v Javier Caballero (EXT)>si te las tareas bloqueadas no pueden
+pasar más de 24 o 48 horas que en estado</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/177-3
+00:24:53.044 --> 00:24:53.790
+<v Javier Caballero (EXT)>bloqueado.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/178-0
+00:24:54.870 --> 00:24:55.230
+<v Javier Caballero (EXT)>Take.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/180-0
+00:24:56.630 --> 00:25:00.184
+<v Javier Caballero (EXT)>Entonces, si no podés hacer una tarea,
+no se puede agregar al sprint,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/179-0
+00:24:57.110 --> 00:24:57.510
+<v Alan David Guzman (EXT)>Yep.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/180-1
+00:25:00.184 --> 00:25:04.245
+<v Javier Caballero (EXT)>pero igual lo que termina pasando es que
+siempre terminan agregándolo al sprint</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/180-2
+00:25:04.245 --> 00:25:07.899
+<v Javier Caballero (EXT)>por más que le he dicho no, no,
+pero esa tarea no la puedo hacer porque</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/180-3
+00:25:07.899 --> 00:25:10.133
+<v Javier Caballero (EXT)>todo esto no lo tengo. Bueno,
+lo aplicamos,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/180-4
+00:25:10.133 --> 00:25:14.346
+<v Javier Caballero (EXT)>lo empezamos a trabajar y después vemos.
+Entonces te asignan la tarea para testing</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/180-5
+00:25:14.346 --> 00:25:16.630
+<v Javier Caballero (EXT)>porque obviamente vos no tenés acceso
+porque</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/181-0
+00:25:17.510 --> 00:25:20.662
+<v Javier Caballero (EXT)>A por B o por C y entonces le decís ok
+por A,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/181-1
+00:25:20.662 --> 00:25:24.909
+<v Javier Caballero (EXT)>B y C no puedo testearla entonces pasó
+bloqueado. Bueno Javi,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/181-2
+00:25:24.909 --> 00:25:29.636
+<v Javier Caballero (EXT)>no digamos que está bloqueada.
+Esta tarea no la podemos testear hoy,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/181-3
+00:25:29.636 --> 00:25:34.910
+<v Javier Caballero (EXT)>entendés? No digamos que está bloqueada,
+déjala ahí y cuando pueda la tomas.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/182-0
+00:25:36.070 --> 00:25:36.750
+<v Javier Caballero (EXT)>O sea.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/183-0
+00:25:36.230 --> 00:25:38.430
+<v Alan David Guzman (EXT)>Pero eso no te afecta las métricas a ti.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/184-0
+00:25:39.190 --> 00:25:39.670
+<v Javier Caballero (EXT)>Eight.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/185-0
+00:25:43.030 --> 00:25:46.809
+<v Javier Caballero (EXT)>A ellos le importan sus métricas,
+acá el mundo es muy escaso,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/185-1
+00:25:46.809 --> 00:25:50.162
+<v Javier Caballero (EXT)>son muy egoístas.
+A la peor le importa no tener ningún</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/185-2
+00:25:50.162 --> 00:25:53.270
+<v Javier Caballero (EXT)>ticket bloqueado porque esa es la métrica
+de ella.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/186-0
+00:25:55.190 --> 00:25:58.962
+<v Javier Caballero (EXT)>Por más que este ticket bloqueado,
+por más que le digas que ese ticket no lo</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/186-1
+00:25:58.962 --> 00:26:02.342
+<v Javier Caballero (EXT)>puedes tomar en la planning,
+que por eso está la planning para decir</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/186-2
+00:26:02.342 --> 00:26:05.330
+<v Javier Caballero (EXT)>que este ticket no está ready para
+desarrollar. Bueno, nada,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/186-3
+00:26:05.330 --> 00:26:06.750
+<v Javier Caballero (EXT)>lo vamos viendo en el sprint.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/187-0
+00:26:08.950 --> 00:26:13.800
+<v Javier Caballero (EXT)>Te básicamente se pegan un tiro en una
+rodilla y te echan la culpa a vos.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/187-1
+00:26:13.800 --> 00:26:17.142
+<v Javier Caballero (EXT)>Entonces,
+cuando vas a probar y después el ticket,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/187-2
+00:26:17.142 --> 00:26:21.139
+<v Javier Caballero (EXT)>obviamente no se puede probar.
+Si no se puede probar, decís,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/187-3
+00:26:21.139 --> 00:26:25.006
+<v Javier Caballero (EXT)>ponés directamente te cae,
+no se puede probar. Comentario,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/187-4
+00:26:25.006 --> 00:26:28.938
+<v Javier Caballero (EXT)>validación en qua,
+no se puede validar a este momento, bla,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/187-5
+00:26:28.938 --> 00:26:30.510
+<v Javier Caballero (EXT)>bla, bla, bla, bla, bla.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/188-0
+00:26:31.830 --> 00:26:34.853
+<v Javier Caballero (EXT)>Punto.
+Pues lo dejar todo por escrito porque sí</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/188-1
+00:26:34.853 --> 00:26:39.890
+<v Javier Caballero (EXT)>o porque porque no lo puedes tomar ahora
+si no se puede tomar ahora, ¿entendés?</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/188-2
+00:26:39.890 --> 00:26:44.928
+<v Javier Caballero (EXT)>Y cada vez que suponés que llega este
+ticket y este ticket no lo puedo revisar.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/188-3
+00:26:44.928 --> 00:26:48.202
+<v Javier Caballero (EXT)>No tengo usuarios de Ike,
+no tengo usuarios de Ike.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/188-4
+00:26:48.202 --> 00:26:51.350
+<v Javier Caballero (EXT)>Pregunté en el chat esperando respuesta
+del coso.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/189-0
+00:26:51.430 --> 00:26:54.821
+<v Javier Caballero (EXT)>Día siguiente, nadie te respondió,
+nadie te mandó un usuario.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/189-1
+00:26:54.821 --> 00:26:59.031
+<v Javier Caballero (EXT)>Segundo día sigo esperando respuesta por
+un usuario de que volví a hacer una</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/189-2
+00:26:59.031 --> 00:27:00.070
+<v Javier Caballero (EXT)>pregunta del grupo.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/190-0
+00:27:01.030 --> 00:27:02.270
+<v Javier Caballero (EXT)>No puedo seguir probando.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/192-0
+00:27:03.030 --> 00:27:07.010
+<v Javier Caballero (EXT)>¿Me entendés?
+Jalo los mensajes diciendo qué es lo que</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/191-0
+00:27:04.870 --> 00:27:05.030
+<v Alan David Guzman (EXT)>Y.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/192-1
+00:27:07.010 --> 00:27:07.950
+<v Javier Caballero (EXT)>está pasando.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/193-0
+00:27:09.110 --> 00:27:13.270
+<v Javier Caballero (EXT)>Si bien, o sea,
+no tener el usuario esta una ticket</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/193-1
+00:27:13.270 --> 00:27:18.630
+<v Javier Caballero (EXT)>bloqueado correctamente,
+ellos no quieren que lo pongas bloqueado.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/194-0
+00:27:19.910 --> 00:27:21.910
+<v Javier Caballero (EXT)>Porque no estás bloqueado, te van a decir.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/195-0
+00:27:23.190 --> 00:27:26.211
+<v Javier Caballero (EXT)>Está bien, no tenés usuario,
+pero no estás bloqueado,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/195-1
+00:27:26.211 --> 00:27:30.629
+<v Javier Caballero (EXT)>no es que ahí no se puede o no sé qué es
+lo que es para yo bloqueado entonces,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/195-2
+00:27:30.629 --> 00:27:34.880
+<v Javier Caballero (EXT)>pero siempre tenés que agarrar y hablarlo
+y en la daily también decir, che,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/195-3
+00:27:34.880 --> 00:27:36.390
+<v Javier Caballero (EXT)>esto necesito este usuario.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/196-0
+00:27:38.390 --> 00:27:42.367
+<v Javier Caballero (EXT)>Mándale un mensaje a tal, te van a decir,
+le mandas el mensaje a tal,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/196-1
+00:27:42.367 --> 00:27:45.036
+<v Javier Caballero (EXT)>mandé mensaje a tal,
+déjalo todo en el ticket.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/196-2
+00:27:45.036 --> 00:27:49.467
+<v Javier Caballero (EXT)>El ticket tiene que ser bien claro de
+todas las veces que vos fuiste haciendo</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/196-3
+00:27:49.467 --> 00:27:51.739
+<v Javier Caballero (EXT)>cosas,
+todas las veces que vos quisiste</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/196-4
+00:27:51.739 --> 00:27:53.670
+<v Javier Caballero (EXT)>agarrarlo, pero no podías siempre.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/197-0
+00:27:56.710 --> 00:27:58.190
+<v Javier Caballero (EXT)>Es tu forma de protegerte.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/200-0
+00:27:59.030 --> 00:28:03.328
+<v Alan David Guzman (EXT)>Una pregunta, si todo lo hablo, o sea,
+no va a ser el caso,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/198-0
+00:28:00.150 --> 00:28:00.670
+<v Javier Caballero (EXT)>Pyme.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/200-1
+00:28:03.328 --> 00:28:08.915
+<v Alan David Guzman (EXT)>porque yo me está recalcando mucho eso y
+lo y cómo es que y lo voy y lo voy a</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/200-2
+00:28:08.915 --> 00:28:11.350
+<v Alan David Guzman (EXT)>hacer, pero digamos, ¿qué pasa si?</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/202-0
+00:28:12.390 --> 00:28:17.950
+<v Alan David Guzman (EXT)>Digamos todos llegamos a un acuerdo en la
+Daily y sí, okey, esto o lo otro,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/199-0
+00:28:12.470 --> 00:28:12.790
+<v Javier Caballero (EXT)>Hey.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/201-0
+00:28:15.590 --> 00:28:16.070
+<v Javier Caballero (EXT)>Take.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/202-1
+00:28:17.950 --> 00:28:23.070
+<v Alan David Guzman (EXT)>pero por X o Y motivo se me olvidó
+ponerlo en la historia de usuario.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/203-0
+00:28:24.950 --> 00:28:30.070
+<v Alan David Guzman (EXT)>Este ellos pueden decir de que porque no
+estaba en la historia eso.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/204-0
+00:28:31.270 --> 00:28:36.250
+<v Alan David Guzman (EXT)>Este no lo dije o no,
+o porque eso no está en, o sea, digamos,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/204-1
+00:28:36.250 --> 00:28:37.830
+<v Alan David Guzman (EXT)>usarlo en mi contra.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/205-0
+00:28:40.470 --> 00:28:42.535
+<v Javier Caballero (EXT)>No,
+si es algo que no estaba en la historia</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/205-1
+00:28:42.535 --> 00:28:43.990
+<v Javier Caballero (EXT)>de usuario, hablalo con el dev.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/206-0
+00:28:46.310 --> 00:28:49.204
+<v Javier Caballero (EXT)>Normalmente,
+si vos lo dijiste en la planning che,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/206-1
+00:28:49.204 --> 00:28:53.630
+<v Javier Caballero (EXT)>pero no tengo usuarios para probar tal
+cosa o no tengo acceso a tal sistemas.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/207-0
+00:28:55.990 --> 00:29:01.096
+<v Javier Caballero (EXT)>Si vos lo decilo nomás en la planning, sí,
+no lo dejes anotado en ningún lugar y</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/207-1
+00:29:01.096 --> 00:29:05.697
+<v Javier Caballero (EXT)>cuando te toque probarlo, decís OK,
+esto me quedo todo trabado porque no</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/207-2
+00:29:05.697 --> 00:29:06.390
+<v Javier Caballero (EXT)>tengo, ¿no?</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/208-0
+00:29:08.870 --> 00:29:11.515
+<v Javier Caballero (EXT)>No,
+no le gusta a la gente que se anticipa</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/208-1
+00:29:11.515 --> 00:29:15.758
+<v Javier Caballero (EXT)>demasiado. Creo que es como vas al punto,
+hoy puedo, hoy tengo esto,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/208-2
+00:29:15.758 --> 00:29:18.771
+<v Javier Caballero (EXT)>me ayudan y van sobre las urgencias del
+momento,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/208-3
+00:29:18.771 --> 00:29:22.030
+<v Javier Caballero (EXT)>como que van apagando el fuego a medida
+que aparece.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/209-0
+00:29:25.430 --> 00:29:30.623
+<v Javier Caballero (EXT)>Esa es la manera de trabajar de acá.
+Te va a gustar, no te va a gustar.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/209-1
+00:29:30.623 --> 00:29:35.670
+<v Javier Caballero (EXT)>Te acostumbras, es la verdad.
+Te acostumbras y después no te molesta.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/210-0
+00:29:39.750 --> 00:29:43.013
+<v Javier Caballero (EXT)>Igualmente te digo,
+tampoco es que pasa muy seguido,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/210-1
+00:29:43.013 --> 00:29:47.014
+<v Javier Caballero (EXT)>está bien, te te te estoy,
+te estoy poniendo un estrato testista</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/210-2
+00:29:47.014 --> 00:29:50.030
+<v Javier Caballero (EXT)>explicando y qué es lo que puede llegar a
+pasar.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/211-0
+00:29:51.190 --> 00:29:55.553
+<v Javier Caballero (EXT)>Me habrá pasado 4 veces y he tenido como
+80 tickets que probar 4 veces.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/211-1
+00:29:55.553 --> 00:30:00.461
+<v Javier Caballero (EXT)>Tampoco es que va a pasar muy seguido,
+pero lo que te va a pasar el lunes es que</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/211-2
+00:30:00.461 --> 00:30:05.612
+<v Javier Caballero (EXT)>no tenés acceso a cosas de automatización.
+Entonces automatizaciones no va a pasar a</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/211-3
+00:30:05.612 --> 00:30:08.642
+<v Javier Caballero (EXT)>probar.
+Yo voy a tratar de pasarte mis usuarios y</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/211-4
+00:30:08.642 --> 00:30:11.550
+<v Javier Caballero (EXT)>contraseñas después de termino de esta
+reunión.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/212-0
+00:30:12.430 --> 00:30:15.590
+<v Javier Caballero (EXT)>Y voy a ver.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/214-0
+00:30:17.710 --> 00:30:22.563
+<v Javier Caballero (EXT)>Sí, que no sé si van a seguir existiendo.
+Voy a o sea,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/214-1
+00:30:22.563 --> 00:30:29.621
+<v Javier Caballero (EXT)>te voy a tratar de pasar los usuarios.
+Igualmente en el código de vas a ver que</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/214-2
+00:30:29.621 --> 00:30:33.150
+<v Javier Caballero (EXT)>hay usuarios de automation. Trata de no.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/215-0
+00:30:34.270 --> 00:30:40.470
+<v Javier Caballero (EXT)>Crear credenciales es solamente todas
+acciones que sean de, por ejemplo, bueno.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/216-0
+00:30:42.590 --> 00:30:47.151
+<v Javier Caballero (EXT)>Si necesitas,
+es siempre que entres a la aplicación en</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/216-1
+00:30:47.151 --> 00:30:51.545
+<v Javier Caballero (EXT)>QA, no crees,
+no crees credenciales porque eso no se</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/216-2
+00:30:51.545 --> 00:30:56.354
+<v Javier Caballero (EXT)>puede volver atrás. Si querés,
+hace videollamada general,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/216-3
+00:30:56.354 --> 00:31:02.490
+<v Javier Caballero (EXT)>cancelarla todo lo que quieras.
+Eso no va a romper los test. Pero si hay,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/216-4
+00:31:02.490 --> 00:31:03.070
+<v Javier Caballero (EXT)>si hay.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/217-0
+00:31:03.230 --> 00:31:06.152
+<v Javier Caballero (EXT)>Hay un usuario que tiene para crear un
+plan.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/217-1
+00:31:06.152 --> 00:31:09.917
+<v Javier Caballero (EXT)>No lo cargues porque seguramente eso va a
+romper un test.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/217-2
+00:31:09.917 --> 00:31:15.046
+<v Javier Caballero (EXT)>Todas las demás funcionalidades son como
+es hasta incluso modificar el perfil.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/217-3
+00:31:15.046 --> 00:31:19.656
+<v Javier Caballero (EXT)>Hacer lo que quieras con el perfil.
+Se puede cambiar mil veces. Bueno,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/217-4
+00:31:19.656 --> 00:31:24.070
+<v Javier Caballero (EXT)>excepto el nombre. No se puede cambiar,
+el DNI tampoco, ni el main.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/218-0
+00:31:24.590 --> 00:31:28.522
+<v Javier Caballero (EXT)>Pero el número de teléfono, sí,
+las direcciones, juega con eso,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/218-1
+00:31:28.522 --> 00:31:29.750
+<v Javier Caballero (EXT)>todo lo que quieras.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/219-0
+00:31:31.150 --> 00:31:35.322
+<v Javier Caballero (EXT)>Pero ve acá tenés el token,
+otras cosas de ver.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/219-1
+00:31:35.322 --> 00:31:40.972
+<v Javier Caballero (EXT)>Lo único que sí no hagas es la de es
+cargar una credencial, ver,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/219-2
+00:31:40.972 --> 00:31:46.535
+<v Javier Caballero (EXT)>descargar todo lo demás. No hay,
+no hay problema que las hagas.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/219-3
+00:31:46.535 --> 00:31:49.750
+<v Javier Caballero (EXT)>Igual lo mismo que bueno, reintegros.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/220-0
+00:31:51.230 --> 00:31:51.830
+<v Javier Caballero (EXT)>Palo.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/221-0
+00:31:53.070 --> 00:31:57.870
+<v Javier Caballero (EXT)>No hay problema porque básicamente igual
+tampoco anda, así que.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/222-0
+00:32:03.310 --> 00:32:07.161
+<v Javier Caballero (EXT)>Vamos, venimos bien,
+hay algo que quieras que repasemos porque</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/222-1
+00:32:07.161 --> 00:32:08.750
+<v Javier Caballero (EXT)>veníamos hablando un poco.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/223-0
+00:32:10.270 --> 00:32:12.510
+<v Javier Caballero (EXT)>¿Sobre cómo es la estrategia?</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/224-0
+00:32:14.350 --> 00:32:17.310
+<v Javier Caballero (EXT)>¿Quedó claro la estrategia de trabajo del
+equipo?</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/225-0
+00:32:18.110 --> 00:32:18.590
+<v Alan David Guzman (EXT)>Sí.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/227-0
+00:32:20.190 --> 00:32:23.199
+<v Javier Caballero (EXT)>Este documento te lo paso,
+no te preocupes,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/227-1
+00:32:23.199 --> 00:32:26.070
+<v Javier Caballero (EXT)>así que lo importante es que lo entiendas.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/226-0
+00:32:25.070 --> 00:32:25.990
+<v Alan David Guzman (EXT)>Y te lo agradezco.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/228-0
+00:32:27.230 --> 00:32:29.830
+<v Javier Caballero (EXT)>Bien, lo importante, eso es su tarea.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/231-0
+00:32:29.150 --> 00:32:33.476
+<v Alan David Guzman (EXT)>Bueno,
+este como la llamada de ayer no se grabó,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/229-0
+00:32:32.190 --> 00:32:32.670
+<v Javier Caballero (EXT)>Sí.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/231-1
+00:32:33.476 --> 00:32:38.155
+<v Alan David Guzman (EXT)>a poder echar a mí,
+me puedes poner ahí este, o sea,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/231-2
+00:32:38.155 --> 00:32:39.390
+<v Alan David Guzman (EXT)>tú me dijiste.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/232-0
+00:32:41.150 --> 00:32:41.550
+<v Alan David Guzman (EXT)>Y.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/233-0
+00:32:43.070 --> 00:32:48.881
+<v Alan David Guzman (EXT)>¿Cuando me entregan aquí la subtarea,
+crear casos de prueba en cuba regresión y</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/233-1
+00:32:48.881 --> 00:32:53.312
+<v Alan David Guzman (EXT)>que voy a regresar,
+hay alguna otra task o subtask que tenga</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/233-2
+00:32:53.312 --> 00:32:54.910
+<v Alan David Guzman (EXT)>que tenerlo en cuenta?</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/235-0
+00:32:57.310 --> 00:33:01.707
+<v Javier Caballero (EXT)>No, más de eso no pasa.
+Siempre más o menos va a ser eso.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/234-0
+00:32:57.550 --> 00:32:58.950
+<v Alan David Guzman (EXT)>O esas tres son las únicas.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/235-1
+00:33:01.707 --> 00:33:05.194
+<v Javier Caballero (EXT)>En realidad no es validar en QA es en QA.
+No,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/235-2
+00:33:05.194 --> 00:33:11.183
+<v Javier Caballero (EXT)>más allá de o crear los casos de prueba o
+hacer las pruebas de QA o a veces te</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/235-3
+00:33:11.183 --> 00:33:16.413
+<v Javier Caballero (EXT)>llega un ticket y decís ah,
+pero a partir de este tengo que crear el</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/235-4
+00:33:16.413 --> 00:33:17.550
+<v Javier Caballero (EXT)>caso de prueba.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/236-0
+00:33:17.710 --> 00:33:20.341
+<v Javier Caballero (EXT)>Agregas el su tarea,
+crear casos de prueba,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/236-1
+00:33:20.341 --> 00:33:24.467
+<v Javier Caballero (EXT)>no como ticket aparte, decís OK,
+no voy a crear los casos de prueba.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/236-2
+00:33:24.467 --> 00:33:29.310
+<v Javier Caballero (EXT)>Después los voy a probar y voy a hacer
+una regresión. Entonces ya la gente sabe.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/237-0
+00:33:31.390 --> 00:33:35.190
+<v Javier Caballero (EXT)>Ese me costó caro aprender eso porque
+nadie me lo dijo.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/239-0
+00:33:36.430 --> 00:33:38.830
+<v Javier Caballero (EXT)>Y todo le esperaban que dime.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/238-0
+00:33:36.590 --> 00:33:37.830
+<v Alan David Guzman (EXT)>Man, una pregunta.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/240-0
+00:33:39.230 --> 00:33:45.602
+<v Alan David Guzman (EXT)>¿Este ¿Todo esto lo que tú me estás
+enseñando fue de todo de manera empírica</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/240-1
+00:33:45.602 --> 00:33:47.670
+<v Alan David Guzman (EXT)>o aquí hay documentación?</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/241-0
+00:33:48.510 --> 00:33:55.924
+<v Javier Caballero (EXT)>No hay documentación, nada.
+Y mi onboarding fue Alexis en una llamada</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/241-1
+00:33:55.924 --> 00:34:01.325
+<v Javier Caballero (EXT)>de media hora diciéndome, bueno,
+ahí tenés la web,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/241-2
+00:34:01.325 --> 00:34:07.150
+<v Javier Caballero (EXT)>acá tenés la web institucional y nada,
+venís acá tuki.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/242-0
+00:34:07.230 --> 00:34:11.188
+<v Javier Caballero (EXT)>Comprar acá, compras,
+usas las tarjetas de mercado pago,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/242-1
+00:34:11.188 --> 00:34:14.590
+<v Javier Caballero (EXT)>que está las tarjetas de mercado pago
+están acá.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/243-0
+00:34:16.990 --> 00:34:17.790
+<v Javier Caballero (EXT)>¿Etas de acá?</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/244-0
+00:34:19.150 --> 00:34:22.582
+<v Javier Caballero (EXT)>Bueno, ahí me dijo,
+usa las tarjetas de mercado pago,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/244-1
+00:34:22.582 --> 00:34:27.030
+<v Javier Caballero (EXT)>se refería a eso y el usuario me lo tuve
+que crear yo, así que no es.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/245-0
+00:34:29.230 --> 00:34:32.354
+<v Javier Caballero (EXT)>Eso fue todo.
+Nadie más me explicó cómo funcionaba.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/245-1
+00:34:32.354 --> 00:34:35.538
+<v Javier Caballero (EXT)>Nadie porque también había un montón de
+situaciones.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/245-2
+00:34:35.538 --> 00:34:39.383
+<v Javier Caballero (EXT)>Nadie me estaba prestando atención a lo
+que yo hacía. No hacía,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/245-3
+00:34:39.383 --> 00:34:43.889
+<v Javier Caballero (EXT)>me tenía que buscar tareas para hacer
+porque ni siquiera me daban tickets,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/245-4
+00:34:43.889 --> 00:34:44.910
+<v Javier Caballero (EXT)>no me daban nada.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/246-0
+00:34:46.270 --> 00:34:51.013
+<v Javier Caballero (EXT)>Y de repente me bombardearon a tantas
+tareas manuales que no había un momento</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/246-1
+00:34:51.013 --> 00:34:54.905
+<v Javier Caballero (EXT)>para hacer Automation.
+Y después me dijeron, bueno, ahora está,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/246-2
+00:34:54.905 --> 00:34:59.830
+<v Javier Caballero (EXT)>ahora vas a hacer Automation y era ok,
+hay que arrancar toda Automation de cero.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/247-0
+00:35:02.190 --> 00:35:05.808
+<v Javier Caballero (EXT)>Ya igual el framework como framework está
+creado,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/247-1
+00:35:05.808 --> 00:35:11.380
+<v Javier Caballero (EXT)>tiene ya resuelve muchos problemas.
+El tema es que hay cosas que ya lo vamos</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/247-2
+00:35:11.380 --> 00:35:13.550
+<v Javier Caballero (EXT)>a ver en la siguiente reunión.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/248-0
+00:35:15.150 --> 00:35:22.110
+<v Javier Caballero (EXT)>Depende de otros equipos o creo que de
+Alexis que habiliten una forma de generar.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/249-0
+00:35:22.990 --> 00:35:26.430
+<v Javier Caballero (EXT)>Cupones para ser usado en los planes de
+OSD.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/250-0
+00:35:27.630 --> 00:35:31.982
+<v Javier Caballero (EXT)>Y que y que nada, si no,
+sin eso no hay partes que no se pueden</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/250-1
+00:35:31.982 --> 00:35:36.198
+<v Javier Caballero (EXT)>probar, sino bueno,
+tenés que hacer modificación en el código</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/250-2
+00:35:36.198 --> 00:35:39.938
+<v Javier Caballero (EXT)>y después hacerla y todo lo demás.
+Por pronto te digo,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/250-3
+00:35:39.938 --> 00:35:43.950
+<v Javier Caballero (EXT)>esperá que te digan que pueden generar
+los tickets y chao.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/251-0
+00:35:46.030 --> 00:35:46.990
+<v Javier Caballero (EXT)>Um.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/252-0
+00:35:48.150 --> 00:35:53.652
+<v Javier Caballero (EXT)>Pero hay otros 2 tipos de usuarios que sí
+se pueden. De nuevo solo vemos después,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/252-1
+00:35:53.652 --> 00:35:57.073
+<v Javier Caballero (EXT)>pero es así.
+Al principio nadie me explicó nada de</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/252-2
+00:35:57.073 --> 00:35:58.750
+<v Javier Caballero (EXT)>nada. Entonces asumieron.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/253-0
+00:35:59.550 --> 00:36:04.161
+<v Javier Caballero (EXT)>Cómo se trabajaba y me y me dieron el
+board y yo tuve que descubrir cómo</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/253-1
+00:36:04.161 --> 00:36:08.707
+<v Javier Caballero (EXT)>trabajaban y fueron ellos haciendo sus
+cosas y todo. Paula me escribió,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/253-2
+00:36:08.707 --> 00:36:13.128
+<v Javier Caballero (EXT)>me escribió, me hizo una llamada,
+me explicó más o menos porque yo le</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/253-3
+00:36:13.128 --> 00:36:16.475
+<v Javier Caballero (EXT)>pregunté no porque ella quisiera,
+sino me dijo mira,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/253-4
+00:36:16.475 --> 00:36:20.643
+<v Javier Caballero (EXT)>te asigné un par de tickets y le digo
+bueno, pero cómo se prueba,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/253-5
+00:36:20.643 --> 00:36:22.790
+<v Javier Caballero (EXT)>dónde se prueba? Y ahí me explicó.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/254-0
+00:36:23.630 --> 00:36:25.390
+<v Javier Caballero (EXT)>No, no, suerte.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/255-0
+00:36:26.830 --> 00:36:27.190
+<v Javier Caballero (EXT)>Sí.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/256-0
+00:36:27.150 --> 00:36:28.030
+<v Alan David Guzman (EXT)>Mala eso.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/257-0
+00:36:28.670 --> 00:36:29.710
+<v Javier Caballero (EXT)>Sí, no.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/258-0
+00:36:30.750 --> 00:36:35.818
+<v Javier Caballero (EXT)>No, en eso sí,
+por eso ya por lo menos con vos te puedo</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/258-1
+00:36:35.818 --> 00:36:40.070
+<v Javier Caballero (EXT)>dar el training este y es ya una gran
+ventaja.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/259-0
+00:36:43.070 --> 00:36:43.910
+<v Javier Caballero (EXT)>Entonces.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/260-0
+00:36:44.990 --> 00:36:50.658
+<v Javier Caballero (EXT)>Los cayeron estos tickets, como ves,
+está bastante,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/260-1
+00:36:50.658 --> 00:36:53.710
+<v Javier Caballero (EXT)>esto está como bastante ahí.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/261-0
+00:36:54.830 --> 00:36:57.550
+<v Javier Caballero (EXT)>Dice cosas y al mismo tiempo no dice nada.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/262-0
+00:37:00.190 --> 00:37:00.230
+<v Javier Caballero (EXT)>Y.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/263-0
+00:37:02.030 --> 00:37:03.670
+<v Javier Caballero (EXT)>Los criterios de aceptación.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/264-0
+00:37:04.910 --> 00:37:08.293
+<v Javier Caballero (EXT)>O sea,
+no es que no es que en algún punto la P o</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/264-1
+00:37:08.293 --> 00:37:13.470
+<v Javier Caballero (EXT)>los revise y los aprueba a ver si están
+todos los criterios de aceptación.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/265-0
+00:37:15.470 --> 00:37:19.404
+<v Javier Caballero (EXT)>Mira, yo termino el ticket,
+lo voy a hacer con esto.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/265-1
+00:37:19.404 --> 00:37:25.119
+<v Javier Caballero (EXT)>Yo terminé el ticket, sí. Entonces,
+vine para acá. Pruebas en validación en,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/265-2
+00:37:25.119 --> 00:37:30.240
+<v Javier Caballero (EXT)>bueno, pruebas en prod. Pruebas en QA,
+igual estas pruebas las creo,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/265-3
+00:37:30.240 --> 00:37:34.470
+<v Javier Caballero (EXT)>¿cómo se llama?
+Las creo entre la APO y la scram master.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/266-0
+00:37:34.870 --> 00:37:37.350
+<v Javier Caballero (EXT)>Yo acá vengo y me asigno esta su tarea.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/267-0
+00:37:38.670 --> 00:37:39.750
+<v Javier Caballero (EXT)>La subtarea.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/268-0
+00:37:38.750 --> 00:37:42.823
+<v Alan David Guzman (EXT)>Una pregunta,
+en este caso de que va a hacer pruebas,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/268-1
+00:37:42.823 --> 00:37:45.990
+<v Alan David Guzman (EXT)>pero digo, pues como no veo el la task de.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/269-0
+00:37:47.070 --> 00:37:48.750
+<v Alan David Guzman (EXT)>De los casos de pruebas.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/270-0
+00:37:50.350 --> 00:37:56.537
+<v Javier Caballero (EXT)>Ah porque la taxi caso de prueba es esta
+que te decía de es esta acá la saqué</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/270-1
+00:37:56.537 --> 00:37:59.630
+<v Javier Caballero (EXT)>aparte que involucra digamos a la épica</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/271-0
+00:38:01.230 --> 00:38:05.670
+<v Javier Caballero (EXT)>Bs está asociada a la misma épica
+videollamada rediseño.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/272-0
+00:38:06.590 --> 00:38:07.870
+<v Alan David Guzman (EXT)>ok, ok, listo.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/273-0
+00:38:09.070 --> 00:38:17.562
+<v Javier Caballero (EXT)>Entonces nada, que llega esta esta tarea,
+pruebas qua tuki asignada a voz viene</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/273-1
+00:38:17.562 --> 00:38:19.790
+<v Javier Caballero (EXT)>para acá backlog dan.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/275-0
+00:38:21.150 --> 00:38:26.937
+<v Javier Caballero (EXT)>Terminado, eso está terminado.
+Entonces acá va a pending validation,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/275-1
+00:38:26.937 --> 00:38:33.059
+<v Javier Caballero (EXT)>horrible los nombres, horrible,
+un culo la verdad para poner el nombre o</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/274-0
+00:38:32.910 --> 00:38:33.910
+<v Alan David Guzman (EXT)>I'm sorry.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/275-2
+00:38:33.059 --> 00:38:33.310
+<v Javier Caballero (EXT)>el.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/276-0
+00:38:34.470 --> 00:38:40.934
+<v Javier Caballero (EXT)>¿O es lo mismo que agarres y le arrastre
+esta columna de Pending Production? Sí,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/276-1
+00:38:40.934 --> 00:38:46.920
+<v Javier Caballero (EXT)>y te la tenés que sacarla el ticket y
+ponerlo a Alexis o al desarrollador.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/276-2
+00:38:46.920 --> 00:38:50.670
+<v Javier Caballero (EXT)>Por la duda,
+pásalo al desarrollador de nuevo.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/277-0
+00:38:51.870 --> 00:38:55.430
+<v Javier Caballero (EXT)>No te confundas, pásalo al desarrollador,
+o sea.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/278-0
+00:38:57.390 --> 00:39:03.018
+<v Javier Caballero (EXT)>Si en la tarea la desarrollo Paula. Listo,
+desarrolla la solución.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/278-1
+00:39:03.018 --> 00:39:08.394
+<v Javier Caballero (EXT)>Voy a terminar de probar.
+Pasa Pending Validation asignado a el</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/278-2
+00:39:08.394 --> 00:39:11.670
+<v Javier Caballero (EXT)>desarrollador. Paula. Listo. Nos vimos.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/279-0
+00:39:12.910 --> 00:39:14.870
+<v Javier Caballero (EXT)>Y ellos hacen el pasaje a producción.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/280-0
+00:39:16.630 --> 00:39:21.403
+<v Javier Caballero (EXT)>Pero jamás le vuelve al p o para hacer o
+que el p o vea todos los tickets</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/280-1
+00:39:21.403 --> 00:39:22.950
+<v Javier Caballero (EXT)>terminados y ya haga la.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/281-0
+00:39:24.270 --> 00:39:26.310
+<v Javier Caballero (EXT)>Digamos, haga los criterios de aceptación.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/282-0
+00:39:27.150 --> 00:39:27.910
+<v Javier Caballero (EXT)>No pasa.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/284-0
+00:39:29.230 --> 00:39:34.430
+<v Javier Caballero (EXT)>Capaz que empiece a pasar después,
+pero hoy no pasa, así que nada.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/283-0
+00:39:33.550 --> 00:39:34.070
+<v Alan David Guzman (EXT)>Pero.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/285-0
+00:39:35.070 --> 00:39:38.750
+<v Alan David Guzman (EXT)>Puede mostrar otra vez la el.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/286-0
+00:39:39.590 --> 00:39:41.910
+<v Javier Caballero (EXT)>La user sorry esta.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/287-0
+00:39:42.670 --> 00:39:43.510
+<v Alan David Guzman (EXT)>Ajá, okay.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/288-0
+00:39:45.030 --> 00:39:46.070
+<v Alan David Guzman (EXT)>Baja un momentico.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/289-0
+00:39:47.550 --> 00:39:49.110
+<v Javier Caballero (EXT)>Sí, avísame cuando sigo bajando.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/290-0
+00:39:49.390 --> 00:39:50.150
+<v Alan David Guzman (EXT)>Okey.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/291-0
+00:39:53.950 --> 00:39:54.390
+<v Alan David Guzman (EXT)>And.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/292-0
+00:39:55.950 --> 00:39:59.830
+<v Javier Caballero (EXT)>Esto está mal porque no es la web app de
+Bettify.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/293-0
+00:40:01.070 --> 00:40:04.192
+<v Alan David Guzman (EXT)>No, oye,
+que eso se nota que fue con una pura de</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/293-1
+00:40:04.192 --> 00:40:04.510
+<v Alan David Guzman (EXT)>puro.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/295-0
+00:40:05.550 --> 00:40:10.568
+<v Javier Caballero (EXT)>Sí, está re nota porque la web up de Ike,
+que no sé qué planes Betify pueden</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/294-0
+00:40:06.110 --> 00:40:06.430
+<v Alan David Guzman (EXT)>Hello!</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/295-1
+00:40:10.568 --> 00:40:13.630
+<v Javier Caballero (EXT)>autenticarse, ingresar a la web up de Ike,
+no.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/296-0
+00:40:14.270 --> 00:40:18.230
+<v Alan David Guzman (EXT)>Y eso es lo que yo digo,
+está raro y ven acá entonces.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/298-0
+00:40:19.270 --> 00:40:24.442
+<v Alan David Guzman (EXT)>Ten en cuenta o k que esto primero esto
+no lo hicieron un double check,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/298-1
+00:40:24.442 --> 00:40:29.110
+<v Alan David Guzman (EXT)>no pasó por un validador.
+Esto fue la idea de la y directo para.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/297-0
+00:40:25.990 --> 00:40:27.150
+<v Javier Caballero (EXT)>A, espérate.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/302-0
+00:40:30.470 --> 00:40:35.147
+<v Javier Caballero (EXT)>Acá es perdón, esta es la esta es la bien,
+la historia de cómo se llama,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/299-0
+00:40:30.790 --> 00:40:31.630
+<v Alan David Guzman (EXT)>¿Cómo hace esto?</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/302-1
+00:40:35.147 --> 00:40:38.350
+<v Javier Caballero (EXT)>esta es la historia de usuario,
+bien la historia.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/301-0
+00:40:38.230 --> 00:40:38.550
+<v Alan David Guzman (EXT)>Hey.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/303-0
+00:40:42.870 --> 00:40:45.910
+<v Javier Caballero (EXT)>Como cliente, bla, bla,
+deseo servicio una videollamada.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/304-0
+00:40:52.430 --> 00:40:57.440
+<v Javier Caballero (EXT)>Esto es, si no tenés credencial,
+te lo explico con porque esto lo va a</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/304-1
+00:40:57.440 --> 00:41:01.110
+<v Javier Caballero (EXT)>tener que probar,
+así que ya de paso te lo explico.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/304-2
+00:41:01.110 --> 00:41:06.190
+<v Javier Caballero (EXT)>Entonces vamos al Figma y te lo explico.
+Oh, este es un esto sí que es.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/305-0
+00:41:06.870 --> 00:41:08.910
+<v Javier Caballero (EXT)>Esto es enorme.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/306-0
+00:41:10.230 --> 00:41:15.319
+<v Javier Caballero (EXT)>En realidad es súper simple de ver,
+hay mobile y de esto vamos a verlo en</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/306-1
+00:41:15.319 --> 00:41:18.550
+<v Javier Caballero (EXT)>mobile porque son más chiquitas las
+pantallas.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/307-0
+00:41:20.790 --> 00:41:23.710
+<v Javier Caballero (EXT)>Básicamente es.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/308-0
+00:41:26.150 --> 00:41:27.190
+<v Javier Caballero (EXT)>¿Dónde estaba?</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/309-0
+00:41:32.470 --> 00:41:34.390
+<v Javier Caballero (EXT)>Tiene más de una mascota.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/310-0
+00:41:36.550 --> 00:41:38.430
+<v Javier Caballero (EXT)>Ingresar al flujo.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/312-0
+00:41:50.390 --> 00:41:51.270
+<v Javier Caballero (EXT)>pero que.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/313-0
+00:41:52.790 --> 00:41:57.870
+<v Javier Caballero (EXT)>Es un camino alternativo, digamos,
+es acá está. es.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/314-0
+00:41:59.510 --> 00:42:01.190
+<v Javier Caballero (EXT)>No completo la credencia.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/315-0
+00:42:03.990 --> 00:42:09.199
+<v Javier Caballero (EXT)>Vos cuando compras un plan te aparece
+esta tarjetita, dejá su credencial lista,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/315-1
+00:42:09.199 --> 00:42:10.110
+<v Javier Caballero (EXT)>la credencial.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/316-0
+00:42:11.190 --> 00:42:15.750
+<v Javier Caballero (EXT)>Es este esta tarjetita que ves acá que
+tienen los datos de las mascotas.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/317-0
+00:42:16.790 --> 00:42:20.150
+<v Javier Caballero (EXT)>Sí, tiene la imagen, la foto y demás.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/318-0
+00:42:23.030 --> 00:42:25.190
+<v Javier Caballero (EXT)>Copy copy link.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/319-0
+00:42:26.270 --> 00:42:29.217
+<v Javier Caballero (EXT)>Te lo muestro acá,
+más fácil mostrártelo acá que hacer todo</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/319-1
+00:42:29.217 --> 00:42:30.150
+<v Javier Caballero (EXT)>el centro de datos.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/320-0
+00:42:32.150 --> 00:42:37.636
+<v Javier Caballero (EXT)>Está bastante bien, digamos,
+presta atención a los diseños,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/320-1
+00:42:37.636 --> 00:42:44.585
+<v Javier Caballero (EXT)>si la si los márgenes, los espacios, todo,
+porque la verdad vienen haciendo</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/320-2
+00:42:44.585 --> 00:42:46.870
+<v Javier Caballero (EXT)>cualquier cosa, entonces.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/321-0
+00:42:48.070 --> 00:42:51.973
+<v Javier Caballero (EXT)>Hubieron varias iteraciones.
+Cuando vos compras un plan, digamos,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/321-1
+00:42:51.973 --> 00:42:56.112
+<v Javier Caballero (EXT)>compras un plan y entras así,
+sos un primer usuario, bienvenido, bla,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/321-2
+00:42:56.112 --> 00:42:59.719
+<v Javier Caballero (EXT)>bla, bla. Te dice,
+deja su credencial lista porque tenés que</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/321-3
+00:42:59.719 --> 00:43:02.912
+<v Javier Caballero (EXT)>poner quién va a ser la mascota,
+fijar ciertos datos,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/321-4
+00:43:02.912 --> 00:43:07.110
+<v Javier Caballero (EXT)>entonces cargar la credencia,
+entonces venís, completaste este wizard.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/322-0
+00:43:07.590 --> 00:43:08.670
+<v Javier Caballero (EXT)>Nombre.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/323-0
+00:43:09.670 --> 00:43:12.590
+<v Javier Caballero (EXT)>Seleccionar si es perro o gato y el sexo.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/324-0
+00:43:14.830 --> 00:43:15.870
+<v Javier Caballero (EXT)>La raza.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/325-0
+00:43:16.830 --> 00:43:21.978
+<v Javier Caballero (EXT)>La edad en realidad hoy está esta opción
+que selecciona qué edad tiene,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/325-1
+00:43:21.978 --> 00:43:27.697
+<v Javier Caballero (EXT)>cuántos años y de ahí calcula, o sea,
+calcula a partir de si vos pusiste un año</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/325-2
+00:43:27.697 --> 00:43:31.486
+<v Javier Caballero (EXT)>y dos meses, es un año y dos meses,
+es fecha de hoy,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/325-3
+00:43:31.486 --> 00:43:33.630
+<v Javier Caballero (EXT)>un año y dos meses para atrás.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/326-0
+00:43:34.470 --> 00:43:37.350
+<v Javier Caballero (EXT)>Lo cual es aproximado.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/327-0
+00:43:40.390 --> 00:43:44.319
+<v Javier Caballero (EXT)>más o menos, igual lo guarda,
+lo guarda como fecha de ahora,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/327-1
+00:43:44.319 --> 00:43:47.796
+<v Javier Caballero (EXT)>menos un año,
+menos la cantidad de meses que pusiste.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/327-2
+00:43:47.796 --> 00:43:50.888
+<v Javier Caballero (EXT)>Luego subirse una foto,
+la foto es obligatoria,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/327-3
+00:43:50.888 --> 00:43:54.558
+<v Javier Caballero (EXT)>de sacar la fotito y quedó guardada y
+después se ve así,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/327-4
+00:43:54.558 --> 00:43:59.131
+<v Javier Caballero (EXT)>que es lo que veníamos viendo.
+Esta es una credencial cargada a partir</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/327-5
+00:43:59.131 --> 00:43:59.710
+<v Javier Caballero (EXT)>de ahora.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/328-0
+00:43:59.830 --> 00:44:04.384
+<v Javier Caballero (EXT)>Vos ya puedes usar con esta,
+ya puedes usar las otras funcionalidades</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/328-1
+00:44:04.384 --> 00:44:08.158
+<v Javier Caballero (EXT)>con la mascota. Sí,
+la credencial es de nuevo un punto de</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/328-2
+00:44:08.158 --> 00:44:11.150
+<v Javier Caballero (EXT)>inflexión clave en el resto de la
+aplicación.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/329-0
+00:44:12.310 --> 00:44:14.630
+<v Javier Caballero (EXT)>No o por más que tengas un token.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/330-0
+00:44:15.830 --> 00:44:20.037
+<v Javier Caballero (EXT)>Si el veterinario no sabe a qué mascota,
+si no tenés la credencial,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/330-1
+00:44:20.037 --> 00:44:25.048
+<v Javier Caballero (EXT)>no puedes ni siquiera ir presencialmente,
+que igual tenés que gestionar el tubo.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/330-2
+00:44:25.048 --> 00:44:29.873
+<v Javier Caballero (EXT)>No hay toda una cosa que se viene en la
+gestión de carga de todo lo que es la</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/330-3
+00:44:29.873 --> 00:44:31.110
+<v Javier Caballero (EXT)>atención presencial.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/331-0
+00:44:32.710 --> 00:44:33.390
+<v Javier Caballero (EXT)>Entonces.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/332-0
+00:44:35.030 --> 00:44:37.310
+<v Javier Caballero (EXT)>El ticket habla de que si vos.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/333-0
+00:44:38.070 --> 00:44:41.506
+<v Javier Caballero (EXT)>No cargaste esa credencial,
+pero que digamos estás acá,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/333-1
+00:44:41.506 --> 00:44:46.414
+<v Javier Caballero (EXT)>recién compraste el plan y ya quieres
+hacer una videollamada porque lo ves a tu</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/333-2
+00:44:46.414 --> 00:44:48.990
+<v Javier Caballero (EXT)>animal que tiene que está mal de la panza.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/334-0
+00:44:49.990 --> 00:44:55.964
+<v Javier Caballero (EXT)>Entonces decís ok, voy a comprar Betify.
+Ok, así ya lo revisa. Ok, listo,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/334-1
+00:44:55.964 --> 00:45:02.099
+<v Javier Caballero (EXT)>voy a hacer una videollamada con la
+veterinaria, pero vos no cargaste esto.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/334-2
+00:45:02.099 --> 00:45:06.216
+<v Javier Caballero (EXT)>La idea es que te diga che,
+cargame la credencial.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/334-3
+00:45:06.216 --> 00:45:07.830
+<v Javier Caballero (EXT)>Así nosotros podemos</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/335-0
+00:45:09.350 --> 00:45:13.448
+<v Javier Caballero (EXT)>Puedes hacer la videollamada,
+entonces carga toda la videollamada,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/335-1
+00:45:13.448 --> 00:45:17.423
+<v Javier Caballero (EXT)>termina y vuelve al home,
+ya con la credencial cargada y después</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/335-2
+00:45:17.423 --> 00:45:20.542
+<v Javier Caballero (EXT)>recién vuelve,
+puede recién hacer la videollamada.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/335-3
+00:45:20.542 --> 00:45:23.110
+<v Javier Caballero (EXT)>Se entiende? Bastante simple en esa parte.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/336-0
+00:45:25.270 --> 00:45:25.910
+<v Javier Caballero (EXT)>Entonces.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/337-0
+00:45:28.870 --> 00:45:32.748
+<v Javier Caballero (EXT)>Porque claro,
+depende de la cobertura que tengas y</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/337-1
+00:45:32.748 --> 00:45:38.070
+<v Javier Caballero (EXT)>cuántos cuántos videollamada puede hacer,
+bla, bla, bla, bla se está.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/338-0
+00:45:38.830 --> 00:45:42.973
+<v Javier Caballero (EXT)>Implementar la experiencia de aquellos
+usuarios con el titular solicita video</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/338-1
+00:45:42.973 --> 00:45:45.310
+<v Javier Caballero (EXT)>consulta y no posee una credencial
+cargada.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/339-0
+00:45:47.430 --> 00:45:52.702
+<v Javier Caballero (EXT)>Es solo un caso porque puedes tener
+mascotas y puedes tener,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/339-1
+00:45:52.702 --> 00:45:59.270
+<v Javier Caballero (EXT)>puedes tener una mascota y suponés que
+adoptaste 2 o tu mascota tuvo hijos.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/340-0
+00:46:00.870 --> 00:46:05.236
+<v Javier Caballero (EXT)>Entonces vos compras un plan para los
+hijos o porque a la nueva mascota que</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/340-1
+00:46:05.236 --> 00:46:08.338
+<v Javier Caballero (EXT)>adoptaste,
+pero todavía no le cargaste la credencial.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/340-2
+00:46:08.338 --> 00:46:11.096
+<v Javier Caballero (EXT)>Igual podés.
+Esto es en el caso de que la única</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/340-3
+00:46:11.096 --> 00:46:13.910
+<v Javier Caballero (EXT)>mascota que vos tengas,
+la esa mascota necesita.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/341-0
+00:46:14.990 --> 00:46:18.036
+<v Javier Caballero (EXT)>Bueno, esto nunca se se aclara.
+Es el caso,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/341-1
+00:46:18.036 --> 00:46:21.842
+<v Javier Caballero (EXT)>no posee una credencial vigente,
+lo cual es verdadero,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/341-2
+00:46:21.842 --> 00:46:26.756
+<v Javier Caballero (EXT)>pero también si es no posee,
+también queda en el caso de que tenga una</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/341-3
+00:46:26.756 --> 00:46:29.870
+<v Javier Caballero (EXT)>mascota cargada y una credencial no
+cargada.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/342-0
+00:46:33.110 --> 00:46:37.002
+<v Javier Caballero (EXT)>Entonces te diga que no se puede
+administrar.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/342-1
+00:46:37.002 --> 00:46:42.670
+<v Javier Caballero (EXT)>El figma está mejor explicado que cómo se
+llama que la user story.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/343-0
+00:46:43.750 --> 00:46:47.125
+<v Javier Caballero (EXT)>Y los criterios de aceptación de esto es
+ChatGPT,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/343-1
+00:46:47.125 --> 00:46:52.186
+<v Javier Caballero (EXT)>dado que el tutor solicita el niño
+consulta el cuando el sistema valida su</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/343-2
+00:46:52.186 --> 00:46:55.695
+<v Javier Caballero (EXT)>información,
+debe verificar si existe una credencia</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/343-3
+00:46:55.695 --> 00:47:00.486
+<v Javier Caballero (EXT)>vigente y valida para o sea al tutor.
+No dice nada. Bloqueo del flujo.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/343-4
+00:47:00.486 --> 00:47:02.510
+<v Javier Caballero (EXT)>No puse una credencia cargada.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/344-0
+00:47:02.950 --> 00:47:06.910
+<v Javier Caballero (EXT)>Intenta avanzar que el sistema no debe
+permitir continuar con la reserva.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/345-0
+00:47:07.670 --> 00:47:08.350
+<v Javier Caballero (EXT)>Bueno.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/346-0
+00:47:10.150 --> 00:47:13.030
+<v Javier Caballero (EXT)>De nuevo, poneme que va a la.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/347-0
+00:47:14.310 --> 00:47:19.247
+<v Javier Caballero (EXT)>El usuario avisó el mensaje indicando que
+de cita cargar su credencial. Bueno, ve,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/347-1
+00:47:19.247 --> 00:47:23.589
+<v Javier Caballero (EXT)>ya está. Aceptación número tres.
+Es como que hay muchas palabras para no</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/347-2
+00:47:23.589 --> 00:47:26.206
+<v Javier Caballero (EXT)>decir nada.
+La cara de credencial es listo.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/347-3
+00:47:26.206 --> 00:47:29.597
+<v Javier Caballero (EXT)>Mostrarme directamente que es un criterio
+de aceptación.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/347-4
+00:47:29.597 --> 00:47:33.760
+<v Javier Caballero (EXT)>Si el usuario no tiene cosa,
+el usuario va a la pantalla mostrando un</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/347-5
+00:47:33.760 --> 00:47:37.150
+<v Javier Caballero (EXT)>mensaje de error diciendo que debe cargar
+la credencial.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/348-0
+00:47:37.270 --> 00:47:42.256
+<v Javier Caballero (EXT)>Punto,
+pero se nota CHPT retornar a la solución</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/348-1
+00:47:42.256 --> 00:47:43.710
+<v Javier Caballero (EXT)>dado que siga.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/349-0
+00:47:44.950 --> 00:47:46.310
+<v Javier Caballero (EXT)>pregunta, vos tenés clot?</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/350-0
+00:47:47.990 --> 00:47:49.510
+<v Alan David Guzman (EXT)>No.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/351-0
+00:47:50.070 --> 00:47:55.103
+<v Javier Caballero (EXT)>Tenés que gestionarlo con sí,
+estamos los 2 mismo en Riverview,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/351-1
+00:47:55.103 --> 00:48:01.315
+<v Javier Caballero (EXT)>tenés que a tu contacto de Riverview
+decirle que te gestionen eso si es como a</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/351-2
+00:48:01.315 --> 00:48:01.550
+<v Javier Caballero (EXT)>mí.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/352-0
+00:48:02.550 --> 00:48:03.070
+<v Javier Caballero (EXT)>Er.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/353-0
+00:48:04.470 --> 00:48:10.150
+<v Javier Caballero (EXT)>Te van a dar 20 dólares extra y te lo
+pagamos con tu cuenta y para pagarte el</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/353-1
+00:48:10.150 --> 00:48:10.950
+<v Javier Caballero (EXT)>cloud code.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/354-0
+00:48:12.030 --> 00:48:13.550
+<v Javier Caballero (EXT)>Acá todo el mundo causa cloud.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/355-0
+00:48:12.550 --> 00:48:15.350
+<v Alan David Guzman (EXT)>¿Pero qué versión te dan?</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/356-0
+00:48:16.670 --> 00:48:17.990
+<v Javier Caballero (EXT)>Te dan 20 usd.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/357-0
+00:48:19.270 --> 00:48:21.630
+<v Javier Caballero (EXT)>Y pero es la de.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/358-0
+00:48:23.030 --> 00:48:27.430
+<v Javier Caballero (EXT)>Low Code es la versión esta que tienes
+que crear.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/359-0
+00:48:30.870 --> 00:48:32.510
+<v Javier Caballero (EXT)>En teoría sería la pro.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/360-0
+00:48:34.830 --> 00:48:35.550
+<v Javier Caballero (EXT)>But...</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/361-0
+00:48:38.710 --> 00:48:39.190
+<v Javier Caballero (EXT)>By not.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/362-0
+00:48:40.230 --> 00:48:41.470
+<v Javier Caballero (EXT)>Es en realidad.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/363-0
+00:48:40.470 --> 00:48:47.668
+<v Alan David Guzman (EXT)>Imagino que tuviste que hacer de todo
+para tratar de gastar,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/363-1
+00:48:47.668 --> 00:48:52.270
+<v Alan David Guzman (EXT)>no gastar tanto token pum, solo 20 USD.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/364-0
+00:48:53.590 --> 00:48:58.827
+<v Javier Caballero (EXT)>Son bastante por igual no se ocupan
+tantos. Igual, como te digo,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/364-1
+00:48:58.827 --> 00:49:03.661
+<v Javier Caballero (EXT)>los casos de prueba,
+pedirle a la EA y es básicamente ahora</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/364-2
+00:49:03.661 --> 00:49:04.950
+<v Javier Caballero (EXT)>que no hay nada.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/365-0
+00:49:06.790 --> 00:49:11.030
+<v Javier Caballero (EXT)>Tenés que quedar lo quedarlo vos,
+no hay manera.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/366-0
+00:49:19.350 --> 00:49:23.884
+<v Javier Caballero (EXT)>Esto es falso,
+la user story no es lo que se acordó,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/366-1
+00:49:23.884 --> 00:49:27.990
+<v Javier Caballero (EXT)>no retorna a la videoconsulta,
+retorna al home.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/367-0
+00:49:28.790 --> 00:49:30.870
+<v Javier Caballero (EXT)>No le hagas caso a la historia, sí.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/368-0
+00:49:33.110 --> 00:49:38.470
+<v Alan David Guzman (EXT)>en estos casos que tú ves que que los el
+criterio tuvo que ya sabes el</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/368-1
+00:49:38.470 --> 00:49:44.584
+<v Alan David Guzman (EXT)>funcionamiento como tal de la aplicación
+y tú dices Okay Esto está mal escrito y</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/368-2
+00:49:44.584 --> 00:49:50.774
+<v Alan David Guzman (EXT)>esto Esto no se puede probar así en este
+caso tú que cómo cómo levantas la mano o</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/368-3
+00:49:50.774 --> 00:49:51.830
+<v Alan David Guzman (EXT)>qué Qué es ahí</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/369-0
+00:49:53.990 --> 00:50:00.196
+<v Javier Caballero (EXT)>Yo siempre hablo con el desarrollador,
+lo veo con él y luego la pregunta en el</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/369-1
+00:50:00.196 --> 00:50:06.558
+<v Javier Caballero (EXT)>canal si acuerdo que no sabe en vez de
+asumir algo o k preguntamos en el canal y</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/369-2
+00:50:06.558 --> 00:50:06.950
+<v Javier Caballero (EXT)>chao.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/370-0
+00:50:09.150 --> 00:50:11.793
+<v Javier Caballero (EXT)>O sea,
+esta es la primera vez que desarrollo una</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/370-1
+00:50:11.793 --> 00:50:14.543
+<v Javier Caballero (EXT)>feature,
+iba a ser la primera feature que íbamos a</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/370-2
+00:50:14.543 --> 00:50:15.190
+<v Javier Caballero (EXT)>desarrollar.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/371-0
+00:50:16.070 --> 00:50:20.420
+<v Javier Caballero (EXT)>Porque había el módulo de reintegros,
+que fue realmente la primera feature,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/371-1
+00:50:20.420 --> 00:50:24.883
+<v Javier Caballero (EXT)>la desarrolló un equipo que se armó
+justamente para hacer la funcionalidad de</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/371-2
+00:50:24.883 --> 00:50:28.718
+<v Javier Caballero (EXT)>reintegros, desarrolló la funcionalidad,
+la deployó y luego listo,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/371-3
+00:50:28.718 --> 00:50:33.181
+<v Javier Caballero (EXT)>el equipo de mascotas tiene que ahora
+hacerse cargo y nunca tocó nada de eso,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/371-4
+00:50:33.181 --> 00:50:35.470
+<v Javier Caballero (EXT)>nunca lo probó nada y le entregaron así.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/372-0
+00:50:36.270 --> 00:50:42.394
+<v Javier Caballero (EXT)>Anda, si no lo miras muy fuerte, anda,
+si ya lo miraste un poquito mal, no anda,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/372-1
+00:50:42.394 --> 00:50:43.150
+<v Javier Caballero (EXT)>se rompió.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/373-0
+00:50:46.590 --> 00:50:49.630
+<v Javier Caballero (EXT)>Eso es por un lado.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/375-0
+00:50:50.830 --> 00:50:57.289
+<v Javier Caballero (EXT)>El equipo como que siempre estuvo en
+hacer las todos los tipos de usuario para</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/375-1
+00:50:57.289 --> 00:51:02.030
+<v Javier Caballero (EXT)>soportar off de y flux y estuvo más bien
+enfocado en eso.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/376-0
+00:51:03.870 --> 00:51:08.426
+<v Javier Caballero (EXT)>Y cuando yo ingresé en eso,
+ya como que ya estaba definido. Listo,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/376-1
+00:51:08.426 --> 00:51:12.642
+<v Javier Caballero (EXT)>esto va a ser así.
+Tampoco hubo refinement, no hubo planning,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/376-2
+00:51:12.642 --> 00:51:17.130
+<v Javier Caballero (EXT)>no hubo nada. Es como listo, esto es así,
+hay que hacerlo. Punto.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/376-3
+00:51:17.130 --> 00:51:22.094
+<v Javier Caballero (EXT)>Y yo llegué y ni sabía de lo que estaban
+hablando y nadie me decía nada,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/376-4
+00:51:22.094 --> 00:51:24.270
+<v Javier Caballero (EXT)>no me ponían en contexto, nadie.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/377-0
+00:51:24.510 --> 00:51:25.430
+<v Javier Caballero (EXT)>Me explicó.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/378-0
+00:51:27.630 --> 00:51:31.669
+<v Javier Caballero (EXT)>Así que no sé qué te puedo responder
+sobre funcionalidades.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/378-1
+00:51:31.669 --> 00:51:35.640
+<v Javier Caballero (EXT)>¿Qué pasa cuando hay una discrepancia
+entre la user story?</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/378-2
+00:51:35.640 --> 00:51:38.870
+<v Javier Caballero (EXT)>Esto es porque un poco estuve en la de
+digamos.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/379-0
+00:51:40.670 --> 00:51:44.594
+<v Javier Caballero (EXT)>Esta justo,
+esta pregunta la hice yo cuando estaban</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/379-1
+00:51:44.594 --> 00:51:47.310
+<v Javier Caballero (EXT)>mostrando qué es lo que pasaba en la</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/380-0
+00:51:48.670 --> 00:51:52.931
+<v Javier Caballero (EXT)>Refinement que íbamos a ver esto la
+refinement o en la planning vimos que</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/380-1
+00:51:52.931 --> 00:51:56.616
+<v Javier Caballero (EXT)>íbamos a tomar esto,
+te explican y vamos cuadrito por cuadrito.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/380-2
+00:51:56.616 --> 00:52:00.358
+<v Javier Caballero (EXT)>Yo le dije, bueno, ¿y qué pasa después?
+Vuelve a la home, listo,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/380-3
+00:52:00.358 --> 00:52:02.430
+<v Javier Caballero (EXT)>vuelve a la home a hacerlo de nuevo.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/381-0
+00:52:04.030 --> 00:52:05.830
+<v Javier Caballero (EXT)>Por eso lo sé que hay que hacerlo.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/382-0
+00:52:10.590 --> 00:52:16.190
+<v Javier Caballero (EXT)>Si acá tenés videos, fotos,
+todos estos casos alternativos están acá.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/383-0
+00:52:17.230 --> 00:52:20.990
+<v Javier Caballero (EXT)>¿Qué pasa si esos 2 de todo esto son los
+casos alternativos?</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/384-0
+00:52:24.590 --> 00:52:25.390
+<v Javier Caballero (EXT)>And.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/385-0
+00:52:26.590 --> 00:52:30.990
+<v Javier Caballero (EXT)>Y estos son los flujos normales. Es OK,
+tengo una o tengo n mascotas.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/385-1
+00:52:30.990 --> 00:52:35.139
+<v Javier Caballero (EXT)>Si tengo una ya que has seleccionado y
+empezás como más adelante,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/385-2
+00:52:35.139 --> 00:52:38.848
+<v Javier Caballero (EXT)>si tenés n mascotas,
+comenzar en la selección de mascotas.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/385-3
+00:52:38.848 --> 00:52:40.230
+<v Javier Caballero (EXT)>Selecciona la mascota.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/386-0
+00:52:41.630 --> 00:52:45.323
+<v Javier Caballero (EXT)>Selecciona la mascota y luego vas al paso
+siguiente.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/386-1
+00:52:45.323 --> 00:52:49.990
+<v Javier Caballero (EXT)>Si ya tenés solo tenés una sola mascota,
+llegas a este paso nomás.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/387-0
+00:52:51.630 --> 00:52:53.150
+<v Javier Caballero (EXT)>Como que empezás bien adelante.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/388-0
+00:52:59.870 --> 00:53:04.110
+<v Javier Caballero (EXT)>A otra cosa que descubrí es que.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/389-0
+00:53:08.190 --> 00:53:13.639
+<v Javier Caballero (EXT)>Las personas tienden solo a probar los
+happypad. O sea, tenés que hacer acá,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/389-1
+00:53:13.639 --> 00:53:19.016
+<v Javier Caballero (EXT)>que selecciones una mascota. Listo,
+así selecciona la mascota. Listo, anda,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/389-2
+00:53:19.016 --> 00:53:23.474
+<v Javier Caballero (EXT)>pero no se ponen a ver. Che,
+¿qué pasa si pongo estos motivos?</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/389-3
+00:53:23.474 --> 00:53:27.790
+<v Javier Caballero (EXT)>Si pongo otro motivo,
+este queda sin seleccionar y está así.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/390-0
+00:53:27.870 --> 00:53:31.766
+<v Javier Caballero (EXT)>Se y este hay que este comentario pues se
+manda obligatorio.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/390-1
+00:53:31.766 --> 00:53:36.299
+<v Javier Caballero (EXT)>¿Qué pasa si presiono volver?
+¿Qué pasa si puse cargar todos los datos</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/390-2
+00:53:36.299 --> 00:53:39.747
+<v Javier Caballero (EXT)>y presiono volver y después vuelvo para
+adelante? No,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/390-3
+00:53:39.747 --> 00:53:44.983
+<v Javier Caballero (EXT)>la gente si lo tiene que probar la en un
+momento habían otras personas ayudando a</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/390-4
+00:53:44.983 --> 00:53:45.430
+<v Javier Caballero (EXT)>probar.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/391-0
+00:53:46.430 --> 00:53:50.997
+<v Javier Caballero (EXT)>No probaban okey, sí, puedo cargarlo. Sí,
+listo, sí, funciona.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/391-1
+00:53:50.997 --> 00:53:55.853
+<v Javier Caballero (EXT)>Se puede cargar la creden,
+se puede hacer una videollamada. Listo,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/391-2
+00:53:55.853 --> 00:53:57.230
+<v Javier Caballero (EXT)>funcionó, adelante.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/394-0
+00:53:58.590 --> 00:54:03.459
+<v Javier Caballero (EXT)>Y no validaron que el que que acá está
+así en este diseño y de repente está</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/394-1
+00:54:03.459 --> 00:54:07.878
+<v Javier Caballero (EXT)>estaba programado que la el título de
+avillamada estaba en el medio,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/394-2
+00:54:07.878 --> 00:54:13.131
+<v Javier Caballero (EXT)>que el nombre de la mascota también en el
+medio, esto color rojo. Ah, no importa,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/394-3
+00:54:13.131 --> 00:54:16.398
+<v Javier Caballero (EXT)>pero anda,
+cuando yo lo probé andaba y es lo único</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/392-0
+00:54:15.670 --> 00:54:16.270
+<v Alan David Guzman (EXT)>The ****.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/394-4
+00:54:16.398 --> 00:54:17.230
+<v Javier Caballero (EXT)>que te dicen.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/393-0
+00:54:18.310 --> 00:54:18.590
+<v Alan David Guzman (EXT)>Ja.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/395-0
+00:54:20.190 --> 00:54:20.750
+<v Javier Caballero (EXT)>Sí.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/396-0
+00:54:20.670 --> 00:54:21.630
+<v Alan David Guzman (EXT)>Qué frescura.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/397-0
+00:54:22.350 --> 00:54:27.081
+<v Javier Caballero (EXT)>Sí, encima voy a decir a y claro,
+pero si yo cuando lo pruebo me demoro,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/397-1
+00:54:27.081 --> 00:54:30.062
+<v Javier Caballero (EXT)>no sé,
+en 2 minutos ya lo ya te lo probé todo</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/397-2
+00:54:30.062 --> 00:54:33.107
+<v Javier Caballero (EXT)>esto.
+No entiendo por qué se demora 1 hora o 3</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/397-3
+00:54:33.107 --> 00:54:35.310
+<v Javier Caballero (EXT)>horas en probar esa funcionalidad.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/398-0
+00:54:36.310 --> 00:54:41.347
+<v Javier Caballero (EXT)>Porque está todo este involucrado, claro,
+porque tenés que probar la credencial,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/398-1
+00:54:41.347 --> 00:54:46.010
+<v Javier Caballero (EXT)>pero qué pasa si la credencial la
+cargabas y con todos los tipos de planes</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/398-2
+00:54:46.010 --> 00:54:48.310
+<v Javier Caballero (EXT)>cada vez se modificaban una pantalla.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/399-0
+00:54:49.470 --> 00:54:54.564
+<v Javier Caballero (EXT)>Si el ticket dice modificar la pantalla
+número cinco, el paso número cinco,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/399-1
+00:54:54.564 --> 00:55:00.126
+<v Javier Caballero (EXT)>pero rompían todo el resto de las cosas.
+Entonces, che, y tenía que probar. Bueno,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/399-2
+00:55:00.126 --> 00:55:04.616
+<v Javier Caballero (EXT)>pero tenés que aclarar, si es,
+tenés que hacer una mini regresión.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/399-3
+00:55:04.616 --> 00:55:07.430
+<v Javier Caballero (EXT)>Por eso de ahí en Matt aprendí la lección.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/400-0
+00:55:13.470 --> 00:55:14.270
+<v Javier Caballero (EXT)>Yeah.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/401-0
+00:55:15.710 --> 00:55:19.081
+<v Javier Caballero (EXT)>Sí,
+más o menos quedó claro el flujo de</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/401-1
+00:55:19.081 --> 00:55:22.030
+<v Javier Caballero (EXT)>trabajo y las mecánicas de trabajo.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/402-0
+00:55:22.950 --> 00:55:23.630
+<v Alan David Guzman (EXT)>Sí, Barce.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/403-0
+00:55:25.310 --> 00:55:28.670
+<v Javier Caballero (EXT)>Excelente, eso es lo más importante.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/404-0
+00:55:32.430 --> 00:55:35.510
+<v Javier Caballero (EXT)>Hay cosas de, bueno, eso.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/405-0
+00:55:36.350 --> 00:55:39.261
+<v Javier Caballero (EXT)>No importa los casos de prueba,
+SharePoint,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/405-1
+00:55:39.261 --> 00:55:43.030
+<v Javier Caballero (EXT)>no voy a asumir que tenés acceso porque
+no tenés acceso.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/406-0
+00:55:44.990 --> 00:55:48.135
+<v Javier Caballero (EXT)>SharePoint solo es importante para que
+perdón,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/406-1
+00:55:48.135 --> 00:55:52.350
+<v Javier Caballero (EXT)>SharePoint Salesforce es solamente
+importante para que puedas.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/408-0
+00:56:02.750 --> 00:56:03.710
+<v Javier Caballero (EXT)>¿Cómo se llama?</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/409-0
+00:56:05.230 --> 00:56:10.270
+<v Javier Caballero (EXT)>A crear una parque, dale,
+voy a crear una parque y después me voy.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/410-0
+00:56:15.950 --> 00:56:18.399
+<v Javier Caballero (EXT)>Ahí está.
+Esto es solamente cuando haces</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/410-1
+00:56:18.399 --> 00:56:21.625
+<v Javier Caballero (EXT)>contrataciones,
+cuando completas el flujo va mandando</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/410-2
+00:56:21.625 --> 00:56:24.790
+<v Javier Caballero (EXT)>como paso uno, che, estoy acá, estoy acá,
+estoy acá.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/411-0
+00:56:25.550 --> 00:56:26.230
+<v Javier Caballero (EXT)>Yeah.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/412-0
+00:56:28.750 --> 00:56:34.289
+<v Javier Caballero (EXT)>A ver si me carga, ves acá, por ejemplo,
+ves este usuario quería comprar este plan.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/412-1
+00:56:34.289 --> 00:56:39.630
+<v Javier Caballero (EXT)>Entonces empiezas a ver cosas como va
+cargando a medida que pasa en no, este no.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/413-0
+00:56:41.070 --> 00:56:49.259
+<v Javier Caballero (EXT)>En el sitio institucional, los planes acá,
+cada pasito que hace va mandando</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/413-1
+00:56:49.259 --> 00:56:54.430
+<v Javier Caballero (EXT)>información para acá y si se creó un
+candidato.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/414-0
+00:56:55.790 --> 00:56:57.470
+<v Javier Caballero (EXT)>En realidad.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/415-0
+00:56:59.870 --> 00:57:04.450
+<v Javier Caballero (EXT)>No se crea un cantidad,
+se crea una oportunidad que no me acuerdo</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/415-1
+00:57:04.450 --> 00:57:06.670
+<v Javier Caballero (EXT)>dónde debe estar la oportunidad.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/416-0
+00:57:09.310 --> 00:57:13.984
+<v Javier Caballero (EXT)>Tendré que te tuneado. Bueno,
+en realidad sí, acá se creó. No,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/416-1
+00:57:13.984 --> 00:57:17.470
+<v Javier Caballero (EXT)>creo que es este la oportunidad. Bueno,
+no sé.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/417-0
+00:57:19.790 --> 00:57:25.112
+<v Javier Caballero (EXT)>Esto crea la oportunidad a medida que vas,
+cuando vos ya pasaste del primer paso al</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/417-1
+00:57:25.112 --> 00:57:28.406
+<v Javier Caballero (EXT)>segundo paso,
+se creó la oportunidad en Salesforce.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/417-2
+00:57:28.406 --> 00:57:33.347
+<v Javier Caballero (EXT)>Entonces ya sabes el lead y con el lead
+vos te guarda toda esa información en</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/417-3
+00:57:33.347 --> 00:57:36.515
+<v Javier Caballero (EXT)>Salesforce.
+Entonces vos si no terminas de pagar,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/417-4
+00:57:36.515 --> 00:57:40.379
+<v Javier Caballero (EXT)>te van a llamar las funcionalidades que
+te llaman, te van a,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/417-5
+00:57:40.379 --> 00:57:43.990
+<v Javier Caballero (EXT)>te llega un correo diciendo che,
+abandonaste tu carrito.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/418-0
+00:57:44.030 --> 00:57:48.752
+<v Javier Caballero (EXT)>O termina tu compra,
+le llaman carrito abandonado,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/418-1
+00:57:48.752 --> 00:57:50.510
+<v Javier Caballero (EXT)>malísimo el nombre.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/419-0
+00:57:51.630 --> 00:57:55.834
+<v Javier Caballero (EXT)>Es para que continúes y cuando vos
+ingresas en el link,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/419-1
+00:57:55.834 --> 00:57:57.710
+<v Javier Caballero (EXT)>descarga todos los datos.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/420-0
+00:57:59.790 --> 00:58:04.608
+<v Javier Caballero (EXT)>Si mal no me acuerdo,
+creo que era con este con el lead y acá</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/420-1
+00:58:04.608 --> 00:58:06.550
+<v Javier Caballero (EXT)>era checkout, no acá era.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/421-0
+00:58:07.630 --> 00:58:09.510
+<v Javier Caballero (EXT)>Regresando.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/422-0
+00:58:12.510 --> 00:58:17.744
+<v Javier Caballero (EXT)>No, sí, era ese, pero no era,
+era una oportunidad. A ver, candidatos,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/422-1
+00:58:17.744 --> 00:58:18.790
+<v Javier Caballero (EXT)>oportunidades.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/423-0
+00:58:28.270 --> 00:58:33.830
+<v Javier Caballero (EXT)>A ver si me carga las oportunidades,
+te muestro porque es sencillo, pero.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/424-0
+00:58:35.670 --> 00:58:38.750
+<v Javier Caballero (EXT)>Venta no procesada, ves, acá está,
+este está en progreso.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/425-0
+00:58:39.750 --> 00:58:44.777
+<v Javier Caballero (EXT)>Esto igual eran cosas de Automation que
+iba haciendo y este es el número de</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/425-1
+00:58:44.777 --> 00:58:46.430
+<v Javier Caballero (EXT)>oportunidad, tú copiamos.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/426-0
+00:58:48.070 --> 00:58:48.870
+<v Javier Caballero (EXT)>Lookingness.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/427-0
+00:58:50.110 --> 00:58:52.230
+<v Javier Caballero (EXT)>Bueno, se acaba los malos datos.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/428-0
+00:58:56.350 --> 00:58:57.590
+<v Javier Caballero (EXT)>Eh.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/429-0
+00:58:59.870 --> 00:59:00.950
+<v Javier Caballero (EXT)>Sino este.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/430-0
+00:59:02.030 --> 00:59:04.470
+<v Javier Caballero (EXT)>No me acuerdo si era este.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/431-0
+00:59:06.430 --> 00:59:07.710
+<v Javier Caballero (EXT)>Creo capaz que está miedo.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/432-0
+00:59:18.110 --> 00:59:19.270
+<v Javier Caballero (EXT)>A Elite.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/433-0
+00:59:21.350 --> 00:59:23.350
+<v Javier Caballero (EXT)>Pero un lead no es el de oportunidad.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/434-0
+00:59:26.110 --> 00:59:27.150
+<v Javier Caballero (EXT)>¿Te acordás eso?</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/435-0
+00:59:28.110 --> 00:59:28.750
+<v Alan David Guzman (EXT)>¿Cómo?</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/436-0
+00:59:30.750 --> 00:59:31.230
+<v Javier Caballero (EXT)>¿Cómo?</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/437-0
+00:59:32.350 --> 00:59:34.070
+<v Alan David Guzman (EXT)>Pensé que estaba hablando conmigo.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/438-0
+00:59:34.430 --> 00:59:35.110
+<v Javier Caballero (EXT)>sí.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/439-0
+00:59:36.030 --> 00:59:38.310
+<v Javier Caballero (EXT)>Sí, la oportunidad es el lead.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/440-0
+00:59:41.470 --> 00:59:41.790
+<v Javier Caballero (EXT)>No.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/441-0
+00:59:45.950 --> 00:59:48.270
+<v Javier Caballero (EXT)>¿Candidato será un candidato?</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/442-0
+00:59:53.950 --> 00:59:56.070
+<v Javier Caballero (EXT)>El camino filtra solo por ese.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/443-0
+01:00:03.470 --> 01:00:04.750
+<v Javier Caballero (EXT)>¿Ha visto recientemente?</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/444-0
+01:00:09.390 --> 01:00:10.350
+<v Javier Caballero (EXT)>Vento digital.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/445-0
+01:00:12.990 --> 01:00:13.670
+<v Javier Caballero (EXT)>Bueno.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/446-0
+01:00:16.830 --> 01:00:17.710
+<v Javier Caballero (EXT)>Verify.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/448-0
+01:00:24.830 --> 01:00:27.670
+<v Javier Caballero (EXT)>Bueno, no hay una manera de ver todos.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/449-0
+01:00:38.590 --> 01:00:39.830
+<v Javier Caballero (EXT)>Bueno, eso es todo.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/450-0
+01:00:43.830 --> 01:00:48.630
+<v Javier Caballero (EXT)>Ok, a ver, creo que es ahí está,
+es un lead, es un candidato.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/451-0
+01:00:49.670 --> 01:00:50.350
+<v Javier Caballero (EXT)>So cut.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/453-0
+01:00:59.190 --> 01:01:00.670
+<v Javier Caballero (EXT)>Como que no encontró.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/456-0
+01:01:17.070 --> 01:01:18.030
+<v Javier Caballero (EXT)>Esto es el link.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/458-0
+01:01:26.470 --> 01:01:27.030
+<v Javier Caballero (EXT)>Bueno.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/459-0
+01:01:28.230 --> 01:01:29.790
+<v Javier Caballero (EXT)>Esto sí me trajo datos.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/460-0
+01:01:41.030 --> 01:01:45.470
+<v Javier Caballero (EXT)>Bueno, no sé, no funciona el regresando,
+no anda.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/461-0
+01:01:46.710 --> 01:01:48.350
+<v Javier Caballero (EXT)>Intenté, intenté.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/463-0
+01:01:49.310 --> 01:01:51.950
+<v Javier Caballero (EXT)>No sé qué tanto, turnos.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/464-0
+01:01:54.310 --> 01:01:58.434
+<v Javier Caballero (EXT)>No sé si te van a llegar,
+pero chegan cada vez que se agenda un</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/464-1
+01:01:58.434 --> 01:02:01.590
+<v Javier Caballero (EXT)>turno de videollamada en Cua llega un
+mensajito.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/465-0
+01:02:02.950 --> 01:02:06.790
+<v Javier Caballero (EXT)>En fin, esa es toda la cosa.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/466-0
+01:02:07.670 --> 01:02:13.331
+<v Javier Caballero (EXT)>Importante antes de después ya nos vamos
+a reunir porque estamos un poquito</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/466-1
+01:02:13.331 --> 01:02:14.150
+<v Javier Caballero (EXT)>desfasados.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/467-0
+01:02:15.910 --> 01:02:18.948
+<v Javier Caballero (EXT)>Tipo de tickets,
+incidente productivo es un back en</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/467-1
+01:02:18.948 --> 01:02:19.590
+<v Javier Caballero (EXT)>producción.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/468-0
+01:02:20.950 --> 01:02:25.912
+<v Javier Caballero (EXT)>Súper, súper mega prioritario,
+esto se toma sí o sí y después se sigue</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/468-1
+01:02:25.912 --> 01:02:26.750
+<v Javier Caballero (EXT)>iniciativas.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/469-0
+01:02:28.870 --> 01:02:30.590
+<v Javier Caballero (EXT)>Es lo mismo que una tarea.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/470-0
+01:02:33.190 --> 01:02:38.088
+<v Javier Caballero (EXT)>No importa historias, son historias.
+Bach son solo en QA. Entonces la cosa,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/470-1
+01:02:38.088 --> 01:02:42.470
+<v Javier Caballero (EXT)>si encontraste algo en QA es un bug,
+no es un incidente productivo.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/471-0
+01:02:46.150 --> 01:02:54.070
+<v Javier Caballero (EXT)>Fast request, Fasttask,
+estos 2 tipos son una cosa media rara.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/472-0
+01:02:54.950 --> 01:03:01.033
+<v Javier Caballero (EXT)>Para que los demanas, la gente de arriba,
+pueda pedirle a los equipos cosas y</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/472-1
+01:03:01.033 --> 01:03:06.959
+<v Javier Caballero (EXT)>saberla y que esto lo tienen que sacar
+rápido. Total, es una telita rápida.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/472-2
+01:03:06.959 --> 01:03:08.830
+<v Javier Caballero (EXT)>Esto en un día lo sacas.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/473-0
+01:03:10.870 --> 01:03:14.903
+<v Javier Caballero (EXT)>Son estas dos cosas,
+todo el mundo las odia, todo el mundo.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/473-1
+01:03:14.903 --> 01:03:19.608
+<v Javier Caballero (EXT)>Deuda técnica, lo que dice el nombre,
+nadie lo toma, la épica, bueno,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/473-2
+01:03:19.608 --> 01:03:23.036
+<v Javier Caballero (EXT)>y nada más,
+pero tenés los incidentes productivos,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/473-3
+01:03:23.036 --> 01:03:28.547
+<v Javier Caballero (EXT)>que es BAX en producción y BAX son cosas
+que no llegaron a producción y son están</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/473-4
+01:03:28.547 --> 01:03:28.950
+<v Javier Caballero (EXT)>en QA.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/474-0
+01:03:29.830 --> 01:03:31.830
+<v Javier Caballero (EXT)>¿Sabes si vos podés crear todos los bugs?</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/475-0
+01:03:32.710 --> 01:03:34.910
+<v Javier Caballero (EXT)>Cerrar el Cerrar el ticket.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/476-0
+01:03:36.470 --> 01:03:39.990
+<v Javier Caballero (EXT)>Entonces empezás a trabajar con los bags,
+lo cual no estaría.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/477-0
+01:03:41.830 --> 01:03:45.390
+<v Javier Caballero (EXT)>Hace eso y ya es mejor que estar con el
+tickets.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/478-0
+01:03:47.750 --> 01:03:50.963
+<v Javier Caballero (EXT)>Así que nada,
+no sé que se me ocurre más nada,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/478-1
+01:03:50.963 --> 01:03:54.790
+<v Javier Caballero (EXT)>creo que te dije todo,
+voy a revisar y te voy a mandar.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/479-0
+01:03:56.390 --> 01:03:58.190
+<v Javier Caballero (EXT)>Esto antes que me olvide.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/480-0
+01:03:59.110 --> 01:04:05.769
+<v Javier Caballero (EXT)>¿Algo más que te interese saber?
+¿Algo más que quieras preguntar?</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/480-1
+01:04:05.769 --> 01:04:12.830
+<v Javier Caballero (EXT)>Así también me da tiempo a mí de
+preparártelo para la charla después.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/481-0
+01:04:15.750 --> 01:04:16.790
+<v Javier Caballero (EXT)>So, accurate.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/482-0
+01:04:16.070 --> 01:04:17.670
+<v Alan David Guzman (EXT)>Bueno, no se vienen a la mente.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/483-0
+01:04:18.910 --> 01:04:21.350
+<v Javier Caballero (EXT)>Ok, yo tratar de.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/484-0
+01:04:29.750 --> 01:04:31.390
+<v Javier Caballero (EXT)>Listo, ahí te mandé.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/485-0
+01:04:38.870 --> 01:04:44.758
+<v Javier Caballero (EXT)>Bueno, eso es todo.
+Nos vemos en un ratito para la cosa de</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/485-1
+01:04:44.758 --> 01:04:48.550
+<v Javier Caballero (EXT)>automation. Instalar el tenés el repo.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/486-0
+01:04:49.750 --> 01:04:56.773
+<v Javier Caballero (EXT)>Así que tenés el repo y es simplemente
+funciona con un NPM install y no</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/486-1
+01:04:56.773 --> 01:05:03.894
+<v Javier Caballero (EXT)>necesitas PPN, no necesitas nada.
+Y te paso en el mismo chat el punto en</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/486-2
+01:05:03.894 --> 01:05:07.990
+<v Javier Caballero (EXT)>para que lo tengas. Así puedes ir jugando.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/487-0
+01:05:09.830 --> 01:05:10.150
+<v Javier Caballero (EXT)>And.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/488-0
+01:05:13.830 --> 01:05:14.310
+<v Javier Caballero (EXT)>¿Qué?</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/489-0
+01:05:19.110 --> 01:05:21.150
+<v Javier Caballero (EXT)>Entonces, esto venía acá.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/490-0
+01:05:30.550 --> 01:05:31.550
+<v Javier Caballero (EXT)>Aye, estamos.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/491-0
+01:05:31.990 --> 01:05:32.310
+<v Alan David Guzman (EXT)>Yeah.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/492-0
+01:05:32.870 --> 01:05:34.390
+<v Javier Caballero (EXT)>Ahí te va a hacer el punto en.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/493-0
+01:05:35.350 --> 01:05:38.244
+<v Javier Caballero (EXT)>Como de nuevo,
+las no hay ninguna ningún secret</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/493-1
+01:05:38.244 --> 01:05:41.800
+<v Javier Caballero (EXT)>realmente que se pueda divulgar.
+Son simplemente las URLs,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/493-2
+01:05:41.800 --> 01:05:44.030
+<v Javier Caballero (EXT)>pero las URLs sirven igualmente para.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/494-0
+01:05:46.470 --> 01:05:50.628
+<v Javier Caballero (EXT)>separar los ambientes.
+Entonces vos cambiando las URL puedes</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/494-1
+01:05:50.628 --> 01:05:54.650
+<v Javier Caballero (EXT)>correr las pruebas contra de o contra QA.
+Esa fue la idea.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/494-2
+01:05:54.650 --> 01:05:58.263
+<v Javier Caballero (EXT)>Y los usuarios y contraseñas están en el
+mismo repo.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/494-3
+01:05:58.263 --> 01:06:03.580
+<v Javier Caballero (EXT)>Así que si le da run test deberían correr.
+Fíjate si puedes hacer eso y si no</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/494-4
+01:06:03.580 --> 01:06:04.670
+<v Javier Caballero (EXT)>pudiste hacerlo.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/496-0
+01:06:05.830 --> 01:06:08.851
+<v Javier Caballero (EXT)>Y no sé,
+anótate todas las preguntas que tenga,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/496-1
+01:06:08.851 --> 01:06:12.754
+<v Javier Caballero (EXT)>todas las cosas que quieras,
+como más explicaciones digas ok,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/496-2
+01:06:12.754 --> 01:06:18.040
+<v Javier Caballero (EXT)>esto sí lo entiendo, no sé qué hace esto,
+esto me gustaría saber y lo vamos viendo.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/496-3
+01:06:18.040 --> 01:06:23.138
+<v Javier Caballero (EXT)>Yo voy a tratar de hacer una explicación
+rápida y luego repasamos los preguntas.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/496-4
+01:06:23.138 --> 01:06:23.830
+<v Javier Caballero (EXT)>¿Te parece?</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/495-0
+01:06:24.310 --> 01:06:26.670
+<v Alan David Guzman (EXT)>Ok, ok, entonces voy a ir instalando todo.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/497-0
+01:06:29.110 --> 01:06:31.898
+<v Javier Caballero (EXT)>Sí,
+y va a ser mi última tarea porque es a</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/497-1
+01:06:31.898 --> 01:06:36.112
+<v Javier Caballero (EXT)>las 4:00 y mi día termina a las 5:00 y la
+reunión es cuatro o 5,</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/497-2
+01:06:36.112 --> 01:06:40.390
+<v Javier Caballero (EXT)>así que sea puntual porque no sé hasta
+cuándo voy a tener acceso.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/499-0
+01:06:41.670 --> 01:06:42.870
+<v Alan David Guzman (EXT)>Okey, listo parce.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/498-0
+01:06:42.230 --> 01:06:42.550
+<v Javier Caballero (EXT)>Hey.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/500-0
+01:06:43.590 --> 01:06:48.310
+<v Javier Caballero (EXT)>Listo,
+disfruta una horita de y 15 de descanso.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/501-0
+01:06:48.910 --> 01:06:49.990
+<v Alan David Guzman (EXT)>Listo, man, todo bien.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/502-0
+01:06:49.310 --> 01:06:50.470
+<v Javier Caballero (EXT)>Nos estamos viendo pronto.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/503-0
+01:06:51.110 --> 01:06:53.390
+<v Alan David Guzman (EXT)>Dale, Héctor, estamos hablando.</v>
+
+48beff04-247c-43f0-8ec9-56161038a170/505-0
+01:06:52.790 --> 01:06:54.310
+<v Javier Caballero (EXT)>Tao choo choo.</v>

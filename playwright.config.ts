@@ -60,15 +60,19 @@ export default defineConfig({
                 },
             });
 
-            // TODO: Enable mobile testing once the webapp is responsive and supports mobile devices
-            // projects.push({
-            //   name: `${site.name} Android`,
-            //   testDir: `./tests/${site.id}`,
-            //   use: {
-            //     ...devices['Pixel 5'],
-            //     baseURL: baseUrl,
-            //   },
-            // });
+            // Experimento 2026-08-05: habilitado SOLO para "Vetify WebApp" para medir qué locators
+            // rompen contra un viewport mobile real (Bottom Sheet vs Drawer del selector de horario,
+            // principalmente) antes de decidir si se habilita para los otros 4 sitios.
+            if (site.name === 'Vetify WebApp') {
+                projects.push({
+                    name: `${site.name} Android`,
+                    testDir: site.testFolder,
+                    use: {
+                        ...devices['Pixel 5'],
+                        baseURL: baseUrl,
+                    },
+                });
+            }
         }
 
         return projects;

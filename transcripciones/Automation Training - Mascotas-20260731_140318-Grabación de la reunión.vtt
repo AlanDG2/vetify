@@ -1,0 +1,4656 @@
+WEBVTT
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/5-0
+00:00:07.271 --> 00:00:10.248
+<v Javier Caballero (EXT)>Bien,
+es obvio que pusiste a grabar porque se</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/5-1
+00:00:10.248 --> 00:00:13.743
+<v Javier Caballero (EXT)>desapareció todo.
+Vamos a empezar por la organización</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/5-2
+00:00:13.743 --> 00:00:17.044
+<v Javier Caballero (EXT)>principal.
+Dentro de los marcadores hay uno que se</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/5-3
+00:00:17.044 --> 00:00:22.157
+<v Javier Caballero (EXT)>llama casos de prueba y eso te lleva a
+esta carpeta donde están este documento</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/5-4
+00:00:22.157 --> 00:00:24.551
+<v Javier Caballero (EXT)>que también se llama casos de prueba.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/7-0
+00:00:25.351 --> 00:00:31.483
+<v Javier Caballero (EXT)>Igual la carpeting contiene, por ejemplo,
+este que son los casos de prueba para un</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/7-1
+00:00:31.483 --> 00:00:35.989
+<v Javier Caballero (EXT)>ticket en particular que está ahí,
+que es ese ticket de ahí,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/7-2
+00:00:35.989 --> 00:00:41.750
+<v Javier Caballero (EXT)>porque básicamente son mensajes de error
+en cada una de las pantallas y estoy</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/7-3
+00:00:41.750 --> 00:00:44.631
+<v Javier Caballero (EXT)>poniendo, estaba poniendo, mejor dicho,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/8-0
+00:00:45.671 --> 00:00:50.011
+<v Javier Caballero (EXT)>para cada pantalla,
+que pasa cuando ciertos request,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/8-1
+00:00:50.011 --> 00:00:54.105
+<v Javier Caballero (EXT)>por ejemplo,
+al API user barra me falla y cómo se</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/8-2
+00:00:54.105 --> 00:00:58.035
+<v Javier Caballero (EXT)>muestra.
+Y si se muestra el mensajito que tiene</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/8-3
+00:00:58.035 --> 00:01:03.603
+<v Javier Caballero (EXT)>que mostrar de este de el sistema está
+caído y demás y es recargar,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/8-4
+00:01:03.603 --> 00:01:04.831
+<v Javier Caballero (EXT)>volver al home.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/9-0
+00:01:04.951 --> 00:01:11.407
+<v Javier Caballero (EXT)>Lo que se es un poco evidencia,
+eso también un poco como evidencia.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/9-1
+00:01:11.407 --> 00:01:12.071
+<v Javier Caballero (EXT)>y como.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/10-0
+00:01:13.631 --> 00:01:15.271
+<v Javier Caballero (EXT)>Que se llama como.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/11-0
+00:01:18.151 --> 00:01:25.254
+<v Javier Caballero (EXT)>documentación de qué es lo que pasa,
+porque en realidad la desarrolladora hizo</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/11-1
+00:01:25.254 --> 00:01:32.716
+<v Javier Caballero (EXT)>cosas en algunas pantallas funciona bien,
+en otras no funciona y en otras funciona</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/11-2
+00:01:32.716 --> 00:01:37.031
+<v Javier Caballero (EXT)>a medio.
+Entonces la idea es ayudarle a definir</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/12-0
+00:01:37.111 --> 00:01:42.331
+<v Javier Caballero (EXT)>nuevos scope capaz que hay en point que
+no describiendo y todo y los videos se</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/12-1
+00:01:42.331 --> 00:01:47.881
+<v Javier Caballero (EXT)>los puse acá para que porque el documento
+de Word no me permite insertar video solo</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/12-2
+00:01:47.881 --> 00:01:51.911
+<v Javier Caballero (EXT)>imágenes así que nada puse los videos ahí
+y las imágenes acá</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/13-0
+00:01:53.071 --> 00:01:57.633
+<v Javier Caballero (EXT)>Eso es por ese lado. Entonces,
+volviendo a los casos de prueba,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/13-1
+00:01:57.633 --> 00:02:02.194
+<v Javier Caballero (EXT)>los casos de prueba están organizados en
+tab por funcionalidad,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/13-2
+00:02:02.194 --> 00:02:08.110
+<v Javier Caballero (EXT)>manejarlo como tú quieras. Y los puse acá,
+pero esto en realidad creo que lo voy a</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/13-3
+00:02:08.110 --> 00:02:12.671
+<v Javier Caballero (EXT)>poner como una columna así yo después lo
+puedo filtrar. Y la...</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/14-0
+00:02:12.871 --> 00:02:18.745
+<v Javier Caballero (EXT)>No me maté mucho. Puse cada sección,
+por ejemplo, los flujos de compra.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/14-1
+00:02:18.745 --> 00:02:22.743
+<v Javier Caballero (EXT)>Cada tipo comienza con tres suites.
+Por ejemplo,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/14-2
+00:02:22.743 --> 00:02:28.780
+<v Javier Caballero (EXT)>las compras exitosas y ese es el número
+uno. O sea, es por cada vertical,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/14-3
+00:02:28.780 --> 00:02:33.511
+<v Javier Caballero (EXT)>como te mostré que estaban los
+adquirientes Betify o B2C.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/15-0
+00:02:33.751 --> 00:02:36.111
+<v Javier Caballero (EXT)>Que es por la link normal.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/16-0
+00:02:38.231 --> 00:02:42.748
+<v Javier Caballero (EXT)>Los adquirientes OSDE, es decir,
+una persona que es 2D y quiere,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/16-1
+00:02:42.748 --> 00:02:46.917
+<v Javier Caballero (EXT)>o hay dos opciones,
+o tiene un plan OSDE que ya fue como un</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/16-2
+00:02:46.917 --> 00:02:52.199
+<v Javier Caballero (EXT)>capitado y quiere comprar un nuevo plan.
+El primer plan es capitado 2D y el</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/16-3
+00:02:52.199 --> 00:02:57.271
+<v Javier Caballero (EXT)>segundo plan es adquiriente OSDE porque
+lo compra en un precio reducido.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/17-0
+00:02:57.511 --> 00:03:03.554
+<v Javier Caballero (EXT)>o una de las personas que tiene una
+promoción para adquirirlo porque también</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/17-1
+00:03:03.554 --> 00:03:07.243
+<v Javier Caballero (EXT)>tiene el plan de salud Ozde.
+Ozde es medicina,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/17-2
+00:03:07.243 --> 00:03:13.286
+<v Javier Caballero (EXT)>un proveedor de medicina privada y
+después están acá los decapitados que son</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/17-3
+00:03:13.286 --> 00:03:18.151
+<v Javier Caballero (EXT)>capitados flux y capitados son en
+realidad lo mismo, pero son</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/18-0
+00:03:18.871 --> 00:03:24.842
+<v Javier Caballero (EXT)>dos tipos son dos verticales son tipos de
+plan en realidad off de flux cada uno con</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/18-1
+00:03:24.842 --> 00:03:30.528
+<v Javier Caballero (EXT)>sus propios landing como tiene cada uno
+su propio landing son diferentes flujos</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/18-2
+00:03:30.528 --> 00:03:35.575
+<v Javier Caballero (EXT)>por lo tanto diferentes para lo que es
+compra son diferentes ya es una</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/18-3
+00:03:35.575 --> 00:03:37.991
+<v Javier Caballero (EXT)>segmentación diferente lo hice así</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/19-0
+00:03:38.391 --> 00:03:42.028
+<v Javier Caballero (EXT)>Si vos querés después cambiarlo,
+es todo tuyo.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/19-1
+00:03:42.028 --> 00:03:48.372
+<v Javier Caballero (EXT)>Este es este va a ser tu hijo de ahora el
+más. Estos son los papeles de adopción.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/19-2
+00:03:48.372 --> 00:03:50.151
+<v Javier Caballero (EXT)>Hacé lo que tú quieras.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/21-0
+00:03:51.671 --> 00:04:00.437
+<v Javier Caballero (EXT)>Yo ya no voy a estar más entre entre acá,
+así que si lo rompes, si lo destruís,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/21-1
+00:04:00.437 --> 00:04:05.807
+<v Javier Caballero (EXT)>si le pones colores feos, no lo voy a ver.
+Nada,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/20-0
+00:04:02.511 --> 00:04:03.151
+<v Alan David Guzman (EXT)>Entended.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/21-2
+00:04:05.807 --> 00:04:09.751
+<v Javier Caballero (EXT)>lo que te sirva a vos es realidad es</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/22-0
+00:04:10.711 --> 00:04:14.579
+<v Javier Caballero (EXT)>Si tenés que esto cuando una vez que
+tengo un poquito más de forma,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/22-1
+00:04:14.579 --> 00:04:18.106
+<v Javier Caballero (EXT)>Lili tiene que Liliana tiene que validar
+los críticos. O sea,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/22-2
+00:04:18.106 --> 00:04:22.315
+<v Javier Caballero (EXT)>cuáles sí son realmente test críticos
+porque los críticos son obligatorio</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/22-3
+00:04:22.315 --> 00:04:25.671
+<v Javier Caballero (EXT)>tenerlos automatizados.
+Es que es esta columna de acá, sí.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/23-0
+00:04:28.231 --> 00:04:29.031
+<v Javier Caballero (EXT)>Entonces.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/24-0
+00:04:32.231 --> 00:04:36.667
+<v Javier Caballero (EXT)>Por cada, digamos, funcionalidad,
+como habíamos dicho, credenciales,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/24-1
+00:04:36.667 --> 00:04:40.588
+<v Javier Caballero (EXT)>videollamadas, compras, perfil, perfil,
+lo rediseñaron todo.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/24-2
+00:04:40.588 --> 00:04:44.766
+<v Javier Caballero (EXT)>Así que todos los test que yo ya había
+hecho, pues está en rojo,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/24-3
+00:04:44.766 --> 00:04:48.494
+<v Javier Caballero (EXT)>hay que volverlos a hacer.
+Antes se podía cambiar el DNI,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/24-4
+00:04:48.494 --> 00:04:50.551
+<v Javier Caballero (EXT)>cambiar el nombre, cambiar todo.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/25-0
+00:04:50.591 --> 00:04:56.955
+<v Javier Caballero (EXT)>Ahora se puede casi nada y ahora está la
+de la dirección. Así que nada,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/25-1
+00:04:56.955 --> 00:05:01.816
+<v Javier Caballero (EXT)>hay que hacerlo todo de nuevo, reintegro,
+no hay nada.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/25-2
+00:05:01.816 --> 00:05:08.268
+<v Javier Caballero (EXT)>Y acá no sé misceláneas porque no se
+puede aparte como eso es importante</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/25-3
+00:05:08.268 --> 00:05:10.831
+<v Javier Caballero (EXT)>tenerlo abierto. Misceláneas.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/26-0
+00:05:11.671 --> 00:05:16.231
+<v Javier Caballero (EXT)>No sé cuánto tiempo van a estar activos
+mis usuarios, así que.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/27-0
+00:05:17.511 --> 00:05:20.471
+<v Javier Caballero (EXT)>Te recomiendo después que vos hagas una
+compra en QA.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/28-0
+00:05:21.351 --> 00:05:25.628
+<v Javier Caballero (EXT)>Y uno por cada plan.
+Y así después ya te quedan,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/28-1
+00:05:25.628 --> 00:05:31.911
+<v Javier Caballero (EXT)>te queda un usuario con tu usuario,
+posta a posta con tu mail de y qué.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/29-0
+00:05:33.111 --> 00:05:37.878
+<v Javier Caballero (EXT)>Y acordate,
+es en QA con la landing de QA y con las</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/29-1
+00:05:37.878 --> 00:05:42.921
+<v Javier Caballero (EXT)>tarjetas que están acá,
+estás de Mercado Pago. En fin.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/29-2
+00:05:42.921 --> 00:05:50.071
+<v Javier Caballero (EXT)>Miscelánea es, por ejemplo, bueno,
+historial de atención sería una nueva tab.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/30-0
+00:05:51.511 --> 00:05:55.937
+<v Javier Caballero (EXT)>emergencias, es esto es miscelánea,
+hacés como entrar a hacer clic.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/30-1
+00:05:55.937 --> 00:06:00.623
+<v Javier Caballero (EXT)>Son tan poquitos casos de prueba que no
+necesita tener su propia etapa.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/30-2
+00:06:00.623 --> 00:06:05.439
+<v Javier Caballero (EXT)>Pero de nuevo, esto después vos, no sé,
+esta fue mi primera idea, perdón,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/30-3
+00:06:05.439 --> 00:06:08.823
+<v Javier Caballero (EXT)>la segunda,
+porque la primera fue más o menos así y</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/30-4
+00:06:08.823 --> 00:06:11.231
+<v Javier Caballero (EXT)>la tuve que la dividí más partecitas.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/31-0
+00:06:11.671 --> 00:06:14.138
+<v Javier Caballero (EXT)>Y me quedaron ahí y luego tener la
+métrica.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/31-1
+00:06:14.138 --> 00:06:18.231
+<v Javier Caballero (EXT)>Entonces ves ahí una pequeña formulita
+que eso te se va a ir calculando.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/32-0
+00:06:19.231 --> 00:06:21.853
+<v Javier Caballero (EXT)>De nuevo,
+estos te sirven un poco para vos tener</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/32-1
+00:06:21.853 --> 00:06:23.351
+<v Javier Caballero (EXT)>tus propios números y demás.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/33-0
+00:06:25.271 --> 00:06:25.911
+<v Javier Caballero (EXT)>¿Qué pasa?</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/34-0
+00:06:26.871 --> 00:06:30.071
+<v Javier Caballero (EXT)>No sé cuando una vez que vos terminaste
+de escribir todos los casos de prueba.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/35-0
+00:06:31.271 --> 00:06:36.909
+<v Javier Caballero (EXT)>Yo lo que hago es descargar este archivo
+y cuando me voy al código,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/35-1
+00:06:36.909 --> 00:06:42.960
+<v Javier Caballero (EXT)>si vos te vas a Documentation,
+vas a ver el mismo Excel porque ese Excel</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/35-2
+00:06:42.960 --> 00:06:47.271
+<v Javier Caballero (EXT)>tiene como un snapshot de que al momento
+de, no sé,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/36-0
+00:06:48.951 --> 00:06:50.831
+<v Javier Caballero (EXT)>La idea es que en un futuro.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/37-0
+00:06:51.791 --> 00:06:55.904
+<v Javier Caballero (EXT)>Supone que haga el proyecto,
+haga las cosas bien y empiecen a</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/37-1
+00:06:55.904 --> 00:06:57.031
+<v Javier Caballero (EXT)>versionar la web.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/38-0
+00:06:58.471 --> 00:07:03.351
+<v Javier Caballero (EXT)>También se versionaría lo que es los
+autes de automatizado.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/39-0
+00:07:04.871 --> 00:07:08.831
+<v Javier Caballero (EXT)>Y en un momento en el tiempo.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/40-0
+00:07:09.791 --> 00:07:14.674
+<v Javier Caballero (EXT)>Vos vas a tener ciertos casos de prueba y
+nada. Quiero tener ese historial más,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/40-1
+00:07:14.674 --> 00:07:17.848
+<v Javier Caballero (EXT)>mejor en o sea,
+es mucho más fácil tenerlo en chip,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/40-2
+00:07:17.848 --> 00:07:22.669
+<v Javier Caballero (EXT)>porque si yo ya veo que en qué versión,
+como cuál eran los casos de prueba que</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/40-3
+00:07:22.669 --> 00:07:25.355
+<v Javier Caballero (EXT)>aplicaban,
+porque capaz que después cambia,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/40-4
+00:07:25.355 --> 00:07:29.871
+<v Javier Caballero (EXT)>entonces cambian los casos de prueba,
+es decir, pero cómo era la versión?</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/41-0
+00:07:29.991 --> 00:07:34.959
+<v Javier Caballero (EXT)>2.1 antes del lanzamiento de esto.
+Entonces podés ir al Git, buscas,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/41-1
+00:07:34.959 --> 00:07:40.431
+<v Javier Caballero (EXT)>te haces un checkout, lo ves, decís ah,
+el A funcionaba así y ahí lo tenés.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/41-2
+00:07:40.431 --> 00:07:44.679
+<v Javier Caballero (EXT)>Esa es la idea.
+Entonces ya me queda en la práctica de ah,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/41-3
+00:07:44.679 --> 00:07:47.703
+<v Javier Caballero (EXT)>listo.
+Actualizo los casos de prueba y es</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/41-4
+00:07:47.703 --> 00:07:49.791
+<v Javier Caballero (EXT)>simplemente con ese objetivo.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/42-0
+00:07:50.791 --> 00:07:56.352
+<v Javier Caballero (EXT)>Esto es luego en documentación está los
+estándares del proyecto.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/42-1
+00:07:56.352 --> 00:08:03.110
+<v Javier Caballero (EXT)>Lo decidí poner acá para que ya quedara.
+Así fíjate que como es esto ayuda así</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/42-2
+00:08:03.110 --> 00:08:10.039
+<v Javier Caballero (EXT)>también si pones cualquier AI lo lee y
+sabe cómo tiene que renombrar las clases,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/42-3
+00:08:10.039 --> 00:08:11.151
+<v Javier Caballero (EXT)>las carpetas.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/44-0
+00:08:11.511 --> 00:08:18.389
+<v Javier Caballero (EXT)>Las interfaces, los tipos, los enum,
+variables constantes y así todo.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/44-1
+00:08:18.389 --> 00:08:25.857
+<v Javier Caballero (EXT)>La estructura un poco a grandes rasgos.
+Bueno, integraciones, como ves acá,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/43-0
+00:08:22.111 --> 00:08:22.391
+<v Alan David Guzman (EXT)>Sí.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/44-2
+00:08:25.857 --> 00:08:30.671
+<v Javier Caballero (EXT)>tus realidad que integraciones son
+mercado pago.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/45-0
+00:08:31.111 --> 00:08:32.151
+<v Javier Caballero (EXT)>Em.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/46-0
+00:08:33.391 --> 00:08:37.345
+<v Javier Caballero (EXT)>Providers,
+en realidad providers está users y está</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/46-1
+00:08:37.345 --> 00:08:41.221
+<v Javier Caballero (EXT)>cupones,
+porque la idea es providers porque tenés</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/46-2
+00:08:41.221 --> 00:08:45.330
+<v Javier Caballero (EXT)>que generarlo.
+Entonces un provider es datos que vos</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/46-3
+00:08:45.330 --> 00:08:49.438
+<v Javier Caballero (EXT)>generas. Ok,
+voy a necesito generar usuarios. Listo,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/46-4
+00:08:49.438 --> 00:08:52.151
+<v Javier Caballero (EXT)>vos tenés un proveedor de usuarios.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/47-0
+00:08:54.071 --> 00:08:54.871
+<v Javier Caballero (EXT)>Um.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/48-0
+00:08:55.991 --> 00:09:00.080
+<v Javier Caballero (EXT)>Luego esos usuarios, digamos,
+hay dos tipos de usuarios,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/48-1
+00:09:00.080 --> 00:09:04.313
+<v Javier Caballero (EXT)>hay usuarios que están fijos,
+que estos están en fixtures,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/48-2
+00:09:04.313 --> 00:09:08.904
+<v Javier Caballero (EXT)>en fixtures usuarios,
+vos que tenés que se llaman están en pool</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/48-3
+00:09:08.904 --> 00:09:14.212
+<v Javier Caballero (EXT)>y están organizados por, como ves,
+portalas verticales, adqui adquirente,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/48-4
+00:09:14.212 --> 00:09:15.431
+<v Javier Caballero (EXT)>os de adquirente.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/50-0
+00:09:15.471 --> 00:09:19.740
+<v Javier Caballero (EXT)>Capitado y capitado,
+que este es el famoso B2C. Sí,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/50-1
+00:09:19.740 --> 00:09:24.090
+<v Javier Caballero (EXT)>tenés montones.
+Tienen los tags que los tests pueden</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/49-0
+00:09:20.391 --> 00:09:20.671
+<v Alan David Guzman (EXT)>Ya.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/50-2
+00:09:24.090 --> 00:09:29.016
+<v Javier Caballero (EXT)>agarrar y decir, ok,
+necesito un usuario Betify adquiriente</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/50-3
+00:09:29.016 --> 00:09:34.351
+<v Javier Caballero (EXT)>que tenga activo con una mascota y a su
+vez un plan sin mascota.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/51-0
+00:09:35.271 --> 00:09:38.940
+<v Javier Caballero (EXT)>O quiero que tenga una plan activo con
+mascota,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/51-1
+00:09:38.940 --> 00:09:42.685
+<v Javier Caballero (EXT)>pero que no tenga ningún plan sin cargar.
+O sea,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/51-2
+00:09:42.685 --> 00:09:48.493
+<v Javier Caballero (EXT)>que todos los planes estén ocupados.
+Este tiene una credencial que se puede</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/51-3
+00:09:48.493 --> 00:09:53.231
+<v Javier Caballero (EXT)>cargar, pero no está cargada,
+pero además tiene otra mascota.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/52-0
+00:09:53.751 --> 00:09:58.014
+<v Javier Caballero (EXT)>O sea, esto es tener 2 mascotas,
+una credencial cargada,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/52-1
+00:09:58.014 --> 00:10:02.351
+<v Javier Caballero (EXT)>pero sin credencial cargada y es la idea
+es por ahora es.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/53-0
+00:10:03.151 --> 00:10:06.803
+<v Javier Caballero (EXT)>Le pasas una lista de tags y va a ser
+búsquedas exactas.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/53-1
+00:10:06.803 --> 00:10:11.928
+<v Javier Caballero (EXT)>Si quieres un usuario activo simplemente
+y no te importa nada más porque querés</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/53-2
+00:10:11.928 --> 00:10:17.373
+<v Javier Caballero (EXT)>loguearte y ver cómo se ve la aplicación,
+le pedís activos y te los busca activados.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/53-3
+00:10:17.373 --> 00:10:19.871
+<v Javier Caballero (EXT)>El reserve es porque a veces vos querés</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/55-0
+00:10:21.391 --> 00:10:26.800
+<v Javier Caballero (EXT)>Vos que vas a usar un usuario y por un
+periodo de tiempo vas a, por ejemplo,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/55-1
+00:10:26.800 --> 00:10:32.631
+<v Javier Caballero (EXT)>crear videollamadas y cuando agendas una
+videollamada no querés que otro test a su</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/55-2
+00:10:32.631 --> 00:10:37.899
+<v Javier Caballero (EXT)>vez también agende videollamadas.
+Entonces si vos agendas una videollamada</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/55-3
+00:10:37.899 --> 00:10:42.465
+<v Javier Caballero (EXT)>y sabes que sos la único,
+si vos sabes que sos el único test que</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/55-4
+00:10:42.465 --> 00:10:44.151
+<v Javier Caballero (EXT)>está usando ese usuario.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/56-0
+00:10:45.231 --> 00:10:49.958
+<v Javier Caballero (EXT)>Vos deberías esperar que en la home sólo
+hubiera una videollamada.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/56-1
+00:10:49.958 --> 00:10:54.614
+<v Javier Caballero (EXT)>Es para evitar coaliciones de ese estilo.
+Cuando termina el test,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/56-2
+00:10:54.614 --> 00:10:59.340
+<v Javier Caballero (EXT)>el reservado se desaparece y ya otro test
+puede tomar ese usuario.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/56-3
+00:10:59.340 --> 00:11:03.150
+<v Javier Caballero (EXT)>Entonces esto es dinámico,
+por defecto está en false,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/56-4
+00:11:03.150 --> 00:11:04.631
+<v Javier Caballero (EXT)>dinámicamente se van.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/57-0
+00:11:04.751 --> 00:11:09.302
+<v Javier Caballero (EXT)>ponen en true y luego se van,
+se toman y se liberan.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/57-1
+00:11:09.302 --> 00:11:15.484
+<v Javier Caballero (EXT)>Estos pool de nuevo son usuarios que ya
+existen, que ya fueron creados,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/57-2
+00:11:15.484 --> 00:11:19.262
+<v Javier Caballero (EXT)>están comiteados y como no me importa
+nada,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/57-3
+00:11:19.262 --> 00:11:24.671
+<v Javier Caballero (EXT)>la password está en el proyecto porque es
+un proyecto privado.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/58-0
+00:11:25.071 --> 00:11:29.449
+<v Javier Caballero (EXT)>y no vas a poder usarlo en producción.
+O sea, no te sirve para nada,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/58-1
+00:11:29.449 --> 00:11:34.207
+<v Javier Caballero (EXT)>excepto para saber cómo funciona.
+Si se hace un link de la password y caso</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/58-2
+00:11:34.207 --> 00:11:38.585
+<v Javier Caballero (EXT)>que si se hay un link de las password,
+bueno, reinicia las password,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/58-3
+00:11:38.585 --> 00:11:42.138
+<v Javier Caballero (EXT)>que por cierto,
+no se pueden cambiar las contraseñas en</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/58-4
+00:11:42.138 --> 00:11:44.231
+<v Javier Caballero (EXT)>QA porque nunca te llega el mail.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/59-0
+00:11:45.151 --> 00:11:48.807
+<v Javier Caballero (EXT)>Y todavía no está la funcionalidad,
+pero hay una idea de hacer la</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/59-1
+00:11:48.807 --> 00:11:51.631
+<v Javier Caballero (EXT)>funcionalidad de cambio de contraseña,
+así que no.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/60-0
+00:11:52.431 --> 00:11:59.231
+<v Javier Caballero (EXT)>Tomes hoy los casos de prueba de cambio
+de contraseña, porque en realidad sí.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/61-0
+00:12:00.671 --> 00:12:04.836
+<v Javier Caballero (EXT)>Pero tenés que avisar,
+tenés que hacer como tenés que avisarlo</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/61-1
+00:12:04.836 --> 00:12:08.207
+<v Javier Caballero (EXT)>porque no le avisé porque tenía los
+videollamadas.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/61-2
+00:12:08.207 --> 00:12:11.842
+<v Javier Caballero (EXT)>Entonces estaba esperando que si alguien
+lo arreglaba,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/61-3
+00:12:11.842 --> 00:12:15.478
+<v Javier Caballero (EXT)>pero en la plan I fíjate si se puede
+cambiar la consi,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/61-4
+00:12:15.478 --> 00:12:19.311
+<v Javier Caballero (EXT)>si te si ya vuelve a funcionar lo del
+mail porque anduvo.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/62-0
+00:12:19.391 --> 00:12:22.031
+<v Javier Caballero (EXT)>Después se rompió,
+después volvió a andar y después se</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/62-1
+00:12:22.031 --> 00:12:23.231
+<v Javier Caballero (EXT)>volvió a romper entonces.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/63-0
+00:12:24.751 --> 00:12:29.846
+<v Javier Caballero (EXT)>No voy a reportarlo hoy porque capaz que
+cuando vaya a tomar la tarea anda,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/63-1
+00:12:29.846 --> 00:12:34.941
+<v Javier Caballero (EXT)>así que no levanta la mano. Si vas,
+si te toca tomar la tarea de hacerlo de</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/63-2
+00:12:34.941 --> 00:12:39.231
+<v Javier Caballero (EXT)>cambio y contraseña,
+fijate si llegan los mails y si no, bueno.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/64-0
+00:12:40.271 --> 00:12:41.591
+<v Javier Caballero (EXT)>Levanta la mano y en eso.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/65-0
+00:12:43.311 --> 00:12:47.644
+<v Javier Caballero (EXT)>Muy importante la identificación,
+porque esto te va a servir para activar</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/65-1
+00:12:47.644 --> 00:12:50.221
+<v Javier Caballero (EXT)>el plan.
+Este tipo de datos se corresponde,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/65-2
+00:12:50.221 --> 00:12:53.324
+<v Javier Caballero (EXT)>es un string,
+no tiene tipo de tipificación ni nada.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/65-3
+00:12:53.324 --> 00:12:56.778
+<v Javier Caballero (EXT)>Este es el lead,
+este es el lead para hacer el recupero de</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/65-4
+00:12:56.778 --> 00:12:59.296
+<v Javier Caballero (EXT)>carrito.
+Entonces creo que este era el que</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/65-5
+00:12:59.296 --> 00:13:01.111
+<v Javier Caballero (EXT)>funcionaba cuando hacíamos acá.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/66-0
+00:13:03.311 --> 00:13:04.391
+<v Javier Caballero (EXT)>Cua.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/67-0
+00:13:06.031 --> 00:13:15.631
+<v Javier Caballero (EXT)>Planes checkout, creo que era así,
+era acá, acá era regresando.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/68-0
+00:13:16.631 --> 00:13:17.311
+<v Javier Caballero (EXT)>I know.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/70-0
+00:13:23.311 --> 00:13:28.751
+<v Alan David Guzman (EXT)>Una consulta, Betty Five, mejor dicho,
+te voy a mandar.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/69-0
+00:13:24.471 --> 00:13:24.911
+<v Javier Caballero (EXT)>Dime.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/71-0
+00:13:32.671 --> 00:13:34.111
+<v Javier Caballero (EXT)>¿Cómo no te escuché?</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/72-0
+00:13:39.151 --> 00:13:40.231
+<v Alan David Guzman (EXT)>Una consulta.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/73-0
+00:13:40.871 --> 00:13:41.311
+<v Javier Caballero (EXT)>Sí.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/75-0
+00:13:41.351 --> 00:13:46.398
+<v Alan David Guzman (EXT)>¿Te voy a mandar al chat,
+esto está caído o es que esto es con que</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/75-1
+00:13:46.398 --> 00:13:47.151
+<v Alan David Guzman (EXT)>tener una?</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/76-0
+00:13:49.071 --> 00:13:51.791
+<v Alan David Guzman (EXT)>No sé, bueno,
+que apenas me dijiste que no.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/77-0
+00:13:53.391 --> 00:13:55.351
+<v Alan David Guzman (EXT)>Yo quiero saber si es que está caído o
+qué.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/78-0
+00:13:57.071 --> 00:13:57.551
+<v Javier Caballero (EXT)>No.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/80-0
+00:13:58.391 --> 00:14:01.511
+<v Alan David Guzman (EXT)>No, entonces por otra cosa, no,
+porque a mí me.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/79-0
+00:13:58.511 --> 00:13:58.911
+<v Javier Caballero (EXT)>What?</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/81-0
+00:14:02.911 --> 00:14:04.911
+<v Alan David Guzman (EXT)>A mí no me encanta.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/82-0
+00:14:03.791 --> 00:14:08.796
+<v Javier Caballero (EXT)>A ver, mira, si vos si vos ponés que odia,
+espera que estoy yo hago,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/82-1
+00:14:08.796 --> 00:14:10.391
+<v Javier Caballero (EXT)>esto es hoy es cero 7.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/83-0
+00:14:11.431 --> 00:14:24.951
+<v Javier Caballero (EXT)>073120 26001 arroba test punto CA y la
+password es PT hay 123 pesos.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/84-0
+00:14:28.431 --> 00:14:28.951
+<v Javier Caballero (EXT)>I know.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/85-0
+00:14:31.471 --> 00:14:32.991
+<v Javier Caballero (EXT)>Pongo crear contraseña.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/86-0
+00:14:36.671 --> 00:14:38.271
+<v Javier Caballero (EXT)>Esto te llegas hasta acá.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/87-0
+00:14:44.831 --> 00:14:45.831
+<v Javier Caballero (EXT)>Buenas, hala.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/88-0
+00:14:46.551 --> 00:14:47.391
+<v Alan David Guzman (EXT)>Decía que estoy.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/89-0
+00:14:47.991 --> 00:14:49.391
+<v Javier Caballero (EXT)>¿Llegas hasta esta pantalla, no?</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/90-0
+00:14:50.351 --> 00:14:52.794
+<v Alan David Guzman (EXT)>No,
+te voy a robar pantalla un segundito y te</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/90-1
+00:14:52.794 --> 00:14:53.431
+<v Alan David Guzman (EXT)>la devuelvo.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/91-0
+00:14:53.791 --> 00:14:54.231
+<v Javier Caballero (EXT)>Vale.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/92-0
+00:14:57.231 --> 00:14:57.831
+<v Alan David Guzman (EXT)>Yeah.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/93-0
+00:15:02.271 --> 00:15:05.071
+<v Javier Caballero (EXT)>A ver, solo andar sin el out sign up.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/94-0
+00:15:11.151 --> 00:15:15.138
+<v Javier Caballero (EXT)>Capaz que bloquearon para todos los
+países que no sea Argentina,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/94-1
+00:15:15.138 --> 00:15:19.738
+<v Javier Caballero (EXT)>porque honestamente no provee accediendo
+desde otro lugar que no sea desde</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/94-2
+00:15:19.738 --> 00:15:20.351
+<v Javier Caballero (EXT)>Argentina.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/95-0
+00:15:21.871 --> 00:15:23.551
+<v Alan David Guzman (EXT)>O sea, sí voy a necesitar la bebé.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/96-0
+00:15:26.351 --> 00:15:27.951
+<v Javier Caballero (EXT)>¿Vas a necesitar la VPN?</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/98-0
+00:15:32.511 --> 00:15:36.150
+<v Alan David Guzman (EXT)>¿Tú me puedes? Bueno,
+ya ahora sí te devuelvo pantalla.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/98-1
+00:15:36.150 --> 00:15:41.347
+<v Alan David Guzman (EXT)>¿Tú me puedes mostrar en pantalla cuál
+cuál aplicación exactamente de la VPN es</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/98-2
+00:15:41.347 --> 00:15:43.231
+<v Alan David Guzman (EXT)>que solo tengo la credencial?</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/97-0
+00:15:42.431 --> 00:15:43.471
+<v Javier Caballero (EXT)>Ah.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/99-0
+00:15:47.071 --> 00:15:48.911
+<v Javier Caballero (EXT)>¿Vos sabes que?</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/100-0
+00:15:50.911 --> 00:15:57.391
+<v Javier Caballero (EXT)>Justamente esta mañana la desinstale,
+dame 1 segundo, dame 1 segundo.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/101-0
+00:16:00.271 --> 00:16:02.191
+<v Javier Caballero (EXT)>O sea, la desinstalé y.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/102-0
+00:16:03.671 --> 00:16:07.811
+<v Javier Caballero (EXT)>Porque encima me pidió actualizar,
+me pedía acceso al disco,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/102-1
+00:16:07.811 --> 00:16:09.711
+<v Javier Caballero (EXT)>no sé qué y dije, no te vas.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/104-0
+00:16:19.391 --> 00:16:20.231
+<v Javier Caballero (EXT)>Acá está.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/105-0
+00:16:21.871 --> 00:16:24.191
+<v Javier Caballero (EXT)>Fortina copying.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/106-0
+00:16:26.191 --> 00:16:27.871
+<v Javier Caballero (EXT)>Venimos acá al chat.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/107-0
+00:16:28.911 --> 00:16:29.551
+<v Javier Caballero (EXT)>Aida.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/108-0
+00:16:33.951 --> 00:16:34.911
+<v Javier Caballero (EXT)>Bimash.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/109-0
+00:16:34.831 --> 00:16:38.991
+<v Alan David Guzman (EXT)>Ok, sí, entonces si esta que esa,
+pero no sé cómo.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/110-0
+00:16:37.871 --> 00:16:43.189
+<v Javier Caballero (EXT)>Y esta es la configuración y tu usuario y
+contraseña es el que te van a dar o si ya</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/110-1
+00:16:43.189 --> 00:16:44.391
+<v Javier Caballero (EXT)>te lo dieron capaz.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/111-0
+00:16:46.551 --> 00:16:48.111
+<v Alan David Guzman (EXT)>Nombre con.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/112-0
+00:16:48.831 --> 00:16:53.332
+<v Javier Caballero (EXT)>El username,
+el username es sin el arroba y que</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/112-1
+00:16:53.332 --> 00:16:58.395
+<v Javier Caballero (EXT)>asistencias.
+com es simplemente la primer parte antes</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/112-2
+00:16:58.395 --> 00:17:03.271
+<v Javier Caballero (EXT)>del arroba y tu password es la password
+que tenías.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/113-0
+00:17:04.471 --> 00:17:07.111
+<v Javier Caballero (EXT)>Me pasaría lo mío, pero.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/115-0
+00:17:09.231 --> 00:17:14.031
+<v Alan David Guzman (EXT)>No, a mí me lo tienen,
+solo que yo no he podido en la decisión</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/114-0
+00:17:09.431 --> 00:17:09.991
+<v Javier Caballero (EXT)>That's it.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/115-1
+00:17:14.031 --> 00:17:17.231
+<v Alan David Guzman (EXT)>porque es que no me sale o no, no me sale.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/117-0
+00:17:26.671 --> 00:17:31.551
+<v Javier Caballero (EXT)>Ah espera que acá encontré fíjate esto</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/118-0
+00:17:34.831 --> 00:17:37.391
+<v Javier Caballero (EXT)>Es será mi coso.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/119-0
+00:17:42.991 --> 00:17:48.671
+<v Javier Caballero (EXT)>Mientras te vas fijando, bueno,
+si no vas a poder.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/120-0
+00:17:50.191 --> 00:17:51.591
+<v Javier Caballero (EXT)>Ejecutar los casos de prueba.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/121-0
+00:17:52.591 --> 00:17:53.471
+<v Javier Caballero (EXT)>La.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/123-0
+00:17:56.271 --> 00:18:04.145
+<v Javier Caballero (EXT)>La situación es esta.
+Te vuelvo a compartir y seguimos viendo</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/123-1
+00:18:04.145 --> 00:18:06.431
+<v Javier Caballero (EXT)>acá y después vos.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/122-0
+00:18:04.591 --> 00:18:05.351
+<v Alan David Guzman (EXT)>Vale.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/124-0
+00:18:07.151 --> 00:18:10.764
+<v Javier Caballero (EXT)>Entonces,
+los fresh users son usuarios que se crean</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/124-1
+00:18:10.764 --> 00:18:12.431
+<v Javier Caballero (EXT)>antes de cada ejecución.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/125-0
+00:18:14.631 --> 00:18:18.078
+<v Javier Caballero (EXT)>O sea,
+yo quiero crear unos usuarios y yo esos</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/125-1
+00:18:18.078 --> 00:18:19.471
+<v Javier Caballero (EXT)>usuarios los voy a.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/126-0
+00:18:22.391 --> 00:18:26.292
+<v Javier Caballero (EXT)>Cuando ejecute el setup,
+esto me va a generar. Mira,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/126-1
+00:18:26.292 --> 00:18:30.267
+<v Javier Caballero (EXT)>te muestro el GitLab,
+porque esto está en GitLab, sí,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/126-2
+00:18:30.267 --> 00:18:33.653
+<v Javier Caballero (EXT)>está todo configurado,
+no hay nada que hacer.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/126-3
+00:18:33.653 --> 00:18:38.143
+<v Javier Caballero (EXT)>Y te voy mostrando GitLab, cómo está.
+Lo hicieron tan común,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/126-4
+00:18:38.143 --> 00:18:40.351
+<v Javier Caballero (EXT)>tan mal esto que ok, pipeline.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/127-0
+00:18:41.391 --> 00:18:41.831
+<v Javier Caballero (EXT)>Bueno.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/128-0
+00:18:42.951 --> 00:18:48.651
+<v Javier Caballero (EXT)>Básicamente no funciona porque no hay
+créditos, entonces no carga nada,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/128-1
+00:18:48.651 --> 00:18:52.529
+<v Javier Caballero (EXT)>pero hay tres jobs.
+Ejecuta el lint porque nada,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/128-2
+00:18:52.529 --> 00:18:59.099
+<v Javier Caballero (EXT)>obsesivo compulsivo siempre, así que nada,
+ejecuta el lint del proyecto y a su vez</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/128-3
+00:18:59.099 --> 00:19:01.711
+<v Javier Caballero (EXT)>de que no te faltaron, no que que</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/129-0
+00:19:03.471 --> 00:19:09.337
+<v Javier Caballero (EXT)>Digamos que compila el TypeScript,
+luego ejecuta los test y luego genera el</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/129-1
+00:19:09.337 --> 00:19:13.195
+<v Javier Caballero (EXT)>reporte.
+Y el reporte se puede descargar acá y en</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/129-2
+00:19:13.195 --> 00:19:17.671
+<v Javier Caballero (EXT)>el pull request también te lo aparece en
+el pull request.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/130-0
+00:19:18.551 --> 00:19:23.019
+<v Javier Caballero (EXT)>Pero bueno, no hay suficiente créditos,
+ves como dice acá no compute limited</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/130-1
+00:19:23.019 --> 00:19:26.151
+<v Javier Caballero (EXT)>available,
+pero creo que ya el primero se va a poder.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/131-0
+00:19:27.231 --> 00:19:29.351
+<v Javier Caballero (EXT)>Entonces me fijate que.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/132-0
+00:19:30.311 --> 00:19:34.060
+<v Javier Caballero (EXT)>El lint hace el run lint y el write type
+check nada más.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/132-1
+00:19:34.060 --> 00:19:38.402
+<v Javier Caballero (EXT)>Verifica si lo proraste bien.
+Luego el end to end regression, sí,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/132-2
+00:19:38.402 --> 00:19:42.808
+<v Javier Caballero (EXT)>pero que no necesito esto.
+El end to end regression lo que hace es</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/132-3
+00:19:42.808 --> 00:19:46.031
+<v Javier Caballero (EXT)>usando playwright,
+que ya me descargo la imagen.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/133-0
+00:19:47.711 --> 00:19:54.986
+<v Javier Caballero (EXT)>¿Lo que dice es si estoy en el branch de
+develop o estoy en un pull request hacia</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/133-1
+00:19:54.986 --> 00:19:59.067
+<v Javier Caballero (EXT)>develop,
+voy a ejecutar las pruebas contra el</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/133-2
+00:19:59.067 --> 00:20:01.551
+<v Javier Caballero (EXT)>ambiente de QA, se entiende?</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/134-0
+00:20:04.671 --> 00:20:07.791
+<v Javier Caballero (EXT)>Y va a ser en.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/135-0
+00:20:11.391 --> 00:20:15.591
+<v Javier Caballero (EXT)>Iba a ser contra cuando el branch sea.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/137-0
+00:20:16.591 --> 00:20:21.927
+<v Javier Caballero (EXT)>Contra la en el en un branch de main o
+contra el branch main. ¿Por qué?</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/137-1
+00:20:21.927 --> 00:20:27.855
+<v Javier Caballero (EXT)>Porque en desarrollo ellos tienen también
+manejan la misma estrategia de branch</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/137-2
+00:20:27.855 --> 00:20:32.375
+<v Javier Caballero (EXT)>main y branch develop.
+Entonces en Jeep Lab, no en nosotros.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/137-3
+00:20:32.375 --> 00:20:35.191
+<v Javier Caballero (EXT)>Entonces copié la misma estrategia es.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/138-0
+00:20:35.791 --> 00:20:38.650
+<v Javier Caballero (EXT)>Perfecto,
+la idea es tener un como un espejo a</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/138-1
+00:20:38.650 --> 00:20:42.787
+<v Javier Caballero (EXT)>nivel código y decir ok,
+esos casos es los que está hoy en Develop,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/138-2
+00:20:42.787 --> 00:20:46.133
+<v Javier Caballero (EXT)>los que corren Develop es porque corre
+contra Develop.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/138-3
+00:20:46.133 --> 00:20:49.417
+<v Javier Caballero (EXT)>Lo que está en Main es lo que hoy está en
+producción.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/138-4
+00:20:49.417 --> 00:20:54.162
+<v Javier Caballero (EXT)>Entonces vos podés tener cosas en Develop
+que todavía no está descendizada en</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/138-5
+00:20:54.162 --> 00:20:54.831
+<v Javier Caballero (EXT)>producción.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/139-0
+00:20:55.071 --> 00:21:00.243
+<v Javier Caballero (EXT)>Cuando hay un release de producción,
+pues es un merge a producción y entonces</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/139-1
+00:21:00.243 --> 00:21:04.618
+<v Javier Caballero (EXT)>ahí vos vas a tener que lo de Main va a
+correr contra producción.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/139-2
+00:21:04.618 --> 00:21:08.795
+<v Javier Caballero (EXT)>Hoy en día no se quiere que los test
+corran contra producción.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/139-3
+00:21:08.795 --> 00:21:13.635
+<v Javier Caballero (EXT)>La idea es que en un futuro que yo le
+hablé con Alexis era que los test,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/139-4
+00:21:13.635 --> 00:21:14.231
+<v Javier Caballero (EXT)>los test.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/140-0
+00:21:14.991 --> 00:21:18.191
+<v Javier Caballero (EXT)>Con en producción son sean solo de.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/141-0
+00:21:19.951 --> 00:21:21.991
+<v Javier Caballero (EXT)>Tener ciertos usuarios.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/142-0
+00:21:22.751 --> 00:21:28.967
+<v Javier Caballero (EXT)>Entonces acá los usuarios van a tener un
+environment, entonces van a venir,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/142-1
+00:21:28.967 --> 00:21:35.020
+<v Javier Caballero (EXT)>se va a venir acá y acá en vez de users
+va a decir si va a ser un pequeño</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/142-2
+00:21:35.020 --> 00:21:39.191
+<v Javier Caballero (EXT)>refactor como hoy no es necesario,
+hoy no lo hice.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/143-0
+00:21:40.191 --> 00:21:43.231
+<v Javier Caballero (EXT)>Sé que va a estar y de nuevo.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/144-0
+00:21:44.431 --> 00:21:45.431
+<v Javier Caballero (EXT)>Tarea para casa.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/145-0
+00:21:46.351 --> 00:21:50.923
+<v Javier Caballero (EXT)>A ti, no para mí, eso estaba,
+lo tenía Johnny en el backlog para</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/145-1
+00:21:50.923 --> 00:21:56.058
+<v Javier Caballero (EXT)>agregar de que o k quiero preparar el
+framework para soportar pruebas en</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/145-2
+00:21:56.058 --> 00:21:56.831
+<v Javier Caballero (EXT)>producción.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/146-0
+00:21:58.191 --> 00:22:06.889
+<v Javier Caballero (EXT)>Porque en realidad sí puedo para que no
+se corra ninguna creación de usuario para</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/146-1
+00:22:06.889 --> 00:22:07.631
+<v Javier Caballero (EXT)>que no.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/147-0
+00:22:08.831 --> 00:22:13.688
+<v Javier Caballero (EXT)>No cree credencial.
+Entonces solo tengo ciertos usuarios.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/147-1
+00:22:13.688 --> 00:22:18.797
+<v Javier Caballero (EXT)>Esos usuarios los cargo.
+Puedo hacer login de la aplicación.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/147-2
+00:22:18.797 --> 00:22:25.078
+<v Javier Caballero (EXT)>Puedo ver mi información y validar que
+dependiendo de esos cuatro tipos de</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/147-3
+00:22:25.078 --> 00:22:25.831
+<v Javier Caballero (EXT)>usuarios.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/148-0
+00:22:26.671 --> 00:22:31.176
+<v Javier Caballero (EXT)>Que cada uno vea lo que tiene que ver y
+que no vea lo que no tiene que ver.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/148-1
+00:22:31.176 --> 00:22:34.377
+<v Javier Caballero (EXT)>Simplemente es un read only test para
+producción. Sí,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/148-2
+00:22:34.377 --> 00:22:37.044
+<v Javier Caballero (EXT)>ese es el objetivo y por eso va a estar
+acá.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/148-3
+00:22:37.044 --> 00:22:39.711
+<v Javier Caballero (EXT)>Y eso es por eso que se pensó de esa
+manera.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/150-0
+00:22:41.071 --> 00:22:45.959
+<v Javier Caballero (EXT)>Cualquier otro branch que quieras
+correrte es contra el ambiente de dev</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/150-1
+00:22:45.959 --> 00:22:49.420
+<v Javier Caballero (EXT)>spoiler alert.
+No hay ambiente de dev y tampoco se</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/150-2
+00:22:49.420 --> 00:22:54.511
+<v Javier Caballero (EXT)>piensa hacer pruebas de cosas, pero bueno,
+al menos el CI sabe que existe.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/149-0
+00:22:52.791 --> 00:22:53.151
+<v Alan David Guzman (EXT)>Sí.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/151-0
+00:22:55.871 --> 00:22:56.311
+<v Javier Caballero (EXT)>Sell.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/153-0
+00:22:57.391 --> 00:23:03.985
+<v Javier Caballero (EXT)>Entonces existe el test,
+se corre en realidad en dos etapas,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/153-1
+00:23:03.985 --> 00:23:09.714
+<v Javier Caballero (EXT)>el setup.
+Setup es realmente como lo dice el readme,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/153-2
+00:23:09.714 --> 00:23:16.631
+<v Javier Caballero (EXT)>que el readme, nada.
+Cloud lo escribió y lo describió muy bien.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/152-0
+00:23:10.871 --> 00:23:11.151
+<v Alan David Guzman (EXT)>Mhm.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/154-0
+00:23:17.071 --> 00:23:21.951
+<v Javier Caballero (EXT)>Igual tuve un par de intervenciones
+humanas, pero mayormente Claude,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/154-1
+00:23:21.951 --> 00:23:26.406
+<v Javier Caballero (EXT)>vamos a decir que no, es generar,
+es generar los usuarios, sí,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/154-2
+00:23:26.406 --> 00:23:28.951
+<v Javier Caballero (EXT)>y eso se hacen con el NPM Run Setup.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/155-0
+00:23:30.431 --> 00:23:34.678
+<v Javier Caballero (EXT)>Es que lo que hace los test,
+no todos los test,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/155-1
+00:23:34.678 --> 00:23:40.429
+<v Javier Caballero (EXT)>pero muchos test tienen acá.
+¿Viste los test dentro de Projects?</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/155-2
+00:23:40.429 --> 00:23:45.471
+<v Javier Caballero (EXT)>Ahí están los test.
+Entonces hay test que tienen el tag.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/156-0
+00:23:47.471 --> 00:23:54.551
+<v Javier Caballero (EXT)>Este no tiene, no, este va a ser compra,
+user management, new, Bettify, B2C.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/157-0
+00:23:57.231 --> 00:24:00.322
+<v Javier Caballero (EXT)>Y en credencials, bueno,
+estos casos los skipe,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/157-1
+00:24:00.322 --> 00:24:04.250
+<v Javier Caballero (EXT)>los están skipeados,
+pero los saqué porque en realidad hacen</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/157-2
+00:24:04.250 --> 00:24:05.151
+<v Javier Caballero (EXT)>ruido más que.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/158-0
+00:24:05.951 --> 00:24:10.226
+<v Javier Caballero (EXT)>Vos ves en el reporte skipper,
+skipper y crees que algo mal.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/158-1
+00:24:10.226 --> 00:24:15.551
+<v Javier Caballero (EXT)>La cosa es así, si no hay usuarios,
+el caso de pruebas se skipea, entonces.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/159-0
+00:24:16.671 --> 00:24:19.982
+<v Javier Caballero (EXT)>Nada,
+por eso los que realmente no existen</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/159-1
+00:24:19.982 --> 00:24:24.369
+<v Javier Caballero (EXT)>cuando se puedan probar,
+que son de sacar fotos y demás,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/159-2
+00:24:24.369 --> 00:24:28.295
+<v Javier Caballero (EXT)>los hay que descomentarlo e
+implementarlos. Bueno,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/159-3
+00:24:28.295 --> 00:24:32.991
+<v Javier Caballero (EXT)>entonces este es similar a la anterior
+New Bettify B2C User.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/160-0
+00:24:34.831 --> 00:24:39.471
+<v Javier Caballero (EXT)>Porque user yellow dressing user en el
+read me explica que.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/161-0
+00:24:41.151 --> 00:24:44.151
+<v Javier Caballero (EXT)>Los tags son se crean por.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/162-0
+00:24:45.871 --> 00:24:50.751
+<v Javier Caballero (EXT)>Son simplemente hago la compra o hago el
+canje del cupón.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/163-0
+00:24:51.551 --> 00:24:57.676
+<v Javier Caballero (EXT)>Yo ya activo un plan y el script de setup
+si hay al menos 1 compra exitosa,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/163-1
+00:24:57.676 --> 00:25:02.511
+<v Javier Caballero (EXT)>porque puede ser el caso de que hay un
+error hacer compras.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/164-0
+00:25:03.631 --> 00:25:06.343
+<v Javier Caballero (EXT)>Él va, él no va a romperse,
+no va a fallar,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/164-1
+00:25:06.343 --> 00:25:11.089
+<v Javier Caballero (EXT)>va simplemente va a decir che, mira,
+Warning no pude hacer la compra de B2C,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/164-2
+00:25:11.089 --> 00:25:16.020
+<v Javier Caballero (EXT)>no pude hacer la compra de capitado o en
+realidad canje de cupón. Como no pude,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/164-3
+00:25:16.020 --> 00:25:18.793
+<v Javier Caballero (EXT)>no pude, no pude, listo,
+no pude hacer nada,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/164-4
+00:25:18.793 --> 00:25:21.751
+<v Javier Caballero (EXT)>no cree ningún usuario,
+no hice ninguna compra.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/165-0
+00:25:22.831 --> 00:25:27.123
+<v Javier Caballero (EXT)>No voy a esperar nada.
+Si al menos puedo hacer una compra,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/165-1
+00:25:27.123 --> 00:25:33.089
+<v Javier Caballero (EXT)>va a esperar 15 minutos y luego comienzan
+los test, que es esta partecita de acá,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/165-2
+00:25:33.089 --> 00:25:36.071
+<v Javier Caballero (EXT)>los test, los test demoran hoy 4 minutos.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/166-0
+00:25:36.831 --> 00:25:40.513
+<v Javier Caballero (EXT)>Por regla,
+todos los test corren en paralelo y todos</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/166-1
+00:25:40.513 --> 00:25:46.278
+<v Javier Caballero (EXT)>los test deben ser independientes y todos
+los test tienen que tener al menos un de</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/166-2
+00:25:46.278 --> 00:25:49.543
+<v Javier Caballero (EXT)>cara al usuario,
+tienen que dar funcionalidad,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/166-3
+00:25:49.543 --> 00:25:53.155
+<v Javier Caballero (EXT)>volver para atrás,
+avanzar a la siguiente pantalla,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/166-4
+00:25:53.155 --> 00:25:57.322
+<v Javier Caballero (EXT)>cargar cierta información.
+No deben ser test de validar los</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/166-5
+00:25:57.322 --> 00:25:58.711
+<v Javier Caballero (EXT)>elementos presentes.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/167-0
+00:25:59.791 --> 00:26:03.940
+<v Javier Caballero (EXT)>Eso no es no es parte de lo que se espera
+de estos test.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/167-1
+00:26:03.940 --> 00:26:09.544
+<v Javier Caballero (EXT)>Los test tienen que ser funcionales.
+Probable que se pueda agregar unos test</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/167-2
+00:26:09.544 --> 00:26:10.271
+<v Javier Caballero (EXT)>que digan.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/168-0
+00:26:11.071 --> 00:26:15.143
+<v Javier Caballero (EXT)>validar que se visualiza en todas las
+entradas, bla, bla, bla. Sí,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/168-1
+00:26:15.143 --> 00:26:19.944
+<v Javier Caballero (EXT)>pero es capaz que hacemos después una
+suite especial para ese tipo de test que</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/168-2
+00:26:19.944 --> 00:26:24.320
+<v Javier Caballero (EXT)>es la de validar. Por ejemplo,
+si tiene todos los entradas de servicio,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/168-3
+00:26:24.320 --> 00:26:28.696
+<v Javier Caballero (EXT)>pero no me interesa que tiene todos los
+botoncitos, todas las imágenes,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/168-4
+00:26:28.696 --> 00:26:29.911
+<v Javier Caballero (EXT)>todos los iconcitos.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/169-0
+00:26:30.031 --> 00:26:32.848
+<v Javier Caballero (EXT)>No,
+yo puedo cargar la credencial por más que</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/169-1
+00:26:32.848 --> 00:26:37.257
+<v Javier Caballero (EXT)>me falten 25 iconos o todos los iconos y
+todas las imágenes. Sí, punto.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/169-2
+00:26:37.257 --> 00:26:40.748
+<v Javier Caballero (EXT)>El negocio puede seguir funcionando.
+Es cara al negocio,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/169-3
+00:26:40.748 --> 00:26:44.177
+<v Javier Caballero (EXT)>porque así también para que cargar los
+casos de prueba,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/169-4
+00:26:44.177 --> 00:26:48.831
+<v Javier Caballero (EXT)>para que crear los casos de pruebas vos,
+porque si no te vas a volver loco.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/170-0
+00:26:48.911 --> 00:26:51.511
+<v Javier Caballero (EXT)>Y además, hay que.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/171-0
+00:26:53.231 --> 00:26:58.871
+<v Javier Caballero (EXT)>Creo que un poco la mirada que tiene
+Liliana es que nada, son 23 casos nomás.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/171-1
+00:26:58.871 --> 00:27:04.800
+<v Javier Caballero (EXT)>OK, login es como super happy pad, o sea,
+no los casos, no los casos como, bueno,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/171-2
+00:27:04.800 --> 00:27:09.210
+<v Javier Caballero (EXT)>y qué pasa si tengo un solo,
+un solo un usuario sin mascota,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/171-3
+00:27:09.210 --> 00:27:12.391
+<v Javier Caballero (EXT)>un usuario con una mascota,
+un usuario con.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/172-0
+00:27:12.511 --> 00:27:19.791
+<v Javier Caballero (EXT)>2 planes, un usuario con que es capitado,
+pero compró un plan Betify, ella no.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/173-0
+00:27:20.991 --> 00:27:26.036
+<v Javier Caballero (EXT)>Para ella es lo mismo, subestima mucho,
+es necesario ser muy verbal.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/173-1
+00:27:26.036 --> 00:27:31.373
+<v Javier Caballero (EXT)>Eso creo que hago mea culpa de que fue mi
+culpa de no explicarle, o sea,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/173-2
+00:27:31.373 --> 00:27:35.760
+<v Javier Caballero (EXT)>no explicarle con tiempo de que esas
+cosas había que hacer.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/173-3
+00:27:35.760 --> 00:27:40.951
+<v Javier Caballero (EXT)>Y creo que ella nunca lo entendió y no sé
+si hoy lo entiende entonces.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/174-0
+00:27:41.471 --> 00:27:45.301
+<v Javier Caballero (EXT)>Te pongo de nuevo el warning en eso, ojo,
+porque si no,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/174-1
+00:27:45.301 --> 00:27:48.994
+<v Javier Caballero (EXT)>eso también va a marcar cuando cuando vos
+te demores,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/174-2
+00:27:48.994 --> 00:27:54.191
+<v Javier Caballero (EXT)>porque obviamente tenés 30 casos para
+probar que ella crea que solamente 2.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/175-0
+00:27:55.391 --> 00:27:56.111
+<v Javier Caballero (EXT)>One Tuesday.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/176-0
+00:28:01.911 --> 00:28:06.179
+<v Javier Caballero (EXT)>Vos le ponés el tag a los tests Pettify
+B2C y te va a crear,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/176-1
+00:28:06.179 --> 00:28:10.656
+<v Javier Caballero (EXT)>va a crear un usuario,
+el script y lo voy a dejar en FreshUser,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/176-2
+00:28:10.656 --> 00:28:14.923
+<v Javier Caballero (EXT)>es como acá, es más,
+si quieres lo vamos a correr y mientras</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/176-3
+00:28:14.923 --> 00:28:17.511
+<v Javier Caballero (EXT)>las tengamos, entonces lo que hace es</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/177-0
+00:28:18.631 --> 00:28:22.772
+<v Javier Caballero (EXT)>Dice ok, tengo que crear 2 usuarios B2C,
+un usuario adquiriente 2D,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/177-1
+00:28:22.772 --> 00:28:27.643
+<v Javier Caballero (EXT)>un usuario de capital 2D y una capital 2
+flux y te dice qué cantidad tiene cada</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/177-2
+00:28:27.643 --> 00:28:28.191
+<v Javier Caballero (EXT)>cada uno.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/178-0
+00:28:29.711 --> 00:28:35.761
+<v Javier Caballero (EXT)>Estos 2 no hay cupones porque la lógica
+de generación dinámica de cupones no</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/178-1
+00:28:35.761 --> 00:28:36.311
+<v Javier Caballero (EXT)>existe.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/179-0
+00:28:38.271 --> 00:28:41.492
+<v Javier Caballero (EXT)>Esto es,
+todo lo hace el provider de cupones que</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/179-1
+00:28:41.492 --> 00:28:46.291
+<v Javier Caballero (EXT)>generan los que, como habíamos dicho,
+los providers generan información,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/179-2
+00:28:46.291 --> 00:28:50.958
+<v Javier Caballero (EXT)>generan datos para las pruebas,
+tal provider de usuarios y también los</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/179-3
+00:28:50.958 --> 00:28:54.376
+<v Javier Caballero (EXT)>cupones. Todo lo demás no es,
+no hay que probarlos.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/179-4
+00:28:54.376 --> 00:28:58.911
+<v Javier Caballero (EXT)>Y hay 2 tipos de cupones. B acá dijo,
+no puedo registrar un usuario.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/180-0
+00:28:58.951 --> 00:29:03.757
+<v Javier Caballero (EXT)>Porque cupón factory registración de
+cupón no está implementado porque</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/180-1
+00:29:03.757 --> 00:29:06.804
+<v Javier Caballero (EXT)>entonces no puede generar un cupón
+dinámico.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/180-2
+00:29:06.804 --> 00:29:10.324
+<v Javier Caballero (EXT)>Y ese cupón es único para ser usado en
+las compras.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/180-3
+00:29:10.324 --> 00:29:14.114
+<v Javier Caballero (EXT)>Entonces nos hace la creación.
+Pero es que no las hace,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/180-4
+00:29:14.114 --> 00:29:18.311
+<v Javier Caballero (EXT)>pero te avisa que no lo hizo. Entonces,
+el test que tenga que</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/181-0
+00:29:18.671 --> 00:29:25.489
+<v Javier Caballero (EXT)>que use ese que espere ese usuario va a
+ser un skip que digamos vamos a ir más</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/181-1
+00:29:25.489 --> 00:29:31.013
+<v Javier Caballero (EXT)>rápido. O sea, esto va a seguir,
+yo lo voy a dejar acá andando.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/181-2
+00:29:31.013 --> 00:29:36.191
+<v Javier Caballero (EXT)>Entonces este que es el tag de New
+Capital 2 Flux es el que</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/182-0
+00:29:37.551 --> 00:29:41.351
+<v Javier Caballero (EXT)>necesita hacer test lo que va a decir es
+ok</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/183-0
+00:29:42.831 --> 00:29:45.928
+<v Javier Caballero (EXT)>User provider dame un usuario que sea
+Fresh,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/183-1
+00:29:45.928 --> 00:29:51.089
+<v Javier Caballero (EXT)>o sea que sea un usuario que lo que se
+creó ahora no sea uno de los que ya</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/183-2
+00:29:51.089 --> 00:29:56.044
+<v Javier Caballero (EXT)>existe. ¿Por qué la diferencia?
+Porque además estos Fresh significa que</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/183-3
+00:29:56.044 --> 00:30:01.618
+<v Javier Caballero (EXT)>pueden crear con registrarse la parte de
+registrar y validación de la póliza que</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/183-4
+00:30:01.618 --> 00:30:02.031
+<v Javier Caballero (EXT)>ponen.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/184-0
+00:30:02.671 --> 00:30:06.242
+<v Javier Caballero (EXT)>Entonces lo que hacen es ok,
+que sea flux capitado,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/184-1
+00:30:06.242 --> 00:30:10.225
+<v Javier Caballero (EXT)>como ves los site ID ya están todo,
+todo está tipificado,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/184-2
+00:30:10.225 --> 00:30:15.925
+<v Javier Caballero (EXT)>los tipos de sitios se agregan uno nuevo,
+es agregarlo acá y todo lo demás, o sea,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/184-3
+00:30:15.925 --> 00:30:21.488
+<v Javier Caballero (EXT)>se organiza y sea de tipo no registrado,
+porque a veces podés crear uno que diga</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/184-4
+00:30:21.488 --> 00:30:21.831
+<v Javier Caballero (EXT)>user.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/185-0
+00:30:21.911 --> 00:30:23.231
+<v Javier Caballero (EXT)>Y se va a registrar.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/187-0
+00:30:25.591 --> 00:30:30.195
+<v Javier Caballero (EXT)>Si no hay usuario,
+se esquipe a ver siempre eso va a saber.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/187-1
+00:30:30.195 --> 00:30:34.031
+<v Javier Caballero (EXT)>Entonces en el reporte cada vez que vos
+veas que.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/188-0
+00:30:35.831 --> 00:30:41.774
+<v Javier Caballero (EXT)>¿Cómo se llama que está en TC skipeado?
+Es porque no hubo usuarios para probarlo,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/188-1
+00:30:41.774 --> 00:30:43.151
+<v Javier Caballero (EXT)>esa es la idea. si.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/189-0
+00:30:44.391 --> 00:30:49.126
+<v Javier Caballero (EXT)>Perdón,
+si hay un test esquipeado es que no hay</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/189-1
+00:30:49.126 --> 00:30:57.215
+<v Javier Caballero (EXT)>set de datos que se que permita correrlo.
+Por eso se esquipea. Es la única razón.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/189-2
+00:30:57.215 --> 00:31:03.035
+<v Javier Caballero (EXT)>O no hay o cupón,
+porque hay casos que necesitan cupones o</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/189-3
+00:31:03.035 --> 00:31:06.191
+<v Javier Caballero (EXT)>cupones que sean, ¿cómo decirlo?</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/190-0
+00:31:06.551 --> 00:31:11.886
+<v Javier Caballero (EXT)>Cupones que sean únicos porque hay
+cupones que son que de descuento,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/190-1
+00:31:11.886 --> 00:31:15.751
+<v Javier Caballero (EXT)>por ejemplo,
+que hay un montón que están acá. en.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/191-0
+00:31:18.151 --> 00:31:21.855
+<v Javier Caballero (EXT)>Acá fixture cupón reusables, y esto es,
+por ejemplo,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/191-1
+00:31:21.855 --> 00:31:27.375
+<v Javier Caballero (EXT)>este cupón que es de tipo reusable es
+universal porque es haga las compras que</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/191-2
+00:31:27.375 --> 00:31:29.471
+<v Javier Caballero (EXT)>haga, o este, por ejemplo, es.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/192-0
+00:31:30.311 --> 00:31:34.720
+<v Javier Caballero (EXT)>solo para voz de adquiriente y tiene un
+30% de descuento.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/192-1
+00:31:34.720 --> 00:31:39.205
+<v Javier Caballero (EXT)>Este es un es este valor es opcional,
+es de tipo reusable,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/192-2
+00:31:39.205 --> 00:31:45.362
+<v Javier Caballero (EXT)>entonces se puede usar todas las veces y
+este y este es el código del cupón para</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/192-3
+00:31:45.362 --> 00:31:49.923
+<v Javier Caballero (EXT)>ingresar. Ves 20, 10,
+este es este sirve para hacer pruebas</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/192-4
+00:31:49.923 --> 00:31:50.911
+<v Javier Caballero (EXT)>porque es 99%</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/193-0
+00:31:52.551 --> 00:31:53.551
+<v Javier Caballero (EXT)>En.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/194-0
+00:31:55.111 --> 00:32:00.469
+<v Javier Caballero (EXT)>¿Qué más? Bueno,
+acá tenés otros datos de pruebas de PDFs,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/194-1
+00:32:00.469 --> 00:32:06.553
+<v Javier Caballero (EXT)>fotos para subir de nada de 10 megas
+fotos para probar, decir, ok,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/194-2
+00:32:06.553 --> 00:32:12.637
+<v Javier Caballero (EXT)>quiero cargar una credencial con una foto
+de un perro, de un gato,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/194-3
+00:32:12.637 --> 00:32:14.271
+<v Javier Caballero (EXT)>un foto de perfil.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/195-0
+00:32:14.391 --> 00:32:19.951
+<v Javier Caballero (EXT)>Ya tengas un par de ejemplito y la foto
+del y el PDF sirve para cuando el usuario.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/196-0
+00:32:21.111 --> 00:32:25.081
+<v Javier Caballero (EXT)>Quiere adjuntar, no sé,
+cuando haces una videollamada y eso que</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/196-1
+00:32:25.081 --> 00:32:27.811
+<v Javier Caballero (EXT)>voy a hacer una llamada con la
+veterinaria.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/196-2
+00:32:27.811 --> 00:32:32.959
+<v Javier Caballero (EXT)>Necesito un archivo para poder adjuntar,
+para que no se trae lo que venía tomando,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/196-3
+00:32:32.959 --> 00:32:37.301
+<v Javier Caballero (EXT)>una receta médica anterior,
+su historial clínico de otra veterinaria,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/196-4
+00:32:37.301 --> 00:32:41.271
+<v Javier Caballero (EXT)>lo que fuera. Vos podés adjuntar PDFs,
+podés adjuntar imágenes.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/197-0
+00:32:41.831 --> 00:32:46.575
+<v Javier Caballero (EXT)>O cuando quieres validar que que en una
+subida de imágenes, por ejemplo,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/197-1
+00:32:46.575 --> 00:32:49.889
+<v Javier Caballero (EXT)>la foto de credencial,
+no pueda subir PDFs, o sea,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/197-2
+00:32:49.889 --> 00:32:54.437
+<v Javier Caballero (EXT)>cualquier archivo que no sea imagen,
+entonces puedas hacer la prueba.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/197-3
+00:32:54.437 --> 00:32:56.191
+<v Javier Caballero (EXT)>Esos están acá en fixtures.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/198-0
+00:32:57.031 --> 00:33:04.754
+<v Javier Caballero (EXT)>Y API es obviamente todas las API de la
+web app y todo para poder hacer cosas</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/198-1
+00:33:04.754 --> 00:33:12.278
+<v Javier Caballero (EXT)>como por ejemplo crear un usuario,
+dame las mascotas que tiene ese usuario,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/198-2
+00:33:12.278 --> 00:33:14.951
+<v Javier Caballero (EXT)>dame las razas que existen.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/199-0
+00:33:17.511 --> 00:33:24.006
+<v Javier Caballero (EXT)>Dame mis videollamadas que tengo
+agendadas, dame la llamada por video.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/199-1
+00:33:24.006 --> 00:33:30.591
+<v Javier Caballero (EXT)>Tengo el ID de la asistencia.
+Entonces dame la videollamada por ese ID.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/200-0
+00:33:31.711 --> 00:33:34.351
+<v Javier Caballero (EXT)>La disponibilidad es para un cierto día.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/201-0
+00:33:35.431 --> 00:33:39.916
+<v Javier Caballero (EXT)>Dame una videollamada y entonces voy ya
+le pasas todos los datos y esto te</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/201-1
+00:33:39.916 --> 00:33:41.471
+<v Javier Caballero (EXT)>registra una videollamada.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/203-0
+00:33:47.671 --> 00:33:51.862
+<v Javier Caballero (EXT)>Bueno, al rato vi sol,
+ahora vuelve a llover, está loco el día.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/203-1
+00:33:51.862 --> 00:33:55.332
+<v Javier Caballero (EXT)>Cancelar las razones de cancelación de
+videollamada,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/203-2
+00:33:55.332 --> 00:33:57.951
+<v Javier Caballero (EXT)>cancelar una videollamada y cancelar es.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/204-0
+00:33:59.191 --> 00:34:04.551
+<v Javier Caballero (EXT)>Te busca todas las, si no tenés la razón,
+te traes una razón aleatoria ahí.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/205-0
+00:34:05.511 --> 00:34:09.527
+<v Javier Caballero (EXT)>Te la rechaza a la videollamada.
+Así como ven, no me importa que cancele,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/205-1
+00:34:09.527 --> 00:34:13.001
+<v Javier Caballero (EXT)>cancelame con todas las videollamadas.
+Se parece en un cleanup.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/205-2
+00:34:13.001 --> 00:34:15.605
+<v Javier Caballero (EXT)>Y esto mismo para hacer las compras,
+que no sé,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/205-3
+00:34:15.605 --> 00:34:19.404
+<v Javier Caballero (EXT)>tenés todos los planes que existen.
+Entonces a veces vos le decís ok,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/205-4
+00:34:19.404 --> 00:34:22.661
+<v Javier Caballero (EXT)>dame todos los planes,
+pero hay planes que son para Betify.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/205-5
+00:34:22.661 --> 00:34:24.831
+<v Javier Caballero (EXT)>Bueno, acá el brand, pero esto no sé si.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/206-0
+00:34:24.911 --> 00:34:26.471
+<v Javier Caballero (EXT)>Esto habría que revisarlo un poquito.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/207-0
+00:34:28.711 --> 00:34:32.767
+<v Javier Caballero (EXT)>Porque hay planes que son familiares,
+hay planes que son de OSDE y otros que</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/207-1
+00:34:32.767 --> 00:34:34.031
+<v Javier Caballero (EXT)>son de Betify, entonces.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/208-0
+00:34:35.031 --> 00:34:40.096
+<v Javier Caballero (EXT)>Habría que ver y generar todos los pasos
+para las compras,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/208-1
+00:34:40.096 --> 00:34:42.671
+<v Javier Caballero (EXT)>después solo puedes ir viendo.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/209-0
+00:34:45.511 --> 00:34:46.631
+<v Javier Caballero (EXT)>En fin.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/210-0
+00:34:47.911 --> 00:34:51.511
+<v Javier Caballero (EXT)>¿Has entonces viste que acá registrás
+hace todas las cosas?</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/211-0
+00:34:52.551 --> 00:34:56.711
+<v Javier Caballero (EXT)>Y hay un container,
+entonces esto ya tiene un fixture.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/212-0
+00:34:58.151 --> 00:35:01.151
+<v Javier Caballero (EXT)>Entonces tengo un test container.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/213-0
+00:35:02.631 --> 00:35:05.991
+<v Javier Caballero (EXT)>Bueno, esto está un poco mal.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/214-0
+00:35:07.431 --> 00:35:10.138
+<v Javier Caballero (EXT)>Todo esto no debería estar. Bueno,
+voy a hacer,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/214-1
+00:35:10.138 --> 00:35:12.957
+<v Javier Caballero (EXT)>creo que esto va a ser el último cambio
+que haga,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/214-2
+00:35:12.957 --> 00:35:17.185
+<v Javier Caballero (EXT)>pero este en teoría no debería estar
+solamente el container y el container</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/214-3
+00:35:17.185 --> 00:35:19.271
+<v Javier Caballero (EXT)>tiene el user, user request entonces.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/215-0
+00:35:20.471 --> 00:35:24.591
+<v Javier Caballero (EXT)>En los test vos le podés decir en
+credenciales.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/216-0
+00:35:25.591 --> 00:35:25.951
+<v Javier Caballero (EXT)>Right.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/217-0
+00:35:27.511 --> 00:35:33.311
+<v Javier Caballero (EXT)>Test punto entonces voy a decir OK el
+siguiente test.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/218-0
+00:35:34.871 --> 00:35:38.271
+<v Javier Caballero (EXT)>Para requerir un usuario nuevo que tenga
+todas estas cosas.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/219-0
+00:35:39.671 --> 00:35:43.791
+<v Javier Caballero (EXT)>Y el test automáticamente va a arrancar.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/220-0
+00:35:45.111 --> 00:35:49.695
+<v Javier Caballero (EXT)>Con un usuario, o sea,
+el test va a arrancar logueado y además</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/220-1
+00:35:49.695 --> 00:35:54.860
+<v Javier Caballero (EXT)>los login se se hace un cash de las de
+las cookies de autentificación.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/220-2
+00:35:54.860 --> 00:36:00.754
+<v Javier Caballero (EXT)>Entonces la primera vez es un poquito más
+lento, pero la siguiente vienen súper,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/220-3
+00:36:00.754 --> 00:36:04.391
+<v Javier Caballero (EXT)>súper rápida.
+Entonces esto lo que hace es listo.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/221-0
+00:36:04.471 --> 00:36:09.897
+<v Javier Caballero (EXT)>Este es el user request,
+que significa que quiero que le que es el</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/221-1
+00:36:09.897 --> 00:36:14.431
+<v Javier Caballero (EXT)>buscar un user,
+es como ir al lo que hace internamente.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/222-0
+00:36:15.831 --> 00:36:17.391
+<v Javier Caballero (EXT)>A callos de rico es.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/223-0
+00:36:19.031 --> 00:36:22.791
+<v Javier Caballero (EXT)>Esto que me hizo es.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/224-0
+00:36:25.431 --> 00:36:28.071
+<v Javier Caballero (EXT)>Ahora esto, esto ya no va más.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/225-0
+00:36:36.951 --> 00:36:40.922
+<v Javier Caballero (EXT)>¿Lo que hace dónde está user user request?
+¿Ves esto?</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/225-1
+00:36:40.922 --> 00:36:46.951
+<v Javier Caballero (EXT)>Lo que hace el user es primero se obtiene
+el user request si hay un user request.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/226-0
+00:36:48.471 --> 00:36:53.708
+<v Javier Caballero (EXT)>Hay un login con user request que lo que
+hace es busca un usuario, hace login,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/226-1
+00:36:53.708 --> 00:36:57.818
+<v Javier Caballero (EXT)>tiene el user. Si no hay usuario,
+pero tenés un user request,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/226-2
+00:36:57.818 --> 00:37:02.391
+<v Javier Caballero (EXT)>entonces va a kipear el test y decir no
+hay usuarios para este tipo.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/227-0
+00:37:03.911 --> 00:37:05.431
+<v Javier Caballero (EXT)>Y después va a usar el usuario.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/228-0
+00:37:07.351 --> 00:37:10.431
+<v Javier Caballero (EXT)>Y ese usuario tenés un autenticado.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/229-0
+00:37:11.431 --> 00:37:13.551
+<v Javier Caballero (EXT)>Y lo que hace es auténtica.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/230-0
+00:37:14.911 --> 00:37:16.591
+<v Javier Caballero (EXT)>Bueno, esto no sé si va a compilar.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/231-0
+00:37:18.391 --> 00:37:20.271
+<v Javier Caballero (EXT)>Pero eso me que había quedado mal.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/232-0
+00:37:21.511 --> 00:37:22.471
+<v Javier Caballero (EXT)>sí, compilo.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/233-0
+00:37:23.751 --> 00:37:24.551
+<v Javier Caballero (EXT)>Um.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/234-0
+00:37:25.671 --> 00:37:30.486
+<v Javier Caballero (EXT)>Ya lo subo ahora en 1 minuto entonces y
+además siempre que haya un usuario,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/234-1
+00:37:30.486 --> 00:37:34.604
+<v Javier Caballero (EXT)>hace el release del usuario,
+siempre se libera, termina el test,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/234-2
+00:37:34.604 --> 00:37:38.469
+<v Javier Caballero (EXT)>no importa como termina,
+siempre se liberan y no necesitabas</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/234-3
+00:37:38.469 --> 00:37:42.524
+<v Javier Caballero (EXT)>ponerlo en cada test. Ah,
+esta era autenticaciones que te y las</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/234-4
+00:37:42.524 --> 00:37:44.551
+<v Javier Caballero (EXT)>notas, las anotaciones de audio.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/235-0
+00:37:44.951 --> 00:37:50.471
+<v Javier Caballero (EXT)>a ver si terminó Esto bueno a este le
+queda no sé cuándo lo comencé</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/236-0
+00:37:52.351 --> 00:37:55.791
+<v Javier Caballero (EXT)>Bueno, yo le debe quedar poquito,
+la idea es que.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/237-0
+00:37:57.391 --> 00:38:06.682
+<v Javier Caballero (EXT)>Ya está configurado el reporte de de Ayur
+o como quieras llamarlo reporter.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/237-1
+00:38:06.682 --> 00:38:08.271
+<v Javier Caballero (EXT)>Espérate que.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/238-0
+00:38:14.191 --> 00:38:17.271
+<v Javier Caballero (EXT)>Lo ha puesto antes de que.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/239-0
+00:38:20.391 --> 00:38:21.831
+<v Javier Caballero (EXT)>Me saquen acceso, listo.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/240-0
+00:38:22.951 --> 00:38:23.551
+<v Javier Caballero (EXT)>Perfecto.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/241-0
+00:38:24.551 --> 00:38:28.576
+<v Javier Caballero (EXT)>Eso,
+la idea es que viste que esté todo lo más</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/241-1
+00:38:28.576 --> 00:38:30.031
+<v Javier Caballero (EXT)>ordenado posible.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/242-0
+00:38:31.591 --> 00:38:32.311
+<v Javier Caballero (EXT)>Y.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/243-0
+00:38:34.791 --> 00:38:36.311
+<v Javier Caballero (EXT)>Luego al setup.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/244-0
+00:38:39.231 --> 00:38:41.071
+<v Javier Caballero (EXT)>Esto lo que hace es.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/245-0
+00:38:43.431 --> 00:38:50.111
+<v Javier Caballero (EXT)>Hay unas cookies,
+hay unos sitios por defecto. estoy.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/246-0
+00:38:52.471 --> 00:38:56.435
+<v Javier Caballero (EXT)>Por defecto,
+estoy bloqueando todo lo que es hochar</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/246-1
+00:38:56.435 --> 00:38:58.111
+<v Javier Caballero (EXT)>que usan para mostrar.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/247-0
+00:38:59.511 --> 00:39:04.261
+<v Javier Caballero (EXT)>Esas encuestas, cositas aburridas,
+bloqueo, hotchar. O sea,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/247-1
+00:39:04.261 --> 00:39:09.327
+<v Javier Caballero (EXT)>hay un en el base test.
+Creo que hay un bloquear hotchar o algo</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/247-2
+00:39:09.327 --> 00:39:13.205
+<v Javier Caballero (EXT)>así. Ya lo vas a ver.
+Acá está blog third party.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/247-3
+00:39:13.205 --> 00:39:18.271
+<v Javier Caballero (EXT)>Entonces acá bloquear joyar. No sé,
+lo que habría que hacer es.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/248-0
+00:39:18.631 --> 00:39:23.650
+<v Javier Caballero (EXT)>Si necesitas probar,
+que no es una buena práctica,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/248-1
+00:39:23.650 --> 00:39:29.850
+<v Javier Caballero (EXT)>fíjate cómo sacarlo,
+pero al menos yo te digo que hay ahí y se</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/248-2
+00:39:29.850 --> 00:39:37.231
+<v Javier Caballero (EXT)>está bloqueando, se bloquea esa cosa.
+El Z A. Hay veces que vos decís, ok,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/249-0
+00:39:37.511 --> 00:39:41.359
+<v Javier Caballero (EXT)>Yo quiero un user, o sea,
+yo quiero un usuario,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/249-1
+00:39:41.359 --> 00:39:46.089
+<v Javier Caballero (EXT)>pero quiero un usuario,
+quiero que ese usuario me lo cree,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/249-2
+00:39:46.089 --> 00:39:50.177
+<v Javier Caballero (EXT)>que lo active,
+la que active la cuenta y todo. No,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/249-3
+00:39:50.177 --> 00:39:55.227
+<v Javier Caballero (EXT)>yo ya quiero que lo use,
+no quiero solamente que haya comprado</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/249-4
+00:39:55.227 --> 00:39:57.471
+<v Javier Caballero (EXT)>entonces para esos usuarios.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/250-0
+00:39:57.551 --> 00:40:06.242
+<v Javier Caballero (EXT)>Cuando se registran en fixture usuario
+fresh user y dice registration en true y</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/250-1
+00:40:06.242 --> 00:40:08.631
+<v Javier Caballero (EXT)>acá dice unregistered.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/251-0
+00:40:10.151 --> 00:40:11.671
+<v Javier Caballero (EXT)>Antes de cada.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/252-0
+00:40:14.231 --> 00:40:20.151
+<v Javier Caballero (EXT)>Antes de, digamos, cuando pones run test,
+que lo vamos a ver ahora en un ratito.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/253-0
+00:40:22.631 --> 00:40:24.871
+<v Javier Caballero (EXT)>Bueno, voy a ponerlo ahora a ver.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/254-0
+00:40:27.591 --> 00:40:30.884
+<v Javier Caballero (EXT)>Eh, bueno,
+capaz que me espero cinco minutos más.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/254-1
+00:40:30.884 --> 00:40:35.954
+<v Javier Caballero (EXT)>Te acuerdas más o menos que a un momento
+le digo play a esto porque no tengo</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/254-2
+00:40:35.954 --> 00:40:37.271
+<v Javier Caballero (EXT)>timeline. Eh, bueno.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/255-0
+00:40:42.311 --> 00:40:45.926
+<v Javier Caballero (EXT)>Ok, bueno,
+esperamos un ratito más a ver si termina.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/255-1
+00:40:45.926 --> 00:40:50.906
+<v Javier Caballero (EXT)>La idea es que antes de correr cada
+prueba se ejecuta antes cada vez que</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/255-2
+00:40:50.906 --> 00:40:54.589
+<v Javier Caballero (EXT)>ponés run test,
+se ejecuta el global setup que lo que</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/255-3
+00:40:54.589 --> 00:41:00.318
+<v Javier Caballero (EXT)>hace es genera cookies para evitar eso de
+viste el mensajito molesto de qué cookies</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/255-4
+00:41:00.318 --> 00:41:04.956
+<v Javier Caballero (EXT)>querés enviar, si solo las esenciales,
+si querés todas las cookies,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/255-5
+00:41:04.956 --> 00:41:05.911
+<v Javier Caballero (EXT)>todo lo demás.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/257-0
+00:41:06.711 --> 00:41:11.122
+<v Javier Caballero (EXT)>Esto establece una cosa que no me
+molestes,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/257-1
+00:41:11.122 --> 00:41:14.631
+<v Javier Caballero (EXT)>también genera cookies para que no.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/258-0
+00:41:15.831 --> 00:41:19.676
+<v Javier Caballero (EXT)>Para que no te haga el tour cuando es
+como primer usuario,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/258-1
+00:41:19.676 --> 00:41:23.911
+<v Javier Caballero (EXT)>o k tu primera vez acá y te explica todo
+eso, lo evita entonces.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/259-0
+00:41:26.071 --> 00:41:29.789
+<v Javier Caballero (EXT)>Habría que ver, digamos,
+si el test necesitara,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/259-1
+00:41:29.789 --> 00:41:33.507
+<v Javier Caballero (EXT)>hay que en el T mismo tiene que poner el
+staff,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/259-2
+00:41:33.507 --> 00:41:39.315
+<v Javier Caballero (EXT)>cómo se llama esta cookie en false o
+eliminarla y o ponerla en y ya está y</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/259-3
+00:41:39.315 --> 00:41:45.124
+<v Javier Caballero (EXT)>listo. Pero normalmente en el 99,
+99% de los casos necesito que esa cookie</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/259-4
+00:41:45.124 --> 00:41:49.151
+<v Javier Caballero (EXT)>no exista,
+porque si no se me rompe todos los test.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/260-0
+00:41:51.111 --> 00:41:55.563
+<v Javier Caballero (EXT)>Esto activa las cuentas,
+entonces lo que hace es busca todos los</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/260-1
+00:41:55.563 --> 00:41:59.397
+<v Javier Caballero (EXT)>usuarios fresh,
+todos los usuarios que acaba de crearse</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/260-2
+00:41:59.397 --> 00:41:59.671
+<v Javier Caballero (EXT)>acá.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/261-0
+00:42:02.551 --> 00:42:04.551
+<v Javier Caballero (EXT)>Y por cada usuario.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/262-0
+00:42:06.951 --> 00:42:08.351
+<v Javier Caballero (EXT)>Lo que hace es.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/263-0
+00:42:09.351 --> 00:42:14.419
+<v Javier Caballero (EXT)>Carga la página y activa, o sea,
+hace el login y hace la activación,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/263-1
+00:42:14.419 --> 00:42:20.294
+<v Javier Caballero (EXT)>que la activación es simplemente poner tu
+nombre, apellido y tu identificación,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/263-2
+00:42:20.294 --> 00:42:25.068
+<v Javier Caballero (EXT)>en este caso DNI y listo.
+Y el update es poner acá que en vez de</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/263-3
+00:42:25.068 --> 00:42:27.711
+<v Javier Caballero (EXT)>decir unregistered, poner registered</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/264-0
+00:42:28.871 --> 00:42:30.911
+<v Javier Caballero (EXT)>Y listo, y se terminó.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/265-0
+00:42:31.751 --> 00:42:35.671
+<v Javier Caballero (EXT)>Y ya te queda todo listo para arrancar.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/266-0
+00:42:36.671 --> 00:42:41.593
+<v Javier Caballero (EXT)>Pero todo eso sucede detrás de escena,
+entonces el usuario nos digamos cuando</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/266-1
+00:42:41.593 --> 00:42:42.791
+<v Javier Caballero (EXT)>vos corre los test.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/267-0
+00:42:44.151 --> 00:42:49.336
+<v Javier Caballero (EXT)>Hay muchas cosas que pasan y que te
+necesitaban que pasen, pero bueno,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/267-1
+00:42:49.336 --> 00:42:55.325
+<v Javier Caballero (EXT)>cómo explicarle a la gente que tuve que
+laburar en todo eso para que escribir los</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/267-2
+00:42:55.325 --> 00:42:59.561
+<v Javier Caballero (EXT)>tests sea súper fácil y súper chiquitos y
+súper legibles.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/267-3
+00:42:59.561 --> 00:43:03.431
+<v Javier Caballero (EXT)>Otra cosa súper importante es que usar
+los steps que</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/268-0
+00:43:03.671 --> 00:43:04.751
+<v Javier Caballero (EXT)>El reporte.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/269-0
+00:43:05.591 --> 00:43:07.591
+<v Javier Caballero (EXT)>Así sale como más legible.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/270-0
+00:43:08.631 --> 00:43:10.991
+<v Javier Caballero (EXT)>A su vez, existe.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/271-0
+00:43:12.471 --> 00:43:16.631
+<v Javier Caballero (EXT)>¿Este por qué no lo tiene? Oh,
+no me olvidé, acá está.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/272-0
+00:43:17.911 --> 00:43:22.381
+<v Javier Caballero (EXT)>Bueno,
+este tiene no tiene una cosita que es</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/272-1
+00:43:22.381 --> 00:43:23.871
+<v Javier Caballero (EXT)>esta bendición.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/273-0
+00:43:24.871 --> 00:43:29.351
+<v Javier Caballero (EXT)>En Alur,
+vos podés decirle que también tiene.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/274-0
+00:43:31.111 --> 00:43:31.631
+<v Javier Caballero (EXT)>Ah.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/275-0
+00:43:32.631 --> 00:43:35.431
+<v Javier Caballero (EXT)>Bueno, no olvidé hacer eso.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/276-0
+00:43:39.111 --> 00:43:42.968
+<v Javier Caballero (EXT)>Bueno, me olvidé. Bueno,
+va a haber un par de fix.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/276-1
+00:43:42.968 --> 00:43:48.262
+<v Javier Caballero (EXT)>Te lo te lo dejo para que los haga vos.
+Perdón, tiene precondiciones,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/276-2
+00:43:48.262 --> 00:43:54.311
+<v Javier Caballero (EXT)>pasos y resultados esperados para que en
+el reporte salga todo bonito, como ya.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/277-0
+00:43:56.231 --> 00:44:00.046
+<v Javier Caballero (EXT)>Terminó, set up finish,
+pasaron los 15 minutos, listo.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/277-1
+00:44:00.046 --> 00:44:03.791
+<v Javier Caballero (EXT)>Ahora lo que voy a hacer es correr todas
+las pruebas.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/278-0
+00:44:05.911 --> 00:44:10.471
+<v Javier Caballero (EXT)>¿Es setup test, ves lo que haces?</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/279-0
+00:44:11.151 --> 00:44:14.791
+<v Alan David Guzman (EXT)>¿Una pregunta, este,
+qué idea estás usando tú?</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/280-0
+00:44:15.991 --> 00:44:19.765
+<v Javier Caballero (EXT)>Webstorm,
+igual funciona en cualquiera webstorm</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/280-1
+00:44:19.765 --> 00:44:20.551
+<v Javier Caballero (EXT)>porque me.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/281-0
+00:44:22.071 --> 00:44:22.831
+<v Javier Caballero (EXT)>igual.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/282-0
+00:44:24.191 --> 00:44:26.391
+<v Javier Caballero (EXT)>Tampoco es que cambia mucho, pero.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/283-0
+00:44:27.831 --> 00:44:32.206
+<v Javier Caballero (EXT)>Este proyecto, a ver,
+esta funcionalidad es para obtener todos</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/283-1
+00:44:32.206 --> 00:44:32.831
+<v Javier Caballero (EXT)>los tags.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/284-0
+00:44:33.591 --> 00:44:37.655
+<v Javier Caballero (EXT)>De los test,
+así con eso hacer la creación de los</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/284-1
+00:44:37.655 --> 00:44:38.711
+<v Javier Caballero (EXT)>usuarios, sí.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/285-0
+00:44:39.911 --> 00:44:44.030
+<v Javier Caballero (EXT)>El script que corresponde es el test que
+va a correr los test.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/285-1
+00:44:44.030 --> 00:44:48.737
+<v Javier Caballero (EXT)>Hay ciertos test unitarios y se corren
+con este comando y este es para,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/285-2
+00:44:48.737 --> 00:44:53.837
+<v Javier Caballero (EXT)>ya lo vamos a ver después que termine de
+correr todo porque quiero mostrar el</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/285-3
+00:44:53.837 --> 00:44:58.151
+<v Javier Caballero (EXT)>reporter. Este que es te abre el view,
+la UI, si ya lo has usado.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/287-0
+00:45:00.231 --> 00:45:04.551
+<v Alan David Guzman (EXT)>Esto tú lo estás trabajando en este idea
+tanto con cloud como con copilot.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/286-0
+00:45:00.391 --> 00:45:00.791
+<v Javier Caballero (EXT)>Yeah.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/288-0
+00:45:07.591 --> 00:45:08.871
+<v Javier Caballero (EXT)>Ed.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/289-0
+00:45:08.071 --> 00:45:08.951
+<v Alan David Guzman (EXT)>Todos los grados.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/291-0
+00:45:10.311 --> 00:45:13.651
+<v Javier Caballero (EXT)>Sí,
+porque tenía me quedaban un par de</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/291-1
+00:45:13.651 --> 00:45:20.672
+<v Javier Caballero (EXT)>monedas en Copilot de proyecto personal y
+después me habilitaron Cloud. Entonces,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/291-2
+00:45:20.672 --> 00:45:26.153
+<v Javier Caballero (EXT)>bueno, pero los 2 funcionan.
+No tengo ninguna nada configurado,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/291-3
+00:45:26.153 --> 00:45:27.351
+<v Javier Caballero (EXT)>nada especial.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/290-0
+00:45:26.631 --> 00:45:27.191
+<v Alan David Guzman (EXT)>Pocket.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/294-0
+00:45:28.231 --> 00:45:32.071
+<v Alan David Guzman (EXT)>Otra cosita,
+este esa pestaña de test que está en la</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/294-1
+00:45:32.071 --> 00:45:34.751
+<v Alan David Guzman (EXT)>parte superior derecha por los debug.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/293-0
+00:45:33.991 --> 00:45:34.311
+<v Javier Caballero (EXT)>T.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/295-0
+00:45:35.991 --> 00:45:36.551
+<v Javier Caballero (EXT)>S.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/296-0
+00:45:37.111 --> 00:45:38.031
+<v Alan David Guzman (EXT)>Tírala ahí, porfa.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/297-0
+00:45:39.671 --> 00:45:45.671
+<v Javier Caballero (EXT)>Ese es este corre este comando,
+es como si hubiera corrido npm run npm</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/297-1
+00:45:45.671 --> 00:45:46.431
+<v Javier Caballero (EXT)>run test.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/298-0
+00:45:46.551 --> 00:45:49.671
+<v Alan David Guzman (EXT)>¿Eso lo está haciendo,
+eso es con alguna extensión o qué?</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/299-0
+00:45:50.071 --> 00:45:52.391
+<v Javier Caballero (EXT)>No, ya viene en Webstone, eso sí.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/300-0
+00:45:53.591 --> 00:45:54.231
+<v Alan David Guzman (EXT)>Okay.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/301-0
+00:45:55.591 --> 00:46:00.515
+<v Javier Caballero (EXT)>Así que, pero es lo mismo que yo,
+si no lo corría con la consola y todo lo</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/301-1
+00:46:00.515 --> 00:46:01.631
+<v Javier Caballero (EXT)>demás, pero nada.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/302-0
+00:46:03.791 --> 00:46:06.711
+<v Javier Caballero (EXT)>¿Ves? Bueno, hay.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/303-0
+00:46:08.311 --> 00:46:08.791
+<v Javier Caballero (EXT)>Done.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/304-0
+00:46:09.911 --> 00:46:11.271
+<v Javier Caballero (EXT)>Bueno, algo se rompió.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/305-0
+00:46:14.071 --> 00:46:17.751
+<v Javier Caballero (EXT)>Hasta hace poco eso estaban dando,
+no sé si capaz que los.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/306-0
+00:46:21.151 --> 00:46:24.900
+<v Javier Caballero (EXT)>Capaz que hay alguna,
+ya lo vamos a ver en el reporte, pero wow,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/306-1
+00:46:24.900 --> 00:46:27.842
+<v Javier Caballero (EXT)>todo en rojo,
+carga de credenciales de validación.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/306-2
+00:46:27.842 --> 00:46:30.380
+<v Javier Caballero (EXT)>Bueno,
+o hay algo en el framework que rompí</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/306-3
+00:46:30.380 --> 00:46:34.071
+<v Javier Caballero (EXT)>porque estuve haciendo un par de
+refactores y creo que la nada.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/307-0
+00:46:36.551 --> 00:46:39.111
+<v Javier Caballero (EXT)>Veamos que sale en el reporte, pero.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/308-0
+00:46:42.631 --> 00:46:44.151
+<v Javier Caballero (EXT)>No debería estar pasando eso.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/309-0
+00:46:48.631 --> 00:46:51.431
+<v Javier Caballero (EXT)>Ay, va a demorar un montón.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/310-0
+00:46:52.471 --> 00:46:53.431
+<v Javier Caballero (EXT)>Ay, no.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/311-0
+00:47:05.191 --> 00:47:06.231
+<v Alan David Guzman (EXT)>No, no, no.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/312-0
+00:47:06.471 --> 00:47:09.650
+<v Javier Caballero (EXT)>A ver cuánto lleva ahí,
+son 80 y va a demorar al menos 1 minuto</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/312-1
+00:47:09.650 --> 00:47:12.381
+<v Javier Caballero (EXT)>por test. Bueno,
+al menos están corriendo en paralelo.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/312-2
+00:47:12.381 --> 00:47:13.871
+<v Javier Caballero (EXT)>Bueno, no sé qué está pasando.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/313-0
+00:47:15.991 --> 00:47:20.231
+<v Javier Caballero (EXT)>No sé si sean los test o qué onda,
+pero eso no debería estar pasando.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/314-0
+00:47:20.711 --> 00:47:21.031
+<v Alan David Guzman (EXT)>Hey.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/315-0
+00:47:22.471 --> 00:47:24.071
+<v Alan David Guzman (EXT)>Bien, papá.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/316-0
+00:47:32.071 --> 00:47:33.351
+<v Alan David Guzman (EXT)>¿No, tú cuándo entraste?</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/317-0
+00:47:34.551 --> 00:47:34.951
+<v Javier Caballero (EXT)>¿Cómo?</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/319-0
+00:47:34.551 --> 00:47:37.671
+<v Alan David Guzman (EXT)>¿Ya había algo empezado o tanto tú
+dijiste de cero?</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/318-0
+00:47:36.151 --> 00:47:36.951
+<v Javier Caballero (EXT)>No.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/320-0
+00:47:38.311 --> 00:47:43.710
+<v Javier Caballero (EXT)>Todo esto lo hice de cero porque lo que
+ya había era algo para otro proyecto,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/320-1
+00:47:43.710 --> 00:47:47.171
+<v Javier Caballero (EXT)>el de prestadores,
+no para el proyecto de Betify,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/320-2
+00:47:47.171 --> 00:47:50.631
+<v Javier Caballero (EXT)>y así que todo esto lo todo esto lo hice
+de cero.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/321-0
+00:47:59.351 --> 00:48:01.791
+<v Alan David Guzman (EXT)>Entonces va, se ve, se ve muy bien,
+muy bien.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/322-0
+00:48:02.471 --> 00:48:06.351
+<v Javier Caballero (EXT)>Muchas gracias, igual es una pena porque.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/323-0
+00:48:08.791 --> 00:48:12.191
+<v Javier Caballero (EXT)>Porque no sé, creo que rompí algo,
+hice algo que no debería hacer.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/324-0
+00:48:14.871 --> 00:48:19.791
+<v Javier Caballero (EXT)>Porque en serio han dado de 1000
+maravillas hasta hace poco.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/325-0
+00:48:21.911 --> 00:48:23.791
+<v Javier Caballero (EXT)>Te voy a mostrar a ver si igual.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/326-0
+00:48:24.791 --> 00:48:27.871
+<v Javier Caballero (EXT)>Y a correr algún test acá,
+creo que lo que está pasando.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/327-0
+00:48:33.031 --> 00:48:35.351
+<v Alan David Guzman (EXT)>I don't call me to cannot financial.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/328-0
+00:48:38.391 --> 00:48:42.871
+<v Javier Caballero (EXT)>Creo que sí, esto esto van a romper.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/329-0
+00:48:44.391 --> 00:48:48.770
+<v Javier Caballero (EXT)>Bueno, ves entonces,
+si ejecutas el npm run test UI,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/329-1
+00:48:48.770 --> 00:48:55.049
+<v Javier Caballero (EXT)>lo que te hace es abrir el modo UI,
+esto y obviamente también te activa los</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/329-2
+00:48:55.049 --> 00:48:58.271
+<v Javier Caballero (EXT)>usuarios, te genera las cookies, todos.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/330-0
+00:48:59.511 --> 00:49:01.351
+<v Javier Caballero (EXT)>Trato que me hayan sacado acceso.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/331-0
+00:49:07.031 --> 00:49:07.871
+<v Javier Caballero (EXT)>Ah.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/332-0
+00:49:08.951 --> 00:49:11.351
+<v Javier Caballero (EXT)>Ok, creo que no anda.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/333-0
+00:49:15.751 --> 00:49:15.791
+<v Javier Caballero (EXT)>I.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/336-0
+00:49:18.071 --> 00:49:21.599
+<v Alan David Guzman (EXT)>Con razón,
+yo esperando con el micrófono apagado,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/334-0
+00:49:18.151 --> 00:49:18.951
+<v Javier Caballero (EXT)>Pro que si not.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/336-1
+00:49:21.599 --> 00:49:25.831
+<v Alan David Guzman (EXT)>este decía algo que ya había corrido
+justamente esta parte.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/335-0
+00:49:21.991 --> 00:49:23.831
+<v Javier Caballero (EXT)>Verdad que creo lo.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/337-0
+00:49:26.631 --> 00:49:27.031
+<v Javier Caballero (EXT)>Hey.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/338-0
+00:49:27.671 --> 00:49:32.179
+<v Alan David Guzman (EXT)>Este y sí, efectivamente,
+hay algunos test que se esquipearon por</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/338-1
+00:49:32.179 --> 00:49:34.911
+<v Alan David Guzman (EXT)>lo de supongo que por lo de los cupones.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/339-0
+00:49:34.471 --> 00:49:36.151
+<v Javier Caballero (EXT)>Usuario, sí, sí, sí.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/340-0
+00:49:35.991 --> 00:49:36.751
+<v Alan David Guzman (EXT)>Usuario.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/341-0
+00:49:37.191 --> 00:49:39.471
+<v Javier Caballero (EXT)>Ahí está, bueno, fíjate que los.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/342-0
+00:49:39.031 --> 00:49:43.408
+<v Alan David Guzman (EXT)>Sí, sí quiero asegurarme. Ok, ok,
+se me escribió y ok,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/342-1
+00:49:43.408 --> 00:49:49.614
+<v Alan David Guzman (EXT)>ya se ejecutó todo y todo está bien.
+Voy a voy a darle un doble check a los a</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/342-2
+00:49:49.614 --> 00:49:53.831
+<v Alan David Guzman (EXT)>los que se esquipearon. En ese caso,
+cómo cómo hago?</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/343-0
+00:49:57.431 --> 00:50:00.896
+<v Javier Caballero (EXT)>Te venís a la UI,
+buscas el test y lo podés correr</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/343-1
+00:50:00.896 --> 00:50:01.711
+<v Javier Caballero (EXT)>manualmente.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/344-0
+00:50:04.311 --> 00:50:07.782
+<v Javier Caballero (EXT)>Si no,
+no sé si puedo generar el reporte y</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/344-1
+00:50:07.782 --> 00:50:12.464
+<v Javier Caballero (EXT)>mostrártelo. Ahí está. Bueno, mira,
+esto fue 30 de julio.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/344-2
+00:50:12.464 --> 00:50:18.356
+<v Javier Caballero (EXT)>Fíjate a la ayer a las 16:47. Mira,
+hermoso. Todo esto son por usuarios,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/344-3
+00:50:18.356 --> 00:50:22.311
+<v Javier Caballero (EXT)>pero hermoso quedó y te dice el entorno
+desktop.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/345-0
+00:50:23.311 --> 00:50:27.778
+<v Javier Caballero (EXT)>¿Y Android para lo de Mobile?
+Entonces tenés flux capitado que y la</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/345-1
+00:50:27.778 --> 00:50:32.311
+<v Javier Caballero (EXT)>compra por el proceso de compra pasó todo,
+el cupón no, ¿por qué no?</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/346-0
+00:50:33.511 --> 00:50:41.511
+<v Javier Caballero (EXT)>En esto es que en resumen no pasó,
+seguramente porque no hay cupón.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/347-0
+00:50:45.351 --> 00:50:50.991
+<v Javier Caballero (EXT)>Seguramente cerró algo acá historial en
+torno adjunto al intento.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/348-0
+00:50:51.991 --> 00:50:53.831
+<v Javier Caballero (EXT)>Esto no debe haber tenido.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/349-0
+00:50:54.831 --> 00:50:55.951
+<v Javier Caballero (EXT)>Cupón para correr.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/351-0
+00:50:57.751 --> 00:50:59.511
+<v Javier Caballero (EXT)>¿Lo ves de ver acá?</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/352-0
+00:51:00.831 --> 00:51:05.551
+<v Javier Caballero (EXT)>No se puede obtener un usuario sin
+registrar, bueno, también y sí, porque.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/353-0
+00:51:06.471 --> 00:51:10.122
+<v Javier Caballero (EXT)>No,
+porque este no tenía cupón los que</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/353-1
+00:51:10.122 --> 00:51:10.871
+<v Javier Caballero (EXT)>pasaron.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/354-0
+00:51:11.991 --> 00:51:16.006
+<v Javier Caballero (EXT)>Bueno,
+a este me faltó los pasitos que a ver si</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/354-1
+00:51:16.006 --> 00:51:17.511
+<v Javier Caballero (EXT)>lo busco en el de.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/355-0
+00:51:19.431 --> 00:51:22.574
+<v Javier Caballero (EXT)>Credenciales,
+normalmente ese paso era esto,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/355-1
+00:51:22.574 --> 00:51:27.951
+<v Javier Caballero (EXT)>viste lo que es lo que hacía el ayury,
+no sé qué era tener esta descripción.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/356-0
+00:51:30.071 --> 00:51:33.661
+<v Javier Caballero (EXT)>Entonces, si falla o pasa,
+vos tenés precondición,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/356-1
+00:51:33.661 --> 00:51:35.631
+<v Javier Caballero (EXT)>tenés el caso de prueba acá.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/357-0
+00:51:37.751 --> 00:51:41.102
+<v Javier Caballero (EXT)>Iniciar sesión con usuario con un plan
+vigente, navegar a la pantalla mascota,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/357-1
+00:51:41.102 --> 00:51:43.392
+<v Javier Caballero (EXT)>presiona el botón agregar mascota,
+resultado operado,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/357-2
+00:51:43.392 --> 00:51:45.810
+<v Javier Caballero (EXT)>sistema redireccional a la web
+institucional de Bettify,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/357-3
+00:51:45.810 --> 00:51:47.591
+<v Javier Caballero (EXT)>permitiendo al usuario adquirir otro plan.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/358-0
+00:51:49.911 --> 00:51:54.391
+<v Javier Caballero (EXT)>Super fácil.
+Viste esa es la idea de tener.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/359-0
+00:51:57.031 --> 00:52:03.119
+<v Javier Caballero (EXT)>esta eso te lo da esta bardecita igual
+faltó acá una wait eso arreglárselo vos</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/359-1
+00:52:03.119 --> 00:52:09.283
+<v Javier Caballero (EXT)>estoy esperando para ver bueno vamos Mira
+acá están pasando para mí Estaba roto</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/359-2
+00:52:09.283 --> 00:52:09.591
+<v Javier Caballero (EXT)>algo</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/360-0
+00:52:10.871 --> 00:52:16.190
+<v Javier Caballero (EXT)>Esto ya lo voy a cerrar y enseguida voy a
+volver a generar el reporte para ver qué</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/360-1
+00:52:16.190 --> 00:52:17.151
+<v Javier Caballero (EXT)>es lo que pasó.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/361-0
+00:52:22.791 --> 00:52:26.271
+<v Javier Caballero (EXT)>Bueno, ves, pasan los test para mí esto.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/362-0
+00:52:27.911 --> 00:52:31.431
+<v Javier Caballero (EXT)>¿Era por algo de cómo se llama?</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/363-0
+00:52:34.551 --> 00:52:39.898
+<v Javier Caballero (EXT)>A una regla clara antes de correr todos
+los test, mira, fallaron,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/363-1
+00:52:39.898 --> 00:52:44.111
+<v Javier Caballero (EXT)>mira que tenés todos los que fallaron,
+fallaron 27.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/364-0
+00:52:44.951 --> 00:52:51.189
+<v Javier Caballero (EXT)>No es skipearon y 44 pasaron en 8 minutos,
+pero 8 minutos porque fallaron un montón.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/364-1
+00:52:51.189 --> 00:52:55.151
+<v Javier Caballero (EXT)>Siempre borrate este archivo,
+el fresh user, bórralo.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/365-0
+00:52:56.391 --> 00:52:59.355
+<v Javier Caballero (EXT)>Porque a veces te dicen que ya está
+registrado.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/365-1
+00:52:59.355 --> 00:53:04.481
+<v Javier Caballero (EXT)>Entonces van a fallar un montón de cosas.
+Siempre te recomiendo que cuando vayas a</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/365-2
+00:53:04.481 --> 00:53:09.050
+<v Javier Caballero (EXT)>hacer una en sí hay nunca va a fallar,
+pero en local siempre borrate este</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/365-3
+00:53:09.050 --> 00:53:09.791
+<v Javier Caballero (EXT)>archivo. Sí.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/369-0
+00:53:11.191 --> 00:53:16.995
+<v Alan David Guzman (EXT)>Te pregunto, listo, listo, ejecuté,
+ejecuté,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/366-0
+00:53:12.751 --> 00:53:14.751
+<v Javier Caballero (EXT)>Capaz que hay que hacerlo en setup.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/367-0
+00:53:16.871 --> 00:53:17.311
+<v Javier Caballero (EXT)>Sí.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/369-1
+00:53:16.995 --> 00:53:23.831
+<v Alan David Guzman (EXT)>fallaron por re fresh punto fresh users
+punto Jason.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/368-0
+00:53:24.471 --> 00:53:24.951
+<v Javier Caballero (EXT)>Take.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/371-0
+00:53:24.711 --> 00:53:32.241
+<v Alan David Guzman (EXT)>¿Tengo que volver a coger a correr el TS
+de Fresh Usher o corro directamente el</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/371-1
+00:53:32.241 --> 00:53:32.711
+<v Alan David Guzman (EXT)>test?</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/372-0
+00:53:34.151 --> 00:53:43.351
+<v Javier Caballero (EXT)>Lo que podés hacer es te venís al te vas
+a la consola, es npm RAM test 2 punto UI.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/373-0
+00:53:45.591 --> 00:53:49.643
+<v Javier Caballero (EXT)>A ver si me va a permitir mostrar el
+reporte ahora con los que fallaron para</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/373-1
+00:53:49.643 --> 00:53:51.431
+<v Javier Caballero (EXT)>ver cuáles fallaron, mira hermoso.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/374-0
+00:53:54.951 --> 00:53:57.191
+<v Javier Caballero (EXT)>No me dicen,
+no me dicen todos los que fallaron.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/375-0
+00:54:00.551 --> 00:54:05.191
+<v Javier Caballero (EXT)>O sea, que los hizo un retry y pasaron,
+no, este es el 30 de julio.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/376-0
+00:54:10.071 --> 00:54:12.391
+<v Javier Caballero (EXT)>¿Y constan los que fallaron ahora?</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/377-0
+00:54:21.751 --> 00:54:24.671
+<v Javier Caballero (EXT)>Bueno, hacé lo que quieras.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/378-0
+00:54:28.151 --> 00:54:28.991
+<v Javier Caballero (EXT)>Ahora sí.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/380-0
+00:54:35.511 --> 00:54:38.111
+<v Javier Caballero (EXT)>A no cargaba la aplicación.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/381-0
+00:54:39.111 --> 00:54:40.791
+<v Javier Caballero (EXT)>My pets no respondía.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/382-0
+00:54:43.031 --> 00:54:45.471
+<v Javier Caballero (EXT)>Screenshot, no se puede bloguear.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/383-0
+00:54:47.191 --> 00:54:48.311
+<v Javier Caballero (EXT)>Ese fue el problema.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/384-0
+00:54:49.911 --> 00:54:53.996
+<v Javier Caballero (EXT)>¿Ves lo bueno del reporte es que te te te
+dice, ves tener los pasos?</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/384-1
+00:54:53.996 --> 00:54:57.252
+<v Javier Caballero (EXT)>Entonces no es tan,
+no es tan difícil en sabes, o sea,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/384-2
+00:54:57.252 --> 00:54:58.791
+<v Javier Caballero (EXT)>sabes que pa que fallaron.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/385-0
+00:55:00.631 --> 00:55:05.464
+<v Javier Caballero (EXT)>Igual hay un retry de uno y si no,
+por ejemplo, decir, ok, credenciales,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/385-1
+00:55:05.464 --> 00:55:09.106
+<v Javier Caballero (EXT)>te vas acá,
+credenciales y lo vas corriendo desde acá.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/385-2
+00:55:09.106 --> 00:55:12.218
+<v Javier Caballero (EXT)>Entonces acá, ok,
+estos son todos con ninguno,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/385-3
+00:55:12.218 --> 00:55:16.124
+<v Javier Caballero (EXT)>necesito un usuario nuevo, excepto mira,
+crear credencial,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/385-4
+00:55:16.124 --> 00:55:19.831
+<v Javier Caballero (EXT)>ya sabes cuál usuario va a fallar porque
+el fresh user.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/386-0
+00:55:20.631 --> 00:55:27.308
+<v Javier Caballero (EXT)>Lo que puedes hacer es correr el setup,
+que lo haces con npm run setup,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/386-1
+00:55:27.308 --> 00:55:34.911
+<v Javier Caballero (EXT)>te genera nuevos usuarios y luego correr
+los casos que necesitan nuevos usuarios.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/387-0
+00:55:35.751 --> 00:55:36.071
+<v Javier Caballero (EXT)>P.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/388-0
+00:55:40.071 --> 00:55:45.041
+<v Javier Caballero (EXT)>Ahí va, digamos,
+está corriendo a otra cosa acá,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/388-1
+00:55:45.041 --> 00:55:48.591
+<v Javier Caballero (EXT)>test option, 5 worker multi worker.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/389-0
+00:55:51.911 --> 00:55:52.551
+<v Javier Caballero (EXT)>Bueno.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/390-0
+00:55:56.231 --> 00:55:59.887
+<v Javier Caballero (EXT)>Acá no sé por qué no loguea,
+no sé si el usuario está mal.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/390-1
+00:55:59.887 --> 00:56:03.791
+<v Javier Caballero (EXT)>Para mí hay un usuario que está usando
+que no puede loguearse.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/391-0
+00:56:04.711 --> 00:56:07.471
+<v Javier Caballero (EXT)>Igual la idea siempre es borrar.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/392-0
+00:56:11.191 --> 00:56:16.071
+<v Javier Caballero (EXT)>Ah, yo había hecho un script,
+decime que lo guardé a local CI.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/393-0
+00:56:17.591 --> 00:56:21.532
+<v Javier Caballero (EXT)>Soy un genio,
+local si hay a no borra el pero este</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/393-1
+00:56:21.532 --> 00:56:24.391
+<v Javier Caballero (EXT)>script lo que hace es simular si hay.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/394-0
+00:56:25.431 --> 00:56:28.729
+<v Javier Caballero (EXT)>Frencia y en true,
+elimina todos los archivos excepto el</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/394-1
+00:56:28.729 --> 00:56:31.910
+<v Javier Caballero (EXT)>fresh users,
+tendrías que hacer acá hay que agregar el</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/394-2
+00:56:31.910 --> 00:56:32.951
+<v Javier Caballero (EXT)>delete fresh user.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/395-0
+00:56:34.391 --> 00:56:39.284
+<v Javier Caballero (EXT)>Y chao,
+entonces si vamos a cargar credencial,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/395-1
+00:56:39.284 --> 00:56:41.991
+<v Javier Caballero (EXT)>verificar pasos, ahí está.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/396-0
+00:56:43.231 --> 00:56:46.772
+<v Javier Caballero (EXT)>¿Ves ahí?
+Solo es que no me lo está cargando. Bueno,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/396-1
+00:56:46.772 --> 00:56:49.911
+<v Javier Caballero (EXT)>espera que esto va a fallar porque
+obviamente.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/397-0
+00:56:51.271 --> 00:56:53.151
+<v Javier Caballero (EXT)>Y si algo que no había que hacer.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/398-0
+00:56:55.151 --> 00:56:59.635
+<v Javier Caballero (EXT)>Bueno, si eliminas todos,
+tenés que volverlo a abrir porque a veces</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/398-1
+00:56:59.635 --> 00:57:04.712
+<v Javier Caballero (EXT)>te queda la caché de los usuarios,
+de los login y no puede. Entonces, bueno,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/398-2
+00:57:04.712 --> 00:57:08.404
+<v Javier Caballero (EXT)>va de nuevo.
+Esto está Betify WebUp separado del resto,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/398-3
+00:57:08.404 --> 00:57:13.613
+<v Javier Caballero (EXT)>porque esto es como no importa el usuario.
+Esto sí son super atados a usuario.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/398-4
+00:57:13.613 --> 00:57:16.711
+<v Javier Caballero (EXT)>Es como Betify B2C es solamente Betify
+B2C es.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/399-0
+00:57:16.951 --> 00:57:21.382
+<v Javier Caballero (EXT)>Crea su cuenta, crear su usuario, login,
+todo lo demás. Esto es no,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/399-1
+00:57:21.382 --> 00:57:26.464
+<v Javier Caballero (EXT)>esto es la funcionalidad de la web app.
+No importa el usuario, excepto crear,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/399-2
+00:57:26.464 --> 00:57:31.090
+<v Javier Caballero (EXT)>crear plan, crear credencial.
+En teoría es te tendrías que tendría que</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/399-3
+00:57:31.090 --> 00:57:36.432
+<v Javier Caballero (EXT)>haber uno por cada tipo de plan que hay
+que hacer un for each y o sea que hay que</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/399-4
+00:57:36.432 --> 00:57:38.191
+<v Javier Caballero (EXT)>hacer como una interacción.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/400-0
+00:57:38.311 --> 00:57:40.791
+<v Javier Caballero (EXT)>Ese mismo caso y pasan todo de nuevo.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/401-0
+00:57:42.951 --> 00:57:44.471
+<v Javier Caballero (EXT)>Y todo esto fallaron recién.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/402-0
+00:57:46.071 --> 00:57:48.944
+<v Javier Caballero (EXT)>Pero creo que fue por el usuario que
+usaron, fijate,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/402-1
+00:57:48.944 --> 00:57:51.871
+<v Javier Caballero (EXT)>capaz que empezaron a dar de baja a
+ciertos usuarios.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/403-0
+00:57:52.951 --> 00:57:56.231
+<v Javier Caballero (EXT)>O temporalmente se rompió el usuario. o.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/404-0
+00:57:58.551 --> 00:58:05.391
+<v Javier Caballero (EXT)>Capaz que el token estaba viejo o no sé,
+ahí pasaron todo.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/405-0
+00:58:07.271 --> 00:58:13.631
+<v Javier Caballero (EXT)>Ve y corren super rápido, super rápido,
+los test en realidad no demoran nada.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/406-0
+00:58:13.911 --> 00:58:22.139
+<v Alan David Guzman (EXT)>Pregunta, es que no lo veo, estoy ciego,
+este es fresh, user. ¿En qué package está?</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/406-1
+00:58:22.139 --> 00:58:24.391
+<v Alan David Guzman (EXT)>No lo veo, estoy ciego.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/407-0
+00:58:25.111 --> 00:58:26.191
+<v Javier Caballero (EXT)>No lo tenés.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/408-0
+00:58:27.751 --> 00:58:29.271
+<v Javier Caballero (EXT)>Porque no está ignorado.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/409-0
+00:58:31.671 --> 00:58:35.391
+<v Javier Caballero (EXT)>El path es user al lado de public users.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/410-0
+00:58:36.551 --> 00:58:37.151
+<v Alan David Guzman (EXT)>La verdad.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/411-0
+00:58:38.551 --> 00:58:41.951
+<v Alan David Guzman (EXT)>Estoy desde desde la raíz.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/414-0
+00:58:40.871 --> 00:58:45.652
+<v Javier Caballero (EXT)>Este mes source,
+vamos de nuevo porque está en source es</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/412-0
+00:58:44.231 --> 00:58:45.071
+<v Alan David Guzman (EXT)>El source.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/414-1
+00:58:45.652 --> 00:58:52.446
+<v Javier Caballero (EXT)>todo lo que soporta a los casos de prueba.
+Entonces source te vas a los fixtures</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/413-0
+00:58:48.551 --> 00:58:48.951
+<v Alan David Guzman (EXT)>Ajá.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/414-2
+00:58:52.446 --> 00:58:57.311
+<v Javier Caballero (EXT)>porque son datos fijos y de ahí te vas a
+usuarios, users.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/416-0
+00:58:57.031 --> 00:59:00.831
+<v Alan David Guzman (EXT)>O K o K o K elimino todo.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/415-0
+00:58:59.151 --> 00:58:59.471
+<v Javier Caballero (EXT)>Yeah.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/417-0
+00:59:01.831 --> 00:59:05.805
+<v Javier Caballero (EXT)>Pule user nunca lo tenés que eliminar.
+Eso es, obviamente,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/417-1
+00:59:05.805 --> 00:59:10.992
+<v Javier Caballero (EXT)>tus usuarios de prueba que ya existen.
+Lo que sí tenés que eliminar es fresh</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/417-2
+00:59:10.992 --> 00:59:12.271
+<v Javier Caballero (EXT)>users, lo eliminas.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/418-0
+00:59:11.911 --> 00:59:16.060
+<v Alan David Guzman (EXT)>O K,
+cierro la UI para que el caché no me</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/418-1
+00:59:16.060 --> 00:59:16.751
+<v Alan David Guzman (EXT)>afecte.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/419-0
+00:59:17.431 --> 00:59:21.831
+<v Javier Caballero (EXT)>Y agarra y corre este script localciai.sh.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/420-0
+00:59:23.031 --> 00:59:26.863
+<v Javier Caballero (EXT)>Se te va a correr todo como si fuera las
+como si tu máquina,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/420-1
+00:59:26.863 --> 00:59:30.631
+<v Javier Caballero (EXT)>tu computadora fuera la CI,
+pero si igualmente no te cargó.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/421-0
+00:59:31.631 --> 00:59:35.228
+<v Javier Caballero (EXT)>En el navegador no te va a correr ningún
+test que te está bloqueando,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/421-1
+00:59:35.228 --> 00:59:37.231
+<v Javier Caballero (EXT)>vas a tener que tener la VPN conectada.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/422-0
+00:59:38.711 --> 00:59:45.031
+<v Alan David Guzman (EXT)>Oye, qué raro, este yo borré,
+fue fresh user, no borré bullet users.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/423-0
+00:59:46.151 --> 00:59:47.351
+<v Alan David Guzman (EXT)>Y la UI.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/424-0
+00:59:48.631 --> 00:59:50.591
+<v Alan David Guzman (EXT)>No me dejó abrirla.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/426-0
+00:59:51.591 --> 00:59:54.991
+<v Alan David Guzman (EXT)>Porque dice que mejor yo te voy a mostrar
+un momentico.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/425-0
+00:59:51.831 --> 00:59:52.311
+<v Javier Caballero (EXT)>A ver.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/427-0
+00:59:55.911 --> 00:59:57.271
+<v Javier Caballero (EXT)>Si borramos del.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/428-0
+00:59:59.911 --> 01:00:00.151
+<v Javier Caballero (EXT)>Oh.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/429-0
+01:00:03.831 --> 01:00:05.511
+<v Javier Caballero (EXT)>Ahí está, si lo borro.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/430-0
+01:00:08.151 --> 01:00:08.911
+<v Javier Caballero (EXT)>Ahí abre.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/431-0
+01:00:09.671 --> 01:00:14.031
+<v Alan David Guzman (EXT)>Okey, okey, okey, okey, disculpe,
+yo no lo eliminé, le quité la data.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/432-0
+01:00:15.991 --> 01:00:21.166
+<v Javier Caballero (EXT)>Igual no hay problema, lo dejas vacío,
+lo importante es que agarres y lo</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/432-1
+01:00:21.166 --> 01:00:23.151
+<v Javier Caballero (EXT)>importante es que lo borres.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/433-0
+01:00:25.591 --> 01:00:27.831
+<v Javier Caballero (EXT)>Y ya ahí sí te va a cargar la yo ahí.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/434-0
+01:00:35.831 --> 01:00:36.431
+<v Javier Caballero (EXT)>Bueno.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/435-0
+01:00:37.991 --> 01:00:43.000
+<v Javier Caballero (EXT)>Primero que nada,
+voy a cerrar el ticket que de training,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/435-1
+01:00:43.000 --> 01:00:48.871
+<v Javier Caballero (EXT)>transferencia y contenido. Sí, terminado,
+terminado. Ay, todo esto.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/436-0
+01:00:50.951 --> 01:00:55.328
+<v Javier Caballero (EXT)>Ana Signet, mirá,
+lo voy a hacer todo bien, esto Ana Signet,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/436-1
+01:00:55.328 --> 01:00:57.911
+<v Javier Caballero (EXT)>no creo que hice una acá Ana Signet.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/437-0
+01:00:57.431 --> 01:00:58.951
+<v Alan David Guzman (EXT)>Y me lo volvió a.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/438-0
+01:01:01.111 --> 01:01:03.191
+<v Javier Caballero (EXT)>¿Por qué me espera, me compartís?</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/439-0
+01:01:04.031 --> 01:01:05.391
+<v Alan David Guzman (EXT)>De una, claro que sí.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/441-0
+01:01:06.711 --> 01:01:09.311
+<v Javier Caballero (EXT)>No, bueno, es una.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/443-0
+01:01:11.431 --> 01:01:16.937
+<v Javier Caballero (EXT)>En fin, OK, sí, yo ya me quiero ir. OK,
+a ver por qué te lo escribió.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/443-1
+01:01:16.937 --> 01:01:23.071
+<v Javier Caballero (EXT)>Andate a Annotations abajo a la derecha,
+annotations de la derecha a derecha.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/442-0
+01:01:22.311 --> 01:01:22.711
+<v Alan David Guzman (EXT)>Hello.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/444-0
+01:01:24.471 --> 01:01:30.005
+<v Javier Caballero (EXT)>Skip, no hay cupones disponibles,
+no tenés cupones para hacer los procesos</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/444-1
+01:01:30.005 --> 01:01:33.916
+<v Javier Caballero (EXT)>de compra. Anda,
+eso es porque son los adquirientes.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/444-2
+01:01:33.916 --> 01:01:35.391
+<v Javier Caballero (EXT)>Andate a Betify B2C.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/446-0
+01:01:40.551 --> 01:01:41.351
+<v Javier Caballero (EXT)>Finnick.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/445-0
+01:01:40.631 --> 01:01:41.271
+<v Alan David Guzman (EXT)>O gorro.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/447-0
+01:01:46.951 --> 01:01:49.325
+<v Javier Caballero (EXT)>Sí,
+el primer caso de que haga el flujo de</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/447-1
+01:01:49.325 --> 01:01:49.711
+<v Javier Caballero (EXT)>compra.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/448-0
+01:01:50.871 --> 01:01:52.191
+<v Javier Caballero (EXT)>Eso no necesitas nada.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/449-0
+01:01:53.111 --> 01:01:54.311
+<v Javier Caballero (EXT)>Kicking out of mine.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/450-0
+01:01:55.351 --> 01:02:00.305
+<v Javier Caballero (EXT)>Otra de las cosas,
+anotate si podés ir haciendo de revisar</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/450-1
+01:02:00.305 --> 01:02:05.175
+<v Javier Caballero (EXT)>que no me haya quedado ningún,
+porque no hay code review.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/450-2
+01:02:05.175 --> 01:02:11.557
+<v Javier Caballero (EXT)>Entonces es muy probable que se me haya
+pasado un viste el coso de set alue</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/450-3
+01:02:11.557 --> 01:02:14.831
+<v Javier Caballero (EXT)>description con todos los pasitos y en.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/451-0
+01:02:14.951 --> 01:02:17.071
+<v Javier Caballero (EXT)>Ve, mira esta siguiente.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/452-0
+01:02:18.391 --> 01:02:24.185
+<v Javier Caballero (EXT)>Siguiente, pueden completar los datos. Ah,
+y hay un costo de tarjetas que vos le</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/452-1
+01:02:24.185 --> 01:02:29.835
+<v Javier Caballero (EXT)>pedís tarjetas de débito o crédito o en
+un estado particular y te las retorna,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/452-2
+01:02:29.835 --> 01:02:33.698
+<v Javier Caballero (EXT)>entonces no necesario hacer mucha lógica.
+Y ahí está,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/452-3
+01:02:33.698 --> 01:02:37.631
+<v Javier Caballero (EXT)>hizo la compra y te debería haber esperar
+que termine.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/453-0
+01:02:38.191 --> 01:02:40.471
+<v Javier Caballero (EXT)>Te coso y te va a marcar como terminado.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/454-0
+01:02:42.191 --> 01:02:43.031
+<v Javier Caballero (EXT)>Mm.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/455-0
+01:02:46.791 --> 01:02:47.751
+<v Javier Caballero (EXT)>Ahí está, pasó.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/456-0
+01:02:51.031 --> 01:02:53.809
+<v Javier Caballero (EXT)>A ver,
+ahora date a Betify web app y correte</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/456-1
+01:02:53.809 --> 01:02:58.932
+<v Javier Caballero (EXT)>todos los de la que lo del o dale play y
+al de arriba nomás que corra todos los de</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/456-2
+01:02:58.932 --> 01:03:02.141
+<v Javier Caballero (EXT)>credenciales.
+Me voy a correr en un par de segundos</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/456-3
+01:03:02.141 --> 01:03:02.511
+<v Javier Caballero (EXT)>nomás.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/457-0
+01:03:06.311 --> 01:03:06.911
+<v Javier Caballero (EXT)>Joel.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/459-0
+01:03:16.631 --> 01:03:20.078
+<v Alan David Guzman (EXT)>¿Han una pregunta,
+y ya ya te dijeron para qué cliente te</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/459-1
+01:03:20.078 --> 01:03:20.791
+<v Alan David Guzman (EXT)>van a pasar?</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/460-0
+01:03:21.831 --> 01:03:25.351
+<v Javier Caballero (EXT)>Todavía no tengo cliente,
+estoy esperando el cliente.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/462-0
+01:03:31.831 --> 01:03:36.471
+<v Alan David Guzman (EXT)>¿Y una pregunta, aquí qué días?
+¿Qué días son los del lo que van?</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/463-0
+01:03:39.351 --> 01:03:41.831
+<v Javier Caballero (EXT)>Es el primer día del mes.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/464-0
+01:03:44.551 --> 01:03:47.471
+<v Alan David Guzman (EXT)>Okey, okey, otra cosa. este.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/465-0
+01:03:49.911 --> 01:03:55.054
+<v Alan David Guzman (EXT)>No sé si yo, o sea, tú que eres argentino,
+este la contratación es diferente,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/465-1
+01:03:55.054 --> 01:03:58.351
+<v Alan David Guzman (EXT)>tú también eres contrato, o sea,
+normal por hora.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/466-0
+01:03:57.191 --> 01:04:01.814
+<v Javier Caballero (EXT)>Sí, yo sí, sí, yo soy contractor.
+La cosa es así,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/466-1
+01:04:01.814 --> 01:04:05.511
+<v Javier Caballero (EXT)>no le digas a nadie que vos venís desde.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/467-0
+01:04:06.631 --> 01:04:09.111
+<v Javier Caballero (EXT)>Como antes Riverview, cierto igual que yo.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/468-0
+01:04:08.951 --> 01:04:09.791
+<v Alan David Guzman (EXT)>Ajá, correct.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/469-0
+01:04:10.711 --> 01:04:14.671
+<v Javier Caballero (EXT)>No digas a nadie que venís arriba del río,
+vos venís de Ingenia.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/470-0
+01:04:16.391 --> 01:04:18.031
+<v Javier Caballero (EXT)>Sí, ese es el mensaje.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/471-0
+01:04:18.951 --> 01:04:20.791
+<v Alan David Guzman (EXT)>Sí, eso me dijeron.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/472-0
+01:04:22.711 --> 01:04:27.759
+<v Javier Caballero (EXT)>Bien, así que nada,
+pero ¿por qué me está demorando tanto?</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/472-1
+01:04:27.759 --> 01:04:28.871
+<v Javier Caballero (EXT)>Bueno, no sé.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/473-0
+01:04:30.871 --> 01:04:37.028
+<v Javier Caballero (EXT)>Capaz que ya van a terminar, así que nada,
+eso y todo lo demás casi te viene pasando</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/473-1
+01:04:37.028 --> 01:04:38.911
+<v Javier Caballero (EXT)>todos. Creo que viene 1:1.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/474-0
+01:04:40.791 --> 01:04:42.591
+<v Javier Caballero (EXT)>Ah no, estoy tomando de a varios.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/475-0
+01:04:45.031 --> 01:04:48.271
+<v Alan David Guzman (EXT)>2 cuadros 246.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/476-0
+01:04:49.911 --> 01:04:52.251
+<v Javier Caballero (EXT)>Ah,
+y viste que yo le ponía también el</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/476-1
+01:04:52.251 --> 01:04:56.931
+<v Javier Caballero (EXT)>critical porque los que son críticos,
+que son los que están en el mismo caso,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/476-2
+01:04:56.931 --> 01:05:01.551
+<v Javier Caballero (EXT)>tienen que estar acá como critical.
+Entonces vos sabes que si la idea es día</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/476-3
+01:05:01.551 --> 01:05:05.571
+<v Javier Caballero (EXT)>de mañana es poner si un critical falló,
+bloquear el pull request.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/476-4
+01:05:05.571 --> 01:05:08.751
+<v Javier Caballero (EXT)>Si un no crítico falló,
+no bloquear el pull request.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/477-0
+01:05:10.551 --> 01:05:13.711
+<v Javier Caballero (EXT)>Es decir, no puedo hacer compras, listo,
+rompiste un crítico.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/478-0
+01:05:14.431 --> 01:05:18.351
+<v Javier Caballero (EXT)>Arreglarlo o está roto,
+esto es eso te da la prioridad.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/479-0
+01:05:22.071 --> 01:05:22.991
+<v Alan David Guzman (EXT)>O K O K O K.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/480-0
+01:05:23.711 --> 01:05:26.646
+<v Javier Caballero (EXT)>Pero bueno,
+estoy feliz con lo que puedas correr los</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/480-1
+01:05:26.646 --> 01:05:29.082
+<v Javier Caballero (EXT)>test.
+Hay muchos test que se están pasando.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/480-2
+01:05:29.082 --> 01:05:32.902
+<v Javier Caballero (EXT)>Los test se estaban dando, pero nada,
+como viste, era un cosa del...</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/480-3
+01:05:32.902 --> 01:05:37.109
+<v Javier Caballero (EXT)>al parecer había un par de APIs que
+estaban rota o el usuario que no andaba</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/480-4
+01:05:37.109 --> 01:05:40.431
+<v Javier Caballero (EXT)>muy bien. Entonces bueno, no pasaron,
+pero en general anda.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/481-0
+01:05:44.551 --> 01:05:45.031
+<v Alan David Guzman (EXT)>Add.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/482-0
+01:05:47.111 --> 01:05:47.351
+<v Alan David Guzman (EXT)>No.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/483-0
+01:05:48.151 --> 01:05:51.831
+<v Javier Caballero (EXT)>¿Alguna pregunta? Porque yo ya estoy,
+digamos, cerrando todo.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/484-0
+01:05:53.511 --> 01:05:53.591
+<v Alan David Guzman (EXT)>A.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/485-0
+01:05:56.671 --> 01:05:57.031
+<v Alan David Guzman (EXT)>Sí.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/486-0
+01:05:58.191 --> 01:05:59.791
+<v Alan David Guzman (EXT)>That's the...</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/487-0
+01:06:01.271 --> 01:06:05.591
+<v Alan David Guzman (EXT)>Necesidad el código para familiarizar yo
+más.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/488-0
+01:06:07.191 --> 01:06:08.991
+<v Javier Caballero (EXT)>Te pasa el sitio en código, sí.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/489-0
+01:06:09.831 --> 01:06:10.631
+<v Javier Caballero (EXT)>Pero.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/490-0
+01:06:10.071 --> 01:06:10.711
+<v Alan David Guzman (EXT)>sí.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/491-0
+01:06:16.311 --> 01:06:20.631
+<v Javier Caballero (EXT)>Pero sí, no te dieron acceso a nada,
+no le pediste de nuevo.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/492-0
+01:06:20.071 --> 01:06:23.911
+<v Alan David Guzman (EXT)>No tengo acceso a nada,
+tengo acceso a nada todavía.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/493-0
+01:06:28.311 --> 01:06:29.511
+<v Javier Caballero (EXT)>Eso es una lástima.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/494-0
+01:06:29.911 --> 01:06:33.031
+<v Alan David Guzman (EXT)>Pero te voy a decir ciertamente,
+ya que tú ya que te vas.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/495-0
+01:06:35.511 --> 01:06:40.387
+<v Javier Caballero (EXT)>No, me voy,
+estoy buscando acá en grupos digitales,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/495-1
+01:06:40.387 --> 01:06:41.231
+<v Javier Caballero (EXT)>miembros.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/496-0
+01:06:44.391 --> 01:06:44.791
+<v Javier Caballero (EXT)>Hey.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/497-0
+01:06:45.991 --> 01:06:48.271
+<v Javier Caballero (EXT)>Alan, no apareces.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/498-0
+01:06:50.631 --> 01:06:53.271
+<v Alan David Guzman (EXT)>¿Lo que te digo, oye, qué?</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/499-0
+01:06:54.311 --> 01:06:58.551
+<v Alan David Guzman (EXT)>Yo nunca había visto algo tan relajado en
+el sentido de que oye.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/500-0
+01:07:00.311 --> 01:07:05.197
+<v Alan David Guzman (EXT)>Si fuese, si fuese que fuesen varios,
+varios, varios QA,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/500-1
+01:07:05.197 --> 01:07:11.797
+<v Alan David Guzman (EXT)>pero voy a estar solo y no estar ni
+pendiente. Mira, desde que entré Alexis,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/500-2
+01:07:11.797 --> 01:07:15.311
+<v Alan David Guzman (EXT)>que bueno, voy a buscar para una reunión.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/501-0
+01:07:16.311 --> 01:07:17.511
+<v Alan David Guzman (EXT)>Ya van 2 días y nada.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/502-0
+01:07:19.031 --> 01:07:20.111
+<v Alan David Guzman (EXT)>Liliana, lo mismo.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/505-0
+01:07:21.751 --> 01:07:27.641
+<v Alan David Guzman (EXT)>y ahora y Liliana me me respondió ahora
+porque yo le escribí Liliana mira para</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/505-1
+01:07:27.641 --> 01:07:33.754
+<v Alan David Guzman (EXT)>darte update de lo que estaba haciendo eh
+Bueno me reuní con me reuní con con con</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/503-0
+01:07:31.511 --> 01:07:31.911
+<v Javier Caballero (EXT)>Mhm.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/505-2
+01:07:33.754 --> 01:07:39.644
+<v Alan David Guzman (EXT)>Javier ya ya hicimos eso fue después de
+la de la sesión de hoy ya llevamos dos</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/505-3
+01:07:39.644 --> 01:07:42.551
+<v Alan David Guzman (EXT)>sesiones tenemos una sesión en la tarde</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/504-0
+01:07:39.831 --> 01:07:40.311
+<v Javier Caballero (EXT)>Sí.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/506-0
+01:07:43.911 --> 01:07:47.272
+<v Alan David Guzman (EXT)>Este,
+ya que ya que se supone que teníamos una</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/506-1
+01:07:47.272 --> 01:07:52.850
+<v Alan David Guzman (EXT)>sesión programada, no programada no,
+ya no me la tenemos una sesión este tú y</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/506-2
+01:07:52.850 --> 01:07:55.925
+<v Alan David Guzman (EXT)>yo.
+Eso es lo que me había dicho ella para</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/506-3
+01:07:55.925 --> 01:07:59.143
+<v Alan David Guzman (EXT)>hoy,
+pero no me has dicho nada entonces para</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/506-4
+01:07:59.143 --> 01:08:01.431
+<v Alan David Guzman (EXT)>ir diciéndote lo que dicen aquí.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/507-0
+01:08:02.631 --> 01:08:07.173
+<v Alan David Guzman (EXT)>bueno, sí, cierto, sí,
+que te que te de que te vaya dando el</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/507-1
+01:08:07.173 --> 01:08:12.831
+<v Alan David Guzman (EXT)>unboarding. Javier, listo, listo,
+ya el lunes, ya el ya el lunes está solo.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/508-0
+01:08:14.471 --> 01:08:16.311
+<v Alan David Guzman (EXT)>Para empezar a trabajar, yo.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/509-0
+01:08:17.191 --> 01:08:20.151
+<v Alan David Guzman (EXT)>O sea,
+ni la bienvenida al grupo anda todavía.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/510-0
+01:08:21.111 --> 01:08:21.671
+<v Javier Caballero (EXT)>No.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/511-0
+01:08:23.191 --> 01:08:23.871
+<v Javier Caballero (EXT)>Mella.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/512-0
+01:08:25.831 --> 01:08:30.620
+<v Javier Caballero (EXT)>Y a mí me agregaron así todo, bueno,
+Javier acá se suma, bla, bla, bla,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/512-1
+01:08:30.620 --> 01:08:31.351
+<v Javier Caballero (EXT)>bla y chao.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/513-0
+01:08:34.631 --> 01:08:35.431
+<v Javier Caballero (EXT)>Vamos a Cinema.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/514-0
+01:08:38.871 --> 01:08:42.373
+<v Javier Caballero (EXT)>Bueno,
+te compartí los casos de prueba por si no</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/514-1
+01:08:42.373 --> 01:08:45.660
+<v Javier Caballero (EXT)>los tenía.
+Te voy a compartir la colección de</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/514-2
+01:08:45.660 --> 01:08:46.231
+<v Javier Caballero (EXT)>Bettify.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/515-0
+01:08:47.911 --> 01:08:54.231
+<v Javier Caballero (EXT)>Every name more on the export collection,
+export as a Jason.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/516-0
+01:08:56.391 --> 01:08:57.551
+<v Javier Caballero (EXT)>Documentos.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/520-0
+01:09:13.071 --> 01:09:15.951
+<v Javier Caballero (EXT)>Porque yo ya mismo estoy borrando todo,
+o sea.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/521-0
+01:09:17.911 --> 01:09:21.649
+<v Alan David Guzman (EXT)>Yo me imagino,
+me imagino que como estamos por hora,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/521-1
+01:09:21.649 --> 01:09:26.867
+<v Alan David Guzman (EXT)>este un festivo de un festivo de
+Argentina, este eso no cuenta para nada,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/521-2
+01:09:26.867 --> 01:09:27.431
+<v Alan David Guzman (EXT)>¿cierto?</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/522-0
+01:09:28.791 --> 01:09:32.311
+<v Javier Caballero (EXT)>Claro, día trabajado, día cobrado,
+día no trabajado, día no cobrado.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/524-0
+01:09:34.791 --> 01:09:39.759
+<v Javier Caballero (EXT)>Igual consultalo si creo que hay veces
+que no es necesario que te tome el día</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/524-1
+01:09:39.759 --> 01:09:44.536
+<v Javier Caballero (EXT)>festivo porque hay veces que caen 2 días
+y decís no, yo quiero trabajarlo.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/524-2
+01:09:44.536 --> 01:09:49.121
+<v Javier Caballero (EXT)>Creo que si lo trabajas, háblalo,
+hábláselo con eso siempre háblalo con</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/524-3
+01:09:49.121 --> 01:09:52.751
+<v Javier Caballero (EXT)>Alexis y tengo mucho trabajo,
+voy a trabajarlo este día.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/523-0
+01:09:55.151 --> 01:09:56.591
+<v Alan David Guzman (EXT)>OKOKOK.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/526-0
+01:09:56.231 --> 01:09:59.791
+<v Javier Caballero (EXT)>Mándaselo por chat, yo, por ejemplo.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/525-0
+01:09:59.431 --> 01:09:59.791
+<v Alan David Guzman (EXT)>Sure.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/527-0
+01:10:00.951 --> 01:10:03.739
+<v Javier Caballero (EXT)>A veces la gente de Ingenia trabajaba y
+yo no,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/527-1
+01:10:03.739 --> 01:10:07.831
+<v Javier Caballero (EXT)>porque yo me he tomado la feria de
+Argentina porque nada me servían.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/528-0
+01:10:09.031 --> 01:10:12.871
+<v Javier Caballero (EXT)>Pero la gente de Ingenia los trabajaba.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/529-0
+01:10:13.911 --> 01:10:16.917
+<v Javier Caballero (EXT)>Sí,
+mandalo y si te decís o k yo lo voy a</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/529-1
+01:10:16.917 --> 01:10:21.926
+<v Javier Caballero (EXT)>trabajar, mandale un mail,
+siempre mandar mail con días que te tomas,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/529-2
+01:10:21.926 --> 01:10:27.436
+<v Javier Caballero (EXT)>días que vas a trabajar por si es feriado,
+pero si no es son los feriados de</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/529-3
+01:10:27.436 --> 01:10:28.151
+<v Javier Caballero (EXT)>Argentina.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/530-0
+01:10:29.111 --> 01:10:33.226
+<v Alan David Guzman (EXT)>Okey, okey,
+eso da más o menos con un promedio como</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/530-1
+01:10:33.226 --> 01:10:36.391
+<v Alan David Guzman (EXT)>de cuánto, como de 160 170 horas al mes.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/531-0
+01:10:36.231 --> 01:10:38.791
+<v Javier Caballero (EXT)>Sí, 160 horas en es en promedio.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/532-0
+01:10:39.991 --> 01:10:41.511
+<v Alan David Guzman (EXT)>Okey, okey, okey, okey.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/533-0
+01:10:46.511 --> 01:10:50.351
+<v Javier Caballero (EXT)>O K, eso ya está,
+te mandé todas las notas.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/534-0
+01:10:56.151 --> 01:10:59.151
+<v Javier Caballero (EXT)>Te mandé algunos cupones que puedes usar.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/535-0
+01:11:01.351 --> 01:11:03.391
+<v Javier Caballero (EXT)>Te mandé la colección de Postman.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/536-0
+01:11:05.311 --> 01:11:08.831
+<v Javier Caballero (EXT)>Ya la borré, ya bueno, ya borré eso ahí.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/537-0
+01:11:11.311 --> 01:11:14.311
+<v Javier Caballero (EXT)>Desarrollo, ya eliminé todo.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/539-0
+01:11:19.311 --> 01:11:19.871
+<v Javier Caballero (EXT)>Check that.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/540-0
+01:11:21.231 --> 01:11:24.591
+<v Javier Caballero (EXT)>Se elimina la VPN, bueno, nada.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/541-0
+01:11:27.151 --> 01:11:30.831
+<v Javier Caballero (EXT)>Un placer, la verdad, muchos éxitos.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/542-0
+01:11:33.151 --> 01:11:33.991
+<v Javier Caballero (EXT)>Er.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/543-0
+01:11:38.991 --> 01:11:40.551
+<v Javier Caballero (EXT)>No sé qué me te iba a decir.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/544-0
+01:11:45.631 --> 01:11:46.671
+<v Javier Caballero (EXT)>Yeah.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/545-0
+01:11:48.431 --> 01:11:52.791
+<v Javier Caballero (EXT)>No, yo ya voy a estar, no,
+yo estoy ya cerrando todo esto acá.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/546-0
+01:11:54.991 --> 01:11:58.411
+<v Javier Caballero (EXT)>Bueno, tener mi contacto de LinkedIn,
+no sé,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/546-1
+01:11:58.411 --> 01:12:04.111
+<v Javier Caballero (EXT)>creo que manejate tranquilo y no vas a
+tener problema. O sea, yo ya duelo.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/547-0
+01:12:05.311 --> 01:12:07.111
+<v Javier Caballero (EXT)>Creo que lo mío fue más como.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/548-0
+01:12:09.631 --> 01:12:15.404
+<v Javier Caballero (EXT)>¿Cómo decirte mala suerte?
+Y creo que no sé si de entrada no le cae</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/548-1
+01:12:15.404 --> 01:12:17.271
+<v Javier Caballero (EXT)>bien a la esa Liliana.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/549-0
+01:12:19.391 --> 01:12:21.471
+<v Javier Caballero (EXT)>Pero bueno... Cosa que pasa.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/550-0
+01:12:22.511 --> 01:12:26.394
+<v Alan David Guzman (EXT)>Gracias, vale, hermano,
+realmente un placer y muchas gracias por</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/550-1
+01:12:26.394 --> 01:12:30.813
+<v Alan David Guzman (EXT)>toda esta información y por todos los
+consejos que los voy a tener muy en</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/550-2
+01:12:30.813 --> 01:12:31.231
+<v Alan David Guzman (EXT)>cuenta.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/551-0
+01:12:32.351 --> 01:12:35.112
+<v Javier Caballero (EXT)>Sí,
+tenerlos en cuenta y no vas a tener</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/551-1
+01:12:35.112 --> 01:12:38.494
+<v Javier Caballero (EXT)>problemas,
+estoy súper seguro que no vas a tener</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/551-2
+01:12:38.494 --> 01:12:39.391
+<v Javier Caballero (EXT)>problemas ya.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/552-0
+01:12:40.311 --> 01:12:45.151
+<v Javier Caballero (EXT)>Lo que se renueva las el gozo. y.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/553-0
+01:12:48.111 --> 01:12:51.245
+<v Javier Caballero (EXT)>Y nada,
+yo ya creo que no van a si va a ver,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/553-1
+01:12:51.245 --> 01:12:56.468
+<v Javier Caballero (EXT)>no van a si cambian a otro en un mes,
+es como guau, 2 meses, 3 meses. Che,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/553-2
+01:12:56.468 --> 01:12:59.671
+<v Javier Caballero (EXT)>no es el problema del Cua,
+es el problema es.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/554-0
+01:13:00.991 --> 01:13:01.551
+<v Javier Caballero (EXT)>Yeah.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/555-0
+01:13:02.431 --> 01:13:03.111
+<v Javier Caballero (EXT)>Es otro.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/556-0
+01:13:02.831 --> 01:13:03.471
+<v Alan David Guzman (EXT)>Vello.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/557-0
+01:13:04.351 --> 01:13:04.911
+<v Javier Caballero (EXT)>Claro.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/558-0
+01:13:07.711 --> 01:13:08.271
+<v Alan David Guzman (EXT)>Mad.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/559-0
+01:13:10.111 --> 01:13:12.231
+<v Alan David Guzman (EXT)>Bueno, hermano, muchísimas gracias.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/560-0
+01:13:13.871 --> 01:13:15.871
+<v Javier Caballero (EXT)>De nada, nos estamos viendo.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/563-0
+01:13:16.591 --> 01:13:19.981
+<v Alan David Guzman (EXT)>Dale, listo o si algo,
+si ya no te consigo por acá,</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/561-0
+01:13:17.791 --> 01:13:18.711
+<v Javier Caballero (EXT)>Un abrazo.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/563-1
+01:13:19.981 --> 01:13:21.871
+<v Alan David Guzman (EXT)>pues te consigo por LinkedIn.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/564-0
+01:13:22.191 --> 01:13:23.111
+<v Javier Caballero (EXT)>Dale, sí.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/565-0
+01:13:24.111 --> 01:13:25.031
+<v Alan David Guzman (EXT)>A ver esto joya.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/568-0
+01:13:25.831 --> 01:13:27.831
+<v Javier Caballero (EXT)>Chao, chao, éxitos, buen finde.</v>
+
+1e38cde7-7d0c-4a6f-ba56-b57b33d6c563/567-0
+01:13:26.871 --> 01:13:27.231
+<v Alan David Guzman (EXT)>No.</v>

@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://qa-template.local/schemas/qa-report.schema.json",
+  "title": "Reporte QA del proyecto",
+  "type": "object",
+  "required": ["date", "scope", "facts", "unknowns", "recommendations"],
+  "properties": {
+    "date": { "type": "string" },
+    "scope": { "type": "string" },
+    "facts": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/evidenceItem" }
+    },
+    "assumptions": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/evidenceItem" }
+    },
+    "unknowns": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/evidenceItem" }
+    },
+    "recommendations": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/evidenceItem" }
+    }
+  },
+  "$defs": {
+    "evidenceItem": {
+      "type": "object",
+      "required": ["text", "evidence"],
+      "properties": {
+        "text": { "type": "string" },
+        "evidence": { "type": "string" }
+      },
+      "additionalProperties": false
+    }
+  }
+}

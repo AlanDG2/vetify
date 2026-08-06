@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://qa-template.local/schemas/bug-report.schema.json",
+  "title": "Metadata de bug report",
+  "type": "object",
+  "required": ["bugId", "title", "severity", "affectedHu", "evidence"],
+  "properties": {
+    "bugId": { "type": "string", "pattern": "^BUG-[0-9]{3}$" },
+    "ticketKey": { "type": "string", "pattern": "^[A-Z]+-[0-9]+$" },
+    "title": { "type": "string" },
+    "severity": { "enum": ["Alto - High", "Medio - Medium", "Bajo - Low"] },
+    "affectedHu": { "type": "string" },
+    "evidence": { "type": "string" },
+    "status": { "enum": ["open", "in_progress", "resolved", "invalid", "duplicate"] }
+  },
+  "additionalProperties": false
+}

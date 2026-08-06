@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://qa-template.local/schemas/test-case.schema.json",
+  "title": "Entry del registry de tests QA",
+  "type": "object",
+  "required": ["id", "ticketKey", "layer", "specPath", "status", "coverage"],
+  "properties": {
+    "id": { "type": "string" },
+    "ticketKey": { "type": "string", "pattern": "^[A-Z]+-[0-9]+$" },
+    "title": { "type": "string" },
+    "layer": { "enum": ["e2e", "api", "db", "manual", "mixed"] },
+    "specPath": { "type": "string" },
+    "testTitle": { "type": "string" },
+    "acceptanceCriteria": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "status": { "enum": ["active", "skipped", "blocked", "deprecated", "manual"] },
+    "coverage": { "enum": ["full", "partial", "gap", "not_applicable"] },
+    "blocker": { "type": "string" },
+    "evidence": { "type": "string" },
+    "updatedAt": { "type": "string" }
+  },
+  "additionalProperties": false
+}

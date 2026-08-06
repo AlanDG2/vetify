@@ -11,6 +11,7 @@ const environmentSchema = z.object({
     OSDE_CAPITADO_INSTITUTIONAL_BASE_URL: z.string().url(),
     OSDE_ADQUIRENTE_INSTITUTIONAL_BASE_URL: z.string().url(),
     FLUX_CAPITADO_INSTITUTIONAL_BASE_URL: z.string().url(),
+    IKE_WEBAPP_BASE_URL: z.string().url(),
 });
 
 export type AppEnvironment = z.infer<typeof environmentSchema>['APP_ENV'];
@@ -20,6 +21,7 @@ export enum SiteId {
     OSDE_ADQUIRENTE = 'OSDE_ADQUIRENTE',
     OSDE_CAPITADO = 'OSDE_CAPITADO',
     FLUX_CAPITADO = 'FLUX_CAPITADO',
+    IKE_WEBAPP = 'IKE_WEBAPP',
 }
 
 export type SiteIdType = SiteId;
@@ -40,6 +42,7 @@ export const siteWebappBaseUrls: Record<SiteIdType, string> = {
     [SiteId.OSDE_CAPITADO]: environment.VETIFY_WEBAPP_BASE_URL,
     [SiteId.OSDE_ADQUIRENTE]: environment.VETIFY_WEBAPP_BASE_URL,
     [SiteId.FLUX_CAPITADO]: environment.VETIFY_WEBAPP_BASE_URL,
+    [SiteId.IKE_WEBAPP]: environment.IKE_WEBAPP_BASE_URL,
 };
 
 export function getWebappBaseUrl(siteId: SiteId): string {
@@ -51,6 +54,8 @@ export const siteInstitutionalBaseUrls: Record<SiteIdType, string> = {
     [SiteId.OSDE_CAPITADO]: environment.OSDE_CAPITADO_INSTITUTIONAL_BASE_URL,
     [SiteId.OSDE_ADQUIRENTE]: environment.OSDE_ADQUIRENTE_INSTITUTIONAL_BASE_URL,
     [SiteId.FLUX_CAPITADO]: environment.FLUX_CAPITADO_INSTITUTIONAL_BASE_URL,
+    // La WebApp de Iké no tiene un sitio institucional/landing separado en este alcance — reusa su propia base URL.
+    [SiteId.IKE_WEBAPP]: environment.IKE_WEBAPP_BASE_URL,
 };
 
 export function getInstitutionalBaseUrl(siteId: SiteId): string {

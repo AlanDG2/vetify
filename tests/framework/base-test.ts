@@ -1,5 +1,6 @@
 import { VetifyWebappApiClient } from '@api/vetify/webapp/vetify-webapp-api';
 import { blockThirdParty } from '@helpers/blockThirdParty';
+import { IkeWebappLoginPage } from '@pages/ike/webapp/LoginPage';
 import { FluxCapitadoInstitutionalPage } from '@pages/osde/institutional-flux-capitado/InstitutionalPage';
 import { OsdeAdquirenteCheckoutPage } from '@pages/osde/institutional-osde-adquirente/CheckoutPage';
 import { OsdeAdquirenteInstitutionalPage } from '@pages/osde/institutional-osde-adquirente/InstitutionalPage';
@@ -65,6 +66,11 @@ export type TestContainer = {
         getApiClient: (page: Page) => Promise<VetifyWebappApiClient>;
         webapp: VetifyWebappContainer;
     };
+    ike: {
+        webapp: {
+            loginPage: IkeWebappLoginPage;
+        };
+    };
 };
 
 const test = base.extend<{
@@ -113,6 +119,11 @@ const test = base.extend<{
             vetify: {
                 getApiClient: async (page: Page) => VetifyWebappApiClient.getApiClient(page),
                 webapp,
+            },
+            ike: {
+                webapp: {
+                    loginPage: new IkeWebappLoginPage(page),
+                },
             },
         });
     },

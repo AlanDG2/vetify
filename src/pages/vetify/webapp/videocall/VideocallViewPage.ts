@@ -1,89 +1,82 @@
-import { wait } from '@helpers/automation-utils';
 import { VetifyWebappLoggedBasePage } from '@pages/vetify/webapp/LoggedBasePage';
-import { Locator, Page } from '@playwright/test';
+import { expect, Locator, Page } from '@playwright/test';
+import { step } from '@utils/decorators';
 
 export class VetifyWebappVideocallViewPage extends VetifyWebappLoggedBasePage {
-    readonly pageContainer: Locator;
-    readonly pageTitle: Locator;
-    readonly pageSubTitle: Locator;
-    // Form
-    readonly petsList: Locator;
-    readonly scheduledDateLbl: Locator;
-    readonly scheduledTimeLbl: Locator;
-    readonly rescheduleBtn: Locator;
-    readonly reasonInput: Locator;
-    // Actions
-    readonly cancelVideocallBtn: Locator;
-    readonly backBtn: Locator;
-    readonly saveBtn: Locator;
-    // Re-schedule Modal
-    readonly rescheduleModalConfirmBtn: Locator;
-    // Re-schedule Confirmation Modal
-    readonly rescheduleConfirmationModalTitleLbl: Locator;
-    readonly rescheduleConfirmationModalOkBtn: Locator;
     private assistanceId: string;
+
+    readonly pageTitle: Locator;
+    readonly infoBannerLbl: Locator;
+
+    // Detail fields
+    readonly mascotaLbl: Locator;
+    readonly fechaHoraLbl: Locator;
+    readonly motivoLbl: Locator;
+    readonly detalleLbl: Locator;
+
+    // Actions — IMAS-3894 CA05 (Ingresar habilitado 5 min antes) / CA03 (Cancelar, ≥30 min antes) / CA04 (Reprogramar)
+    readonly enterVideocallBtn: Locator;
+    readonly rescheduleBtn: Locator;
+    readonly cancelVideocallBtn: Locator;
 
     constructor(page: Page, assistanceId: string) {
         super(page, `/petsAssistance/${assistanceId}`);
         this.assistanceId = assistanceId;
 
-        this.pageContainer = page.locator('[data-cy="cancelOrRescheduleBox"]');
-        this.pageTitle = page.locator('//div[@data-cy="cancelOrRescheduleBox"]/div[2]/div/div[1]/div/div[2]/div[1]/div/div[2]//p[1]');
-        this.pageSubTitle = page.locator('//div[@data-cy="cancelOrRescheduleBox"]/div[2]/div/div[1]/div/div[2]/div[1]/div/div[2]//p[2]');
+        this.pageTitle = page.getByRole('heading', { name: 'Detalles del turno' });
+        this.infoBannerLbl = page.getByText('Podrás ingresar 5 minutos antes del turno.');
 
-        // Form
-        this.petsList = page.locator('//div[@data-cy="cancelOrRescheduleBox"]/div[2]/div/div[2]//button');
-        this.rescheduleBtn = page.getByRole('button', { name: /reprogramar/i });
-        this.reasonInput = page.locator('input[data-cy="motivoInput"]');
-        this.scheduledDateLbl = page.locator('//div[@data-cy="cancelOrRescheduleBox"]/div[2]/div/div[3]/div/div/div/div/div[1]/p[2]');
-        this.scheduledTimeLbl = page.locator('//div[@data-cy="cancelOrRescheduleBox"]/div[2]/div/div[3]/div/div/div/div/div[2]/p[2]');
+        // Confirmado vía MCP contra QA real: cada campo es un <p> de label seguido de un <p> de valor
+        // en el mismo bloque — mismo patrón que la pantalla de revisión del agendamiento. "Mascota" es
+        // la excepción: el bloque siguiente incluye también el avatar de la mascota; si la imagen no
+        // carga (ej. bloqueada por blockThirdParty en tests), el fallback de iniciales se concatena al
+        // texto — se apunta al <p> del nombre específicamente, no al wrapper completo.
+        this.mascotaLbl = page.locator('p:text-is("Mascota")').locator('xpath=following-sibling::*[1]').locator('p').first();
+        this.fechaHoraLbl = page.locator('p:text-is("Fecha y hora")').locator('xpath=following-sibling::*[1]');
+        this.motivoLbl = page.locator('p:text-is("Motivo")').locator('xpath=following-sibling::*[1]');
+        this.detalleLbl = page.locator('p:text-is("Detalle")').locator('xpath=following-sibling::*[1]');
 
-        // Actions
-        this.cancelVideocallBtn = page.locator(`(//button[contains(text(), 'Cancelar')])[1]`);
-        this.saveBtn = page.getByRole('button', { name: /guardar/i });
-        this.backBtn = page.locator(`(//button[contains(text(), 'Cancelar')])[2]`);
-
-        // Re-schedule modal
-        this.rescheduleModalConfirmBtn = page.locator('div[role="dialog"] button.button');
-
-        // Re-schedule Confirmation Modal
-        this.rescheduleConfirmationModalTitleLbl = page.locator('//div[@role="dialog"]//p[1]');
-        this.rescheduleConfirmationModalOkBtn = page.locator('//div[@role="dialog"]//button');
+        this.enterVideocallBtn = page.getByRole('button', { name: 'Ingresar' });
+        this.rescheduleBtn = page.getByRole('button', { name: 'Reprogramar' });
+        this.cancelVideocallBtn = page.getByRole('button', { name: 'Cancelar', exact: true });
     }
 
+    @step('Esperar a que la pantalla de detalle de videollamada cargue')
     async waitForPageLoaded() {
         await Promise.all([
             super.waitForPageLoaded(),
             this.page.waitForResponse((response) => response.url().includes(`/api/services/pets/appointment/${this.assistanceId}`) && response.status() === 200),
-            this.page.waitForResponse((response) => response.url().includes('/api/services/pets/my-products') && response.status() === 200),
-            this.saveBtn.waitFor({ state: 'visible' }),
+            this.pageTitle.waitFor({ state: 'visible' }),
         ]);
-        // Wait for the re-render of the UI
-        await wait(3_000);
     }
 
-    // TODO: Refactor this method with best practices
-    async getSelectedPet(): Promise<Locator> {
-        const petsList = await this.petsList.all();
-
-        // Prevent hover affect tests
-        await this.backBtn.hover();
-
-        let selectedPet: Locator | undefined;
-        for (const pet of petsList) {
-            const backgroundColor = await pet.evaluate((el) => {
-                return window.getComputedStyle(el).backgroundColor;
-            });
-            if (backgroundColor === 'rgb(209, 211, 212)') {
-                selectedPet = pet;
-                break;
-            }
+    @step('Verificar el detalle del turno (mascota, fecha/hora, motivo)')
+    async verifyDetail(data: { petName: string; reason?: string }): Promise<void> {
+        await expect(this.pageTitle).toBeVisible();
+        await expect(this.mascotaLbl).toHaveText(data.petName);
+        if (data.reason) {
+            await expect(this.motivoLbl).toHaveText(data.reason);
         }
+        await expect(this.fechaHoraLbl).not.toHaveText('-');
+    }
 
-        if (selectedPet === undefined) {
-            throw new Error('No pet selected');
-        }
+    @step('Verificar que "Ingresar" está deshabilitado (turno fuera de la ventana de 5 min)')
+    async verifyEnterButtonDisabled(): Promise<void> {
+        await expect(this.enterVideocallBtn).toBeDisabled();
+    }
 
-        return selectedPet;
+    @step('Verificar que "Cancelar" está habilitado (turno cancelable)')
+    async verifyCancelButtonEnabled(): Promise<void> {
+        await expect(this.cancelVideocallBtn).toBeEnabled();
+    }
+
+    @step('Iniciar el flujo de reprogramación del turno')
+    async startReschedule(): Promise<void> {
+        await Promise.all([this.page.waitForURL(/\/petsAssistance\/reprogramarTurno\//), this.rescheduleBtn.click()]);
+    }
+
+    @step('Abrir el modal de cancelación del turno')
+    async startCancel(): Promise<void> {
+        await this.cancelVideocallBtn.click();
     }
 }

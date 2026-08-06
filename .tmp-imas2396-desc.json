@@ -1,0 +1,427 @@
+{
+  "type": "doc",
+  "version": 1,
+  "content": [
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Al ingresar a la web institucional e ingresar al flujo de compra de un plan, el usuario puede seleccionar multiples tipos de documentos mientras que al registrar un usuario es solo con DNI. "
+        }
+      ],
+      "attrs": {
+        "localId": "42f3f44e4726"
+      }
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Pasos para reproducir",
+          "marks": [
+            {
+              "type": "strong"
+            }
+          ]
+        }
+      ],
+      "attrs": {
+        "localId": "0e6cf3daeca4"
+      }
+    },
+    {
+      "type": "orderedList",
+      "attrs": {
+        "order": 1,
+        "localId": "50807d3ba1b1"
+      },
+      "content": [
+        {
+          "type": "listItem",
+          "attrs": {
+            "localId": "ffb6e5a34e0a"
+          },
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Ingresar a la web institucional"
+                }
+              ],
+              "attrs": {
+                "localId": "e129bddf7857"
+              }
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "attrs": {
+            "localId": "ffb6e5a34e0a"
+          },
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Seleccionar un plan"
+                }
+              ],
+              "attrs": {
+                "localId": "5845cbdf38fb"
+              }
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "attrs": {
+            "localId": "ffb6e5a34e0a"
+          },
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Completar todos los campos del paso 1 pero seleccionando un tipo de documento diferente a DNI"
+                }
+              ],
+              "attrs": {
+                "localId": "e1cf2ee8c916"
+              }
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "attrs": {
+            "localId": "ffb6e5a34e0a"
+          },
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Terminar el flujo de compra de manera exitosa"
+                }
+              ],
+              "attrs": {
+                "localId": "583be72299e8"
+              }
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "attrs": {
+            "localId": "ffb6e5a34e0a"
+          },
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Ingresar a la webapp"
+                }
+              ],
+              "attrs": {
+                "localId": "9fd55cd70ad1"
+              }
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "attrs": {
+            "localId": "ffb6e5a34e0a"
+          },
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Seleccionar “Crear cuenta” en la pantalla de login"
+                }
+              ],
+              "attrs": {
+                "localId": "22fed280dde3"
+              }
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "attrs": {
+            "localId": "ffb6e5a34e0a"
+          },
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Ingresar un email y una contraseña"
+                }
+              ],
+              "attrs": {
+                "localId": "9946fee04de5"
+              }
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "attrs": {
+            "localId": "ffb6e5a34e0a"
+          },
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Presionar el botón “Crear cuenta”"
+                }
+              ],
+              "attrs": {
+                "localId": "3f2580e6ffba"
+              }
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "attrs": {
+            "localId": "ffb6e5a34e0a"
+          },
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "En la pantalla de verificación de cuenta desplegar la lista de tipos de documentos"
+                }
+              ],
+              "attrs": {
+                "localId": "7d2d3f5d6637"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Resultado actual",
+          "marks": [
+            {
+              "type": "strong"
+            }
+          ]
+        }
+      ],
+      "attrs": {
+        "localId": "cc19aa3b88bd"
+      }
+    },
+    {
+      "type": "bulletList",
+      "content": [
+        {
+          "type": "listItem",
+          "attrs": {
+            "localId": "0aa73e854760"
+          },
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "En producción: Sólo se visualiza "
+                },
+                {
+                  "type": "text",
+                  "text": "DNI",
+                  "marks": [
+                    {
+                      "type": "code"
+                    }
+                  ]
+                }
+              ],
+              "attrs": {
+                "localId": "974f01b9251f"
+              }
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "attrs": {
+            "localId": "0aa73e854760"
+          },
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "En QA: Se visualizan 2 entradas con "
+                },
+                {
+                  "type": "text",
+                  "text": "DNI",
+                  "marks": [
+                    {
+                      "type": "code"
+                    }
+                  ]
+                }
+              ],
+              "attrs": {
+                "localId": "1786be402cf6"
+              }
+            }
+          ]
+        }
+      ],
+      "attrs": {
+        "localId": "099861a281e1"
+      }
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Resultado esperado",
+          "marks": [
+            {
+              "type": "strong"
+            }
+          ]
+        }
+      ],
+      "attrs": {
+        "localId": "129c48be2269"
+      }
+    },
+    {
+      "type": "bulletList",
+      "content": [
+        {
+          "type": "listItem",
+          "attrs": {
+            "localId": "bbe0c87704a7"
+          },
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "En la pantalla de verificación de cuenta se visualizan los mismos tipos de documentos que los mostrados en el flujo de adquisición (paso 1)"
+                }
+              ],
+              "attrs": {
+                "localId": "676b6fe73b57"
+              }
+            }
+          ]
+        }
+      ],
+      "attrs": {
+        "localId": "9791e353cabb"
+      }
+    },
+    {
+      "type": "paragraph",
+      "attrs": {
+        "localId": "254c02dbbed2"
+      }
+    },
+    {
+      "type": "mediaSingle",
+      "attrs": {
+        "width": 418,
+        "widthType": "pixel",
+        "localId": "66007c37c728",
+        "layout": "align-start"
+      },
+      "content": [
+        {
+          "type": "media",
+          "attrs": {
+            "type": "file",
+            "id": "ec899354-8786-43f2-96f2-42443c1f52d7",
+            "alt": "Screenshot 2026-06-03 at 3.11.24 PM.png",
+            "collection": "",
+            "localId": "cfb808d67f20",
+            "height": 303,
+            "width": 418
+          }
+        }
+      ]
+    },
+    {
+      "type": "mediaSingle",
+      "attrs": {
+        "width": 503,
+        "widthType": "pixel",
+        "localId": "d8292c4ee03f",
+        "layout": "align-start"
+      },
+      "content": [
+        {
+          "type": "media",
+          "attrs": {
+            "type": "file",
+            "id": "d90f3a25-fa9b-4358-a546-82ea21cccc40",
+            "alt": "Screenshot 2026-06-03 at 3.21.18 PM.png",
+            "collection": "",
+            "localId": "75e2ab94b594",
+            "height": 550,
+            "width": 503
+          }
+        }
+      ]
+    },
+    {
+      "type": "mediaSingle",
+      "attrs": {
+        "width": 553,
+        "widthType": "pixel",
+        "localId": "db9376934666",
+        "layout": "align-start"
+      },
+      "content": [
+        {
+          "type": "media",
+          "attrs": {
+            "type": "file",
+            "id": "6133d643-af22-4ea4-8a3b-4c7425b4fd6a",
+            "alt": "Screenshot 2026-06-03 at 3.19.22 PM.png",
+            "collection": "",
+            "localId": "f66a5eae48aa",
+            "height": 617,
+            "width": 553
+          }
+        }
+      ]
+    }
+  ]
+}

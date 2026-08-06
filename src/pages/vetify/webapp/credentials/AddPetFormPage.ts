@@ -1,6 +1,7 @@
 import { getRandomElement, wait } from '@helpers/automation-utils';
 import { VetifyWebappLoggedBasePage } from '@pages/vetify/webapp/LoggedBasePage';
-import type { Locator, Page } from '@playwright/test';
+import { expect, type Locator, type Page } from '@playwright/test';
+import { step } from '@utils/decorators';
 import { DateTime } from 'luxon';
 
 type AgeSelectorModeType = 'DateInput' | 'YearsMonthsSelect';
@@ -33,6 +34,7 @@ export class VetifyWebappAddPetFormPage extends VetifyWebappLoggedBasePage {
     readonly petPhotoPreviewImg: Locator;
     readonly changePhotoBtn: Locator;
     // Congrats Step
+    readonly congratsHeadingLbl: Locator;
     readonly goToHomeBtn: Locator;
 
     private petId: string | undefined;
@@ -49,7 +51,12 @@ export class VetifyWebappAddPetFormPage extends VetifyWebappLoggedBasePage {
         this.startWarningContinueBtn = this.page.locator('xpath=//h2[contains(text(), "Asegurate de completar bien los datos")]/../button');
 
         this.continueButton = this.page.getByRole('button', { name: 'Continuar' });
-        this.stepTitleLbl = this.page.getByRole('heading', { level: 2 });
+        // Entrando desde el flujo de videollamada ("credencial faltante" → "Completar credencial"),
+        // el paso inicial muestra el título del paso Y el modal de advertencia ("Asegurate de
+        // completar bien los datos") al mismo tiempo — un getByRole genérico matchea ambos h2 y
+        // rompe en modo estricto. Se excluye explícitamente el heading del modal (ya cubierto por
+        // startWarningModalTitle) para que este locator siga sirviendo para cualquier paso del flujo.
+        this.stepTitleLbl = this.page.getByRole('heading', { level: 2 }).filter({ hasNotText: 'Asegurate de completar bien los datos' });
         this.stepSubtitleLbl = this.page.locator('//h2/following-sibling::p[1]');
 
         // Step 1
@@ -71,11 +78,41 @@ export class VetifyWebappAddPetFormPage extends VetifyWebappLoggedBasePage {
         this.petPhotoPreviewImg = this.page.locator('img[alt="Foto de tu mascota"]');
         this.changePhotoBtn = this.page.locator('label[for="pet-photo-file-input"]');
         // Congrats Step
+        this.congratsHeadingLbl = this.page.getByRole('heading', { name: /ya tiene su credencial lista/ });
         this.goToHomeBtn = this.page.getByRole('button', { name: 'Ir al inicio' });
     }
 
     async waitForPageLoaded() {
         await Promise.all([this.page.waitForResponse((response) => response.url().includes('/api/services/pets/especies') && response.status() === 200)]);
+    }
+
+    @step('Verificar que la pantalla inicial del formulario de mascota es visible')
+    async verifyStartStepVisible(): Promise<void> {
+        await expect(this.stepTitleLbl).toHaveText('¡Vamos a empezar!');
+    }
+
+    // El modal de advertencia se superpone al primer paso con su PROPIO botón "Continuar" — hay que
+    // cerrarlo antes de poder tocar el "Continuar" del paso (si no, el genérico matchea 2 elementos).
+    @step('Cerrar el modal de advertencia inicial')
+    async dismissStartWarningModal(): Promise<void> {
+        await this.startWarningContinueBtn.click();
+        await expect(this.startWarningModalTitle).not.toBeVisible();
+    }
+
+    @step('Completar el nombre de la mascota')
+    async fillPetName(name: string): Promise<void> {
+        await this.petNameInput.fill(name);
+    }
+
+    @step('Continuar al siguiente paso del formulario')
+    async clickContinue(): Promise<void> {
+        await this.continueButton.click();
+    }
+
+    @step('Verificar la pantalla de felicitación con la credencial completada')
+    async verifyCongratsScreen(petName: string): Promise<void> {
+        await expect(this.congratsHeadingLbl).toHaveText(`¡${petName} ya tiene su credencial lista!`);
+        await expect(this.goToHomeBtn).toBeVisible();
     }
 
     public setPetId(petId: string): void {

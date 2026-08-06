@@ -21,7 +21,8 @@
             "@report/*": ["./src/report/*"],
             "@tests/*": ["./tests/*"],
             "@models/*": ["./src/types/*"],
-            "@providers/*": ["./src/providers/*"]
+            "@providers/*": ["./src/providers/*"],
+            "@utils/*": ["./src/utils/*"]
         }
     },
     "include": ["**/*.ts", "src/scripts/report-clean-up-tests.js"],

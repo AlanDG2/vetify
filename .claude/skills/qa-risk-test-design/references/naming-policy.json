@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "updated_at": "template",
+  "language": "es",
+  "origin": "Convención de nombres de casos de prueba, agnóstica del gestor de tickets. counter_scope = per_HU (la numeración reinicia por Historia de Usuario).",
+  "title": {
+    "prefix_pattern": "CP%02d",
+    "counter_scope": "per_HU",
+    "allowed_verbs": ["Validar", "Verificar", "Comprobar"],
+    "recommended_pattern": "CP## - <Verbo> <resultado esperado>",
+    "forbidden_examples": ["Escenario principal", "Caso de prueba 1", "Ejecutar el caso descrito por el título"]
+  },
+  "notes": [
+    "CP## es zero-padded de dos dígitos: CP01, CP02, ... La numeración reinicia por HU.",
+    "Cada título empieza con Validar/Verificar/Comprobar y describe un resultado esperado concreto.",
+    "Prohibido títulos genéricos sin objetivo verificable (los casos de prueba no pueden ser genéricos: cada uno describe qué valida)."
+  ]
+}

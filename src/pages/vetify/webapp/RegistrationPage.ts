@@ -38,13 +38,13 @@ export class VetifyWebappRegistrationPage extends VetifyWebappBasePage {
 
         // If the registration is not successful, the user is not redirected
         if (registrationSuccessful) {
-            expectedActions.concat([
+            expectedActions.push(
                 // Validate that the user is redirected to the Policy Validation page after registration
                 this.page.waitForURL(`${this.baseUrl}/validation/policy`),
                 // Wait for the Policy Validation page to load after registration
                 this.page.waitForResponse((response) => response.url().includes('/validation/policy.json') && response.status() === 200),
                 this.page.waitForResponse((response) => response.url().includes('/api/brand/vetify-qa.ikeapp.com/identification-types') && response.status() === 200),
-            ]);
+            );
         }
 
         await Promise.all(expectedActions);

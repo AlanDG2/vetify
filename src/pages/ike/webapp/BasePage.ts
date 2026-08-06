@@ -1,0 +1,45 @@
+import { getWebappBaseUrl, SiteId } from '@config/environment';
+import { type Page } from '@playwright/test';
+
+export class IkeWebappBasePage {
+    protected page: Page;
+    protected baseUrl: string = getWebappBaseUrl(SiteId.IKE_WEBAPP);
+    protected path?: string;
+
+    constructor(page: Page, path?: string) {
+        this.page = page;
+        if (path) {
+            this.path = path;
+        }
+    }
+
+    getBaseUrl() {
+        return this.baseUrl;
+    }
+
+    setPath(path: string): void {
+        this.path = path;
+    }
+
+    getPath() {
+        return this.path;
+    }
+
+    async load(): Promise<void> {
+        if (!this.path) {
+            throw new Error('Path is no defined for this page');
+        }
+        await this.page.goto(`${this.baseUrl}${this.path}`);
+    }
+
+    async waitForPageLoaded(): Promise<void> {
+        await this.page.waitForURL(this.getUrl());
+    }
+
+    getUrl(): string {
+        if (!this.path) {
+            throw new Error('Path is no defined for this page');
+        }
+        return `${this.baseUrl}${this.path}`;
+    }
+}

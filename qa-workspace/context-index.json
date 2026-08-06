@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "description": "Orden de bootstrap del agente: qué leer primero al arrancar una sesión.",
+  "bootstrapOrder": [
+    "qa-workspace/current-state.md",
+    "CLAUDE.md",
+    "AGENTS.md",
+    "core/dod/dod-core.md",
+    "docs/lecciones-aprendidas.md"
+  ],
+  "taskContexts": {
+    "bug_report": [
+      "jira/update-rules.md",
+      "jira/jira-workflow.md"
+    ],
+    "jira_write": [
+      "jira/update-rules.md",
+      "jira/jira-workflow.md",
+      "jira/sync-log.ndjson"
+    ]
+  }
+}

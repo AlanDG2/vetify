@@ -96,7 +96,7 @@ export class VetifyWebappAddPetFormPage extends VetifyWebappLoggedBasePage {
     @step('Cerrar el modal de advertencia inicial')
     async dismissStartWarningModal(): Promise<void> {
         await this.startWarningContinueBtn.click();
-        await expect(this.startWarningModalTitle).not.toBeVisible();
+        await expect(this.startWarningModalTitle).toBeHidden();
     }
 
     @step('Completar el nombre de la mascota')

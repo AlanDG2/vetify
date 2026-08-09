@@ -487,7 +487,7 @@ test.describe('Videollamada Test Suite', () => {
                 });
                 await step('El sistema permite el reintento: el archivo válido se adjunta correctamente y habilita "Continuar", sin arrastrar el error anterior.', async () => {
                     await container.vetify.webapp.videocallFormPage.verifyAttachmentUploaded('dog-profile-photo.jpg');
-                    await expect(container.vetify.webapp.videocallFormPage.invalidFormatErrorLbl).not.toBeVisible();
+                    await expect(container.vetify.webapp.videocallFormPage.invalidFormatErrorLbl).toBeHidden();
                 });
             });
 
@@ -705,6 +705,7 @@ test.describe('Videollamada Test Suite', () => {
             });
 
             let limitedPetName = '';
+
             test.beforeEach(async ({ container, page }) => {
                 // Precondición real de CA01: la mascota ya tiene 2 turnos agendados (el máximo). Se
                 // genera vía API (scheduleVideocall) en vez de recorrer la UI 2 veces — confirmado
@@ -858,6 +859,7 @@ test.describe('Videollamada Test Suite', () => {
             let assistanceId = '';
             let petName = '';
             const reason = 'Vacunas y desparasitación';
+
             test.beforeEach(async ({ container, page }) => {
                 // Precondición real de CA01/CA02: un turno futuro ya agendado, fuera de la ventana de 5
                 // min de "Ingresar" (CA05) y fuera de los 30 min de "no cancelable" — se genera vía API

@@ -46,7 +46,7 @@ export class VetifyWebappCancelVideocallModal extends BasePage {
     @step('Cerrar el modal de cancelación sin confirmar')
     async close(): Promise<void> {
         await this.closeBtn.click();
-        await expect(this.titleLbl).not.toBeVisible();
+        await expect(this.titleLbl).toBeHidden();
     }
 
     @step('Confirmar la cancelación de la videollamada')

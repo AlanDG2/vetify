@@ -266,13 +266,13 @@ export class VetifyWebappVideocallFormPage extends VetifyWebappLoggedBasePage {
         // Corregido con evidencia real (2026-08-07): el texto "Cargá foto, video o archivo" NO
         // desaparece con 5 archivos adjuntados — sigue mostrándose como encabezado del bloque. Lo que
         // realmente se oculta es el <input type="file"> en sí (confirmado en vivo contra QA real).
-        await expect(this.fileInput).not.toBeVisible();
+        await expect(this.fileInput).toBeHidden();
     }
 
     @step('Eliminar el archivo adjuntado')
     async deleteAttachedFile(fileName: string): Promise<void> {
         await this.deleteAttachedFileBtn.click();
-        await expect(this.attachedFileNameLbl.filter({ hasText: fileName })).not.toBeVisible();
+        await expect(this.attachedFileNameLbl.filter({ hasText: fileName })).toBeHidden();
     }
 
     @step('Verificar pantalla de selección de día y horario visible')
@@ -299,7 +299,7 @@ export class VetifyWebappVideocallFormPage extends VetifyWebappLoggedBasePage {
         await expect(this.editFechaHoraBtn).toBeVisible();
         await expect(this.editMotivoBtn).toBeVisible();
         await expect(this.editAdjuntosBtn).toBeVisible();
-        await expect(this.editMascotaBtn).not.toBeVisible();
+        await expect(this.editMascotaBtn).toBeHidden();
     }
 
     @step('Verificar pantalla de revisión multi-mascota, con opción de editar mascota')
@@ -369,6 +369,6 @@ export class VetifyWebappVideocallFormPage extends VetifyWebappLoggedBasePage {
     @step('Cerrar el modal de bloqueo por límite de turnos')
     async closeLimitReachedDialog(): Promise<void> {
         await this.closeLimitReachedDialogBtn.click();
-        await expect(this.limitReachedDialogHeadingLbl).not.toBeVisible();
+        await expect(this.limitReachedDialogHeadingLbl).toBeHidden();
     }
 }

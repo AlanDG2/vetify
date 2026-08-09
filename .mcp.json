@@ -1,8 +1,9 @@
 {
   "mcpServers": {
     "playwright": {
-      "command": "C:/Users/ALANDAVIDGONZALEZGUZ/AppData/Roaming/fnm/node-versions/v22.9.0/installation/node.exe",
-      "args": ["node_modules/@playwright/mcp/cli.js"]
+      "command": "node",
+      "args": ["node_modules/@playwright/mcp/cli.js", "--ignore-https-errors"]
+
     }
   }
 }

@@ -126,4 +126,38 @@ test.describe('Flujo de Compra Test Suite', () => {
             });
         });
     });
+
+    test.describe('TS-02 Validación de formulario', () => {
+        test('TC-04 Campos obligatorios', async ({ container, page }) => {
+            await setAllureDetails({
+                preconditions: [],
+                steps: ['Cargar la landing Page', 'Presionar el botón "ACTIVA SU PLAN" sin completar ningún campo'],
+                expectedResult: ['El sistema no envía el registro y no navega fuera de la landing'],
+            });
+            await step('1. Cargar la landing Page', async () => {
+                await container.fluxCapitado.landingPage.load();
+            });
+            await step('2. Presionar el botón "ACTIVA SU PLAN" sin completar ningún campo', async () => {
+                await container.fluxCapitado.landingPage.form.submitButton.click();
+            });
+            await step('El sistema no envía el registro y no navega fuera de la landing', async () => {
+                expect(page.url()).toContain(environment.FLUX_CAPITADO_INSTITUTIONAL_BASE_URL);
+            });
+        });
+
+        test('TC-05 Tipos de documentos', async ({ container }) => {
+            await setAllureDetails({
+                preconditions: [],
+                steps: ['Cargar la landing Page', 'Ver las opciones del selector de tipo de documento'],
+                expectedResult: ['El selector muestra al menos una opción de tipo de documento válida (ej. DNI)'],
+            });
+            await step('1. Cargar la landing Page', async () => {
+                await container.fluxCapitado.landingPage.load();
+            });
+            await step('El selector muestra al menos una opción de tipo de documento válida (ej. DNI)', async () => {
+                const options = await container.fluxCapitado.landingPage.form.documentTypeSelect.locator('option').allTextContents();
+                expect(options.map((o) => o.trim())).toContain('DNI');
+            });
+        });
+    });
 });

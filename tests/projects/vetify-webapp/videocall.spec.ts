@@ -87,60 +87,80 @@ test.describe('Videollamada Test Suite', () => {
             });
         });
 
-        // Sin userRequest (no reserva usuario pooled): el test se aborta en el test.skip() antes de
-        // llegar a usar container/page, así que no tiene sentido pagar el costo de un login real.
-        test('TC-03 - [Bug conocido] Videollamada - Vetify - Retomar la solicitud tras completar la credencial (CA05, BUG-001/IMAS-4102)', { tag: ['@critical'] }, async ({ container }) => {
-            // CA05 exige retomar la solicitud de videollamada en curso al completar la credencial —
-            // confirmado roto 2 veces vía MCP (2026-08-04 y 2026-08-05, con un usuario NO_PET limpio):
-            // el sistema vuelve a Home en vez de continuar. Bug reportado y vigente en Jira (IMAS-4102,
-            // "Blocks" IMAS-3899) — la HU no puede cerrar mientras siga abierto. Se documenta el test
-            // completo (no solo un placeholder) para que sea trivial reactivarlo apenas se corrija: solo
-            // hay que borrar la línea de test.skip.
-            test.skip(true, 'BUG-001/IMAS-4102 (CA05): al completar la credencial, el sistema vuelve a Home en vez de retomar la solicitud de videollamada. Sigue abierto en Jira — ver docs/bugs/BUG-001-credencial-no-retoma-videollamada.md.');
-
-            await setAllureDetails({
-                preconditions: ['Usuario registrado con un plan vigente sin mascota asociada (sin credencial cargada), derivado al flujo de carga de credencial desde la solicitud de videollamada.'],
-                steps: ['Completar el formulario de credencial de la mascota de punta a punta.', 'Observar la pantalla final tras completar la credencial exitosamente.'],
-                expectedResult: ['El sistema retoma la solicitud de videollamada en curso (pantalla de selección de motivo), sin pasar por Home.'],
+        test.describe(() => {
+            // RETEST 2026-08-07: dev movió IMAS-4102 a "In Validation" sin comentario. Cuenta real
+            // (alan.gonzalez@ingenia.la, ver src/fixtures/users/pooled-users.json) confirmada con 1 plan
+            // estado LIBRE (mascota:null) — precondición NO_PET/PLAN_WITHOUT_PET verificada en vivo.
+            test.use({
+                userRequest: {
+                    source: UserSource.Pooled,
+                    siteId: SiteId.VETIFY_ADQUIRENTE,
+                    tags: [UserTag.ACTIVE, UserTag.PLAN_WITHOUT_PET],
+                    reserve: false,
+                    ignoreReserved: true,
+                },
             });
 
-            const petName = `TestCA05${Date.now()}`;
+            test('TC-03 - Videollamada - Vetify - Retomar la solicitud tras completar la credencial (CA05, IMAS-4102)', { tag: ['@critical'] }, async ({ container, page }) => {
+                const apiClient = await container.vetify.getApiClient(page);
+                const hasAnyPlanWithPet = await apiClient.userHasPlanWithPet();
+                // IMP-003 (docs/impedimentos-bloqueos.md): el pool no garantiza de forma estable un usuario
+                // sin mascota — el tag NO_PET/PLAN_WITHOUT_PET puede quedar desactualizado si la cuenta se
+                // consumió en una corrida previa. Se verifica en vivo, mismo patrón que TC-01.
+                test.skip(hasAnyPlanWithPet, 'IMP-003: el usuario asignado por el pool ya tiene una mascota (tag desactualizado) — no reproduce la precondición de credencial faltante.');
 
-            // Pasos:
-            await step('1. Iniciar una solicitud de videollamada y llegar al formulario de carga de credencial.', async () => {
-                await container.vetify.webapp.videocallFormPage.load();
-                await container.vetify.webapp.videocallFormPage.startNewVideocallRequest();
-                await container.vetify.webapp.videocallFormPage.verifyMissingCredentialScreenVisible();
-                await container.vetify.webapp.videocallFormPage.goToCompleteCredential();
-            });
+                await setAllureDetails({
+                    preconditions: ['Usuario registrado con un plan vigente sin mascota asociada (sin credencial cargada), derivado al flujo de carga de credencial desde la solicitud de videollamada.'],
+                    steps: ['Completar el formulario de credencial de la mascota de punta a punta.', 'Observar la pantalla final tras completar la credencial exitosamente.'],
+                    expectedResult: ['El sistema NO vuelve al Home general — lleva a la pantalla de entrada de videollamada ("Agendá nueva videollamada"), ya con la mascota recién cargada disponible para seleccionar.'],
+                });
 
-            await step('2. Completar el formulario de credencial de la mascota de punta a punta.', async () => {
-                await container.vetify.webapp.addPetFormPage.verifyStartStepVisible();
-                await container.vetify.webapp.addPetFormPage.dismissStartWarningModal();
-                await container.vetify.webapp.addPetFormPage.clickContinue();
+                // RETEST 2026-08-07 (IMAS-4102, dev lo movió a "In Validation" sin comentario). Tras
+                // completar la credencial, el sistema lleva a la pantalla de ENTRADA de videollamada
+                // (no al selector de motivo directamente, pero tampoco al Home general). Consultado con
+                // la PO (Pau) si esto cumple CA05 ("sin pasar por Home") — **confirmado que el
+                // comportamiento actual está bien así**, no hace falta que aterrice más adentro del
+                // flujo. Bug cerrado — ver docs/bugs/BUG-001-credencial-no-retoma-videollamada.md.
 
-                await container.vetify.webapp.addPetFormPage.fillPetName(petName);
-                await container.vetify.webapp.addPetFormPage.clickContinue();
+                const petName = `TestCA05${Date.now()}`;
 
-                await container.vetify.webapp.addPetFormPage.selectPetType('Perro');
-                await container.vetify.webapp.addPetFormPage.selectPetGender('Macho');
-                await container.vetify.webapp.addPetFormPage.clickContinue();
+                // Pasos:
+                await step('1. Iniciar una solicitud de videollamada y llegar al formulario de carga de credencial.', async () => {
+                    await container.vetify.webapp.videocallFormPage.load();
+                    await container.vetify.webapp.videocallFormPage.startNewVideocallRequest();
+                    await container.vetify.webapp.videocallFormPage.verifyMissingCredentialScreenVisible();
+                    await container.vetify.webapp.videocallFormPage.goToCompleteCredential();
+                });
 
-                await container.vetify.webapp.addPetFormPage.selectRandomPetBreed();
-                await container.vetify.webapp.addPetFormPage.clickContinue();
+                await step('2. Completar el formulario de credencial de la mascota de punta a punta.', async () => {
+                    await container.vetify.webapp.addPetFormPage.verifyStartStepVisible();
+                    await container.vetify.webapp.addPetFormPage.dismissStartWarningModal();
+                    await container.vetify.webapp.addPetFormPage.clickContinue();
 
-                await container.vetify.webapp.addPetFormPage.selectPetAge(DateTime.now().minus({ years: 3 }));
-                await container.vetify.webapp.addPetFormPage.clickContinue();
+                    await container.vetify.webapp.addPetFormPage.fillPetName(petName);
+                    await container.vetify.webapp.addPetFormPage.clickContinue();
 
-                await container.vetify.webapp.addPetFormPage.uploadPetFilePhoto('src/fixtures/images/dog-profile-photo.jpg');
-                await container.vetify.webapp.addPetFormPage.clickContinue();
-            });
+                    await container.vetify.webapp.addPetFormPage.selectPetType('Perro');
+                    await container.vetify.webapp.addPetFormPage.selectPetGender('Macho');
+                    await container.vetify.webapp.addPetFormPage.clickContinue();
 
-            // Resultado esperado:
-            await step('El sistema retoma la solicitud de videollamada en curso (pantalla de selección de motivo), sin pasar por Home.', async () => {
-                await container.vetify.webapp.addPetFormPage.verifyCongratsScreen(petName);
-                await container.vetify.webapp.addPetFormPage.goToHomeBtn.click();
-                await container.vetify.webapp.videocallFormPage.verifyReasonScreenVisible();
+                    await container.vetify.webapp.addPetFormPage.selectRandomPetBreed();
+                    await container.vetify.webapp.addPetFormPage.clickContinue();
+
+                    await container.vetify.webapp.addPetFormPage.selectPetAge(DateTime.now().minus({ years: 3 }));
+                    await container.vetify.webapp.addPetFormPage.clickContinue();
+
+                    await container.vetify.webapp.addPetFormPage.uploadPetFilePhoto('src/fixtures/images/dog-profile-photo.jpg');
+                    await container.vetify.webapp.addPetFormPage.clickContinue();
+                });
+
+                // Resultado esperado (confirmado correcto por la PO 2026-08-07 — ver nota arriba):
+                await step('El sistema lleva a la pantalla de entrada de videollamada (no al Home general) con la mascota recién cargada disponible.', async () => {
+                    await container.vetify.webapp.addPetFormPage.verifyCongratsScreen(petName);
+                    await expect(container.vetify.webapp.addPetFormPage.continueButton).toBeVisible();
+                    await container.vetify.webapp.addPetFormPage.continueButton.click();
+                    await expect(container.vetify.webapp.videocallFormPage.scheduleNewVideocallBtn).toBeVisible();
+                });
             });
         });
     });
@@ -275,6 +295,27 @@ test.describe('Videollamada Test Suite', () => {
                     await container.vetify.webapp.videocallFormPage.verifyAttachmentUploaded('dog-profile-photo.jpg');
                 });
             });
+
+            test('TC-03 - [Negativo] Videollamada - Vetify - Motivo obligatorio bloquea el avance (CP03 IMAS-3174)', { tag: ['@critical'] }, async ({ container }) => {
+                await setAllureDetails({
+                    preconditions: ['Usuario registrado con un plan vigente y una mascota asociada.'],
+                    steps: ['Iniciar una nueva solicitud de videollamada.', 'Dejar el campo "Motivo" vacío e intentar avanzar.'],
+                    expectedResult: ['"Continuar" permanece deshabilitado mientras el motivo no esté completo.'],
+                });
+
+                await step('1. Iniciar una nueva solicitud de videollamada.', async () => {
+                    await container.vetify.webapp.videocallFormPage.load();
+                    await container.vetify.webapp.videocallFormPage.startNewVideocallRequest();
+                    await container.vetify.webapp.videocallFormPage.verifyReasonScreenVisible();
+                });
+
+                await step('2. Dejar el campo "Motivo" vacío e intentar avanzar.', async () => {
+                    // No-op intencional: no se completa el campo "Motivo" antes de verificar el bloqueo.
+                });
+                await step('"Continuar" permanece deshabilitado mientras el motivo no esté completo.', async () => {
+                    await container.vetify.webapp.videocallFormPage.verifyReasonRequiredBlocksContinue();
+                });
+            });
         });
     });
 
@@ -367,6 +408,101 @@ test.describe('Videollamada Test Suite', () => {
                 });
                 await step('La fecha dentro de la ventana de 30 días puede seleccionarse.', async () => {
                     await container.vetify.webapp.videocallFormPage.calendarComponent.verifyDateIsBookable(withinWindow);
+                });
+            });
+
+            test('TC-08 - [Regresión] IMAS-4023/IMAS-3889 CP13 - Bloqueo del selector de archivos al llegar a 5 (mobile)', { tag: ['@critical'] }, async ({ container }, testInfo) => {
+                // El motivo de skip original ("requiere el proyecto mobile, deshabilitado") quedó
+                // desactualizado desde 2026-08-05 — "Vetify WebApp Android" está habilitado y el resto de
+                // la suite ya corre verde ahí. Este test SÍ requiere la plataforma mobile en sí (valida el
+                // selector de cámara/archivo específico de ese viewport), así que se sigue restringiendo a
+                // Android, pero por motivo real, no por infraestructura faltante.
+                test.skip(!testInfo.project.name.includes('Android'), 'IMAS-4023/IMAS-3889 CP13: caso específico de mobile (selector de cámara), no aplica en Desktop.');
+
+                await setAllureDetails({
+                    preconditions: ['El usuario se encuentra en la pantalla de adjuntos con el motivo "Vacunas" ya seleccionado, en un viewport mobile.'],
+                    steps: ['Adjuntar 5 archivos válidos consecutivos.', 'Observar el selector de carga de archivos (incluye la opción de cámara en mobile).'],
+                    expectedResult: ['Al llegar a 5 archivos, el bloque completo de carga (incluida la opción de cámara) deja de ofrecerse.'],
+                });
+
+                await step('1. Adjuntar 5 archivos válidos consecutivos.', async () => {
+                    // Esperar a que cada archivo quede realmente adjuntado (aparece en la lista) antes de
+                    // adjuntar el siguiente — hacerlo sin esperar reinicia la selección del input en vez de
+                    // sumar un archivo más (confirmado en vivo: 5 llamadas seguidas sin espera dejan 1 solo
+                    // archivo adjuntado, no 5).
+                    for (let i = 0; i < 5; i++) {
+                        await container.vetify.webapp.videocallFormPage.uploadAttachment('src/fixtures/images/dog-profile-photo.jpg');
+                        await expect(container.vetify.webapp.videocallFormPage.attachedFileNameLbl).toHaveCount(i + 1);
+                    }
+                });
+                await step('Al llegar a 5 archivos, el bloque completo de carga (incluida la opción de cámara) deja de ofrecerse.', async () => {
+                    await container.vetify.webapp.videocallFormPage.verifyUploadWidgetHiddenAtLimit();
+                });
+            });
+
+            test('TC-07 - [Regresión] IMAS-4023/IMAS-3889 CP10, CP12 - Formato inválido y límite de 5 archivos', { tag: ['@critical'] }, async ({ container }) => {
+                await setAllureDetails({
+                    preconditions: ['El usuario se encuentra en la pantalla de adjuntos con el motivo "Vacunas" ya seleccionado.'],
+                    steps: ['Adjuntar un archivo de formato no soportado (.txt).', 'Adjuntar 5 archivos válidos consecutivos.'],
+                    expectedResult: [
+                        'El sistema rechaza el archivo con "No se pudo subir el archivo. Intentá nuevamente." (CA01/CA02/CA06).',
+                        'Al llegar a 5 archivos, el bloque de carga deja de ofrecerse — no se puede adjuntar un 6to (CA01/CA05).',
+                    ],
+                });
+
+                await step('1. Adjuntar un archivo de formato no soportado (.txt).', async () => {
+                    await container.vetify.webapp.videocallFormPage.uploadAttachment('src/fixtures/files/invalid-format.txt');
+                });
+                await step('El sistema rechaza el archivo con "No se pudo subir el archivo. Intentá nuevamente." (CA01/CA02/CA06).', async () => {
+                    await container.vetify.webapp.videocallFormPage.verifyInvalidFormatError();
+                });
+
+                await step('2. Adjuntar 5 archivos válidos consecutivos.', async () => {
+                    // Ver nota en TC-08: hay que esperar a que cada archivo quede adjuntado antes del
+                    // siguiente, si no el input reinicia la selección en vez de sumar.
+                    for (let i = 0; i < 5; i++) {
+                        await container.vetify.webapp.videocallFormPage.uploadAttachment('src/fixtures/images/dog-profile-photo.jpg');
+                        await expect(container.vetify.webapp.videocallFormPage.attachedFileNameLbl).toHaveCount(i + 1);
+                    }
+                });
+                await step('Al llegar a 5 archivos, el bloque de carga deja de ofrecerse — no se puede adjuntar un 6to (CA01/CA05).', async () => {
+                    await container.vetify.webapp.videocallFormPage.verifyUploadWidgetHiddenAtLimit();
+                });
+            });
+
+            test('TC-09 - [Regresión] IMAS-4023 CA03 - Reintento de carga tras error (archivo inválido → válido)', { tag: ['@critical'] }, async ({ container }) => {
+                await setAllureDetails({
+                    preconditions: ['El usuario se encuentra en la pantalla de adjuntos con el motivo "Vacunas" ya seleccionado.'],
+                    steps: ['Adjuntar un archivo de formato no soportado (.txt) y recibir el error.', 'Adjuntar un archivo válido a continuación, sin recargar la pantalla.'],
+                    expectedResult: ['El sistema permite el reintento: el archivo válido se adjunta correctamente y habilita "Continuar", sin arrastrar el error anterior.'],
+                });
+
+                await step('1. Adjuntar un archivo de formato no soportado (.txt) y recibir el error.', async () => {
+                    await container.vetify.webapp.videocallFormPage.uploadAttachment('src/fixtures/files/invalid-format.txt');
+                    await container.vetify.webapp.videocallFormPage.verifyInvalidFormatError();
+                });
+
+                await step('2. Adjuntar un archivo válido a continuación, sin recargar la pantalla.', async () => {
+                    await container.vetify.webapp.videocallFormPage.uploadAttachment('src/fixtures/images/dog-profile-photo.jpg');
+                });
+                await step('El sistema permite el reintento: el archivo válido se adjunta correctamente y habilita "Continuar", sin arrastrar el error anterior.', async () => {
+                    await container.vetify.webapp.videocallFormPage.verifyAttachmentUploaded('dog-profile-photo.jpg');
+                    await expect(container.vetify.webapp.videocallFormPage.invalidFormatErrorLbl).not.toBeVisible();
+                });
+            });
+
+            test('TC-11 - [Negativo] Videollamada - Vetify - Adjuntos - "Continuar" deshabilitado sin archivos (CP09 IMAS-3889)', { tag: ['@critical'] }, async ({ container }) => {
+                await setAllureDetails({
+                    preconditions: ['El usuario se encuentra en la pantalla de adjuntos con el motivo "Vacunas" ya seleccionado, sin archivos cargados.'],
+                    steps: ['Revisar el estado de "Continuar" sin adjuntar nada.'],
+                    expectedResult: ['"Continuar" permanece deshabilitado por defecto; solo "Omitir" permite avanzar sin adjuntar.'],
+                });
+
+                await step('1. Revisar el estado de "Continuar" sin adjuntar nada.', async () => {
+                    // No-op intencional: no se adjunta ningún archivo antes de verificar el bloqueo.
+                });
+                await step('"Continuar" permanece deshabilitado por defecto; solo "Omitir" permite avanzar sin adjuntar.', async () => {
+                    await container.vetify.webapp.videocallFormPage.verifyAttachmentsWithoutFilesBlockContinue();
                 });
             });
         });
@@ -501,21 +637,54 @@ test.describe('Videollamada Test Suite', () => {
             });
         });
 
-        test('TC-08 - [Brecha de cobertura] IMAS-3889 CP13 - Bloqueo de cámara al llegar a 5 archivos (mobile)', () => {
-            // CP13 requiere el proyecto mobile, deshabilitado en playwright.config.ts.
-            test.skip(true, 'IMAS-3889 CP13: requiere mobile (proyecto deshabilitado en playwright.config.ts).');
-        });
+        test.describe(() => {
+            test.use({
+                userRequest: {
+                    source: UserSource.Pooled,
+                    siteId: SiteId.VETIFY_ADQUIRENTE,
+                    tags: [UserTag.ACTIVE, UserTag.WITH_PET, UserTag.NO_EMPTY_PLAN],
+                    numberOfPlans: 1,
+                    reserve: false,
+                    ignoreReserved: true,
+                },
+            });
 
-        test('TC-07 - [Brecha de cobertura] IMAS-3889 CP10, CP12, CP15 - Formato inválido, límite de 5 archivos y bypass de API', () => {
-            // CP10 (rechazo de formato no permitido), CP12 (bloqueo del botón al llegar a 5 archivos) y
-            // CP15 (bypass de API con un 6to archivo) no se ejecutaron en esta sesión por tiempo.
-            test.skip(
-                true,
-                'IMAS-3889 CP10, CP12, CP15: CP10 requiere un archivo de formato no permitido (ej. .txt/.gif); CP12 ' +
-                    'requiere cargar 5 archivos válidos consecutivos (bloqueo del botón); CP15 requiere un bypass de API ' +
-                    'con un 6to archivo. No ejecutado en esta sesión por tiempo — el patrón de uploadAttachment ya está ' +
-                    'disponible en VideocallFormPage para implementarlo en una siguiente pasada.',
-            );
+            test.beforeEach(async ({ container, page }) => {
+                const apiClient = await container.vetify.getApiClient(page);
+                await apiClient.cancelAllScheduledVideocalls();
+
+                await step('El usuario se encuentra en la pantalla de selección de motivo.', async () => {
+                    await container.vetify.webapp.videocallFormPage.load();
+                    await container.vetify.webapp.videocallFormPage.startNewVideocallRequest();
+                    await container.vetify.webapp.videocallFormPage.verifyReasonScreenVisible();
+                });
+            });
+
+            test('TC-10 - [Negativo] Videollamada - Vetify - "Otro motivo" vuelve obligatorio el comentario adicional', { tag: ['@critical'] }, async ({ container }) => {
+                await setAllureDetails({
+                    preconditions: ['El usuario se encuentra en la pantalla de selección de motivo.'],
+                    steps: ['Seleccionar "Otro motivo" del listado.', 'Intentar continuar sin completar "Comentarios adicionales".', 'Completar "Comentarios adicionales".'],
+                    expectedResult: [
+                        'El campo "Comentarios adicionales" se marca como obligatorio y "Continuar" queda deshabilitado.',
+                        'Al completar el comentario, "Continuar" se habilita.',
+                    ],
+                });
+
+                await step('1. Seleccionar "Otro motivo" del listado.', async () => {
+                    await container.vetify.webapp.videocallFormPage.selectReason('Otro motivo');
+                });
+                await step('El campo "Comentarios adicionales" se marca como obligatorio y "Continuar" queda deshabilitado.', async () => {
+                    await expect(container.vetify.webapp.videocallFormPage.additionalCommentsRequiredLbl).toBeVisible();
+                    await expect(container.vetify.webapp.videocallFormPage.continueBtn).toBeDisabled();
+                });
+
+                await step('2. Completar "Comentarios adicionales".', async () => {
+                    await container.vetify.webapp.videocallFormPage.additionalCommentsInput.fill('Comentario de prueba');
+                });
+                await step('Al completar el comentario, "Continuar" se habilita.', async () => {
+                    await expect(container.vetify.webapp.videocallFormPage.continueBtn).toBeEnabled();
+                });
+            });
         });
     });
 
@@ -856,6 +1025,72 @@ test.describe('Videollamada Test Suite', () => {
             // Mismo criterio que CP08 de IMAS-3174: no hay forma de verificar el envío real (email/push)
             // en el pipeline automatizado.
             test.skip(true, 'CA09 (comunicaciones tras cancelar/reprogramar): el proyecto no tiene forma de verificar el envío real de email/push en el pipeline automatizado.');
+        });
+
+        test.describe(() => {
+            test.use({
+                userRequest: {
+                    source: UserSource.Pooled,
+                    siteId: SiteId.VETIFY_ADQUIRENTE,
+                    tags: [UserTag.ACTIVE, UserTag.WITH_PET, UserTag.NO_EMPTY_PLAN],
+                    numberOfPlans: 1,
+                    reserve: false,
+                    ignoreReserved: true,
+                },
+            });
+
+            test('TC-07 - [Regresión] Videollamada - Vetify - Turno reprogramado no ofrece acciones habilitadas en la assistanceId anterior (BUG-003/IMAS-4119)', { tag: ['@critical'] }, async ({ container, page }) => {
+                await setAllureDetails({
+                    preconditions: ['Usuario con un turno de videollamada futuro ya agendado.'],
+                    steps: ['Reprogramar el turno.', 'Volver a abrir el detalle de la assistanceId original (ya reemplazada/cancelada por la reprogramación).'],
+                    expectedResult: [
+                        'La reprogramación genera una assistanceId nueva y deja la original en estado CANCELADO.',
+                        'El detalle de la assistanceId original ya no ofrece "Ingresar", "Reprogramar" ni "Cancelar" como si el turno siguiera vigente.',
+                    ],
+                });
+
+                const apiClient = await container.vetify.getApiClient(page);
+                await apiClient.cancelAllScheduledVideocalls();
+                const [pet] = await apiClient.getUserPets();
+
+                let oldAssistanceId = '';
+                await step('Precondición: agendar un turno futuro.', async () => {
+                    await expect(async () => {
+                        const result = await apiClient.scheduleVideocall({ petId: pet.id, date: DateTime.now().plus({ days: 5 }).toISO()! });
+                        oldAssistanceId = result.assistanceId;
+                    }).toPass();
+                });
+
+                await step('1. Reprogramar el turno.', async () => {
+                    const detailPage = container.vetify.webapp.createVideocallViewPage(oldAssistanceId);
+                    await detailPage.load();
+                    await detailPage.waitForPageLoaded();
+                    await detailPage.startReschedule();
+
+                    const reschedulePage = container.vetify.webapp.createRescheduleVideocallPage(oldAssistanceId);
+                    await reschedulePage.completeDayAndTime(DateTime.now().plus({ days: 12 }));
+                    await reschedulePage.verifyReviewScreen();
+                    await reschedulePage.confirmReschedule();
+                    await reschedulePage.verifyConfirmationScreen();
+                });
+
+                await step('La reprogramación genera una assistanceId nueva y deja la original en estado CANCELADO.', async () => {
+                    await expect(async () => {
+                        const oldState = await apiClient.getScheduledVideoCallById(oldAssistanceId);
+                        expect(oldState.estado, `La assistanceId original debe quedar CANCELADO tras reprogramar. Estado actual: ${JSON.stringify(oldState)}`).toBe('CANCELADO');
+                    }).toPass();
+                });
+
+                await step('2. Volver a abrir el detalle de la assistanceId original (ya reemplazada/cancelada por la reprogramación).', async () => {
+                    const oldDetailPage = container.vetify.webapp.createVideocallViewPage(oldAssistanceId);
+                    await oldDetailPage.load();
+                    await oldDetailPage.waitForPageLoaded();
+
+                    await step('El detalle de la assistanceId original ya no ofrece "Ingresar", "Reprogramar" ni "Cancelar" como si el turno siguiera vigente.', async () => {
+                        await oldDetailPage.verifyAllActionsDisabled();
+                    });
+                });
+            });
         });
     });
 });

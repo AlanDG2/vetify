@@ -182,6 +182,83 @@
           "WITH_PET"
         ],
         "reserved": false
+      },
+      {
+        "id": "5f505150-27fa-406c-946f-ad010eea31d8",
+        "siteId": "VETIFY_ADQUIRENTE",
+        "email": "alan.gonzalez@ingenia.la",
+        "password": "Hola123#",
+        "identification": {
+          "type": "DNI",
+          "number": "16525485"
+        },
+        "numberOfPlans": 1,
+        "source": "fresh",
+        "registration": true,
+        "tags": [
+          "ACTIVE",
+          "WITH_PET"
+        ],
+        "_note": "2026-08-07: CONSUMIDA durante el retest de IMAS-4102 (TC-03 subio una mascota real \"Testca051786085162524\" antes de que el locator del boton se corrigiera). Ya NO sirve como NO_PET/PLAN_WITHOUT_PET. Screenshot del hallazgo clave (boton paso de \"Ir al inicio\" a \"Continuar\" en el contexto de videollamada interrumpida) en test-results/. Necesaria otra cuenta con plan sin mascota para un pase limpio end-to-end.",
+        "reserved": false
+      },
+      {
+        "id": "a7e94cad-323e-4ceb-a73e-2b3ddbe4338b",
+        "siteId": "VETIFY_ADQUIRENTE",
+        "email": "alan.gonzaleztest3@ingenia.la",
+        "password": "Hola123#",
+        "identification": {
+          "type": "DNI",
+          "number": "16525403"
+        },
+        "numberOfPlans": 1,
+        "source": "fresh",
+        "registration": true,
+        "tags": [
+          "ACTIVE",
+          "WITH_PET"
+        ],
+        "_note": "2026-08-07: CONSUMIDA durante el retest completo de IMAS-4102/TC-03 (subio mascota real). Uso confirmado: TC-01/TC-02/TC-03 corridos con esta cuenta, evidencia definitiva de que el bug sigue vigente en forma distinta. Ya no sirve como NO_PET/PLAN_WITHOUT_PET.",
+        "reserved": false
+      },
+      {
+        "id": "feadad50-6501-45dd-a323-c7a6264eeab5",
+        "siteId": "VETIFY_ADQUIRENTE",
+        "email": "user_1786114950458_56048834@automation.com",
+        "password": "Te1!2a4c04dc",
+        "identification": {
+          "type": "DNI",
+          "number": "1893500693"
+        },
+        "numberOfPlans": 1,
+        "source": "fresh",
+        "registration": true,
+        "tags": [
+          "ACTIVE",
+          "WITH_PET"
+        ],
+        "_note": "2026-08-07: CONSUMIDA por la corrida completa de la suite (TC-03 IMAS-3899 subio mascota antes de que la corrida fallara por contencion Desktop/Android sobre la misma cuenta). Ya no sirve como NO_PET/PLAN_WITHOUT_PET.",
+        "reserved": false
+      },
+      {
+        "id": "be4fa03a-be20-4f45-b030-b82601e2ee24",
+        "siteId": "VETIFY_ADQUIRENTE",
+        "email": "user_1786146480312_053a00eb@automation.com",
+        "password": "Te1!306efadf",
+        "identification": {
+          "type": "DNI",
+          "number": "1208808255"
+        },
+        "numberOfPlans": 1,
+        "source": "fresh",
+        "registration": true,
+        "tags": [
+          "ACTIVE",
+          "NO_PET",
+          "PLAN_WITHOUT_PET"
+        ],
+        "_note": "2026-08-07: generada para retest de CP-21 (credentials.spec.ts, formato de archivo invalido) — el upload deberia ser rechazado y NO consumir la cuenta.",
+        "reserved": false
       }
     ],
     "OSDE_ADQUIRENTE": [

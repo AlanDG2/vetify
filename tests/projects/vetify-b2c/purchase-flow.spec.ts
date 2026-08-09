@@ -195,4 +195,40 @@ test.describe('Flujo de Compra', () => {
             await expect(page).toHaveURL(/\/checkout\/payment$/);
         });
     });
+
+    test.describe('TS-05 Formulario - Paso 1', () => {
+        test('TC-01 Listado de tipos de documentos', async ({ container }) => {
+            await setAllureDetails({
+                preconditions: ['Usuario seleccionó un plan y se encuentra en el paso 1 del checkout.'],
+                steps: ['Cargar la web institucional', 'Seleccionar un plan', 'Ver las opciones del selector de tipo de documento'],
+                expectedResult: ['El selector muestra al menos una opción de tipo de documento válida (ej. DNI)'],
+            });
+            const institutional = container.b2c.landingPage;
+            const checkout = container.b2c.checkoutPage;
+
+            await institutional.load();
+            await institutional.plans.scrollIntoView();
+            await institutional.plans.contractRandomPlan();
+
+            const options = await checkout.documentTypeSelect.locator('option').allTextContents();
+            expect(options.map((o) => o.trim())).toContain('DNI');
+        });
+
+        test('TC-02 Campos obligatorios', async ({ container, page }) => {
+            await setAllureDetails({
+                preconditions: ['Usuario seleccionó un plan y se encuentra en el paso 1 del checkout.'],
+                steps: ['Cargar la web institucional', 'Seleccionar un plan', 'Presionar "Continuar" sin completar ningún campo'],
+                expectedResult: ['El sistema no avanza al paso 2 (facturación)'],
+            });
+            const institutional = container.b2c.landingPage;
+            const checkout = container.b2c.checkoutPage;
+
+            await institutional.load();
+            await institutional.plans.scrollIntoView();
+            await institutional.plans.contractRandomPlan();
+
+            await checkout.continueButton.click();
+            await expect(page).not.toHaveURL(/\/checkout\/billing$/);
+        });
+    });
 });

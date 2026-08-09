@@ -51,3 +51,27 @@ Esto genera un problema concreto: cuando la factura es incorrecta y no logra val
 ## Precondiciones para validar
 - Acceso al backoffice de Calidad — Reintegros en **Producción** (https://reintegros-backoffice.ike.ar/).
 - Una solicitud de reintegro pendiente cuya factura sea inválida para ARCA (o poder generar ese estado).
+
+## Intake 2026-08-07 — factibilidad de automatización
+
+**No hay nada de infraestructura para este sitio en el repo**: sin `SiteId`, sin entrada en `src/config/sites.ts`/`environment.ts`, sin POMs (`src/pages/`), sin pool de usuarios con rol "Calidad" en `src/providers/user`. Sería construir todo desde cero, no extender algo existente — a diferencia de las HUs anteriores de esta sesión.
+
+**3 motivos para NO automatizar esto ahora mismo**:
+1. **VPN**: sin acceso al backoffice en este momento (mismo bloqueo que ya se había marcado para la hoja "Reintegros" del Excel de casos manuales, `docs/backlog-automatizacion.md`).
+2. **Ambiente Producción**: `qa-workspace/qa-playbook.md` — "Prod (no se testea, salvo excepción)". Esta HU **es** la excepción sancionada (subtask `IMAS-4117 - Pruebas en Producción`, asignada a mí), pero eso históricamente significó validación manual puntual, no un spec de Playwright corriendo repetidamente contra Producción con acciones reales de rechazo de expedientes (impacto financiero real, no reversible con un cleanup de test).
+3. **El subtask asignado (`IMAS-4117`) es "Pruebas en Producción", no "Automatizar"** — y ya tiene evidencia manual de éxito (las 2 capturas del comentario de Paula: rechazo registrado exitosamente sin depender de ARCA). El trabajo pendiente real es cerrar el ciclo de validación (confirmar + comentar en Jira), no construir automatización nueva.
+
+**Hallazgo secundario de Paula (no bloqueante, no es este incidente)**: el monto a no reintegrar es obligatorio hoy tanto para aprobar como para rechazar — no tiene sentido pedirlo para un rechazo. Es deuda técnica a evaluar a futuro, no forma parte del alcance de IMAS-4078.
+
+**Recomendación**: no construir automatización todavía. Cerrar `IMAS-4117` como validación manual (las capturas ya alcanzan como evidencia) cuando haya OK explícito para comentar/cerrar en Jira — seguir `jira/jira-workflow.md` (preview → OK → ejecutar → verificar → `jira/sync-log.ndjson`). Si en el futuro se decide dar soporte automatizado a Reintegros/backoffice, es un proyecto de infraestructura nuevo (SiteId + POMs + pool de usuarios Calidad), no una extensión de una tarde.
+
+## Validación manual 2026-08-07 (QA, no Producción)
+
+Con VPN activa, se validó el flujo real vía MCP de navegador en `reintegros-backoffice.ike.qa` (usuario `acastellano@ikeasistencia.com.ar`), no en el dominio de Producción del ticket original.
+
+- **Expediente 3131628** ("Testeando", factura en estado "Validación manual", sin validar por ARCA): botón **"Rechazar"** funcionó correctamente — abrió el modal de motivo, se completó con "Factura inconsistente" y se envió con éxito ("Registramos el rechazo del expediente"). Confirma el fix del bug original.
+- **Expediente 3131632** ("Branco", misma condición de factura sin validar): se probó la cadena completa **Validar → Pagar** — "Validar" derivó el expediente a Finanzas ("Derivamos el expediente para su aprobación final"), y "Pagar" (monto $0,00 en este caso) registró el pago ("Pago registrado"). Ambos funcionaron sin errores, tampoco dependiendo de la validación ARCA.
+
+**Pendiente**: comentario de cierre para `IMAS-4117` redactado y en preview (con aclaración de que se validó en QA, no en Producción) — **no publicado todavía**, a la espera de decidir si se valida también en Producción antes de comentar/transicionar. Estado de `IMAS-4117` sin cambios ("Tareas Por Hacer").
+
+**Bloqueo 2026-08-07**: `IMAS-4117` es literalmente "Pruebas en Producción" — sin credenciales de Producción todavía (solo se consiguieron credenciales de QA en esta sesión). Se preparó un mensaje para pedir acceso de rol Calidad en `https://reintegros-backoffice.ike.ar/` + un expediente puntual seguro para probar. Hasta tener esas credenciales, `IMAS-4117` no se puede cerrar con evidencia estrictamente productiva — la evidencia de QA queda como respaldo intermedio.

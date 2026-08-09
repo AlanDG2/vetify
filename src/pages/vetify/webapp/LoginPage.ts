@@ -8,12 +8,39 @@ export class VetifyWebappLoginPage extends VetifyWebappBasePage {
     readonly submitButton: Locator;
     readonly errorMessageLbl: Locator;
 
+    // Sub-formulario de "Olvidé tu contraseña" (IMAS-3215) — confirmado en vivo 2026-08-07: NO navega a
+    // otra URL, se expande inline en la misma pantalla /auth/login.
+    readonly forgotPasswordLink: Locator;
+    readonly emailPassRecoveryInput: Locator;
+    readonly sendRecoveryButton: Locator;
+    readonly recoverySuccessLbl: Locator;
+    readonly recoveryGenericErrorLbl: Locator;
+
     constructor(page: Page) {
         super(page, '/auth/login');
         this.emailInput = this.page.locator('input[name="email"]');
         this.passwordInput = this.page.locator('input[name="password"]');
         this.submitButton = this.page.locator('button[data-cy="submitButton"]');
         this.errorMessageLbl = this.page.locator('div[data-cy="messageBox"] p p');
+
+        this.forgotPasswordLink = this.page.getByText('¿Olvidaste tu contraseña?');
+        this.emailPassRecoveryInput = this.page.locator('#emailPassRecovery');
+        this.sendRecoveryButton = this.page.getByRole('button', { name: 'Enviar' });
+        this.recoverySuccessLbl = this.page.getByText('Te hemos enviado un correo para que puedas resetear tu contraseña');
+        // Copy real confirmado en vivo (2026-08-07): mensaje genérico de "problemas técnicos" — el
+        // frontend lo muestra incluso para un simple error de validación (campo vacío), no solo caídas
+        // reales de sistema. Ver CP04 en docs/user-stories/IMAS-3215-reseteo-contrasena-b2c-vetify.tests.md.
+        this.recoveryGenericErrorLbl = this.page.getByText('En este momento estamos con problemas técnicos');
+    }
+
+    async openForgotPassword(): Promise<void> {
+        await this.forgotPasswordLink.click();
+    }
+
+    async requestPasswordRecovery(email: string): Promise<Response> {
+        await this.emailPassRecoveryInput.fill(email);
+        const [response] = await Promise.all([this.page.waitForResponse((r) => r.url().includes('/api/passrecovery')), this.sendRecoveryButton.click()]);
+        return response;
     }
 
     async clickLoginButton(): Promise<Response> {

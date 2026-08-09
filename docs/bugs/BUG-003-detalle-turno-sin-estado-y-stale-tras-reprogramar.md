@@ -41,6 +41,29 @@ Según CA02, el detalle debería mostrar el "Estado del turno" siempre. Para un 
 No se muestra "Estado del turno" en ningún caso. Para una `assistanceId` ya `CANCELADO` por una reprogramación, el detalle sigue mostrando la fecha/hora vieja y los botones de acción como si el turno siguiera vigente.
 
 [Notas adicionales]:
-- No automatizado como test de regresión todavía (es un hallazgo exploratorio de esta sesión, no cubierto por TS-05 IMAS-3894 en `videocall.spec.ts`) — se automatiza fácil una vez decidido si es bug real a corregir o comportamiento aceptado (ej. si el link viejo simplemente no debería ser alcanzable en el flujo normal, dado que "Tus turnos" ya no lo lista).
 - Bajo impacto de exposición: en la navegación normal (Home → banner → "Tus turnos"), la lista de turnos ya excluye correctamente la `assistanceId` cancelada — el único camino realista para llegar a esta pantalla stale es un link directo/guardado (ej. notificación por email/push con el link del turno original) o el botón "Atrás" del navegador.
-- Pendiente: confirmar con el equipo si el gap es "falta estado en el detalle" (fix de UI, bajo esfuerzo) o si además hace falta lógica de guardia (redirect/expirar) para `assistanceId` ya `CANCELADO`.
+
+---
+
+## Retest 2026-08-06 — actualización tras respuesta del dev
+
+El dev movió IMAS-4119 a "in-validation" y comentó (Jira + Teams):
+- Revisó el Figma buscando "Estado del turno" y **no está contemplado en el diseño** de esta pantalla → no lo agregó.
+- Resolvió el hallazgo 2 (acciones habilitadas para un turno ya cancelado).
+
+**Hallazgo 2 (acciones habilitadas en turno cancelado) — CONFIRMADO RESUELTO.**
+Retesteado vía automatización (`user_1782499435430@automation.com`, QA, 2026-08-06): se reprogramó un turno, se confirmó por API que la `assistanceId` original queda `estado: "CANCELADO"`, y se volvió a cargar su pantalla de detalle. Las 3 acciones (Ingresar, Reprogramar, Cancelar) ahora aparecen **deshabilitadas** — antes solo "Ingresar" estaba deshabilitado y "Reprogramar" quedaba habilitado sobre un turno ya reemplazado. Cubierto ahora como regresión: `TC-07` en `TS-05 IMAS-3894` (`tests/projects/vetify-webapp/videocall.spec.ts`), 0 failed.
+No se resolvió explícitamente si además hace falta lógica de guardia (redirect/mensaje explicativo) — el fix actual es deshabilitar las 3 acciones sin ningún texto que indique al usuario por qué; se considera suficiente para cerrar este hallazgo salvo objeción de producto/UX.
+
+**Hallazgo 1 ("Estado del turno" ausente, CA02) — SIGUE ABIERTO, pero cambia de naturaleza: es un conflicto AC vs Figma, no una omisión del dev.**
+Se confirmó visualmente contra los mockups de Figma de "Detalles del turno" (mobile y desktop, aportados por el reporter) que efectivamente **no existe un campo "Estado del turno" en el diseño** — el dev no se lo inventó ni lo pasó por alto, el AC02 de la HU (`Entonces deberá visualizar como mínimo: Mascota. Fecha. Hora. Estado del turno. Acciones disponibles según corresponda.`) y el Figma están en desacuerdo entre sí.
+Esto ya **no es una tarea de QA-vs-dev**, es una decisión de producto: (a) el AC02 se ajusta porque el campo nunca se diseñó, o (b) el Figma tiene un gap y hay que agregar el campo antes de poder cerrar. Pendiente definición del PO/UX antes de poder marcar este hallazgo como resuelto o como "no aplica".
+- No automatizado como regresión — no tiene sentido codificar una aserción hasta que se resuelva qué comportamiento es el correcto.
+
+**Jira**: comentario con este mismo resumen (hallazgo 2 resuelto / hallazgo 1 pendiente de decisión de producto) publicado en IMAS-4119 el 2026-08-06. Issue se dejó en su estado actual (**In Validation**), sin transicionar a Done — cerrar el issue completo habría ocultado el hallazgo 1, que sigue sin resolución.
+
+## Cierre 2026-08-07 — decisión de producto confirmada
+
+**Hallazgo 1 ("Estado del turno" ausente, CA02) — ✅ RESUELTO por decisión de producto.** Se confirmó que el Figma es correcto y nunca contempló ese campo — el **CA02 de la HU IMAS-3894 se ajusta** para sacar el requisito "Estado del turno" de la lista de datos mínimos a mostrar en el detalle. No corresponde agregar nada a la UI; no es una deuda pendiente de desarrollo.
+
+**Ambos hallazgos cerrados**: `IMAS-4119` pasó a **"Hecho"** en Jira (resolución "Listo"), comentario final publicado. `videocall.spec.ts` (`TS-05 TC-01`) ya no asertaba el campo "Estado del turno" (nunca se codificó esa aserción, correctamente, mientras estaba en discusión) — no requiere ningún cambio de código, solo se cierra la documentación del hallazgo.

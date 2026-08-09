@@ -909,33 +909,32 @@ test.describe('Credenciales Test Suite', () => {
                     test.skip(true, 'Test not implemented yet.');
                 });
 
-                test('TC-21 - Paso 5 - Subir foto - Archivo en formato no permitido', async ({ container }) => {
+                */
+
+                test('TC-21 - Paso 5 - Subir foto - Archivo en formato no permitido', { tag: ['@critical'] }, async ({ container, page }) => {
                     // Precondiciones:
                     // - Usuario autenticado.
                     // - Usuario con al menos un plan sin mascota.
                     // - El usuario se encuentra en el paso 5 del proceso de carga de credencial.
-
                     await setAllureDetails({
                         preconditions: [
                             'Usuario autenticado.',
                             'Usuario con al menos un plan sin mascota.',
                             'El usuario se encuentra en el paso 5 del proceso de carga de credencial.',
                         ],
-                        steps: ['A través de la opción de carga de foto, seleccionar un archivo que no sea de tipo imágen (.jpg, .png).'],
-                        expectedResult: ['El sistema no permite seleccionar archivos que no sean de tipo imágen.'],
+                        steps: ['A través de la opción de carga de foto, seleccionar un archivo que no sea de tipo imágen (ej. .txt).'],
+                        expectedResult: ['El sistema rechaza el archivo con el mensaje "No se pudo cargar la foto" y "Continuar" permanece deshabilitado.'],
                     });
-
-                    test.skip(true, 'Test not implemented yet.');
                     // Pasos:
-                    // 1. A través de la opción de carga de foto, seleccionar un archivo que no sea de tipo imágen (.jpg, .png).
-                    await step('1. A través de la opción de carga de foto, seleccionar un archivo que no sea de tipo imágen (.jpg, .png)', async () => {
-                        const filePath = `src/fixtures/files/test-pdf.pdf`;
-                        await container.vetify.webapp.addPetFormPage.uploadPetFilePhoto(filePath);
+                    await step('1. A través de la opción de carga de foto, seleccionar un archivo que no sea de tipo imágen (ej. .txt).', async () => {
+                        await container.vetify.webapp.addPetFormPage.petPhotoFileInput.setInputFiles('src/fixtures/files/invalid-format.txt');
                     });
                     // Resultado esperado:
-                    // - El sistema no permite seleccionar archivos que no sean de tipo imágen.
+                    await step('El sistema rechaza el archivo con el mensaje "No se pudo cargar la foto" y "Continuar" permanece deshabilitado.', async () => {
+                        await expect(page.getByText('No se pudo cargar la foto')).toBeVisible();
+                        await expect(container.vetify.webapp.addPetFormPage.continueButton).toBeDisabled();
+                    });
                 });
-                */
 
                 test('TC-22 - Paso 5 - Subir foto - Imágen demasiado grande', async ({ container, page }) => {
                     // Precondiciones:
@@ -1147,6 +1146,16 @@ test.describe('Credenciales Test Suite', () => {
                     await container.vetify.webapp.homePage.expectLoaded();
                     await expect.soft(container.vetify.webapp.homePage.greetingLbl).toBeVisible();
                 });
+            });
+
+            // CP-02 "Cargar credencial sin foto (Omitir)" (hoja Credenciales del Excel): caso obsoleto,
+            // no un gap de automatización. Confirmado en vivo contra QA real (2026-08-07) que el paso 5
+            // no ofrece botón "Omitir" — "Continuar" permanece deshabilitado hasta subir una imagen. A
+            // diferencia del paso de adjuntos de videollamada (que sí tiene "Omitir"), acá la foto es
+            // obligatoria por diseño (confirmado con negocio: no es un bug, es el comportamiento actual
+            // esperado al crear un usuario/mascota). El CP del Excel quedó desactualizado.
+            test('TC-02 - [Obsoleto] Cargar credencial sin foto (Omitir)', () => {
+                test.skip(true, 'CP-02 obsoleto: la foto es obligatoria por diseño al crear la credencial de una mascota — el paso 5 no tiene botón "Omitir", confirmado con negocio. No es un bug ni un gap de automatización, es el CP del Excel el que quedó desactualizado.');
             });
         });
     });

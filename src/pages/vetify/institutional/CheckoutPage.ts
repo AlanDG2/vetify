@@ -34,9 +34,9 @@ export class VetifyCheckoutPage extends BasePage {
     private readonly lastNameInput: Locator;
     private readonly emailInput: Locator;
     private readonly phoneInput: Locator;
-    private readonly documentTypeSelect: Locator;
+    readonly documentTypeSelect: Locator;
     private readonly documentNumberInput: Locator;
-    private readonly continueButton: Locator;
+    readonly continueButton: Locator;
     private readonly provinceSelect: Locator;
     private readonly localityInput: Locator;
     private readonly addressInput: Locator;

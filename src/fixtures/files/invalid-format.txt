@@ -1,0 +1,1 @@
+This is a plain text file used as a fixture to test rejection of unsupported attachment formats in the videocall request flow (IMAS-4023 CA01/CA02).

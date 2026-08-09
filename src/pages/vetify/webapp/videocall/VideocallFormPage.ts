@@ -23,6 +23,7 @@ export class VetifyWebappVideocallFormPage extends VetifyWebappLoggedBasePage {
     readonly reasonInput: Locator;
     readonly reasonNoMatchesLbl: Locator;
     readonly additionalCommentsInput: Locator;
+    readonly additionalCommentsRequiredLbl: Locator;
 
     // Adjuntos screen
     readonly attachmentsHeadingLbl: Locator;
@@ -30,6 +31,7 @@ export class VetifyWebappVideocallFormPage extends VetifyWebappLoggedBasePage {
     readonly fileInput: Locator;
     readonly attachedFileNameLbl: Locator;
     readonly attachmentErrorLbl: Locator;
+    readonly invalidFormatErrorLbl: Locator;
     readonly deleteAttachedFileBtn: Locator;
 
     // Día/horario screen
@@ -86,6 +88,9 @@ export class VetifyWebappVideocallFormPage extends VetifyWebappLoggedBasePage {
         this.reasonInput = page.getByRole('textbox', { name: 'Motivo' });
         this.reasonNoMatchesLbl = page.getByText('No encontramos coincidencias.');
         this.additionalCommentsInput = page.getByRole('textbox', { name: 'Comentarios adicionales' });
+        // Copy real confirmado en vivo contra QA (2026-08-07): al elegir "Otro motivo", el campo se
+        // marca "Obligatorio" y bloquea "Continuar" hasta completarlo.
+        this.additionalCommentsRequiredLbl = page.getByText('Obligatorio');
 
         this.attachmentsHeadingLbl = page.getByRole('heading', { name: 'Subí una foto, video o archivo' });
         this.skipAttachmentsBtn = page.getByRole('button', { name: 'Omitir' });
@@ -96,6 +101,11 @@ export class VetifyWebappVideocallFormPage extends VetifyWebappLoggedBasePage {
         this.fileInput = page.locator('input[type="file"]:not([capture])').first();
         this.attachedFileNameLbl = page.locator('p').filter({ hasText: /\.(png|jpg|jpeg|pdf|mp4|mov)$/i });
         this.attachmentErrorLbl = page.getByText(/demasiado grande|excede|supera/i);
+        // Copy real confirmado en vivo contra QA (2026-08-07, IMAS-4023): distinto del de "demasiado
+        // grande" — el mismo endpoint /api/files/upload/pets recibe cualquier archivo (no hay gate de
+        // extensión solo en el front, confirmado inspeccionando la red) y esta es la respuesta que
+        // muestra la UI para un formato no soportado (ej. .txt).
+        this.invalidFormatErrorLbl = page.getByText('No se pudo subir el archivo. Intentá nuevamente.');
         // Accessible name confirmed against real DOM: <button aria-label="DeleteFile">
         this.deleteAttachedFileBtn = page.getByRole('button', { name: 'DeleteFile' });
 
@@ -175,6 +185,12 @@ export class VetifyWebappVideocallFormPage extends VetifyWebappLoggedBasePage {
         await expect(this.reasonHeadingLbl).toBeVisible();
     }
 
+    @step('Verificar que "Continuar" permanece deshabilitado mientras el motivo está vacío (CP03 IMAS-3174)')
+    async verifyReasonRequiredBlocksContinue(): Promise<void> {
+        await expect(this.reasonInput).toHaveValue('');
+        await expect(this.continueBtn).toBeDisabled();
+    }
+
     @step('Verificar pantalla de motivo visible con la mascota seleccionada correcta')
     async verifyReasonScreenWithSelectedPet(): Promise<void> {
         await expect(this.reasonHeadingLbl).toBeVisible();
@@ -211,6 +227,13 @@ export class VetifyWebappVideocallFormPage extends VetifyWebappLoggedBasePage {
         await expect(this.attachmentsHeadingLbl).toBeVisible();
     }
 
+    @step('Verificar que "Continuar" permanece deshabilitado en adjuntos sin archivos, mientras "Omitir" sí permite avanzar (CP09 IMAS-3889)')
+    async verifyAttachmentsWithoutFilesBlockContinue(): Promise<void> {
+        await expect(this.attachmentsHeadingLbl).toBeVisible();
+        await expect(this.continueBtn).toBeDisabled();
+        await expect(this.skipAttachmentsBtn).toBeEnabled();
+    }
+
     @step('Omitir paso de adjuntos')
     async skipAttachments(): Promise<void> {
         await expect(this.attachmentsHeadingLbl).toBeVisible();
@@ -227,10 +250,23 @@ export class VetifyWebappVideocallFormPage extends VetifyWebappLoggedBasePage {
         await expect(this.attachmentErrorLbl).toBeVisible();
     }
 
+    @step('Verificar mensaje de error por formato de archivo no soportado (IMAS-4023 CA01/CA02/CA06)')
+    async verifyInvalidFormatError(): Promise<void> {
+        await expect(this.invalidFormatErrorLbl).toBeVisible();
+    }
+
     @step('Verificar que el archivo adjuntado se muestra y habilita "Continuar"')
     async verifyAttachmentUploaded(fileName: string): Promise<void> {
         await expect(this.attachedFileNameLbl.filter({ hasText: fileName })).toBeVisible();
         await expect(this.continueBtn).toBeEnabled();
+    }
+
+    @step('Verificar que el selector de archivos ya no se ofrece al llegar al límite de 5 (IMAS-4023 CA01/CA05)')
+    async verifyUploadWidgetHiddenAtLimit(): Promise<void> {
+        // Corregido con evidencia real (2026-08-07): el texto "Cargá foto, video o archivo" NO
+        // desaparece con 5 archivos adjuntados — sigue mostrándose como encabezado del bloque. Lo que
+        // realmente se oculta es el <input type="file"> en sí (confirmado en vivo contra QA real).
+        await expect(this.fileInput).not.toBeVisible();
     }
 
     @step('Eliminar el archivo adjuntado')

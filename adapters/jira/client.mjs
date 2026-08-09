@@ -31,7 +31,10 @@ import {
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-const RESOLVED_STATUSES = new Set(['done', 'cerrada', 'finalizada', 'closed', 'resuelto', 'resuelta']);
+// 'hecho' es el nombre real del estado final en este proyecto Jira (IMAS) — la transición se
+// llama "Done" pero el status.name resultante es "Hecho" (confirmado 2026-08-07 al cerrar
+// IMAS-4158/IMAS-4159: checkClosable() seguía reportándolos como abiertos tras transicionarlos).
+const RESOLVED_STATUSES = new Set(['done', 'cerrada', 'finalizada', 'closed', 'resuelto', 'resuelta', 'hecho']);
 
 // Este proyecto Jira (IMAS) no tiene un issuetype llamado "Bug" — el equivalente real se
 // llama "Error" (confirmado vía `npm run jira:metadata`, ver adapters/jira/dod-ticket.md).

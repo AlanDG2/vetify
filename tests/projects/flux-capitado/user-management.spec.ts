@@ -1,5 +1,6 @@
 import { SiteId } from '@config/environment';
 import { getRandomEmail, getRandomIdentificationNumber, getRandomPassword } from '@helpers/automation-utils';
+import { NetworkOutageSimulator } from '@helpers/simulateOutage';
 import { VetifyWebappRegistrationPage } from '@pages/vetify/webapp';
 import { expect, type Response } from '@playwright/test';
 import { TestUser, UserProvider, UserSource, UserTag } from '@providers/user';
@@ -123,6 +124,32 @@ test.describe('Gestión de Usuario Test Suite', () => {
                 expect.soft(responseBody.userId).toBeDefined();
                 expect.soft(responseBody.email).toBe(registrationEmail);
             });
+        });
+
+        test('TC-03 Casos de Error - Sistema caído', async ({ container, page }) => {
+            await setAllureDetails({
+                preconditions: [],
+                steps: [
+                    'Abrir la página de registración de la WebApp y completar email y contraseña válidos.',
+                    'Bloquear el endpoint de creación de usuario (simulando una caída del backend) y presionar "Crear cuenta".',
+                ],
+                expectedResult: ['El sistema muestra un mensaje de error y no registra al usuario.'],
+            });
+            const outage = new NetworkOutageSimulator(page);
+            await step('1. Abrir la página de registración de la WebApp y completar email y contraseña válidos.', async () => {
+                await container.vetify.webapp.registrationPage.load();
+                await container.vetify.webapp.registrationPage.emailInput.fill(getRandomEmail());
+                await container.vetify.webapp.registrationPage.passwordInput.fill(getRandomPassword());
+            });
+            await step('2. Bloquear el endpoint de creación de usuario y presionar "Crear cuenta".', async () => {
+                await outage.block(['*/api/users/create*']);
+                await container.vetify.webapp.registrationPage.submitButton.click();
+            });
+            await step('El sistema muestra un mensaje de error y no registra al usuario.', async () => {
+                await expect(page.getByText('Estamos teniendo inconvenientes en nuestros servicios. Intente nuevamente.')).toBeVisible({ timeout: 15_000 });
+                expect(page.url()).toBe(container.vetify.webapp.registrationPage.getUrl());
+            });
+            await outage.restore();
         });
 
         test('TC-05 Campos obligatorios', async ({ container, page }) => {
@@ -283,6 +310,52 @@ test.describe('Gestión de Usuario Test Suite', () => {
                 await expect
                     .soft(container.vetify.webapp.loginPage.errorMessageLbl)
                     .toContainText('La contraseña y/o correo electrónico no es válido. ¿No tienes usuario? Crear cuenta.');
+            });
+        });
+    });
+
+    // Nota: CP-01/CP-02 (validaciones del formulario en sí — campos vacíos, contenido del dropdown)
+    // viven en un describe aparte, fuera del pool caro de usuarios Fresh/UNREGISTERED (cada uno implica
+    // una compra real vía MercadoPago sandbox). Ninguno de los dos necesita una cuenta con plan
+    // comprado detrás: cualquier registración exitosa aterriza en /validation/policy, y el plan solo
+    // importa para el caso de "cobertura encontrada" (CP-04/CP-05, que sí siguen usando el pool).
+    test.describe('TS-03 Activación de Cuenta - Validaciones de formulario', () => {
+        test.beforeEach(async ({ container }) => {
+            await step('El usuario se encuentra en la pantalla de activación de cuenta (registración descartable, sin plan asociado)', async () => {
+                await container.vetify.webapp.registrationPage.load();
+                await container.vetify.webapp.registrationPage.register({
+                    email: getRandomEmail(),
+                    password: getRandomPassword(),
+                });
+            });
+        });
+
+        test('TC-01 Campos obligatorios', async ({ container }) => {
+            await setAllureDetails({
+                preconditions: ['El usuario se encuentra en la pantalla de activación de cuenta'],
+                steps: ['El usuario se encuentra en la pantalla de activación de cuenta, sin completar ningún campo'],
+                expectedResult: ['El botón "Verificar cobertura" permanece deshabilitado hasta completar los campos obligatorios'],
+            });
+            await step('1. El usuario se encuentra en la pantalla de activación de cuenta, sin completar ningún campo', async () => {
+                await container.vetify.webapp.policyValidationPage.expectLoaded();
+            });
+            await step('El botón "Verificar cobertura" permanece deshabilitado hasta completar los campos obligatorios', async () => {
+                await expect(container.vetify.webapp.policyValidationPage.submitButton).toBeDisabled();
+            });
+        });
+
+        test('TC-02 Listado de tipos de documentos', async ({ container }) => {
+            await setAllureDetails({
+                preconditions: ['El usuario se encuentra en la pantalla de activación de cuenta'],
+                steps: ['El usuario se encuentra en la pantalla de activación de cuenta', 'Ver las opciones del selector de tipo de documento'],
+                expectedResult: ['El selector muestra al menos una opción de tipo de documento válida (ej. DNI)'],
+            });
+            await step('1. El usuario se encuentra en la pantalla de activación de cuenta', async () => {
+                await container.vetify.webapp.policyValidationPage.expectLoaded();
+            });
+            await step('El selector muestra al menos una opción de tipo de documento válida (ej. DNI)', async () => {
+                const options = await container.vetify.webapp.policyValidationPage.documentTypeSelect.locator('option').allTextContents();
+                expect(options.map((o) => o.trim())).toContain('DNI');
             });
         });
     });
@@ -451,6 +524,136 @@ test.describe('Gestión de Usuario Test Suite', () => {
             await step('El sistema redirecciona a la home de Vetify', async () => {
                 await container.vetify.webapp.policyValidationPage.confirmValidation();
                 await page.waitForURL(container.vetify.webapp.homePage.getUrl());
+            });
+        });
+    });
+
+    // =========================================================================
+    // CATEGORY: TS-04 IMAS-3217 - Olvidé contraseña (CP01-CP05, reusa el diseño de
+    // docs/user-stories/IMAS-3215-reseteo-contrasena-b2c-vetify.tests.md — confirmado en
+    // docs/user-stories/IMAS-3217-reseteo-contrasena-capitado-flux.md que Flux Capitado comparte la
+    // misma pantalla /auth/login y el mismo VetifyWebappLoginPage que Vetify B2C, solo cambia el pool
+    // de usuarios (SiteId.FLUX_CAPITADO). CP06-CP09 (contenido/recepción del email) siguen bloqueados
+    // por falta de infraestructura de lectura de inbox (IMP-006).
+    //
+    // CP02 usa tag ACTIVE en vez de REGISTERED: el pool FLUX_CAPITADO solo tiene 1 usuario disponible
+    // hoy y está tagueado ACTIVE (ver docs/user-stories/IMAS-3217-...md) — un usuario ACTIVE sigue
+    // siendo un email existente en el sistema, que es lo único que este caso necesita. Pedir el reset
+    // no cambia la contraseña real (solo dispara el email; no hay forma de completar el cambio sin
+    // acceso al inbox), así que no interfiere con otros specs que dependan de este mismo usuario pooled.
+    // =========================================================================
+    test.describe('TS-04 IMAS-3217 - Olvidé contraseña', () => {
+        test.beforeEach(async ({ container }) => {
+            await container.vetify.webapp.loginPage.load();
+            await container.vetify.webapp.loginPage.openForgotPassword();
+        });
+
+        test('CP01 Acceso al flujo de reseteo desde login', { tag: ['@critical'] }, async ({ container, page }) => {
+            await setAllureDetails({
+                preconditions: ['Usuario en /auth/login, sin sesión iniciada.'],
+                steps: ['Presionar "¿Olvidaste tu contraseña?".'],
+                expectedResult: ['No hay navegación a otra URL — se expande un sub-formulario inline con input "Correo electrónico" y botón "Enviar".'],
+            });
+
+            await step('No hay navegación a otra URL — se expande un sub-formulario inline con input "Correo electrónico" y botón "Enviar".', async () => {
+                await expect(page).toHaveURL(/\/auth\/login/);
+                await expect(container.vetify.webapp.loginPage.emailPassRecoveryInput).toBeVisible();
+                await expect(container.vetify.webapp.loginPage.sendRecoveryButton).toBeVisible();
+            });
+        });
+
+        test('CP02 Solicitud de reset con email registrado', { tag: ['@critical'] }, async ({ container }) => {
+            const user = await UserProvider.getUser({
+                source: UserSource.Pooled,
+                siteId: SiteId.FLUX_CAPITADO,
+                tags: [UserTag.ACTIVE],
+                reserve: false,
+                ignoreReserved: true,
+            });
+            test.skip(!user, 'No se pudo obtener un usuario registrado.');
+
+            await setAllureDetails({
+                preconditions: ['Usuario con el sub-formulario de reseteo expandido; existe un usuario registrado.'],
+                steps: ['Ingresar el email del usuario y presionar "Enviar".'],
+                expectedResult: [
+                    'POST /api/passrecovery responde 200 con el mensaje genérico de instrucciones enviadas.',
+                    'La UI muestra "Te hemos enviado un correo para que puedas resetear tu contraseña".',
+                ],
+            });
+
+            let response: Response;
+            await step('1. Ingresar el email del usuario y presionar "Enviar".', async () => {
+                response = await container.vetify.webapp.loginPage.requestPasswordRecovery(user!.email);
+            });
+            await step('POST /api/passrecovery responde 200 con el mensaje genérico de instrucciones enviadas.', async () => {
+                expect.soft(response.status()).toBe(200);
+                expect.soft(await response.json()).toStrictEqual({ message: 'Si el email está registrado, recibirás instrucciones para recuperar tu contraseña.' });
+            });
+            await step('La UI muestra "Te hemos enviado un correo para que puedas resetear tu contraseña".', async () => {
+                await expect(container.vetify.webapp.loginPage.recoverySuccessLbl).toBeVisible();
+            });
+        });
+
+        test('CP03 [Negativo] Solicitud de reset con email no registrado', { tag: ['@critical'] }, async ({ container }) => {
+            await setAllureDetails({
+                preconditions: ['Usuario con el sub-formulario de reseteo expandido.'],
+                steps: ['Ingresar un email no asociado a ningún usuario y presionar "Enviar".'],
+                expectedResult: [
+                    'Respuesta y mensaje idénticos al caso de email registrado (CP02) — el sistema no revela si el email existe (previene user enumeration).',
+                ],
+            });
+
+            let response: Response;
+            await step('1. Ingresar un email no asociado a ningún usuario y presionar "Enviar".', async () => {
+                response = await container.vetify.webapp.loginPage.requestPasswordRecovery('no-existe-este-usuario-qa-test@automation.com');
+            });
+            await step('Respuesta y mensaje idénticos al caso de email registrado (CP02) — el sistema no revela si el email existe.', async () => {
+                expect.soft(response.status()).toBe(200);
+                await expect(container.vetify.webapp.loginPage.recoverySuccessLbl).toBeVisible();
+            });
+        });
+
+        test('CP04 [Bug conocido] [Negativo] Campo email obligatorio', { tag: ['@critical'] }, async ({ container, page }) => {
+            await setAllureDetails({
+                preconditions: ['Usuario con el sub-formulario de reseteo expandido, campo email vacío.'],
+                steps: ['Presionar "Enviar" sin ingresar email.'],
+                expectedResult: [
+                    'El backend responde 400 "email es requerido". BUG: el frontend no muestra ese mensaje — en su lugar muestra un mensaje genérico de "problemas técnicos" engañoso para un simple campo vacío.',
+                ],
+            });
+
+            let response: Response;
+            await step('1. Presionar "Enviar" sin ingresar email.', async () => {
+                [response] = await Promise.all([
+                    page.waitForResponse((r) => r.url().includes('/api/passrecovery')),
+                    container.vetify.webapp.loginPage.sendRecoveryButton.click(),
+                ]);
+            });
+            await step('El backend responde 400 "email es requerido".', async () => {
+                expect.soft(response.status()).toBe(400);
+                expect.soft(await response.json()).toStrictEqual({ message: 'email es requerido' });
+            });
+            await step('BUG: el frontend muestra un mensaje genérico de "problemas técnicos" en vez de indicar el campo obligatorio.', async () => {
+                await expect(container.vetify.webapp.loginPage.recoveryGenericErrorLbl).toBeVisible();
+            });
+        });
+
+        test('CP05 [Bug conocido] [Negativo] Formato de email inválido no se valida', { tag: ['@critical'] }, async ({ container }) => {
+            await setAllureDetails({
+                preconditions: ['Usuario con el sub-formulario de reseteo expandido.'],
+                steps: ['Ingresar un valor sin formato de email válido (sin "@") y presionar "Enviar".'],
+                expectedResult: [
+                    'BUG: no hay validación de formato — el backend responde 200 con el mismo mensaje de éxito genérico, igual que un email válido.',
+                ],
+            });
+
+            let response: Response;
+            await step('1. Ingresar un valor sin formato de email válido y presionar "Enviar".', async () => {
+                response = await container.vetify.webapp.loginPage.requestPasswordRecovery('noesunemail');
+            });
+            await step('BUG: no hay validación de formato — el backend responde 200 con el mismo mensaje de éxito genérico.', async () => {
+                expect.soft(response.status()).toBe(200);
+                await expect(container.vetify.webapp.loginPage.recoverySuccessLbl).toBeVisible();
             });
         });
     });

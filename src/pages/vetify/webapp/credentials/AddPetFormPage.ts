@@ -111,8 +111,12 @@ export class VetifyWebappAddPetFormPage extends VetifyWebappLoggedBasePage {
 
     @step('Verificar la pantalla de felicitación con la credencial completada')
     async verifyCongratsScreen(petName: string): Promise<void> {
+        // El botón de esta pantalla es contextual: "Ir al inicio" cuando se llega desde el flujo normal
+        // de Mascotas (ver credentials.spec.ts, usa goToHomeBtn directo, no este método), "Continuar"
+        // cuando se llega desde una solicitud de videollamada interrumpida por falta de credencial
+        // (CA05 IMAS-3899/IMAS-4102 — retoma el flujo en vez de ir a Home). No se afirma un botón
+        // específico acá; cada caller verifica el que corresponda a su contexto.
         await expect(this.congratsHeadingLbl).toHaveText(`¡${petName} ya tiene su credencial lista!`);
-        await expect(this.goToHomeBtn).toBeVisible();
     }
 
     public setPetId(petId: string): void {

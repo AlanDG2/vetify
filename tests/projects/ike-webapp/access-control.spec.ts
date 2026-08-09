@@ -8,13 +8,13 @@ test.describe('IMAS-3742 Test Suite - Restricción de acceso a la WebApp de Iké
     // CATEGORY: TS-01 IMAS-3742 - Validación de acceso durante la autenticación
     // =========================================================================
     test.describe('TS-01 IMAS-3742 - Validación de acceso durante la autenticación', () => {
-        test('TC-01 - [Negativo] Ike WebApp - Usuario con plan exclusivo de Vetify no accede a la WebApp de Iké', { tag: ['@critical'] }, async ({ container, page }) => {
+        test('TC-01 - [No valida CA01] Ike WebApp - Usuario sin cuenta registrada en Iké es rechazado', { tag: ['@critical'] }, async ({ container, page }) => {
             await setAllureDetails({
-                preconditions: ['Usuario con al menos un plan vigente, exclusivamente de Vetify (sin ningún plan habilitado de Iké).'],
+                preconditions: ['Usuario con al menos un plan vigente, exclusivamente de Vetify (sin ningún plan habilitado de Iké, y sin cuenta registrada en el sistema de identidad de Iké).'],
                 steps: ['Ir a la pantalla de login de la WebApp de Iké.', 'Iniciar sesión con las credenciales del usuario Vetify-only.'],
                 expectedResult: [
-                    'El sistema no otorga acceso a la WebApp de Iké — CA01: "Los usuarios con únicamente planes de Vetify no pueden acceder a la WebApp de Iké".',
-                    'La validación ocurre durante el proceso de autenticación (CA04), sin dejar avanzar a ninguna pantalla de la WebApp.',
+                    'El sistema no otorga acceso a la WebApp de Iké.',
+                    'IMPORTANTE: este caso NO valida CA01 — ver nota técnica abajo.',
                 ],
             });
 
@@ -36,13 +36,16 @@ test.describe('IMAS-3742 Test Suite - Restricción de acceso a la WebApp de Iké
                 });
 
                 await step('El sistema no otorga acceso a la WebApp de Iké.', async () => {
-                    // Confirmado 2026-08-06 (MCP + esta corrida): el intento de login con un usuario pooled
-                    // VETIFY_ADQUIRENTE real (plan exclusivo de Vetify) es rechazado con el mensaje genérico
-                    // de credenciales inválidas — la URL nunca avanza más allá de /auth/login. No se pudo
-                    // determinar con certeza si el rechazo se debe a que el fix (IMAS-3744) ya bloquea el
-                    // acceso en la autenticación, o a que esta cuenta de automatización nunca tuvo un
-                    // registro propio en el sistema de identidad de Iké (ver IMP-005) — el resultado
-                    // observable (sin acceso) coincide con CA01/CA04 en cualquiera de los dos casos.
+                    // NOTA TÉCNICA 2026-08-07 (corrige la nota anterior del 2026-08-06): confirmado vía MCP
+                    // que el rechazo NO es evidencia del fix de IMAS-3744. La llamada de login va a
+                    // POST https://ike-webapp-staging.us.auth0.com/oauth/token — un tenant de Auth0 dedicado
+                    // y separado del de Vetify — y responde 403 {"error":"invalid_grant","error_description":
+                    // "Wrong email or password."}. Un email inventado que no existe en ningún lado produce
+                    // EXACTAMENTE el mismo error. Es decir: Auth0 rechaza la credencial antes de que exista
+                    // ninguna oportunidad de evaluar el plan del usuario — este test solo prueba que las
+                    // cuentas del pool de Vetify nunca se registraron en el sistema de identidad de Iké
+                    // (cierto incluso sin el fix), no que el control de acceso por plan esté funcionando.
+                    // CA01 real sigue sin poder probarse — ver TC-06 (bloqueado, mismo IMP-005).
                     await container.ike.webapp.loginPage.errorMessageLbl.waitFor({ state: 'visible' });
                     await page.waitForURL(/\/auth\/login/);
                 });
@@ -55,6 +58,13 @@ test.describe('IMAS-3742 Test Suite - Restricción de acceso a la WebApp de Iké
             test.skip(
                 true,
                 'IMP-005 (docs/impedimentos-bloqueos.md): no hay usuarios de prueba con plan de Iké en el pool ni forma de autoservicio para provisionarlos. Requiere backoffice de Iké.',
+            );
+        });
+
+        test('TC-06 - [Brecha de cobertura] IMAS-3742 CA01 - Usuario con cuenta en Iké pero SOLO plan de Vetify no accede', () => {
+            test.skip(
+                true,
+                'IMP-005 (docs/impedimentos-bloqueos.md): CA01 real requiere un usuario que SÍ tenga cuenta/identidad registrada en el tenant de Auth0 de Iké (ike-webapp-staging.us.auth0.com) pero sin ningún plan de Iké asociado — no un usuario que simplemente nunca se registró ahí (eso es lo que prueba TC-01, y no es lo mismo). Sin este usuario no se puede confirmar si el control de acceso por plan (IMAS-3744) funciona.',
             );
         });
 

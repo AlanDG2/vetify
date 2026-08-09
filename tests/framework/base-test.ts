@@ -7,14 +7,18 @@ import { OsdeAdquirenteInstitutionalPage } from '@pages/osde/institutional-osde-
 import { OsdeCapitadoInstitutionalPage } from '@pages/osde/institutional-osde-capitado/InstitutionalPage';
 import { VetifyCheckoutPage } from '@pages/vetify/institutional/CheckoutPage';
 import { VetifyInstitutionalPage } from '@pages/vetify/institutional/InstitutionalPage';
+import { VetifyWebappFeatureUnavailableModal } from '@pages/vetify/webapp/FeatureUnavailableModal';
 import { VetifyWebappHomePage } from '@pages/vetify/webapp/HomePage';
 import { VetifyWebappLoginPage } from '@pages/vetify/webapp/LoginPage';
+import { VetifyWebappMyAppointmentsPage } from '@pages/vetify/webapp/MyAppointmentsPage';
 import { VetifyWebappMyPetsPage } from '@pages/vetify/webapp/MyPetsPage';
+import { VetifyWebappMyPlansPage } from '@pages/vetify/webapp/MyPlansPage';
 import { VetifyWebappMyProfilePage } from '@pages/vetify/webapp/MyProfilePage';
 import { VetifyWebappPolicyValidationPage } from '@pages/vetify/webapp/PolicyValidationPage';
 import { VetifyWebappRegistrationPage } from '@pages/vetify/webapp/RegistrationPage';
 import { VetifyWebappServicesPage } from '@pages/vetify/webapp/ServicesPage';
 import { VetifyWebappSideMenuSection } from '@pages/vetify/webapp/SideMenuSection';
+import { VetifyWebappSystemUnavailableComponent } from '@pages/vetify/webapp/SystemUnavailableComponent';
 import { VetifyWebappAddPetFormPage } from '@pages/vetify/webapp/credentials/AddPetFormPage';
 import { VetifyWebappViewPetPage } from '@pages/vetify/webapp/credentials/ViewPetPage';
 import {
@@ -45,6 +49,10 @@ type VetifyWebappContainer = {
     myPetsPage: VetifyWebappMyPetsPage;
     addPetFormPage: VetifyWebappAddPetFormPage;
     viewPetPage: VetifyWebappViewPetPage;
+    myAppointmentsPage: VetifyWebappMyAppointmentsPage;
+    myPlansPage: VetifyWebappMyPlansPage;
+    systemUnavailableComponent: VetifyWebappSystemUnavailableComponent;
+    featureUnavailableModal: VetifyWebappFeatureUnavailableModal;
 };
 
 export type TestContainer = {
@@ -99,6 +107,10 @@ const test = base.extend<{
             myPetsPage: new VetifyWebappMyPetsPage(page),
             addPetFormPage: new VetifyWebappAddPetFormPage(page),
             viewPetPage: new VetifyWebappViewPetPage(page),
+            myAppointmentsPage: new VetifyWebappMyAppointmentsPage(page),
+            myPlansPage: new VetifyWebappMyPlansPage(page),
+            systemUnavailableComponent: new VetifyWebappSystemUnavailableComponent(page),
+            featureUnavailableModal: new VetifyWebappFeatureUnavailableModal(page),
         };
 
         await use({

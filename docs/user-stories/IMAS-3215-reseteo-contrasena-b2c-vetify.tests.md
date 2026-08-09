@@ -10,7 +10,7 @@
 
 ## TS-01 Acceso a "Olvidé mi contraseña" (AC-1)
 
-**CP01 - Verificar acceso al flujo de reseteo desde login** ✅ CONFIRMADO
+**CP01 - Verificar acceso al flujo de reseteo desde login** ✅ AUTOMATIZADO 2026-08-07 (TS-04 CP01)
 - Dado: usuario en `/auth/login` (sin sesión iniciada)
 - Cuando: hace click en el botón "¿Olvidaste tu contraseña?" (texto exacto confirmado)
 - Entonces: **no hay navegación a otra URL** — se expande un sub-formulario inline en la misma pantalla `/auth/login`, con un input "Correo electrónico" (`#emailPassRecovery`) y botón "Enviar". El diseño previo asumía una pantalla separada; es incorrecto, corregir el POM en consecuencia.
@@ -18,25 +18,25 @@
 
 ## TS-02 Solicitud de reseteo (AC-2, AC-3)
 
-**CP02 - Verificar solicitud de reset con email registrado** ✅ (mecánica confirmada con email no registrado, pendiente repetir con un email real del pool para confirmar que el comportamiento no cambia)
+**CP02 - Verificar solicitud de reset con email registrado** ✅ AUTOMATIZADO 2026-08-07 (`tests/projects/vetify-b2c/user-management.spec.ts`, TS-04 CP02)
 - Dado: usuario con el sub-formulario de reseteo expandido; existe un usuario registrado (pool `UserTag.REGISTERED`)
 - Cuando: ingresa el email del usuario y presiona "Enviar"
 - Entonces: `POST /api/passrecovery` responde **200** con body `{"message":"Si el email está registrado, recibirás instrucciones para recuperar tu contraseña."}`; la UI muestra el mensaje **"Te hemos enviado un correo para que puedas resetear tu contraseña"** (texto de UI, distinto al texto del body de la API — ambos confirmados, documentar los dos)
 - Trazabilidad: AC-2, AC-3
 
-**CP03 - Verificar comportamiento con email no registrado** ✅ CONFIRMADO
+**CP03 - Verificar comportamiento con email no registrado** ✅ AUTOMATIZADO 2026-08-07 (TS-04 CP03)
 - Dado: usuario con el sub-formulario de reseteo expandido
 - Cuando: ingresa un email no asociado a ningún usuario (probado con `no-existe-este-usuario-qa-test@automation.com`)
 - Entonces: **idéntico a CP02** — `POST /api/passrecovery` responde 200 con el mismo mensaje genérico, la UI muestra el mismo mensaje de éxito. **Confirmado: el sistema no revela si el email existe o no** (buen patrón de seguridad, evita user enumeration). No es un gap, es comportamiento esperado — se retira la nota `[CONFIRMAR]` anterior.
 - Trazabilidad: AC-2 (comportamiento de seguridad confirmado)
 
-**CP04 - Verificar campo email obligatorio** 🐛 HALLAZGO — posible bug
+**CP04 - Verificar campo email obligatorio** ✅ AUTOMATIZADO 2026-08-07 (TS-04 CP04) — 🐛 HALLAZGO, ver más abajo
 - Dado: usuario con el sub-formulario de reseteo expandido
 - Cuando: presiona "Enviar" sin ingresar email
 - Entonces (comportamiento REAL observado): `POST /api/passrecovery` responde **400** con body `{"message":"email es requerido"}` (correcto en el backend) — pero el **frontend no muestra ese mensaje**. En su lugar muestra: **"En este momento estamos con problemas técnicos, te pedimos disculpas, si puedes contactanos al 0800-122-6238"** — un mensaje de error genérico de "sistema caído" que es engañoso para un simple campo vacío. No hay validación client-side previa al submit tampoco (el botón no está deshabilitado).
 - Trazabilidad: AC-2 (borde) — **candidato a bug report** (UX: mensaje de error incorrecto/engañoso ante un error de validación, no un error de sistema)
 
-**CP05 - Verificar formato de email inválido** 🐛 HALLAZGO — posible bug
+**CP05 - Verificar formato de email inválido** ✅ AUTOMATIZADO 2026-08-07 (TS-04 CP05) — 🐛 HALLAZGO, ver más abajo
 - Dado: usuario con el sub-formulario de reseteo expandido
 - Cuando: ingresa `"noesunemail"` (sin `@`, formato inválido) y presiona "Enviar"
 - Entonces (comportamiento REAL observado): **no hay validación de formato**. `POST /api/passrecovery` responde **200** con el mismo mensaje genérico de éxito, la UI muestra "Te hemos enviado un correo...". Contrasta con `RegistrationPage` donde sí existe validación de formato ("El correo electrónico no es válido", ver `user-management.spec.ts` TC-05). El AC de la HU dice explícitamente "Ingreso de un correo electrónico **válido**" — este campo no lo exige.
@@ -148,11 +148,23 @@
 
 **18 casos diseñados. 4 bloqueados de punta a punta (CP06-CP09) por IMP-006. 2 parcialmente bloqueados (CP10, y AC-2/AC-9 dependen transitivamente).** El resto (12 casos) es automatizable ya, condicionado a: (a) confirmar textos/locators exactos vía MCP contra la UI real, (b) definir cómo llegar al link de reset sin lectura de casilla real mientras IMP-006 sigue abierto (ej. capturar el link vía intercepción de la request de backend en QA, si el equipo de dev puede exponerlo — a confirmar, no asumir).
 
+## Retest 2026-08-07 — CP01-CP05 automatizados
+
+Confirmados en vivo contra QA real y automatizados en `tests/projects/vetify-b2c/user-management.spec.ts` (`TS-04 IMAS-3215 - Olvidé contraseña`), 5/5 verdes en Desktop (este sitio — "Vetify Adquirente [B2C]" — no tiene proyecto mobile habilitado en `playwright.config.ts`, a diferencia de "Vetify WebApp"; pendiente decidir si se extiende).
+
+- **CP01**: confirmado — el sub-formulario se expande inline en `/auth/login`, sin navegar a otra URL.
+- **CP02/CP03**: confirmado — mismo mensaje genérico de éxito con email registrado y no registrado (previene user enumeration, comportamiento correcto).
+- **CP04/CP05**: confirmados como hallazgos reales, no solo hipótesis — ver sección de hallazgos abajo.
+
+**CP06-CP12 siguen bloqueados** — sin forma de obtener el link/token de reset sin leer la casilla de correo real (IMP-006). Evaluado si el token aparece en la respuesta de `POST /api/passrecovery`: **no aparece**, el body es siempre el mensaje genérico sin datos del token. Sigue pendiente preguntarle al equipo de dev si puede exponerse el token de otra forma en QA (endpoint de debug, feature flag, etc.) antes de dar este bloqueo por definitivo.
+
+**CP13-CP18 (cambiar contraseña, confirmar, loguearse con la nueva, vieja invalidada) siguen sin automatizar** — mismo motivo: dependen de tener un link/token de reset válido, que hoy solo se puede conseguir leyendo el email real.
+
 ## Hallazgos de la exploración MCP (2026-08-06) — pendientes de decisión del usuario
 
-No se cargaron a Jira todavía (requiere preview + OK explícito según `jira/update-rules.md`). Ambos observados en `https://vetify-qa.ikeapp.com/auth/login`, endpoint `POST /api/passrecovery`:
+**✅ Reportados en Jira 2026-08-07**, con OK explícito del usuario del proyecto, vinculados a IMAS-3215 con "Blocks" (aplica también a IMAS-3216/IMAS-3217 por ser la misma pantalla compartida). Ambos observados en `https://vetify-qa.ikeapp.com/auth/login`, endpoint `POST /api/passrecovery`:
 
-1. **CP04 — Mensaje de error engañoso ante campo vacío**: el backend devuelve correctamente 400 `"email es requerido"`, pero el frontend ignora ese mensaje y muestra un texto de "problemas técnicos" (sugiere caída de sistema) en vez de indicar que falta completar el campo.
-2. **CP05 — Falta validación de formato de email**: el campo de reseteo acepta cualquier string sin validar formato (`"noesunemail"` → 200 OK, mismo mensaje de éxito), a diferencia del formulario de registración que sí valida formato.
+1. **CP04 — Mensaje de error engañoso ante campo vacío** → **IMAS-4198**: el backend devuelve correctamente 400 `"email es requerido"`, pero el frontend ignora ese mensaje y muestra un texto de "problemas técnicos" (sugiere caída de sistema) en vez de indicar que falta completar el campo.
+2. **CP05 — Falta validación de formato de email** → **IMAS-4199**: el campo de reseteo acepta cualquier string sin validar formato (`"noesunemail"` → 200 OK, mismo mensaje de éxito), a diferencia del formulario de registración que sí valida formato.
 
-Ninguno de los dos impide el flujo end-to-end (ambos casos igual muestran algún mensaje), pero ambos violan el AC-2 tal como está redactado ("envía... correo electrónico válido" / experiencia sin errores confusos). Reportar como bugs queda a criterio del usuario del proyecto.
+Ninguno de los dos impide el flujo end-to-end (ambos casos igual muestran algún mensaje), pero ambos violan el AC-2 tal como está redactado ("envía... correo electrónico válido" / experiencia sin errores confusos).

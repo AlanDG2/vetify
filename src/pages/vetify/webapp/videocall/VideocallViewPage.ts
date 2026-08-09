@@ -70,6 +70,16 @@ export class VetifyWebappVideocallViewPage extends VetifyWebappLoggedBasePage {
         await expect(this.cancelVideocallBtn).toBeEnabled();
     }
 
+    // BUG-003/IMAS-4119 (hallazgo 2, resuelto): la assistanceId original de un turno ya reprogramado
+    // queda en estado CANCELADO en el backend pero seguía renderizando sus 3 acciones como si el
+    // turno estuviera vigente (Reprogramar habilitado). El fix deshabilita las 3 acciones en ese caso.
+    @step('Verificar que las 3 acciones están deshabilitadas (turno ya cancelado/reemplazado)')
+    async verifyAllActionsDisabled(): Promise<void> {
+        await expect(this.enterVideocallBtn).toBeDisabled();
+        await expect(this.rescheduleBtn).toBeDisabled();
+        await expect(this.cancelVideocallBtn).toBeDisabled();
+    }
+
     @step('Iniciar el flujo de reprogramación del turno')
     async startReschedule(): Promise<void> {
         await Promise.all([this.page.waitForURL(/\/petsAssistance\/reprogramarTurno\//), this.rescheduleBtn.click()]);

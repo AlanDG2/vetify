@@ -16,3 +16,10 @@ allure-report/
 figma-exports/
 src/fixtures/users/fresh-users.json
 .claude/settings.local.json
+mobile/apps/*.apk
+mobile/apps/*.ipa
+mobile/apps/*.app
+allure-results-mobile/
+allure-report-mobile/
+wdio-logs/
+appium.log

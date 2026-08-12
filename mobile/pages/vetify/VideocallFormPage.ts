@@ -1,0 +1,286 @@
+import { $, browser } from '@wdio/globals';
+import { DateTime } from 'luxon';
+import { VetifyMobileLoggedBasePage } from './LoggedBasePage';
+import { VetifyMobileVideocallCalendarComponent } from './VideocallCalendarComponent';
+
+// Locators calcados de src/pages/vetify/webapp/videocall/VideocallFormPage.ts (Playwright) donde
+// fue posible — los `getByRole` del original no traducen 1:1 a WebdriverIO, así que el texto real
+// se confirmó con un dump de DOM en vivo antes de escribir esto (mismo criterio que el resto del
+// proyecto mobile), no adivinado.
+export class VetifyMobileVideocallFormPage extends VetifyMobileLoggedBasePage {
+    readonly calendarComponent = new VetifyMobileVideocallCalendarComponent();
+
+    async load(): Promise<void> {
+        await this.navigateTo('/service/493/create/questions?isNow=false');
+        await this.scheduleNewVideocallBtn.waitForDisplayed({ timeout: 20_000 });
+    }
+
+    get scheduleNewVideocallBtn() {
+        return $('//button[contains(., "Agendar nueva videollamada")]');
+    }
+
+    // "Tus turnos" aparece en la pantalla de entrada en cuanto el usuario tiene ≥1 turno agendado
+    // — confirmado en vivo al construir el cleanup por UI (ver decision-log 2026-08-12).
+    get existingTurnosHeadingLbl() {
+        return $('//h2[contains(., "Tus turnos")]');
+    }
+
+    // Copy real confirmado con un dump en vivo (construyendo el cleanup por UI, ver
+    // decision-log 2026-08-12) — CA01/CA02 IMAS-3909.
+    get limitReachedDialogHeadingLbl() {
+        return $('//p[contains(., "Superaste el límite de videollamadas por mascota")]');
+    }
+
+    get limitReachedDialogMessageLbl() {
+        return $('//p[contains(., "Ya tenés 2 videollamadas programadas para")]');
+    }
+
+    get closeLimitReachedDialogBtn() {
+        return $('//button[contains(., "Cerrar")]');
+    }
+
+    get missingCredentialHeadingLbl() {
+        return $('//h2[contains(., "Completá su credencial")]');
+    }
+
+    get missingCredentialTextLbl() {
+        return $('//*[contains(., "Para agendar una videollamada, primero necesitamos los datos de tu mascota.")]');
+    }
+
+    get completeCredentialBtn() {
+        return $('//button[contains(., "Completar credencial")]');
+    }
+
+    get reasonHeadingLbl() {
+        return $('//h2[contains(., "Seleccioná el motivo de tu consulta")]');
+    }
+
+    get reasonInput() {
+        return $('//input[@id="Motivo de la consulta"]');
+    }
+
+    get continueBtn() {
+        return $('//button[contains(., "Continuar")]');
+    }
+
+    get additionalCommentsInput() {
+        return $('textarea[data-scope="field"][data-part="textarea"]');
+    }
+
+    get additionalCommentsRequiredLbl() {
+        return $('//p[contains(., "Obligatorio")]');
+    }
+
+    get reasonNoMatchesLbl() {
+        return $('//*[contains(., "No encontramos coincidencias.")]');
+    }
+
+    get attachmentsHeadingLbl() {
+        return $('//h2[contains(., "Subí una foto, video o archivo")]');
+    }
+
+    get skipAttachmentsBtn() {
+        return $('//button[contains(., "Omitir")]');
+    }
+
+    get dayTimeHeadingLbl() {
+        return $('//h2[contains(., "Seleccioná el día y el horario")]');
+    }
+
+    get reviewHeadingLbl() {
+        return $('//h2[contains(., "Revisá los datos y confirmá tu turno")]');
+    }
+
+    get editFechaHoraBtn() {
+        return $('//button[@aria-label="Editar fecha y hora"]');
+    }
+
+    get editMotivoBtn() {
+        return $('//button[@aria-label="Editar motivo"]');
+    }
+
+    get editAdjuntosBtn() {
+        return $('//button[@aria-label="Editar adjuntos"]');
+    }
+
+    get editMascotaBtn() {
+        return $('//button[@aria-label="Editar mascota"]');
+    }
+
+    // El botón final de la revisión dice "Confirmar videollamada" en Desktop pero "Continuar" en
+    // mobile (mismo label genérico que el resto del wizard) — confirmado en vivo con un dump,
+    // mismo hallazgo que el POM Playwright ya documenta para esta pantalla.
+    get confirmationReservedLbl() {
+        return $('//*[contains(., "ya tiene su turno reservado")]');
+    }
+
+    get goToHomeBtn() {
+        return $('//button[contains(., "Ir al inicio")]');
+    }
+
+    private async jsClick(elementPromise: ReturnType<typeof $>): Promise<void> {
+        const el = await elementPromise;
+        await browser.execute((node: HTMLElement) => node.click(), el);
+    }
+
+    // clearValue() + setValue() de WebdriverIO no reemplazan el contenido de este input — quedó
+    // confirmado en vivo con un dump: tras escribir un texto libre, clearValue() no lo borra y el
+    // setValue() siguiente APPENDEA en vez de reemplazar ("TextoLibre" + "Vacunas" en el mismo
+    // input). Es un input controlado por React: hay que setear el valor a través del setter nativo
+    // de HTMLInputElement y disparar un evento "input" real para que React vea el cambio, en vez de
+    // depender del "clear" del driver.
+    private async typeIntoReactInput(elementPromise: ReturnType<typeof $>, text: string): Promise<void> {
+        const el = await elementPromise;
+        await browser.execute(
+            (node: HTMLElement, value: string) => {
+                const input = node as HTMLInputElement;
+                const nativeSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value')?.set;
+                nativeSetter?.call(input, value);
+                input.dispatchEvent(new Event('input', { bubbles: true }));
+            },
+            el,
+            text,
+        );
+    }
+
+    async startNewVideocallRequest(): Promise<void> {
+        await this.jsClick(this.scheduleNewVideocallBtn);
+    }
+
+    async verifyMissingCredentialScreenVisible(): Promise<void> {
+        await this.missingCredentialHeadingLbl.waitForDisplayed({ timeout: 15_000 });
+        await this.missingCredentialTextLbl.waitForDisplayed({ timeout: 10_000 });
+        await this.completeCredentialBtn.waitForDisplayed({ timeout: 10_000 });
+    }
+
+    async goToCompleteCredential(): Promise<void> {
+        await this.jsClick(this.completeCredentialBtn);
+    }
+
+    async verifyReasonScreenVisible(): Promise<void> {
+        await this.reasonHeadingLbl.waitForDisplayed({ timeout: 15_000 });
+    }
+
+    async verifyReasonRequiredBlocksContinue(): Promise<void> {
+        await this.reasonInput.waitForDisplayed({ timeout: 10_000 });
+        const value = await this.reasonInput.getValue();
+        if (value !== '') throw new Error(`Se esperaba el input de Motivo vacío, tiene: "${value}"`);
+        const disabled = await this.continueBtn.getAttribute('disabled');
+        if (disabled === null) throw new Error('Se esperaba "Continuar" deshabilitado con el motivo vacío.');
+    }
+
+    // Combobox de texto libre con filtrado: escribir el motivo filtra las opciones, y el resultado
+    // se elige tocando el botón cuyo texto matchea — mismo patrón confirmado en vivo con un dump.
+    async selectReason(reasonText: string): Promise<void> {
+        await this.jsClick(this.reasonInput);
+        await this.typeIntoReactInput(this.reasonInput, reasonText);
+        const optionBtn = $(`//button[contains(., "${reasonText}")]`);
+        await optionBtn.waitForDisplayed({ timeout: 10_000 });
+        await this.jsClick(optionBtn);
+    }
+
+    // Confirmado en vivo con un dump: elegir "Otro motivo" marca "Comentarios adicionales" como
+    // Obligatorio y deshabilita "Continuar" hasta completarlo.
+    async verifyOtherReasonRequiresComment(): Promise<void> {
+        await this.additionalCommentsRequiredLbl.waitForDisplayed({ timeout: 10_000 });
+        const disabled = await this.continueBtn.getAttribute('disabled');
+        if (disabled === null) throw new Error('Se esperaba "Continuar" deshabilitado sin completar los comentarios adicionales.');
+    }
+
+    async fillAdditionalComments(comment: string): Promise<void> {
+        await this.additionalCommentsInput.setValue(comment);
+    }
+
+    async verifyContinueEnabled(): Promise<void> {
+        const disabled = await this.continueBtn.getAttribute('disabled');
+        if (disabled !== null) throw new Error('Se esperaba "Continuar" habilitado.');
+    }
+
+    async enterFreeTextReason(reasonText: string): Promise<void> {
+        await this.jsClick(this.reasonInput);
+        await this.typeIntoReactInput(this.reasonInput, reasonText);
+    }
+
+    async verifyReasonNotFound(): Promise<void> {
+        await this.reasonNoMatchesLbl.waitForDisplayed({ timeout: 10_000 });
+        const disabled = await this.continueBtn.getAttribute('disabled');
+        if (disabled === null) throw new Error('Se esperaba "Continuar" deshabilitado con un motivo de texto libre no encontrado.');
+    }
+
+    async clickContinue(): Promise<void> {
+        await this.jsClick(this.continueBtn);
+    }
+
+    async verifyAttachmentsScreenVisible(): Promise<void> {
+        await this.attachmentsHeadingLbl.waitForDisplayed({ timeout: 15_000 });
+    }
+
+    async skipAttachments(): Promise<void> {
+        await this.jsClick(this.skipAttachmentsBtn);
+    }
+
+    async verifyDayTimeScreenVisible(): Promise<void> {
+        await this.dayTimeHeadingLbl.waitForDisplayed({ timeout: 15_000 });
+    }
+
+    async completeDayAndTime(date: DateTime, options?: { band?: 'Mañana' | 'Tarde' | 'Noche' }): Promise<void> {
+        await this.calendarComponent.selectAssistanceDay(date);
+        await this.calendarComponent.selectAssistanceTime(options);
+    }
+
+    async verifyTimeBandsAvailableFromReview(): Promise<void> {
+        await this.jsClick(this.editFechaHoraBtn);
+        await this.calendarComponent.verifyAllTimeBandsVisible();
+        await this.clickContinue();
+    }
+
+    async verifyReviewScreenSinglePet(): Promise<void> {
+        await this.reviewHeadingLbl.waitForDisplayed({ timeout: 15_000 });
+        await this.editFechaHoraBtn.waitForDisplayed({ timeout: 10_000 });
+        await this.editMotivoBtn.waitForDisplayed({ timeout: 10_000 });
+        await this.editAdjuntosBtn.waitForDisplayed({ timeout: 10_000 });
+        if (await this.editMascotaBtn.isExisting()) throw new Error('Se esperaba "Editar mascota" oculto para una cuenta de mascota única.');
+    }
+
+    async confirmVideocall(): Promise<void> {
+        await this.jsClick(this.continueBtn);
+    }
+
+    async verifyConfirmationScreen(): Promise<void> {
+        await this.confirmationReservedLbl.waitForDisplayed({ timeout: 20_000 });
+        await this.goToHomeBtn.waitForDisplayed({ timeout: 10_000 });
+    }
+
+    // Cuenta en el DOM directo vía JS en vez de usar $$().length — `.length` sobre un
+    // ChainablePromiseArray de WebdriverIO tipa como Promise<number>, no como number plano, incluso
+    // ya resuelto el array (ver known-issues.md sobre esta limitación de tipos).
+    async verifyExistingTurnosCount(count: number): Promise<void> {
+        await this.existingTurnosHeadingLbl.waitForDisplayed({ timeout: 15_000 });
+        const actualCount = await browser.execute(() => {
+            const heading = Array.from(document.querySelectorAll('h2')).find((h) => (h.textContent || '').includes('Tus turnos'));
+            const container = heading?.nextElementSibling;
+            return container ? container.querySelectorAll('button').length : 0;
+        });
+        if (actualCount !== count) throw new Error(`Se esperaban ${count} turno(s) en "Tus turnos", hay ${actualCount}.`);
+    }
+
+    // CA01/CA02 IMAS-3909 (flujo 1 mascota): el bloqueo se dispara recién al tocar "Agendar nueva
+    // videollamada" con la mascota ya en el límite — no antes (el botón sigue visible/habilitado
+    // con 2 turnos ya agendados). Es un modal sobre la pantalla de entrada, no una pantalla aparte.
+    async attemptScheduleAndVerifyPetLimitBlocked(petName: string): Promise<void> {
+        await this.jsClick(this.scheduleNewVideocallBtn);
+        await this.verifyPetLimitBlockedDialog(petName);
+    }
+
+    async verifyPetLimitBlockedDialog(petName: string): Promise<void> {
+        await this.limitReachedDialogHeadingLbl.waitForDisplayed({ timeout: 15_000 });
+        await this.limitReachedDialogMessageLbl.waitForDisplayed({ timeout: 10_000 });
+        const specificMessage = $(`//*[contains(., "Ya tenés 2 videollamadas programadas para ${petName}.")]`);
+        await specificMessage.waitForDisplayed({ timeout: 10_000 });
+    }
+
+    async closeLimitReachedDialog(): Promise<void> {
+        await this.jsClick(this.closeLimitReachedDialogBtn);
+        await this.limitReachedDialogHeadingLbl.waitForDisplayed({ timeout: 10_000, reverse: true });
+    }
+}

@@ -9,7 +9,7 @@
         "forceConsistentCasingInFileNames": true,
         "resolveJsonModule": true,
         "noEmit": true,
-        "types": ["node"],
+        "types": ["node", "mocha"],
         "paths": {
             "@api/*": ["./src/api/*"],
             "@config/*": ["./src/config/*"],

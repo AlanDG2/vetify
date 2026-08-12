@@ -1,3 +1,5 @@
+import { execFileSync } from 'node:child_process';
+import path from 'node:path';
 import { expect } from '@wdio/globals';
 import { DateTime } from 'luxon';
 import { SiteId } from '../../../src/config/environment';
@@ -233,11 +235,79 @@ describe('TS-02 IMAS-3174 - Rediseño solicitud de turno x 1 mascota', () => {
 describe('TS-03 IMAS-3889 - Adjuntos, calendario y motivo', () => {
     let reservedUser: TestUser | undefined;
 
+    before(() => {
+        // Precondición del picker nativo (IMP-011 resuelto, ver BasePage.selectFileViaNativePicker()):
+        // el archivo debe existir ya en la galería/almacenamiento del dispositivo/emulador.
+        const localPath = path.resolve(process.cwd(), 'src/fixtures/images/dog-profile-photo.jpg');
+        const devicePath = '/sdcard/Pictures/qa-attachment-photo.jpg';
+        execFileSync('adb', ['push', localPath, devicePath]);
+        execFileSync('adb', [
+            'shell',
+            'am',
+            'broadcast',
+            '-a',
+            'android.intent.action.MEDIA_SCANNER_SCAN_FILE',
+            '-d',
+            `file://${devicePath}`,
+        ]);
+    });
+
     afterEach(() => {
         if (reservedUser) {
             UserProvider.releaseUser(reservedUser);
             reservedUser = undefined;
         }
+    });
+
+    // Portado de tests/projects/vetify-webapp/videocall.spec.ts TS-03 TC-02 "Adjuntos - Carga y
+    // borrado de archivo válido". IMP-011 resuelto vía selector de archivos nativo de Android
+    // (ver BasePage.selectFileViaNativePicker()) — a diferencia de foto de mascota/avatar de
+    // perfil, el trigger acá no responde a click JS (probado: click simple y una secuencia
+    // completa pointerdown/mousedown/pointerup/mouseup/click, ninguno disparó nada) y necesita un
+    // tap nativo real, que además abre el selector de archivos completo
+    // (`com.google.android.documentsui`) en vez del Photo Picker, porque el input admite
+    // imagen+video+pdf, no solo imagen.
+    it('TC-02 - Videollamada - Vetify - Adjuntos - Carga y borrado de archivo válido', async function () {
+        const loginPage = new VetifyMobileLoginPage();
+        const homePage = new VetifyMobileHomePage();
+        const videocallFormPage = new VetifyMobileVideocallFormPage();
+
+        reservedUser = await loginPage.loginWithUserRequest({
+            source: UserSource.Pooled,
+            siteId: SiteId.VETIFY_ADQUIRENTE,
+            tags: [UserTag.ACTIVE, UserTag.WITH_PET, UserTag.NO_EMPTY_PLAN],
+            numberOfPlans: 1,
+            reserve: false,
+            ignoreReserved: true,
+        });
+
+        if (!reservedUser) {
+            this.skip();
+        }
+
+        await homePage.waitForLoaded();
+        const apiClient = await VetifyMobileWebappApiClient.getApiClient();
+        await apiClient.cancelAllScheduledVideocalls();
+
+        // Precondición: el usuario se encuentra en la pantalla de adjuntos con el motivo "Vacunas" ya seleccionado.
+        await videocallFormPage.load();
+        await videocallFormPage.startNewVideocallRequest();
+        await videocallFormPage.verifyReasonScreenVisible();
+        await videocallFormPage.selectReason('Vacunas');
+        await videocallFormPage.clickContinue();
+        await videocallFormPage.verifyAttachmentsScreenVisible();
+
+        // Pasos: adjuntar un archivo válido.
+        await videocallFormPage.attachFile();
+
+        // Resultado esperado: el sistema muestra el archivo adjuntado correctamente.
+        await videocallFormPage.attachedFileNameLbl.waitForDisplayed({ timeout: 10_000 });
+
+        // Pasos: eliminar el archivo adjuntado.
+        await videocallFormPage.removeAttachedFile();
+
+        // Resultado esperado: el sistema elimina el archivo adjuntado sin errores.
+        await videocallFormPage.attachedFileNameLbl.waitForExist({ timeout: 10_000, reverse: true });
     });
 
     it('TC-05 - Videollamada - Vetify - Selector de mascota obligatorio (multi-mascota)', async function () {

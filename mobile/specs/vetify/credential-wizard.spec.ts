@@ -17,7 +17,7 @@ import { VetifyMobileMyPetsPage } from '../../pages/vetify/MyPetsPage';
 // sesión completa por cada paso individual.
 //
 // IMPORTANTE: el test llega hasta el paso 5 (foto), SUBE la foto (IMP-011 resuelto — ver
-// BasePage.selectPhotoViaNativePicker()) y confirma que el paso queda listo para continuar, pero
+// BasePage.selectFileViaNativePicker()) y confirma que el paso queda listo para continuar, pero
 // NO clickea "Continuar" ni envía el formulario final: eso consumiría la cuenta usada (única con
 // ACTIVE+PLAN_WITHOUT_PET en el pool), compartida con credentials.spec.ts TS-07 TC-01;
 // completar el alta real le asignaría una mascota y la rompería para cualquier corrida futura de
@@ -115,7 +115,7 @@ describe('TS-08 Cargar credencial - Camino feliz hasta el paso de foto (sube la 
         await addPetFormPage.clickContinue();
 
         // Paso 5: foto — sube una foto real (IMP-011 resuelto vía selector nativo, ver
-        // BasePage.selectPhotoViaNativePicker()) y confirma que el paso queda listo. NO se envía
+        // BasePage.selectFileViaNativePicker()) y confirma que el paso queda listo. NO se envía
         // el formulario final (consumiría la cuenta del pool, ver comentario arriba).
         expect(await addPetFormPage.getCurrentStepTitle()).toBe(`Por último, subí una foto de ${petName}`);
         await addPetFormPage.uploadPetFilePhoto();

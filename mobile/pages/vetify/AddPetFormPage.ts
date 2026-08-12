@@ -91,7 +91,7 @@ export class VetifyMobileAddPetFormPage extends VetifyMobileLoggedBasePage {
 
     // Paso 5 — foto: IMP-011 (docs/impedimentos-bloqueos.md) RESUELTO vía workaround — setear el
     // <input type="file"> directo (setInputFiles()/setValue() con ruta de host) crashea el WebView
-    // embebido de esta app. Se usa BasePage.selectPhotoViaNativePicker() en su lugar: toca el
+    // embebido de esta app. Se usa BasePage.selectFileViaNativePicker() en su lugar: toca el
     // <label> visible (igual que un usuario real) y navega el selector nativo de fotos de Android
     // que se abre. Requiere que la foto ya exista en la galería del dispositivo/emulador (adb push
     // + media scan) — no sube un archivo nuevo, selecciona uno ya presente.
@@ -114,7 +114,7 @@ export class VetifyMobileAddPetFormPage extends VetifyMobileLoggedBasePage {
     }
 
     async uploadPetFilePhoto(): Promise<void> {
-        await this.selectPhotoViaNativePicker('label[for="pet-photo-file-input"]');
+        await this.selectFileViaNativePicker('label[for="pet-photo-file-input"]');
     }
 
     // Igual que MyProfilePage.getAllParagraphTexts() — $$('h2') con CSS es confiable, xpath con

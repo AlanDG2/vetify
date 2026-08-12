@@ -83,6 +83,32 @@ export class VetifyMobileVideocallFormPage extends VetifyMobileLoggedBasePage {
         return $('//button[contains(., "Omitir")]');
     }
 
+    // Trigger real confirmado en vivo con un dump: sin <label> ni data-scope (a diferencia de las
+    // otras 2 pantallas con IMP-011) — es un div "dropzone" sin atributos de accesibilidad claros,
+    // identificado por `aria-disabled="false"` (único match en la pantalla). Ver
+    // BasePage.selectFileViaNativePicker() — acá el input admite imagen+video+pdf, así que Android
+    // abre el selector de archivos completo (`com.google.android.documentsui`), no el Photo
+    // Picker — el helper detecta cuál abrió y lo maneja.
+    get attachmentDropzoneTrigger() {
+        return $('div[aria-disabled="false"]');
+    }
+
+    // A diferencia de Playwright (que matchea el <p> del nombre por extensión, sin ambigüedad ahí
+    // porque el texto estático de formatos permitidos vive en otro Locator), acá un xpath por
+    // extensión ".jpg/.png/..." SIEMPRE matchea también el texto fijo "Formatos permitidos: .png,
+    // .jpg o .pdf" del dropzone vacío — confirmado en vivo (el `waitForExist({reverse:true})`
+    // nunca se cumplía tras borrar, porque ese texto fijo nunca desaparece). Se ancla en cambio al
+    // botón de borrar (`filePreviewDelete`, único cuando hay un archivo adjuntado real) y se sube
+    // al `<p>` del nombre, hermano de ese botón bajo el mismo contenedor.
+    get attachedFileNameLbl() {
+        return $('//button[@data-cy="filePreviewDelete"]/preceding-sibling::div//p');
+    }
+
+    // Mismo aria-label/data-cy que la versión Desktop (icono de botón, no cambia por breakpoint).
+    get deleteAttachedFileBtn() {
+        return $('//button[@data-cy="filePreviewDelete"]');
+    }
+
     get dayTimeHeadingLbl() {
         return $('//h2[contains(., "Seleccioná el día y el horario")]');
     }
@@ -217,6 +243,18 @@ export class VetifyMobileVideocallFormPage extends VetifyMobileLoggedBasePage {
 
     async skipAttachments(): Promise<void> {
         await this.jsClick(this.skipAttachmentsBtn);
+    }
+
+    // IMP-011 (docs/impedimentos-bloqueos.md) resuelto — ver BasePage.selectFileViaNativePicker().
+    // Requiere que el archivo ya exista en la galería del dispositivo/emulador antes de llamar
+    // (adb push + media scan).
+    async attachFile(): Promise<void> {
+        await this.selectFileViaNativePicker('div[aria-disabled="false"]');
+    }
+
+    async removeAttachedFile(): Promise<void> {
+        await this.deleteAttachedFileBtn.waitForDisplayed({ timeout: 10_000 });
+        await this.jsClick(this.deleteAttachedFileBtn);
     }
 
     async verifyDayTimeScreenVisible(): Promise<void> {

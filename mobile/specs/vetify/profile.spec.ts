@@ -91,7 +91,7 @@ describe('TS-04 Perfil', () => {
 
     // Portado de tests/projects/vetify-webapp/profile.spec.ts TC-02 "Cambiar imagen de perfil"
     // (Playwright). IMP-011 (docs/impedimentos-bloqueos.md) resuelto vía selector nativo de
-    // fotos de Android — ver BasePage.selectPhotoViaNativePicker() y MyProfilePage.changeProfilePhoto().
+    // fotos de Android — ver BasePage.selectFileViaNativePicker() y MyProfilePage.changeProfilePhoto().
     it('TC-03 - Vetify Mobile App - cambia la foto de perfil', async () => {
         const loginPage = new VetifyMobileLoginPage();
         const homePage = new VetifyMobileHomePage();

@@ -1,3 +1,19 @@
 {
-  "cupons": []
+  "cupons": [
+    {
+      "code": "UNIVERSAL-REUSE-10",
+      "type": "reusable",
+      "universal": true,
+      "percentageDiscount": 10.5
+    },
+    {
+      "code": "OSDE-REUSE-20",
+      "type": "reusable",
+      "universal": false,
+      "projects": [
+        "OSDE_ADQUIRENTE"
+      ],
+      "percentageDiscount": 20
+    }
+  ]
 }

@@ -36,3 +36,6 @@
 {"timestamp":"2026-08-11T22:00:01.000Z","action":"comment","issueKey":"IMAS-4078","summary":"Documentado bloqueo: QA ya validado, falta acceso a Produccion (rol Calidad) para IMAS-4117","result":"ok"}
 {"timestamp":"2026-08-11T22:00:10.000Z","action":"transition","issueKey":"IMAS-3742","fromStatus":"In Validation","toStatus":"Bloqueado","summary":"Bloqueada por falta de usuario de prueba Ike-only/Vetify+Ike","result":"ok"}
 {"timestamp":"2026-08-11T22:00:11.000Z","action":"transition","issueKey":"IMAS-4078","fromStatus":"In Validation","toStatus":"Bloqueado","summary":"Bloqueada por falta de acceso a Produccion para IMAS-4117","result":"ok"}
+{"timestamp":"2026-08-12T18:00:34.735Z","action":"comment","issueKey":"IMAS-3728","summary":"Retest QA con evidencia (captura adjunta): validacion de token exitosa, DNI 32382023, bug no reproduce","result":"ok"}
+{"timestamp":"2026-08-12T18:14:41.769Z","action":"createDefect","parentKey":null,"defectKey":"IMAS-4294","summary":"Webapp Prestadores - \"Cerrar sesión\" no termina la sesión de Auth0, se puede re-entrar sin contraseña","result":"ok"}
+{"timestamp":"2026-08-12T19:24:31.605Z","action":"createDefect","parentKey":null,"defectKey":"IMAS-4300","summary":"App Android — banner de cookies tapado por el bottom nav, sin forma de aceptar/rechazar","result":"ok"}

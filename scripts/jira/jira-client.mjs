@@ -163,9 +163,15 @@ export async function findUserByEmail(email) {
 // ── Shared helpers ────────────────────────────────────────────────────────────
 
 export function toDoc(text) {
+  const blocks = String(text).split(/\n{2,}/).map((b) => b.trim()).filter(Boolean);
   return {
     type: 'doc', version: 1,
-    content: [{ type: 'paragraph', content: [{ type: 'text', text }] }],
+    content: blocks.map((block) => ({
+      type: 'paragraph',
+      content: block.split('\n').flatMap((line, i, lines) =>
+        i < lines.length - 1 ? [{ type: 'text', text: line }, { type: 'hardBreak' }] : [{ type: 'text', text: line }],
+      ),
+    })),
   };
 }
 

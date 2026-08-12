@@ -1,6 +1,6 @@
 import { execFileSync } from 'node:child_process';
 import path from 'node:path';
-import { expect } from '@wdio/globals';
+import { browser, expect } from '@wdio/globals';
 import { DateTime } from 'luxon';
 import { SiteId } from '../../../src/config/environment';
 import { getRandomInt } from '../../../src/helpers/automation-utils';
@@ -232,25 +232,27 @@ describe('TS-02 IMAS-3174 - Rediseño solicitud de turno x 1 mascota', () => {
     });
 });
 
+// Empuja un archivo a la galería/almacenamiento del dispositivo y dispara un media-scan, para que
+// el picker nativo de Android lo ofrezca como "más reciente" (IMP-011 resuelto, ver
+// BasePage.selectFileViaNativePicker()). Se llama justo antes de cada `attachFile()` que necesite
+// un archivo específico — el orden de los pushes determina cuál queda "más reciente".
+function pushFileToDeviceGallery(localFixturePath: string, deviceFileName: string): void {
+    const localPath = path.resolve(process.cwd(), localFixturePath);
+    const devicePath = `/sdcard/Pictures/${deviceFileName}`;
+    execFileSync('adb', ['push', localPath, devicePath]);
+    execFileSync('adb', [
+        'shell',
+        'am',
+        'broadcast',
+        '-a',
+        'android.intent.action.MEDIA_SCANNER_SCAN_FILE',
+        '-d',
+        `file://${devicePath}`,
+    ]);
+}
+
 describe('TS-03 IMAS-3889 - Adjuntos, calendario y motivo', () => {
     let reservedUser: TestUser | undefined;
-
-    before(() => {
-        // Precondición del picker nativo (IMP-011 resuelto, ver BasePage.selectFileViaNativePicker()):
-        // el archivo debe existir ya en la galería/almacenamiento del dispositivo/emulador.
-        const localPath = path.resolve(process.cwd(), 'src/fixtures/images/dog-profile-photo.jpg');
-        const devicePath = '/sdcard/Pictures/qa-attachment-photo.jpg';
-        execFileSync('adb', ['push', localPath, devicePath]);
-        execFileSync('adb', [
-            'shell',
-            'am',
-            'broadcast',
-            '-a',
-            'android.intent.action.MEDIA_SCANNER_SCAN_FILE',
-            '-d',
-            `file://${devicePath}`,
-        ]);
-    });
 
     afterEach(() => {
         if (reservedUser) {
@@ -298,6 +300,7 @@ describe('TS-03 IMAS-3889 - Adjuntos, calendario y motivo', () => {
         await videocallFormPage.verifyAttachmentsScreenVisible();
 
         // Pasos: adjuntar un archivo válido.
+        pushFileToDeviceGallery('src/fixtures/images/dog-profile-photo.jpg', 'qa-attachment-valid.jpg');
         await videocallFormPage.attachFile();
 
         // Resultado esperado: el sistema muestra el archivo adjuntado correctamente.
@@ -308,6 +311,85 @@ describe('TS-03 IMAS-3889 - Adjuntos, calendario y motivo', () => {
 
         // Resultado esperado: el sistema elimina el archivo adjuntado sin errores.
         await videocallFormPage.attachedFileNameLbl.waitForExist({ timeout: 10_000, reverse: true });
+    });
+
+    // Portado de tests/projects/vetify-webapp/videocall.spec.ts TS-03 TC-01 "Adjuntos - Rechazo
+    // por formato y peso inválido" (solo la parte de peso). Investigado en vivo (2026-08-12,
+    // varias corridas incluyendo un emulador recién reiniciado) pero el resultado fue
+    // CONTRADICTORIO entre corridas: unas veces ningún archivo queda listado tras seleccionar el
+    // de 11MB, otra vez `countAttachedFiles()` devolvió 1 (posible estado "subiendo" que cuenta
+    // como adjuntado antes de que el backend termine de rechazarlo/aceptarlo — el archivo es
+    // grande y la subida real puede tardar más que los ~15s de espera probados). En ningún caso
+    // apareció el mensaje de error explícito de Desktop ("...demasiado grande/excede/supera...").
+    // No hay evidencia suficiente para afirmar ni "se rechaza silenciosamente" ni "se acepta
+    // igual" con confianza — se deja explícitamente sin cubrir en vez de forzar una aserción poco
+    // confiable. Ver decision-log 2026-08-12 para el detalle completo antes de retomarlo.
+    it('TC-01 - Videollamada - Vetify - Adjuntos - Rechazo por peso inválido', function () {
+        this.skip();
+    });
+
+    // Portado de tests/projects/vetify-webapp/videocall.spec.ts TS-03 TC-08 "Bloqueo del selector
+    // de archivos al llegar a 5 (mobile)". A diferencia de Desktop (misma foto subida 5 veces vía
+    // setInputFiles()), acá se empuja el archivo una sola vez y se reutiliza el picker nativo 5
+    // veces seguidas (IMP-011 resuelto) — el picker no filtra por "ya usado", cada tap agrega una
+    // entrada nueva. Hay que esperar a que cada archivo quede realmente adjuntado antes del
+    // siguiente (mismo motivo que Desktop: sin esa espera, el input reinicia la selección en vez
+    // de sumar).
+    it('TC-08 - [Regresión] IMAS-4023/IMAS-3889 CP13 - Bloqueo del selector de archivos al llegar a 5 (mobile)', async function () {
+        const loginPage = new VetifyMobileLoginPage();
+        const homePage = new VetifyMobileHomePage();
+        const videocallFormPage = new VetifyMobileVideocallFormPage();
+
+        reservedUser = await loginPage.loginWithUserRequest({
+            source: UserSource.Pooled,
+            siteId: SiteId.VETIFY_ADQUIRENTE,
+            tags: [UserTag.ACTIVE, UserTag.WITH_PET, UserTag.NO_EMPTY_PLAN],
+            numberOfPlans: 1,
+            reserve: false,
+            ignoreReserved: true,
+        });
+
+        if (!reservedUser) {
+            this.skip();
+        }
+
+        await homePage.waitForLoaded();
+        const apiClient = await VetifyMobileWebappApiClient.getApiClient();
+        await apiClient.cancelAllScheduledVideocalls();
+
+        await videocallFormPage.load();
+        await videocallFormPage.startNewVideocallRequest();
+        await videocallFormPage.verifyReasonScreenVisible();
+        await videocallFormPage.selectReason('Vacunas');
+        await videocallFormPage.clickContinue();
+        await videocallFormPage.verifyAttachmentsScreenVisible();
+
+        pushFileToDeviceGallery('src/fixtures/images/dog-profile-photo.jpg', 'qa-attachment-limit.jpg');
+
+        // Pasos: adjuntar 5 archivos válidos consecutivos.
+        for (let i = 0; i < 5; i++) {
+            await videocallFormPage.attachFile();
+            await browser.waitUntil(async () => (await videocallFormPage.countAttachedFiles()) === i + 1, {
+                timeout: 10_000,
+                interval: 500,
+                timeoutMsg: `Se esperaban ${i + 1} archivo(s) adjuntado(s) tras la subida #${i + 1}.`,
+            });
+        }
+
+        // Resultado esperado: al llegar a 5 archivos, el bloque de carga deja de ofrecerse.
+        await videocallFormPage.attachmentDropzoneTrigger.waitForExist({ timeout: 10_000, reverse: true });
+    });
+
+    it('TC-07/TC-09 - [Fuera de alcance en mobile] Formato inválido (.txt) vía input directo', function () {
+        // Playwright fuerza un .txt directo con setInputFiles() (bypassa cualquier filtro del SO).
+        // En mobile, el archivo se elige a través del selector nativo de Android (IMP-011
+        // resuelto vía BasePage.selectFileViaNativePicker()), que filtra las opciones mostradas
+        // según el `accept` real del input (image/*,video/*,application/pdf) a nivel de sistema
+        // operativo — un usuario real en Android NUNCA puede seleccionar un .txt desde ese picker
+        // para este input, a diferencia de un navegador Desktop donde sí es posible forzarlo.
+        // Este caso no es reproducible de la misma forma en mobile — no es una brecha de
+        // automatización, es una diferencia real de plataforma. Ver decision-log 2026-08-12.
+        this.skip();
     });
 
     it('TC-05 - Videollamada - Vetify - Selector de mascota obligatorio (multi-mascota)', async function () {

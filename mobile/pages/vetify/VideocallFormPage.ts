@@ -109,6 +109,15 @@ export class VetifyMobileVideocallFormPage extends VetifyMobileLoggedBasePage {
         return $('//button[@data-cy="filePreviewDelete"]');
     }
 
+    // Mismo texto que la versión Desktop (regex amplia: "demasiado grande"/"excede"/"supera").
+    // NOTA (2026-08-12): confirmado en vivo que este mensaje NO aparece en mobile tras un archivo
+    // oversize (dump completo de document.body.innerText, sin rastro del texto) — no se usa en
+    // ningún spec activo por ahora, ver TS-03 TC-01 en videocall.spec.ts. Se deja el getter por si
+    // se confirma más adelante que sí existe (ej. aparece con más delay, o en otra ubicación).
+    get attachmentErrorLbl() {
+        return $('//*[contains(., "demasiado grande") or contains(., "excede") or contains(., "supera")]');
+    }
+
     get dayTimeHeadingLbl() {
         return $('//h2[contains(., "Seleccioná el día y el horario")]');
     }
@@ -255,6 +264,13 @@ export class VetifyMobileVideocallFormPage extends VetifyMobileLoggedBasePage {
     async removeAttachedFile(): Promise<void> {
         await this.deleteAttachedFileBtn.waitForDisplayed({ timeout: 10_000 });
         await this.jsClick(this.deleteAttachedFileBtn);
+    }
+
+    // Cuenta cuántos archivos están adjuntados contando los botones de borrar (uno por archivo) —
+    // más confiable que contar `attachedFileNameLbl` porque ese xpath sube por hermano del botón,
+    // uno por cada archivo real.
+    async countAttachedFiles(): Promise<number> {
+        return browser.execute(() => document.querySelectorAll('button[data-cy="filePreviewDelete"]').length);
     }
 
     async verifyDayTimeScreenVisible(): Promise<void> {

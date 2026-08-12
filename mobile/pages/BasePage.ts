@@ -25,11 +25,18 @@ export abstract class BasePage {
 
     // Workaround real de IMP-011 (docs/impedimentos-bloqueos.md): setear un <input type="file">
     // directo vía chromedriver (`setValue(hostPath)`) crashea el WebView embebido de esta app.
-    // La alternativa que SÍ funciona, confirmada en vivo: tocar el <label> visible que dispara el
+    // La alternativa que SÍ funciona, confirmada en vivo: tocar el elemento VISIBLE que dispara el
     // input (igual que un usuario real) abre el selector nativo de fotos de Android
     // (`com.google.android.providers.media.module`, actividad "Photo Picker" moderna) en vez de
     // pasar por chromedriver — sin crash, y la app recibe el archivo normal al volver al WebView
     // (confirmado: el <img> de preview queda con un blob: URL real).
+    //
+    // El trigger real varía por pantalla — no siempre es un <label for="...">: en el paso de foto
+    // de mascota SÍ lo es, pero en el avatar de perfil el input no tiene label asociado, y el
+    // trigger real es el propio `div[data-scope="avatar"][data-part="root"]` (confirmado en vivo:
+    // clickear el div contenedor del input NO dispara nada, clickear el avatar sí). Por eso este
+    // helper recibe cualquier selector CSS del elemento clickeable real, no asume que es un label
+    // — verificar en vivo cuál es el trigger correcto antes de asumirlo en una pantalla nueva.
     //
     // Precondición: la foto a seleccionar debe existir ya en la galería del dispositivo/emulador
     // (adb push + broadcast MEDIA_SCANNER_SCAN_FILE) — este helper no la sube, solo la selecciona
@@ -39,9 +46,9 @@ export abstract class BasePage {
     // opciones). Selecciona la más reciente (primer resultado); si se necesita una foto específica
     // entre varias, extender con un selector más preciso en vez de asumir que alcanza con "la
     // primera".
-    async selectPhotoViaNativePicker(triggerLabelSelector: string): Promise<void> {
+    async selectPhotoViaNativePicker(triggerSelector: string): Promise<void> {
         await this.switchToWebViewContext();
-        const trigger = $(triggerLabelSelector);
+        const trigger = $(triggerSelector);
         await trigger.waitForDisplayed({ timeout: 10_000 });
         // Click vía JS, no nativo — mismo motivo que el resto del proyecto (viewport angosto,
         // intercepción de coordenadas). Ver known-issues.md.

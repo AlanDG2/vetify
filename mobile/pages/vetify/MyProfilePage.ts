@@ -36,6 +36,21 @@ export class VetifyMobileMyProfilePage extends VetifyMobileLoggedBasePage {
         return $('//*[contains(., "Perfil actualizado correctamente")]');
     }
 
+    // data-state="visible" explícito -- el <img> del avatar ya existe en el DOM desde el
+    // principio pero oculto (hidden, data-state="hidden") mientras se muestran las iniciales de
+    // fallback; solo pasa a visible cuando hay una foto real cargada.
+    get avatarImg() {
+        return $('img[data-scope="avatar"][data-part="image"][data-state="visible"]');
+    }
+
+    // El <input type="file"> del avatar (solo existe en modo edición) NO tiene <label for="...">
+    // asociado — a diferencia del paso de foto de mascota. El trigger real confirmado en vivo es
+    // el propio div del avatar (clickear el contenedor del input no dispara nada). Ver IMP-011
+    // (docs/impedimentos-bloqueos.md) y BasePage.selectPhotoViaNativePicker().
+    async changeProfilePhoto(): Promise<void> {
+        await this.selectPhotoViaNativePicker('div[data-scope="avatar"][data-part="root"]');
+    }
+
     async load(): Promise<void> {
         await this.navigateTo('/section/myprofile');
     }

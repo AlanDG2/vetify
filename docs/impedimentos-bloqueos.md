@@ -198,6 +198,8 @@ Implementado como `BasePage.selectPhotoViaNativePicker(triggerLabelSelector)` (`
 
 **Reabrir si**: el workaround deja de funcionar (ej. Android cambia el picker nativo, o la app deja de implementar `onShowFileChooser`) — en ese caso sí valdría la pena retomar la búsqueda de una forma de setear el input directo (los 3 caminos ya descartados arriba, o alguno nuevo).
 
+**Extendido 2026-08-12, mismo día — foto de perfil confirmada, con un trigger distinto al de mascota**: el `<input type="file">` del avatar de perfil (`profile.spec.ts` TC-03) NO tiene `<label for="...">` asociado, a diferencia del paso de foto de mascota — el trigger real confirmado en vivo es el propio `div[data-scope="avatar"][data-part="root"]` (clickear el contenedor directo del input no dispara nada). `BasePage.selectPhotoViaNativePicker()` no necesitó cambios (ya recibía el selector como parámetro genérico) — solo se confirmó que el patrón "encontrar el trigger visible real" hay que repetirlo por pantalla, no asumirlo. Verificado 2/2 en aislamiento.
+
 ## Histórico de resueltos
 <!-- al resolver: mover aquí, 🟢 Resuelto + fecha + cómo se resolvió -->
 

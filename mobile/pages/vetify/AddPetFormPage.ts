@@ -89,33 +89,32 @@ export class VetifyMobileAddPetFormPage extends VetifyMobileLoggedBasePage {
         await monthsSelect.selectByIndex(monthsIndex);
     }
 
-    // Paso 5 — foto: setInputFiles() de Playwright no existe en WebdriverIO. Dos falsas pistas
-    // probadas y descartadas en vivo antes de llegar a esto:
-    //  1. browser.uploadFile() — falla con "not available in undefined": depende del comando W3C
-    //     `file` (zip a un servidor Selenium/chromedriver standalone) que Appium no expone.
-    //  2. browser.pushFile() + ruta de DISPOSITIVO — falla con "path is not absolute": el
-    //     input[type=file] de este WebView se maneja vía chromedriver (proxy de Appium al Chrome
-    //     del dispositivo), y chromedriver espera una ruta absoluta del HOST (Windows), no del
-    //     dispositivo — transfiere el archivo él solo a través del túnel de debugging.
-    // Lo que sí funciona: pasar la ruta LOCAL (host) directo a setValue(), igual que Playwright.
+    // Paso 5 — foto: IMP-011 (docs/impedimentos-bloqueos.md) RESUELTO vía workaround — setear el
+    // <input type="file"> directo (setInputFiles()/setValue() con ruta de host) crashea el WebView
+    // embebido de esta app. Se usa BasePage.selectPhotoViaNativePicker() en su lugar: toca el
+    // <label> visible (igual que un usuario real) y navega el selector nativo de fotos de Android
+    // que se abre. Requiere que la foto ya exista en la galería del dispositivo/emulador (adb push
+    // + media scan) — no sube un archivo nuevo, selecciona uno ya presente.
     get petPhotoFileInput() {
         return $('input[id="pet-photo-file-input"]');
+    }
+
+    get petPhotoFileLbl() {
+        return $('label[for="pet-photo-file-input"]');
     }
 
     get petPhotoPreviewImg() {
         return $('img[alt="Foto de tu mascota"]');
     }
 
-    async uploadPetPhoto(localPath: string): Promise<void> {
-        const input = await this.petPhotoFileInput;
-        // El input real está oculto (style="display: none"; el trigger visible es un botón que lo
-        // clickea por detrás) — setValue() de WebdriverIO exige "displayed" antes de escribir, a
-        // diferencia de setInputFiles() de Playwright que ignora visibilidad. Se fuerza visible por
-        // JS solo para pasar ese chequeo; no afecta el resultado funcional.
-        await browser.execute((node: HTMLElement) => {
-            node.style.display = 'block';
-        }, input);
-        await input.setValue(localPath);
+    // Mismo locator que petPhotoFileLbl — una vez subida la foto, tocar el mismo trigger permite
+    // elegir otra (igual que Playwright's changePhotoBtn).
+    get changePhotoBtn() {
+        return $('label[for="pet-photo-file-input"]');
+    }
+
+    async uploadPetFilePhoto(): Promise<void> {
+        await this.selectPhotoViaNativePicker('label[for="pet-photo-file-input"]');
     }
 
     // Igual que MyProfilePage.getAllParagraphTexts() — $$('h2') con CSS es confiable, xpath con

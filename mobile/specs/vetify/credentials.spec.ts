@@ -89,4 +89,18 @@ describe('TS-07 Credenciales - Visualizacion de Planes', () => {
         await addPetFormPage.startWarningModalTitle.waitForDisplayed({ timeout: 10_000 });
         expect(await addPetFormPage.startWarningModalTitle.isDisplayed()).toBe(true);
     });
+
+    // Portado de tests/projects/vetify-webapp/credentials.spec.ts TS-01 TC-03 "Suscribir nueva
+    // mascota - Sin planes libres". Confirmado en vivo (2026-08-13) que mobile SÍ muestra el mismo
+    // modal que Desktop ("Agregar mascota" / "Ir a la web" / "Cancelar", DOM idéntico) — pero al
+    // tocar "Ir a la web" no pasa nada más: el modal se cierra (el handler del botón se dispara) y
+    // no hay navegación (URL sin cambios), ni contexto WEBVIEW_chrome nuevo, ni cambio de paquete
+    // en foreground. Probado con click JS y con tap nativo, mismo resultado en ambos. Es un bug de
+    // producto real, no una limitación de plataforma — el mecanismo de "intent externo" SÍ funciona
+    // en este mismo emulador (control case: vetify-plus.spec.ts TC-01 abre WEBVIEW_chrome sin
+    // problema). Documentado en docs/bugs/BUG-011-suscribir-mascota-ir-a-la-web-no-navega-mobile.md
+    // — no filed en Jira todavía (pendiente de OK explícito del usuario del proyecto).
+    it('TC-03 - [Bug conocido, BUG-011] Vetify Mobile App - Suscribir mascota sin planes libres - "Ir a la web" no navega', function () {
+        this.skip();
+    });
 });

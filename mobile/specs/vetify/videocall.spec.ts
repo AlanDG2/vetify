@@ -121,6 +121,79 @@ describe('TS-01 IMAS-3899 - Solicitud sin credencial cargada', () => {
         }
         expect(rejected).toBe(true);
     });
+
+    // Portado de credencial-videollamada TC-03 (Desktop, IMAS-4102/CA05). Completa el wizard de
+    // credencial de punta a punta con el MISMO usuario PLAN_WITHOUT_PET que TC-01/TC-02 — a
+    // diferencia de esos 2 (que se detienen antes de mutar el estado del usuario), este test SÍ
+    // consume la cuenta de forma real y permanente (queda WITH_PET en el backend). Mismo patrón
+    // que Desktop: no hay forma de evitarlo sin una cuenta dedicada de un solo uso, y Desktop ya
+    // acepta este trade-off (test.skip(hasAnyPlanWithPet, ...) — IMP-003). Tras la primera corrida
+    // exitosa, las siguientes van a auto-skippear con el mismo motivo hasta que se re-provisione
+    // una cuenta NO_PET nueva — igual que le pasa a TC-01/TC-02 con esta misma cuenta compartida.
+    it('TC-03 - Videollamada - Vetify - Retomar la solicitud tras completar la credencial (CA05, IMAS-4102)', async function () {
+        const loginPage = new VetifyMobileLoginPage();
+        const homePage = new VetifyMobileHomePage();
+        const videocallFormPage = new VetifyMobileVideocallFormPage();
+        const addPetFormPage = new VetifyMobileAddPetFormPage();
+
+        reservedUser = await loginPage.loginWithUserRequest({
+            source: UserSource.Pooled,
+            siteId: SiteId.VETIFY_ADQUIRENTE,
+            tags: [UserTag.ACTIVE, UserTag.PLAN_WITHOUT_PET],
+            reserve: false,
+            ignoreReserved: true,
+        });
+
+        if (!reservedUser) {
+            this.skip();
+        }
+
+        await homePage.waitForLoaded();
+
+        const apiClient = await VetifyMobileWebappApiClient.getApiClient();
+        const hasAnyPlanWithPet = await apiClient.userHasPlanWithPet();
+        if (hasAnyPlanWithPet) {
+            this.skip();
+        }
+
+        const petName = `TestCA05${Date.now()}`;
+
+        // 1. Iniciar una solicitud de videollamada y llegar al formulario de carga de credencial.
+        await videocallFormPage.load();
+        await videocallFormPage.startNewVideocallRequest();
+        await videocallFormPage.verifyMissingCredentialScreenVisible();
+        await videocallFormPage.goToCompleteCredential();
+
+        // 2. Completar el formulario de credencial de la mascota de punta a punta.
+        await addPetFormPage.startWarningModalTitle.waitForDisplayed({ timeout: 15_000 });
+        await addPetFormPage.dismissStartWarningModal();
+        await addPetFormPage.clickContinue();
+
+        await addPetFormPage.fillPetName(petName);
+        await addPetFormPage.clickContinue();
+
+        await addPetFormPage.selectPetType('Perro');
+        await addPetFormPage.selectPetGender('Macho');
+        await addPetFormPage.clickContinue();
+
+        await addPetFormPage.selectFirstPetBreed();
+        await addPetFormPage.clickContinue();
+
+        await addPetFormPage.selectPetAgeByIndex(3, 0);
+        await addPetFormPage.clickContinue();
+
+        await addPetFormPage.uploadPetFilePhoto();
+        await addPetFormPage.clickContinue();
+
+        // Resultado esperado: el sistema NO vuelve al Home general — lleva a la pantalla de
+        // entrada de videollamada, con la mascota recién cargada disponible.
+        await addPetFormPage.congratsHeadingLbl.waitForDisplayed({ timeout: 20_000 });
+        expect(await addPetFormPage.congratsHeadingLbl.getText()).toContain(petName);
+        await addPetFormPage.clickContinue();
+
+        await videocallFormPage.scheduleNewVideocallBtn.waitForDisplayed({ timeout: 15_000 });
+        expect(await videocallFormPage.scheduleNewVideocallBtn.isDisplayed()).toBe(true);
+    });
 });
 
 describe('TS-02 IMAS-3174 - Rediseño solicitud de turno x 1 mascota', () => {

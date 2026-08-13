@@ -44,6 +44,34 @@ Body: {"timestamp":"2026-08-13T01:32:19.976+00:00","status":500,"error":"Interna
 
 Mismo endpoint, misma sesión, mismo formato de request — la única variable es el tamaño del archivo. Confirma que el 500 es específico del tamaño, no un problema de la request de prueba.
 
+## Reconfirmado en vivo (2026-08-13)
+
+Se re-probó contra QA real, esta vez también confirmando que **la UI de Desktop nunca deja llegar el archivo grande al backend** (el frontend bloquea client-side con el mensaje "La foto que estás intentando subir es demasiado grande" — confirmado que no sale ningún request de red en ese caso, revisando la pestaña Network). Por eso el bug **no es reproducible navegando la UI normalmente**, ni en Desktop ni en mobile — solo golpeando el endpoint directo.
+
+Repetido el llamado directo al endpoint (mismo patrón que el hallazgo original, cuenta real, token de sesión real):
+
+```
+POST /api/files/upload/pets
+Archivo de 6000 bytes → 200 {"id":"aee5ebc4-2916-45df-8362-10067a92f471"}
+Archivo de 11MB       → 500 {"timestamp":"2026-08-13T16:49:02.708+00:00","status":500,"error":"Internal Server Error","path":"/upload/pets"}
+```
+
+Mismo resultado exacto que la vez anterior — el bug sigue vigente.
+
+## Cómo reproducirlo vos mismo (sin código, con DevTools del navegador)
+
+1. Iniciar sesión en `https://vetify-qa.ikeapp.com` con cualquier usuario real.
+2. Abrir las DevTools de Chrome (F12) → pestaña **Network**.
+3. Ir a Mascotas → completar (o continuar) una credencial hasta el paso 5 (foto) y subir cualquier foto válida y chica (menos de 5MB).
+4. En la pestaña Network, buscar la request `upload/pets` (filtrar escribiendo "upload").
+5. Click derecho sobre esa request → **Copy** → **Copy as cURL** (bash).
+6. Pegar el comando en una terminal (Git Bash, por ejemplo) — va a incluir automáticamente el token/cookie de sesión real, no hace falta copiarlo a mano.
+7. Editar el comando: donde dice `--form 'file=@<archivo-chico>.jpg'`, cambiar la ruta por la de un archivo de más de 10MB (cualquier imagen/video pesado que tengas a mano sirve).
+8. Ejecutar el comando y mirar la respuesta.
+
+**Resultado esperado**: un error claro tipo "el archivo es demasiado grande" (4xx).
+**Resultado que confirma el bug**: `500 Internal Server Error` genérico, sin mensaje útil — igual al de la tabla de arriba.
+
 ## Notas adicionales
 
 - No se confirmó si mobile realmente llega a golpear este endpoint con el archivo oversize (no se pudo interceptar la red desde WebdriverIO/Appium — ver limitación ya documentada en `qa-workspace/known-issues.md` sobre CDP no disponible en este stack). Es la explicación más consistente con lo observado, pero queda como hipótesis fundamentada, no como hecho confirmado end-to-end.

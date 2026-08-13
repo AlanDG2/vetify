@@ -499,17 +499,19 @@ describe('TS-03 IMAS-3889 - Adjuntos, calendario y motivo', () => {
     });
 
     // Portado de tests/projects/vetify-webapp/videocall.spec.ts TS-03 TC-01 "Adjuntos - Rechazo
-    // por formato y peso inválido" (solo la parte de peso). Investigado en vivo (2026-08-12,
-    // varias corridas incluyendo un emulador recién reiniciado) pero el resultado fue
-    // CONTRADICTORIO entre corridas: unas veces ningún archivo queda listado tras seleccionar el
-    // de 11MB, otra vez `countAttachedFiles()` devolvió 1 (posible estado "subiendo" que cuenta
-    // como adjuntado antes de que el backend termine de rechazarlo/aceptarlo — el archivo es
-    // grande y la subida real puede tardar más que los ~15s de espera probados). En ningún caso
-    // apareció el mensaje de error explícito de Desktop ("...demasiado grande/excede/supera...").
-    // No hay evidencia suficiente para afirmar ni "se rechaza silenciosamente" ni "se acepta
-    // igual" con confianza — se deja explícitamente sin cubrir en vez de forzar una aserción poco
-    // confiable. Ver decision-log 2026-08-12 para el detalle completo antes de retomarlo.
-    it('TC-01 - Videollamada - Vetify - Adjuntos - Rechazo por peso inválido', function () {
+    // por formato y peso inválido" (solo la parte de peso). RESUELTO 2026-08-13 (era un falso
+    // negativo del emulador, misma familia que BUG-011): la investigación original (2026-08-12,
+    // varias corridas contra el emulador) dio resultados CONTRADICTORIOS y nunca mostró el mensaje
+    // de error, así que quedó en skip por evidencia insuficiente. Validado en vivo con el usuario
+    // en un dispositivo físico real (Motorola Edge 60): subir una foto real de más de 10MB en esta
+    // misma pantalla SÍ muestra un error claro y consistente — "Error de carga — El archivo
+    // '<nombre>' supera el tamaño permitido (10 MB)." (confirmado con captura de pantalla). El
+    // locator `attachmentErrorLbl` (que ya buscaba "supera") era correcto — el problema era que el
+    // emulador no reproducía el error de forma confiable, probablemente porque el picker nativo del
+    // AVD no entrega el tamaño real del archivo al JS de la misma forma que en hardware real. Sigue
+    // en skip porque el emulador (único entorno de automatización disponible) no lo reproduce de
+    // forma confiable — no por ambigüedad de comportamiento, que ya está resuelta.
+    it('TC-01 - [Plataforma] Videollamada - Vetify - Adjuntos - Rechazo por peso inválido (no verificable de forma confiable en el emulador)', function () {
         this.skip();
     });
 

@@ -1,7 +1,7 @@
 # BUG-010 — Backend: `/api/files/upload/pets` devuelve 500 crudo en vez de validar el tamaño máximo del archivo
 
 **Título**: BUG | Backend — endpoint de subida de archivos no valida tamaño máximo, devuelve 500 sin mensaje
-**Severidad**: Medio — no bloquea el flujo normal en Desktop (el frontend ya impide enviar un archivo de más de 10MB antes de llegar a este endpoint), pero es una falla real de robustez del backend: cualquier request que sí llegue con un archivo grande (un cliente distinto, una app mobile, una integración) recibe un error genérico sin información útil. Es la causa más probable de que en la app mobile no se vea ningún mensaje de error al intentar adjuntar un archivo de más de 10MB (ver notas).
+**Severidad**: Medio — no bloquea el flujo normal en Desktop NI en mobile (ambos frontends impiden enviar un archivo de más de 10MB antes de llegar a este endpoint — confirmado en los dos, ver "Reconfirmado en vivo"), pero es una falla real de robustez del backend: cualquier request que sí llegue con un archivo grande (un cliente distinto, una integración, o el mismo frontend si cambia su validación) recibe un error genérico sin información útil.
 **Categoría**: Backend
 **HU relacionada**: IMAS-3889 (Adjuntos de videollamada) / IMAS-4023 (regresión de adjuntos) — mismo endpoint que usa esa pantalla; no ligado a una HU de mobile puntual.
 
@@ -16,7 +16,7 @@
 
 El endpoint de subida de archivos no valida el tamaño del payload antes de procesarlo — un archivo de 11MB (por encima del límite documentado de 10MB que el frontend Desktop sí hace cumplir antes de enviar la request) produce una excepción no controlada del lado del servidor (`500 Internal Server Error`), en vez de una respuesta 4xx con un mensaje claro (ej. "el archivo excede el tamaño permitido").
 
-En Desktop este bug nunca lo ve un usuario real porque el frontend bloquea el envío antes de llegar a la red (confirmado en el POM Playwright: el mensaje "demasiado grande" se muestra sin esperar ninguna respuesta HTTP). Pero es un gap real de robustez del backend, y es la explicación más probable de un hallazgo separado en mobile (`videocall.spec.ts` TS-03, ver `qa-workspace/decision-log.md` 2026-08-12): al adjuntar un archivo de 11MB vía el selector nativo de Android, la pantalla no mostró ningún mensaje de error ni tampoco el archivo adjuntado — consistente con que la petición sí llegó a este endpoint (a diferencia de Desktop) y el 500 resultante no tiene ningún manejo de error mapeado en la UI.
+Ningún usuario real (Desktop ni mobile) ve este bug hoy porque ambos frontends bloquean el envío antes de llegar a la red — confirmado en Desktop (POM Playwright: el mensaje "demasiado grande" se muestra sin esperar ninguna respuesta HTTP) y confirmado en mobile en hardware real el 2026-08-13 (ver "Reconfirmado en vivo" — subir una foto real de >10MB en la pantalla de adjuntos de videollamada muestra un error claro: "El archivo '...' supera el tamaño permitido (10 MB)"). Es un gap real de robustez del backend igual — cualquier cliente que no valide (o cuya validación falle) queda expuesto a un 500 genérico sin ningún manejo de error.
 
 ## Pasos para reproducir
 
@@ -74,6 +74,5 @@ Mismo resultado exacto que la vez anterior — el bug sigue vigente.
 
 ## Notas adicionales
 
-- No se confirmó si mobile realmente llega a golpear este endpoint con el archivo oversize (no se pudo interceptar la red desde WebdriverIO/Appium — ver limitación ya documentada en `qa-workspace/known-issues.md` sobre CDP no disponible en este stack). Es la explicación más consistente con lo observado, pero queda como hipótesis fundamentada, no como hecho confirmado end-to-end.
+- **Actualización 2026-08-13**: la hipótesis original ("es la explicación más probable de que mobile no muestre error") quedó **descartada** — validado en hardware real que mobile SÍ muestra un mensaje de rechazo claro y consistente para archivos oversize en la pantalla de adjuntos de videollamada, igual que Desktop. El hallazgo ambiguo de `videocall.spec.ts` TS-03 TC-01 (2026-08-12, resultados contradictorios entre corridas contra el emulador) era un falso negativo del emulador, no evidencia de que este bug de backend afectara a un usuario real — ver `qa-workspace/decision-log.md` (entrada 2026-08-13) para el detalle completo. Este bug (el 500 crudo del backend) sigue vigente igual — solo se descarta que explique algo del comportamiento observado en mobile.
 - No se investigó si existe algún límite/config de tamaño de request a nivel de gateway/proxy delante del backend (podría explicar por qué es un 500 genérico de Spring/Java — `"error":"Internal Server Error"` sin cuerpo específico de aplicación — en vez de un error de validación propio de la app).
-- Relacionado con el hallazgo de mobile documentado en `qa-workspace/decision-log.md`, entrada "TS-03 ampliado..." (2026-08-12) — `videocall.spec.ts` TS-03 TC-01 quedó como skip documentado por evidencia entonces ambigua; este bug le da un respaldo técnico más sólido a esa ambigüedad, aunque no la resuelve del todo (ver punto anterior).

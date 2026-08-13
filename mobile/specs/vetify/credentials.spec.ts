@@ -1,3 +1,5 @@
+import { execFileSync } from 'node:child_process';
+import path from 'node:path';
 import { browser, expect } from '@wdio/globals';
 import { DateTime } from 'luxon';
 import { SiteId } from '../../../src/config/environment';
@@ -166,5 +168,109 @@ describe('TS-08 Credenciales - Ver Credencial', () => {
 
         const age = getPetAge(DateTime.fromFormat(planData.mascota.fecha_nacimiento, 'yyyy-MM-dd'));
         expect(await myPetsPage.petDetailAgeLbl.getText()).toBe(age);
+    });
+});
+
+// Portado de tests/projects/vetify-webapp/credentials.spec.ts TS-03 "Crear Credencial" TC-01
+// (flujo end-to-end real: crea la mascota, verifica la respuesta de la API, confirma el redirect
+// a Home). A diferencia de TS-08 (credential-wizard.spec.ts, camino feliz que se detiene antes de
+// enviar para no consumir la cuenta compartida ACTIVE+PLAN_WITHOUT_PET del pool), este test SÍ
+// completa el alta real — por eso usa `UserSource.Fresh` (cuenta descartable de un solo uso,
+// provisionada vía UserFactory.generateTestUsers() + activateFreshAccounts(), mismo mecanismo que
+// usa Desktop para este mismo caso). Si no queda ninguna cuenta Fresh disponible en
+// src/fixtures/users/fresh-users.json, el test hace skip dinámico — mismo patrón que el resto del
+// proyecto ante falta de datos de pool.
+describe('TS-09 Credenciales - Crear Credencial - Alta completa end-to-end (cuenta Fresh)', () => {
+    let reservedUser: TestUser | undefined;
+
+    before(() => {
+        const localPath = path.resolve(process.cwd(), 'src/fixtures/images/dog-profile-photo.jpg');
+        const devicePath = '/sdcard/Pictures/qa-pet-photo-ts09.jpg';
+        execFileSync('adb', ['push', localPath, devicePath]);
+        execFileSync('adb', ['shell', 'am', 'broadcast', '-a', 'android.intent.action.MEDIA_SCANNER_SCAN_FILE', '-d', `file://${devicePath}`]);
+    });
+
+    afterEach(() => {
+        if (reservedUser) {
+            UserProvider.releaseUser(reservedUser);
+            reservedUser = undefined;
+        }
+    });
+
+    it('TC-01 - Vetify Mobile App - Cargar credencial con foto (flujo real completo)', async function () {
+        const loginPage = new VetifyMobileLoginPage();
+        const homePage = new VetifyMobileHomePage();
+        const myPetsPage = new VetifyMobileMyPetsPage();
+        const addPetFormPage = new VetifyMobileAddPetFormPage();
+
+        reservedUser = await loginPage.loginWithUserRequest({
+            source: UserSource.Fresh,
+            siteId: SiteId.VETIFY_ADQUIRENTE,
+            tags: [UserTag.ACTIVE, UserTag.NO_PET, UserTag.PLAN_WITHOUT_PET],
+            numberOfPlans: 1,
+        });
+
+        if (!reservedUser) {
+            this.skip();
+        }
+
+        await homePage.waitForLoaded();
+        await homePage.dismissCookieBannerIfPresent();
+
+        const petName = `TestTS09${Date.now()}`;
+        const petType = 'Perro';
+        const petGender = 'Macho';
+
+        // 1. Navegar a Mascotas y comenzar la carga de credencial.
+        await myPetsPage.load();
+        await myPetsPage.addPetToPlanBtn.waitForDisplayed({ timeout: 20_000 });
+        const completarCredencialBtn = await myPetsPage.addPetToPlanBtn;
+        await completarCredencialBtn.click();
+
+        await addPetFormPage.startWarningModalTitle.waitForDisplayed({ timeout: 20_000 });
+        await addPetFormPage.dismissStartWarningModal();
+
+        // 2. Nombre.
+        await addPetFormPage.fillPetName(petName);
+        await addPetFormPage.clickContinue();
+
+        // 3. Tipo y género.
+        await addPetFormPage.selectPetGender(petGender);
+        await addPetFormPage.selectPetType(petType);
+        await addPetFormPage.clickContinue();
+
+        // 4. Raza.
+        await addPetFormPage.selectFirstPetBreed();
+        await addPetFormPage.clickContinue();
+
+        // 5. Edad.
+        await addPetFormPage.selectPetAgeByIndex(3, 0);
+        await addPetFormPage.clickContinue();
+
+        // 6. Foto — sube una foto real (IMP-011 resuelto vía selector nativo).
+        await addPetFormPage.uploadPetFilePhoto();
+        await addPetFormPage.petPhotoPreviewImg.waitForDisplayed({ timeout: 10_000 });
+
+        // 7. Enviar el formulario final — esto SÍ completa el alta real (a diferencia de TS-08).
+        await addPetFormPage.clickContinue();
+
+        // Resultado esperado: pantalla de felicitación con el nombre real de la mascota.
+        await addPetFormPage.congratsHeadingLbl.waitForDisplayed({ timeout: 20_000 });
+        expect(await addPetFormPage.congratsHeadingLbl.getText()).toContain(petName);
+
+        // "Ir al inicio" cuando se llega desde el flujo normal de Mascotas (a diferencia del CTA
+        // "Continuar" que usa el flujo interrumpido de videollamada, ver videocall.spec.ts TS-01 TC-03).
+        await addPetFormPage.goToHomeBtn.waitForDisplayed({ timeout: 10_000 });
+        await addPetFormPage.goToHomeBtn.click();
+        await homePage.greetingLbl.waitForDisplayed({ timeout: 15_000 });
+
+        // Resultado esperado: el backend confirma la mascota creada con los datos reales.
+        const apiClient = await VetifyMobileWebappApiClient.getApiClient();
+        const pets = await apiClient.getUserPets();
+        const createdPet = pets.find((p: { mascota?: { nombre?: string } }) => p.mascota?.nombre === petName);
+        if (!createdPet) throw new Error(`No se encontró la mascota "${petName}" en la respuesta de la API tras completar el alta.`);
+        expect(createdPet.estado).toBe('OCUPADO');
+        expect(createdPet.mascota.especie.descripcion).toBe(petType.toUpperCase());
+        expect(createdPet.mascota.raza.descripcion).toBeDefined();
     });
 });

@@ -37,6 +37,22 @@ export class VetifyMobileHomePage extends VetifyMobileLoggedBasePage {
         }
     }
 
+    // Banner de cookies ("Usamos cookies y tecnologías similares...") — solo lo ve una cuenta que
+    // nunca lo aceptó antes (confirmado en vivo 2026-08-13 con una cuenta Fresh recién registrada:
+    // las cuentas pooled reusadas no lo ven porque ya quedó aceptado en su sesión previa vía la
+    // cookie `cookie_preferences`). Sin dismissearlo, tapa triggers de otras pantallas (ej. el
+    // selector nativo de foto en el wizard de credencial) — mismo tipo de overlap que BUG-009,
+    // pero en este trigger puntual en vez del bottom nav.
+    get cookieBannerAcceptBtn() {
+        return $('//button[contains(., "Aceptar todas")]');
+    }
+
+    async dismissCookieBannerIfPresent(): Promise<void> {
+        if (await this.cookieBannerAcceptBtn.isExisting()) {
+            await browser.execute((el: HTMLElement) => el.click(), await this.cookieBannerAcceptBtn);
+        }
+    }
+
     // Pollea en vez de chequear el tour una sola vez al principio: en una sesión de Appium
     // "no-primera" (2da en adelante dentro del mismo proceso del server) la carga es más lenta
     // y el tour puede aparecer DESPUÉS del primer chequeo — una sola verificación al inicio

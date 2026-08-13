@@ -23,6 +23,18 @@ export class VetifyMobileMyPetsPage extends VetifyMobileLoggedBasePage {
         return $('//*[contains(., "Dejá su credencial lista")]');
     }
 
+    // Pantalla de detalle (SPA, no cambia la URL — confirmado con getUrl() en vivo, la ruta se
+    // mantiene en /section/mypets pese a mostrar los datos completos de la mascota). Raza/Edad
+    // siguen el mismo patrón "label + valor en <p> hermano" que otras pantallas de este proyecto
+    // (ver reviewMascotaLbl en VideocallFormPage.ts) — confirmado con un dump en vivo.
+    get petDetailBreedLbl() {
+        return $('//p[contains(., "Raza")]/following-sibling::p[1]');
+    }
+
+    get petDetailAgeLbl() {
+        return $('//p[contains(., "Edad")]/following-sibling::p[1]');
+    }
+
     async load(): Promise<void> {
         await this.navigateTo('/section/mypets');
     }

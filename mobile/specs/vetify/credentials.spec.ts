@@ -1,8 +1,11 @@
 import { browser, expect } from '@wdio/globals';
+import { DateTime } from 'luxon';
 import { SiteId } from '../../../src/config/environment';
+import { getPetAge } from '../../../src/helpers/automation-utils';
 import { UserTag } from '../../../src/providers/user/tags';
 import type { TestUser } from '../../../src/providers/user/user-provider';
 import { UserProvider, UserSource } from '../../../src/providers/user/user-provider';
+import { VetifyMobileWebappApiClient } from '../../api/VetifyMobileWebappApiClient';
 import { VetifyMobileAddPetFormPage } from '../../pages/vetify/AddPetFormPage';
 import { VetifyMobileHomePage } from '../../pages/vetify/HomePage';
 import { VetifyMobileLoginPage } from '../../pages/vetify/LoginPage';
@@ -102,5 +105,66 @@ describe('TS-07 Credenciales - Visualizacion de Planes', () => {
     // — no filed en Jira todavía (pendiente de OK explícito del usuario del proyecto).
     it('TC-03 - [Bug conocido, BUG-011] Vetify Mobile App - Suscribir mascota sin planes libres - "Ir a la web" no navega', function () {
         this.skip();
+    });
+});
+
+// Portado de tests/projects/vetify-webapp/credentials.spec.ts TS-04 "Ver Credenciales" TC-01.
+// TC-02 de ese TS (Descargar credencial) no es portable — mobile usa el DownloadManager nativo de
+// Android, mecanismo distinto al de "nueva pestaña" de Desktop.
+describe('TS-08 Credenciales - Ver Credencial', () => {
+    let reservedUser: TestUser | undefined;
+
+    afterEach(() => {
+        if (reservedUser) {
+            UserProvider.releaseUser(reservedUser);
+            reservedUser = undefined;
+        }
+    });
+
+    it('TC-01 - Vetify Mobile App - Ver credencial muestra los datos reales de la mascota', async function () {
+        const loginPage = new VetifyMobileLoginPage();
+        const homePage = new VetifyMobileHomePage();
+        const myPetsPage = new VetifyMobileMyPetsPage();
+
+        reservedUser = await loginPage.loginWithUserRequest({
+            source: UserSource.Pooled,
+            siteId: SiteId.VETIFY_ADQUIRENTE,
+            tags: [UserTag.ACTIVE, UserTag.WITH_PET],
+            numberOfPlans: 1,
+            reserve: false,
+            ignoreReserved: true,
+        });
+
+        if (!reservedUser) {
+            this.skip();
+        }
+
+        await homePage.waitForLoaded();
+
+        const apiClient = await VetifyMobileWebappApiClient.getApiClient();
+        const pets = await apiClient.getUserPets();
+        const planData = pets[0];
+
+        await myPetsPage.load();
+        await myPetsPage.backButton.waitForDisplayed({ timeout: 20_000 });
+
+        const [firstCard] = await myPetsPage.petCards;
+        if (!firstCard) throw new Error('No se encontró ninguna tarjeta de mascota.');
+        await browser.execute((el: HTMLElement) => el.click(), firstCard);
+
+        // La navegación al detalle es client-side (la URL de la app no cambia, confirmado en
+        // vivo) — se espera por el dato real en vez de por un cambio de ruta.
+        const breedLbl = myPetsPage.petDetailBreedLbl;
+        await breedLbl.waitForDisplayed({ timeout: 15_000 });
+
+        const bodyText = await browser.execute(() => document.body.innerText);
+        if (!bodyText.includes(planData.mascota.nombre)) {
+            throw new Error(`Se esperaba el nombre de la mascota ("${planData.mascota.nombre}") en la pantalla de detalle.`);
+        }
+
+        expect(await breedLbl.getText()).toBe(planData.mascota.raza.descripcion);
+
+        const age = getPetAge(DateTime.fromFormat(planData.mascota.fecha_nacimiento, 'yyyy-MM-dd'));
+        expect(await myPetsPage.petDetailAgeLbl.getText()).toBe(age);
     });
 });

@@ -69,6 +69,18 @@ export class VetifyMobileVideocallViewPage extends VetifyMobileLoggedBasePage {
         if (disabled !== null) throw new Error('Se esperaba "Cancelar" habilitado.');
     }
 
+    // BUG-003/IMAS-4119 (regresión): la assistanceId original de un turno ya reprogramado queda
+    // CANCELADO en el backend, pero antes del fix seguía mostrando sus 3 acciones como si el turno
+    // siguiera vigente. Mismos 3 locators que Desktop, ver VideocallViewPage.ts (Playwright).
+    async verifyAllActionsDisabled(): Promise<void> {
+        const enterDisabled = await this.enterVideocallBtn.getAttribute('disabled');
+        if (enterDisabled === null) throw new Error('Se esperaba "Ingresar" deshabilitado (turno ya cancelado/reemplazado).');
+        const rescheduleDisabled = await this.rescheduleBtn.getAttribute('disabled');
+        if (rescheduleDisabled === null) throw new Error('Se esperaba "Reprogramar" deshabilitado (turno ya cancelado/reemplazado).');
+        const cancelDisabled = await this.cancelVideocallBtn.getAttribute('disabled');
+        if (cancelDisabled === null) throw new Error('Se esperaba "Cancelar" deshabilitado (turno ya cancelado/reemplazado).');
+    }
+
     async startReschedule(): Promise<void> {
         await this.jsClick(this.rescheduleBtn);
     }

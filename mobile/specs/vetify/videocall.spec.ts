@@ -999,4 +999,57 @@ describe('TS-05 IMAS-3894 - Visualización, reprogramación, cancelación e ingr
         // No hay forma de verificar el envío real de email/push en el pipeline automatizado.
         this.skip();
     });
+
+    it('TC-07 - [Regresión] Videollamada - Vetify - Turno reprogramado no ofrece acciones habilitadas en la assistanceId anterior (BUG-003/IMAS-4119)', async function () {
+        const loginPage = new VetifyMobileLoginPage();
+        const homePage = new VetifyMobileHomePage();
+
+        reservedUser = await loginPage.loginWithUserRequest({
+            source: UserSource.Pooled,
+            siteId: SiteId.VETIFY_ADQUIRENTE,
+            tags: [UserTag.ACTIVE, UserTag.WITH_PET, UserTag.NO_EMPTY_PLAN],
+            numberOfPlans: 1,
+            reserve: false,
+            ignoreReserved: true,
+        });
+
+        if (!reservedUser) {
+            this.skip();
+        }
+
+        await homePage.waitForLoaded();
+        const apiClient = await VetifyMobileWebappApiClient.getApiClient();
+        const { assistanceId: oldAssistanceId } = await scheduleTurno(apiClient);
+
+        // 1. Reprogramar el turno.
+        const detailPage = new VetifyMobileVideocallViewPage(oldAssistanceId);
+        await detailPage.load();
+        await detailPage.startReschedule();
+
+        const reschedulePage = new VetifyMobileRescheduleVideocallPage(oldAssistanceId);
+        await reschedulePage.waitForLoaded();
+        await reschedulePage.completeDayAndTime(DateTime.now().plus({ days: 12 }));
+        await reschedulePage.verifyReviewScreen();
+        await reschedulePage.confirmReschedule();
+        await reschedulePage.verifyConfirmationScreen();
+
+        // Resultado esperado: la assistanceId original queda CANCELADO tras la reprogramación.
+        let cancelledConfirmed = false;
+        let lastState: string | undefined;
+        for (let attempt = 1; attempt <= 3 && !cancelledConfirmed; attempt++) {
+            const oldState = await apiClient.getScheduledVideoCallById(oldAssistanceId);
+            lastState = oldState?.estado;
+            cancelledConfirmed = lastState === 'CANCELADO';
+            if (!cancelledConfirmed) await new Promise((resolve) => setTimeout(resolve, 1_000));
+        }
+        if (!cancelledConfirmed) throw new Error(`Se esperaba que la assistanceId original (${oldAssistanceId}) quedara CANCELADO tras reprogramar. Estado actual: ${lastState}`);
+
+        // 2. Volver a abrir el detalle de la assistanceId original.
+        const oldDetailPage = new VetifyMobileVideocallViewPage(oldAssistanceId);
+        await oldDetailPage.load();
+
+        // Resultado esperado: ya no ofrece "Ingresar", "Reprogramar" ni "Cancelar" como si el turno
+        // siguiera vigente.
+        await oldDetailPage.verifyAllActionsDisabled();
+    });
 });

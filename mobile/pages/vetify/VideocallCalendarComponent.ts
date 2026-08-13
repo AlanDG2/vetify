@@ -112,6 +112,17 @@ export class VetifyMobileVideocallCalendarComponent {
         return (await dayOption.getAttribute('aria-disabled')) === 'true';
     }
 
+    // Wrappers finos sobre isDayDisabled(), igual que la versión Desktop.
+    async verifyDateIsBookable(date: DateTime): Promise<void> {
+        const isDisabled = await this.isDayDisabled(date);
+        if (isDisabled) throw new Error(`La fecha ${date.toISODate()} debería estar habilitada.`);
+    }
+
+    async verifyDateIsNotBookable(date: DateTime): Promise<void> {
+        const isDisabled = await this.isDayDisabled(date);
+        if (!isDisabled) throw new Error(`La fecha ${date.toISODate()} debería estar deshabilitada.`);
+    }
+
     // El primer horario libre de la franja se elige vía JS (busca por texto exacto "HH:MM h") en
     // vez de resolver un ChainablePromiseElement — más simple y confiable que armar el filtro con
     // $$() + regex, mismo criterio que el resto de los "jsClick" de este proyecto.

@@ -176,6 +176,21 @@ export class VetifyMobileVideocallFormPage extends VetifyMobileLoggedBasePage {
         return $('//h2[contains(., "Revisá los datos y confirmá tu turno")]');
     }
 
+    // Confirmados en vivo con un dump (cuenta multi-mascota real, 2026-08-12): la etiqueta valor
+    // de Mascota/Fecha-y-hora vive en un <p> dentro de un <div> hermano de la etiqueta ("Mascota");
+    // Motivo en cambio no tiene ese div intermedio, el valor es un <p> hermano directo.
+    get reviewMascotaLbl() {
+        return $('//p[contains(., "Mascota")]/following-sibling::div[1]//p');
+    }
+
+    get reviewFechaHoraLbl() {
+        return $('//p[contains(., "Fecha y hora")]/following-sibling::div[1]//p');
+    }
+
+    get reviewMotivoLbl() {
+        return $('//p[contains(., "Motivo")]/following-sibling::p[1]');
+    }
+
     get editFechaHoraBtn() {
         return $('//button[@aria-label="Editar fecha y hora"]');
     }
@@ -316,6 +331,14 @@ export class VetifyMobileVideocallFormPage extends VetifyMobileLoggedBasePage {
         await this.jsClick(this.skipAttachmentsBtn);
     }
 
+    async verifyAttachmentsWithoutFilesBlockContinue(): Promise<void> {
+        await this.attachmentsHeadingLbl.waitForDisplayed({ timeout: 15_000 });
+        const disabled = await this.continueBtn.getAttribute('disabled');
+        if (disabled === null) throw new Error('Se esperaba "Continuar" deshabilitado sin archivos adjuntados.');
+        const skipDisabled = await this.skipAttachmentsBtn.getAttribute('disabled');
+        if (skipDisabled !== null) throw new Error('Se esperaba "Omitir" habilitado sin archivos adjuntados.');
+    }
+
     // IMP-011 (docs/impedimentos-bloqueos.md) resuelto — ver BasePage.selectFileViaNativePicker().
     // Requiere que el archivo ya exista en la galería del dispositivo/emulador antes de llamar
     // (adb push + media scan).
@@ -356,6 +379,35 @@ export class VetifyMobileVideocallFormPage extends VetifyMobileLoggedBasePage {
         await this.editMotivoBtn.waitForDisplayed({ timeout: 10_000 });
         await this.editAdjuntosBtn.waitForDisplayed({ timeout: 10_000 });
         if (await this.editMascotaBtn.isExisting()) throw new Error('Se esperaba "Editar mascota" oculto para una cuenta de mascota única.');
+    }
+
+    async verifyReviewScreenMultiPet(): Promise<void> {
+        await this.reviewHeadingLbl.waitForDisplayed({ timeout: 15_000 });
+        await this.editMascotaBtn.waitForDisplayed({ timeout: 10_000 });
+    }
+
+    // Confirmado en Desktop (comentario del POM original): "Editar mascota" NO vuelve directo a
+    // la revisión, sino al selector de mascota — hay que re-recorrer Motivo → Adjuntos →
+    // Día/horario para volver (cada paso llega con el valor previo ya conservado, Continuar
+    // habilitado sin tocar nada). Mismo patrón en mobile, confirmado en vivo.
+    async changeSelectedPetFromReview(currentPetName: string): Promise<void> {
+        await this.jsClick(this.editMascotaBtn);
+        await this.jsClick(this.petSelectorTriggerBtn);
+        const options = await this.petSelectorOptionBtns;
+        const other = await (async () => {
+            for (const opt of options) {
+                const text = (await opt.getText()).trim();
+                if (!text.includes(currentPetName)) return opt;
+            }
+            return undefined;
+        })();
+        if (!other) throw new Error(`No se encontró otra mascota distinta de "${currentPetName}" para elegir.`);
+        await browser.execute((el: HTMLElement) => el.click(), other);
+
+        await this.clickContinue();
+        await this.clickContinue();
+        await this.skipAttachments();
+        await this.clickContinue();
     }
 
     async confirmVideocall(): Promise<void> {

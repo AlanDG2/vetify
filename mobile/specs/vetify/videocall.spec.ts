@@ -313,6 +313,118 @@ describe('TS-03 IMAS-3889 - Adjuntos, calendario y motivo', () => {
         await videocallFormPage.attachedFileNameLbl.waitForExist({ timeout: 10_000, reverse: true });
     });
 
+    // Portado de TS-03 TC-11 "Continuar deshabilitado sin archivos" (CP09 IMAS-3889).
+    it('TC-11 - [Negativo] Videollamada - Vetify - Adjuntos - "Continuar" deshabilitado sin archivos (CP09 IMAS-3889)', async function () {
+        const loginPage = new VetifyMobileLoginPage();
+        const homePage = new VetifyMobileHomePage();
+        const videocallFormPage = new VetifyMobileVideocallFormPage();
+
+        reservedUser = await loginPage.loginWithUserRequest({
+            source: UserSource.Pooled,
+            siteId: SiteId.VETIFY_ADQUIRENTE,
+            tags: [UserTag.ACTIVE, UserTag.WITH_PET, UserTag.NO_EMPTY_PLAN],
+            numberOfPlans: 1,
+            reserve: false,
+            ignoreReserved: true,
+        });
+
+        if (!reservedUser) {
+            this.skip();
+        }
+
+        await homePage.waitForLoaded();
+        const apiClient = await VetifyMobileWebappApiClient.getApiClient();
+        await apiClient.cancelAllScheduledVideocalls();
+
+        await videocallFormPage.load();
+        await videocallFormPage.startNewVideocallRequest();
+        await videocallFormPage.verifyReasonScreenVisible();
+        await videocallFormPage.selectReason('Vacunas');
+        await videocallFormPage.clickContinue();
+
+        // Resultado esperado: "Continuar" permanece deshabilitado por defecto; "Omitir" permite avanzar sin adjuntar.
+        await videocallFormPage.verifyAttachmentsWithoutFilesBlockContinue();
+    });
+
+    // Portado de TS-03 TC-03 "Calendario - Ventana de 30 días de anticipación".
+    it('TC-03 - Videollamada - Vetify - Calendario - Ventana de 30 días de anticipación', async function () {
+        const loginPage = new VetifyMobileLoginPage();
+        const homePage = new VetifyMobileHomePage();
+        const videocallFormPage = new VetifyMobileVideocallFormPage();
+
+        reservedUser = await loginPage.loginWithUserRequest({
+            source: UserSource.Pooled,
+            siteId: SiteId.VETIFY_ADQUIRENTE,
+            tags: [UserTag.ACTIVE, UserTag.WITH_PET, UserTag.NO_EMPTY_PLAN],
+            numberOfPlans: 1,
+            reserve: false,
+            ignoreReserved: true,
+        });
+
+        if (!reservedUser) {
+            this.skip();
+        }
+
+        await homePage.waitForLoaded();
+        const apiClient = await VetifyMobileWebappApiClient.getApiClient();
+        await apiClient.cancelAllScheduledVideocalls();
+
+        // Precondición: el usuario se encuentra en la pantalla de adjuntos con el motivo "Vacunas" ya seleccionado.
+        await videocallFormPage.load();
+        await videocallFormPage.startNewVideocallRequest();
+        await videocallFormPage.verifyReasonScreenVisible();
+        await videocallFormPage.selectReason('Vacunas');
+        await videocallFormPage.clickContinue();
+        await videocallFormPage.verifyAttachmentsScreenVisible();
+
+        // Pasos: continuar sin adjuntar archivos hasta la pantalla de selección de fecha y hora.
+        await videocallFormPage.skipAttachments();
+        await videocallFormPage.verifyDayTimeScreenVisible();
+
+        const beyondWindow = DateTime.now().plus({ days: 35 });
+        const withinWindow = DateTime.now().plus({ days: 10 });
+
+        // Resultado esperado: la fecha fuera de la ventana de 30 días no puede seleccionarse.
+        await videocallFormPage.calendarComponent.verifyDateIsNotBookable(beyondWindow);
+
+        // Resultado esperado: la fecha dentro de la ventana de 30 días puede seleccionarse.
+        await videocallFormPage.calendarComponent.verifyDateIsBookable(withinWindow);
+    });
+
+    // Portado de TS-03 TC-04 "[Negativo] [API] Rechazo de fecha fuera de ventana de 30 días" —
+    // 100% API, sin UI. `scheduleVideocall()` del cliente mobile ya reintenta internamente
+    // (executeWithRetry) y lanza tras agotar los intentos, igual que el `toPass()` de Desktop.
+    it('TC-04 - [Negativo] [API] Videollamada - Vetify - Rechazo de fecha fuera de ventana de 30 días', async function () {
+        const loginPage = new VetifyMobileLoginPage();
+        const homePage = new VetifyMobileHomePage();
+
+        reservedUser = await loginPage.loginWithUserRequest({
+            source: UserSource.Pooled,
+            siteId: SiteId.VETIFY_ADQUIRENTE,
+            tags: [UserTag.ACTIVE, UserTag.WITH_PET, UserTag.NO_EMPTY_PLAN],
+            numberOfPlans: 1,
+            reserve: false,
+            ignoreReserved: true,
+        });
+
+        if (!reservedUser) {
+            this.skip();
+        }
+
+        await homePage.waitForLoaded();
+        const apiClient = await VetifyMobileWebappApiClient.getApiClient();
+        const farDate = DateTime.now().plus({ days: 45 }).toISO()!;
+
+        // Resultado esperado: el backend rechaza la creación del turno.
+        let rejected = false;
+        try {
+            await apiClient.scheduleVideocall({ date: farDate, time: '09:00' });
+        } catch {
+            rejected = true;
+        }
+        expect(rejected).toBe(true);
+    });
+
     // Portado de tests/projects/vetify-webapp/videocall.spec.ts TS-03 TC-01 "Adjuntos - Rechazo
     // por formato y peso inválido" (solo la parte de peso). Investigado en vivo (2026-08-12,
     // varias corridas incluyendo un emulador recién reiniciado) pero el resultado fue
@@ -430,6 +542,67 @@ describe('TS-03 IMAS-3889 - Adjuntos, calendario y motivo', () => {
 
         // Resultado esperado: al continuar, la pantalla de motivo refleja la mascota seleccionada.
         await videocallFormPage.verifyReasonScreenWithSelectedPet(selectedPetName);
+    });
+
+    // Portado de TS-03 TC-06 "Edición de mascota en revisión y confirmación (multi-mascota)".
+    // "Editar mascota" no vuelve directo a la revisión — hay que re-recorrer motivo → adjuntos →
+    // día/horario, cada paso ya con el valor previo conservado (ver
+    // VideocallFormPage.changeSelectedPetFromReview()).
+    it('TC-06 - Videollamada - Vetify - Edición de mascota en revisión y confirmación (multi-mascota)', async function () {
+        const loginPage = new VetifyMobileLoginPage();
+        const homePage = new VetifyMobileHomePage();
+        const videocallFormPage = new VetifyMobileVideocallFormPage();
+
+        reservedUser = await loginPage.loginWithUserRequest({
+            source: UserSource.Pooled,
+            siteId: SiteId.VETIFY_ADQUIRENTE,
+            tags: [UserTag.ACTIVE, UserTag.WITH_PET, UserTag.NO_EMPTY_PLAN],
+            numberOfPlans: 2,
+            reserve: false,
+            ignoreReserved: true,
+        });
+
+        if (!reservedUser) {
+            this.skip();
+        }
+
+        await homePage.waitForLoaded();
+        const apiClient = await VetifyMobileWebappApiClient.getApiClient();
+        await apiClient.cancelAllScheduledVideocalls();
+
+        // Pasos: iniciar la solicitud, seleccionar la primera mascota y completar motivo, adjuntos y día/horario.
+        await videocallFormPage.load();
+        await videocallFormPage.startNewVideocallRequest();
+        await videocallFormPage.selectPet();
+        await videocallFormPage.clickContinue();
+        await videocallFormPage.selectReason('Vacunas');
+        await videocallFormPage.clickContinue();
+        await videocallFormPage.skipAttachments();
+        const dayOffset = getRandomInt(1, 25);
+        await videocallFormPage.completeDayAndTime(DateTime.now().plus({ days: dayOffset }));
+        await videocallFormPage.clickContinue();
+
+        // Resultado esperado: la pantalla de revisión muestra la opción "Editar mascota".
+        await videocallFormPage.verifyReviewScreenMultiPet();
+
+        // Pasos: desde la revisión, editar la mascota seleccionada y elegir una distinta.
+        const originalPetName = (await videocallFormPage.reviewMascotaLbl.getText()).trim();
+        await videocallFormPage.changeSelectedPetFromReview(originalPetName);
+
+        // Resultado esperado: al cambiar de mascota, la revisión refleja la nueva mascota y conserva fecha/hora y motivo ya cargados.
+        const newPetName = (await videocallFormPage.reviewMascotaLbl.getText()).trim();
+        expect(newPetName).not.toBe(originalPetName);
+        expect(await videocallFormPage.reviewFechaHoraLbl.getText()).not.toBe('-');
+        expect((await videocallFormPage.reviewMotivoLbl.getText()).trim()).toBe('Vacunas y desparasitación');
+
+        // Pasos: confirmar el turno desde la revisión.
+        await videocallFormPage.confirmVideocall();
+
+        // Resultado esperado: pantalla de confirmación y el turno visible como próximo turno en el home.
+        await videocallFormPage.verifyConfirmationScreen();
+        await homePage.load();
+        await homePage.waitForLoaded();
+        await homePage.verifyUpcomingVideocallVisible();
     });
 
     it('TC-10 - [Negativo] Videollamada - Vetify - "Otro motivo" vuelve obligatorio el comentario adicional', async function () {

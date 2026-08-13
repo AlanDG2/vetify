@@ -71,6 +71,13 @@ describe('TS-08 Cargar credencial - Camino feliz hasta el paso de foto (sube la 
             source: UserSource.Pooled,
             siteId: SiteId.VETIFY_ADQUIRENTE,
             tags: [UserTag.ACTIVE, UserTag.PLAN_WITHOUT_PET],
+            // numberOfPlans:1 explícito (2026-08-13): el match de tags es por subconjunto
+            // (ver UserPool.matchesTags — un usuario con tags de más igual matchea), así que sin
+            // este filtro esta cuenta podía "robarse" a la Cuenta A (WITH_PET+PLAN_WITHOUT_PET,
+            // 2 planes, agregada al pool para TS-07 TC-02) — esta pantalla espera el botón
+            // "Completar credencial" (emptyPlanNoticeLbl), Cuenta A ya no lo muestra porque tiene
+            // 1 mascota completada. Ver qa-workspace/decision-log.md.
+            numberOfPlans: 1,
             reserve: false,
             ignoreReserved: true,
         });

@@ -2,27 +2,6 @@
   "users": {
     "VETIFY_ADQUIRENTE": [
       {
-        "id": "6e1c43dc-e9e4-4fa6-b4bd-8a28ff0fb418",
-        "siteId": "VETIFY_ADQUIRENTE",
-        "email": "user_1786584446082_b40427fd@automation.com",
-        "password": "Te1!5c30930d",
-        "identification": {
-          "type": "DNI",
-          "number": "1588464286"
-        },
-        "numberOfPlans": 2,
-        "source": "fresh",
-        "registration": true,
-        "leadIds": [],
-        "tags": [
-          "ACTIVE",
-          "WITH_PET",
-          "PLAN_WITHOUT_PET"
-        ],
-        "_note": "2026-08-12: provisionada para llenar el gap ACTIVE+WITH_PET+PLAN_WITHOUT_PET (credentials.spec.ts TS-01 TC-04 / mobile TS-07 TC-02) — 1 de 2 planes con mascota completada vía mobile, el otro queda deliberadamente vacío. Ver qa-workspace/decision-log.md 2026-08-12.",
-        "reserved": false
-      },
-      {
         "id": "b64bc406-82e1-4cb8-a98d-84b2eab52164",
         "siteId": "VETIFY_ADQUIRENTE",
         "email": "user_1786584481760_8aea8baa@automation.com",
@@ -300,6 +279,27 @@
           "PLAN_WITHOUT_PET"
         ],
         "_note": "2026-08-07: generada para retest de CP-21 (credentials.spec.ts, formato de archivo invalido) — el upload deberia ser rechazado y NO consumir la cuenta.",
+        "reserved": false
+      },
+      {
+        "id": "6e1c43dc-e9e4-4fa6-b4bd-8a28ff0fb418",
+        "siteId": "VETIFY_ADQUIRENTE",
+        "email": "user_1786584446082_b40427fd@automation.com",
+        "password": "Te1!5c30930d",
+        "identification": {
+          "type": "DNI",
+          "number": "1588464286"
+        },
+        "numberOfPlans": 2,
+        "source": "fresh",
+        "registration": true,
+        "leadIds": [],
+        "tags": [
+          "ACTIVE",
+          "WITH_PET",
+          "PLAN_WITHOUT_PET"
+        ],
+        "_note": "2026-08-12: provisionada para llenar el gap ACTIVE+WITH_PET+PLAN_WITHOUT_PET (credentials.spec.ts TS-01 TC-04 / mobile TS-07 TC-02) — 1 de 2 planes con mascota completada vía mobile, el otro queda deliberadamente vacío. Colocada AL FINAL del array a propósito (2026-08-13): el match de tags es por subconjunto (UserPool.matchesTags), así que si quedara primera le robaría la cuenta a cualquier query sin `numberOfPlans` que solo pida ACTIVE+PLAN_WITHOUT_PET (ver credential-wizard.spec.ts TC-01, que espera un botón distinto al que esta cuenta ya muestra). Ver qa-workspace/decision-log.md 2026-08-12.",
         "reserved": false
       }
     ],

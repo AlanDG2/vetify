@@ -24,6 +24,19 @@ export class VetifyMobileAddPetFormPage extends VetifyMobileLoggedBasePage {
         return $('input[placeholder="Escribí el nombre de tu mascota"]');
     }
 
+    // Mismo locator y mismo texto que Desktop, confirmado en vivo con un dump: 1 caracter dispara
+    // "El nombre debe tener al menos 2 caracteres".
+    get petNameErrorLbl() {
+        return $('span[data-part="error-text"]');
+    }
+
+    // Encabezado real del paso 0 (antes de cerrar el modal de advertencia) — confirmado en vivo
+    // que cerrar el modal (dismissStartWarningModal) YA deja al usuario en el paso 1, no en un
+    // paso 0 intermedio separado (a diferencia de cómo Desktop separa el modal del paso 0 en sí).
+    get startScreenHeadingLbl() {
+        return $('//h2[contains(., "¡Vamos a empezar!")]');
+    }
+
     async load(): Promise<void> {
         await this.navigateTo('/pets');
     }
@@ -45,8 +58,42 @@ export class VetifyMobileAddPetFormPage extends VetifyMobileLoggedBasePage {
         await this.jsClick(this.continueButton);
     }
 
+    async clickBack(): Promise<void> {
+        await this.jsClick(this.backButton);
+    }
+
+    async isContinueDisabled(): Promise<boolean> {
+        return (await this.continueButton.getAttribute('disabled')) !== null;
+    }
+
+    // Quita el foco del input activo (equivalente a Desktop tocando stepTitleLbl para disparar la
+    // validación on-blur) — vía JS en vez de un locator adicional.
+    async blurActiveElement(): Promise<void> {
+        await browser.execute(() => (document.activeElement as HTMLElement | null)?.blur());
+    }
+
+    // Mismo hallazgo que VideocallFormPage.typeIntoReactInput(): clearValue()+setValue() no
+    // reemplaza confiablemente un input controlado por React cuando ya tiene contenido — se
+    // reemplaza el valor vía el setter nativo de HTMLInputElement y se dispara un evento "input"
+    // real, necesario acá porque este paso se re-escribe varias veces en las pruebas de
+    // validación (1 char → 101 chars → nombre válido).
     async fillPetName(name: string): Promise<void> {
-        await this.petNameInput.setValue(name);
+        const el = await this.petNameInput;
+        await browser.execute(
+            (node: HTMLElement, value: string) => {
+                const input = node as HTMLInputElement;
+                // Foco explícito: a diferencia de un setValue() real (que enfoca el input como
+                // parte de "escribir"), setear el valor vía el setter nativo no lo hace por sí
+                // solo — sin esto, document.activeElement nunca es este input y un blur posterior
+                // (blurActiveElement) no dispara la validación on-blur del campo.
+                input.focus();
+                const nativeSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value')?.set;
+                nativeSetter?.call(input, value);
+                input.dispatchEvent(new Event('input', { bubbles: true }));
+            },
+            el,
+            name,
+        );
     }
 
     // Selección por tipo/género: texto dinámico en un <p>, se usa `contains(., "...")` (probado
@@ -77,6 +124,18 @@ export class VetifyMobileAddPetFormPage extends VetifyMobileLoggedBasePage {
         if (!firstOption) throw new Error('No hay opciones de raza disponibles');
         await firstOption.waitForDisplayed({ timeout: 10_000 });
         await browser.execute((node: HTMLElement) => node.click(), firstOption);
+    }
+
+    // Abre el combobox y devuelve el texto de todas las opciones listadas, para comparar contra
+    // el listado real de la API (igual que Desktop's TC-11/TC-12).
+    async getBreedOptionTexts(): Promise<string[]> {
+        await this.jsClick(this.petBreedTrigger);
+        const options = await this.petBreedOptions;
+        const texts: string[] = [];
+        for (const opt of options) {
+            texts.push((await opt.getText()).trim());
+        }
+        return texts;
     }
 
     // Paso 4 — edad: 2 <select> nativos (años/meses), a diferencia de raza. selectByIndex no

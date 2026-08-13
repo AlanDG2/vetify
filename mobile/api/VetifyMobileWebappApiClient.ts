@@ -74,6 +74,15 @@ export class VetifyMobileWebappApiClient {
         return pets.some((p: any) => p.estado === 'OCUPADO');
     }
 
+    // Equivalente mobile de src/api/vetify/webapp/vetify-webapp-api.ts getPetBreeds() — usado para
+    // comparar el listado de razas mostrado en el paso 3 del wizard contra el real (TS-02 TC-11/12).
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    async getPetBreeds(): Promise<any[]> {
+        const response = await this.request('/api/services/pets/especies');
+        if (!response.ok) throw new Error('Error getting pet breeds');
+        return response.json();
+    }
+
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     async getPlanWithoutPet(): Promise<any | undefined> {
         const pets = await this.getUserPets();

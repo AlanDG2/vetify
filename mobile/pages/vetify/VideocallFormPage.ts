@@ -1,4 +1,4 @@
-import { $, browser } from '@wdio/globals';
+import { $, $$, browser } from '@wdio/globals';
 import { DateTime } from 'luxon';
 import { VetifyMobileLoggedBasePage } from './LoggedBasePage';
 import { VetifyMobileVideocallCalendarComponent } from './VideocallCalendarComponent';
@@ -49,6 +49,56 @@ export class VetifyMobileVideocallFormPage extends VetifyMobileLoggedBasePage {
 
     get completeCredentialBtn() {
         return $('//button[contains(., "Completar credencial")]');
+    }
+
+    // Selector de mascota (solo aparece en cuentas multi-mascota, ANTES de la pantalla de motivo).
+    // Confirmado en vivo con un dump (2026-08-12, cuenta multi-mascota real): sin data-cy, trigger
+    // es un botón con `aria-expanded` (único en la pantalla), las opciones son botones hermanos
+    // del trigger (no hijos) que aparecen recién al abrir — texto = nombre de la mascota.
+    get petSelectorHeadingLbl() {
+        return $('//h2[contains(., "Elegí para quién es la consulta")]');
+    }
+
+    get petSelectorTriggerBtn() {
+        return $('button[aria-expanded]');
+    }
+
+    get petSelectorOptionBtns() {
+        return $$('//button[@aria-expanded="true"]/following-sibling::div//button');
+    }
+
+    async verifyPetSelectorVisible(): Promise<void> {
+        await this.petSelectorHeadingLbl.waitForDisplayed({ timeout: 15_000 });
+        const disabled = await this.continueBtn.getAttribute('disabled');
+        if (disabled === null) throw new Error('Se esperaba "Continuar" deshabilitado con el selector de mascota vacío.');
+    }
+
+    // Sin argumento selecciona la primera opción disponible (igual que Playwright's selectPet()).
+    // Devuelve el nombre de la mascota elegida, para poder verificarlo después en otra pantalla.
+    // Nunca usar `.length` sobre el resultado de $$() ya resuelto (tipa Promise<number>, ver
+    // known-issues.md) — se usa destructuring/indexado directo en su lugar.
+    async selectPet(petName?: string): Promise<string> {
+        await this.jsClick(this.petSelectorTriggerBtn);
+        const options = await this.petSelectorOptionBtns;
+        const [firstOption] = options;
+        if (!firstOption) throw new Error('No hay opciones de mascota disponibles en el selector.');
+
+        let target: WebdriverIO.Element = firstOption;
+        let selectedName = (await firstOption.getText()).trim();
+        if (petName) {
+            const match = await (async () => {
+                for (const opt of options) {
+                    const text = (await opt.getText()).trim();
+                    if (text.includes(petName)) return { opt, text };
+                }
+                return undefined;
+            })();
+            if (!match) throw new Error(`No se encontró la mascota "${petName}" entre las opciones del selector.`);
+            target = match.opt;
+            selectedName = match.text;
+        }
+        await browser.execute((el: HTMLElement) => el.click(), target);
+        return selectedName;
     }
 
     get reasonHeadingLbl() {
@@ -194,6 +244,18 @@ export class VetifyMobileVideocallFormPage extends VetifyMobileLoggedBasePage {
 
     async verifyReasonScreenVisible(): Promise<void> {
         await this.reasonHeadingLbl.waitForDisplayed({ timeout: 15_000 });
+    }
+
+    // Tras seleccionar mascota, la pantalla de motivo no tiene un locator dedicado para "mascota
+    // seleccionada" en mobile — se confirma por presencia del nombre en el texto de la pantalla
+    // (suficiente para probar que el selector realmente aplicó la selección, sin depender de un
+    // locator específico no confirmado en vivo).
+    async verifyReasonScreenWithSelectedPet(petName: string): Promise<void> {
+        await this.verifyReasonScreenVisible();
+        const bodyText = await browser.execute(() => document.body.innerText);
+        if (!bodyText.includes(petName)) {
+            throw new Error(`Se esperaba que la pantalla de motivo mostrara la mascota seleccionada ("${petName}"), no se encontró en el texto de la pantalla.`);
+        }
     }
 
     async verifyReasonRequiredBlocksContinue(): Promise<void> {

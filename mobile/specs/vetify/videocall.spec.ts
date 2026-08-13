@@ -392,12 +392,44 @@ describe('TS-03 IMAS-3889 - Adjuntos, calendario y motivo', () => {
         this.skip();
     });
 
+    // RESUELTO 2026-08-12: se provisionó una cuenta sana ACTIVE+WITH_PET+NO_EMPTY_PLAN con
+    // numberOfPlans:2 y ambas mascotas completadas vía mobile (ver qa-workspace/decision-log.md).
+    // Selector de mascota confirmado en vivo con un dump — ver VideocallFormPage.petSelectorTriggerBtn.
     it('TC-05 - Videollamada - Vetify - Selector de mascota obligatorio (multi-mascota)', async function () {
-        // Bloqueado por brecha de datos del pool, no por código: no existe ninguna cuenta sana
-        // ACTIVE+WITH_PET+NO_EMPTY_PLAN con numberOfPlans:2 (confirmado en vivo, 2026-08-12 — la
-        // única con 2 planes está tageada BROKEN_NO_PLAN y reservada). Mismo patrón ya documentado
-        // en known-issues.md para otras combinaciones de tags que no existen en el pool.
-        this.skip();
+        const loginPage = new VetifyMobileLoginPage();
+        const homePage = new VetifyMobileHomePage();
+        const videocallFormPage = new VetifyMobileVideocallFormPage();
+
+        reservedUser = await loginPage.loginWithUserRequest({
+            source: UserSource.Pooled,
+            siteId: SiteId.VETIFY_ADQUIRENTE,
+            tags: [UserTag.ACTIVE, UserTag.WITH_PET, UserTag.NO_EMPTY_PLAN],
+            numberOfPlans: 2,
+            reserve: false,
+            ignoreReserved: true,
+        });
+
+        if (!reservedUser) {
+            this.skip();
+        }
+
+        await homePage.waitForLoaded();
+        const apiClient = await VetifyMobileWebappApiClient.getApiClient();
+        await apiClient.cancelAllScheduledVideocalls();
+
+        // Pasos: iniciar una nueva solicitud de videollamada.
+        await videocallFormPage.load();
+        await videocallFormPage.startNewVideocallRequest();
+
+        // Resultado esperado: el sistema muestra el selector de mascota de forma obligatoria.
+        await videocallFormPage.verifyPetSelectorVisible();
+
+        // Pasos: seleccionar una mascota del selector.
+        const selectedPetName = await videocallFormPage.selectPet();
+        await videocallFormPage.clickContinue();
+
+        // Resultado esperado: al continuar, la pantalla de motivo refleja la mascota seleccionada.
+        await videocallFormPage.verifyReasonScreenWithSelectedPet(selectedPetName);
     });
 
     it('TC-10 - [Negativo] Videollamada - Vetify - "Otro motivo" vuelve obligatorio el comentario adicional', async function () {
@@ -496,11 +528,51 @@ describe('TS-04 IMAS-3909 - Límites de turnos por mascota / cupo / OSDE Capitad
         await videocallFormPage.verifyExistingTurnosCount(2);
     });
 
+    // RESUELTO 2026-08-12: mismo desbloqueo que TS-03 TC-05 (cuenta multi-mascota sana ya
+    // provisionada) — ver qa-workspace/decision-log.md.
     it('TC-02 - Videollamada - Vetify - El límite de turnos aplica solo a la mascota seleccionada (CA07, multi-mascota)', async function () {
-        // Bloqueado por brecha de datos del pool, no por código: no existe ninguna cuenta sana
-        // ACTIVE+WITH_PET+NO_EMPTY_PLAN con numberOfPlans:2 (confirmado en vivo, mismo hallazgo
-        // documentado para TS-03 TC-05 — ver known-issues.md).
-        this.skip();
+        const loginPage = new VetifyMobileLoginPage();
+        const homePage = new VetifyMobileHomePage();
+        const videocallFormPage = new VetifyMobileVideocallFormPage();
+
+        reservedUser = await loginPage.loginWithUserRequest({
+            source: UserSource.Pooled,
+            siteId: SiteId.VETIFY_ADQUIRENTE,
+            tags: [UserTag.ACTIVE, UserTag.WITH_PET, UserTag.NO_EMPTY_PLAN],
+            numberOfPlans: 2,
+            reserve: false,
+            ignoreReserved: true,
+        });
+
+        if (!reservedUser) {
+            this.skip();
+        }
+
+        await homePage.waitForLoaded();
+        const apiClient = await VetifyMobileWebappApiClient.getApiClient();
+        await apiClient.cancelAllScheduledVideocalls();
+        const [petA, petB] = await apiClient.getUserPets();
+
+        // Pasos: agotar el límite de turnos de la primera mascota.
+        await scheduleWithRetry(apiClient, () => ({ petId: petA.id, date: DateTime.now().plus({ days: 3 }).toISO()! }));
+        await scheduleWithRetry(apiClient, () => ({ petId: petA.id, date: DateTime.now().plus({ days: 7 }).toISO()! }));
+
+        // Pasos: iniciar una solicitud y elegir esa misma mascota (en el límite).
+        await videocallFormPage.load();
+        await videocallFormPage.startNewVideocallRequest();
+        await videocallFormPage.selectPet(petA.mascota.nombre);
+        await videocallFormPage.clickContinue();
+
+        // Resultado esperado: se bloquea únicamente para la mascota en el límite.
+        await videocallFormPage.verifyPetLimitBlockedDialog(petA.mascota.nombre);
+        await videocallFormPage.closeLimitReachedDialog();
+
+        // Pasos: volver al selector y elegir la otra mascota (sin turnos agendados).
+        await videocallFormPage.selectPet(petB.mascota.nombre);
+        await videocallFormPage.clickContinue();
+
+        // Resultado esperado: el flujo continúa con normalidad para la otra mascota.
+        await videocallFormPage.verifyReasonScreenWithSelectedPet(petB.mascota.nombre);
     });
 });
 

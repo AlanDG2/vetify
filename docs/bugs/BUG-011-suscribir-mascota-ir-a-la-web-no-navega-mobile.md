@@ -1,41 +1,21 @@
-# BUG-011 — App Android: el botón "Ir a la web" (suscribir mascota sin planes libres) no navega a ningún lado
+# BUG-011 — RETRACTADO: "Ir a la web" (suscribir mascota sin planes libres) sí navega — era un falso positivo del emulador
 
-**Título**: BUG | App Android — "Ir a la web" cierra el modal pero no redirige a la web institucional
-**Jira**: No creado — pendiente de OK explícito del usuario del proyecto (guardrail `jira/update-rules.md`).
-**Severidad**: Medio — no es un crash ni pérdida de datos, pero bloquea por completo un flujo de negocio real (el único camino para que un usuario mobile adquiera un plan adicional) sin ningún mensaje de error visible.
-**Categoría**: Flujo / Navegación
-**HU relacionada**: Equivalente mobile de `credentials.spec.ts` TS-01 TC-03 (Desktop, Playwright) — no hay HU Jira propia identificada para este caso puntual.
+**Estado**: ❌ Retractado 2026-08-13. No es un bug de producto. Nunca fue filed en Jira.
 
-## Información del entorno
+## Qué se creía originalmente
 
-- App Android nativa (WebView wrapper), build QA — paquete `vetify.cliente.dev`, apunta a `https://vetify-qa.ikeapp.com/`.
-- Emulador `Pixel_6_QA` (AVD, Android 14, Chrome del sistema con first-run ya completado — confirmado corriendo `vetify-plus.spec.ts` por separado, que sí abre un contexto `WEBVIEW_chrome` externo sin problema).
-- Usuario pooled `ACTIVE + WITH_PET + NO_EMPTY_PLAN` (todos los planes contratados ya tienen mascota asociada).
-- Fecha: 2026-08-13.
+Se documentó como bug real que, en mobile, tocar "Ir a la web" (modal de "Suscribir mascota" sin planes libres) cerraba el modal sin navegar a ningún lado — probado contra el emulador (AVD `Pixel_6_QA`), con click JS y tap nativo, `browser.getUrl()`/`getContexts()`/`getCurrentPackage()` sin cambios tras el click.
 
-## Descripción
+## Qué pasó en realidad
 
-En Desktop, cuando un usuario con todos sus planes ocupados presiona "Suscribir mascota" en `/section/mypets`, aparece un modal ("Agregar mascota" / "Para darle cobertura a una nueva mascota, primero elegí su plan en la web.") con un botón "Ir a la web" que abre `VETIFY_INSTITUTIONAL_BASE_URL` en una pestaña nueva del navegador (`credentials.spec.ts:122-126`).
+Validado en vivo contra un **dispositivo físico real** (Motorola Edge 60, conectado por USB) con el usuario del proyecto: **"Ir a la web" SÍ navega** — carga la landing de compra de planes correctamente. La diferencia con lo esperado es solo el mecanismo: no abre un navegador externo (como sí hace "Vetify PLUS", vía intent `ACTION_VIEW`), sino que navega **dentro del mismo WebView de la app** (misma `Activity` — confirmado con `adb shell dumpsys activity activities`: `topResumedActivity` nunca cambia de `vetify.cliente.dev/com.example.vetify.MainActivity` antes y después del click). Es decir, el botón funciona — la automatización original medía la señal equivocada (esperaba un contexto/paquete nuevo, que nunca iba a aparecer porque el mecanismo real es una navegación in-place, no una ventana nueva).
 
-En mobile, el mismo flujo muestra **el mismo modal, con el mismo texto y los mismos 2 botones** ("Ir a la web" / "Cancelar") — confirmado con un dump de HTML en vivo, DOM idéntico al de Desktop. Pero al tocar "Ir a la web": el modal se cierra (el handler del botón sí se dispara) y **no pasa nada más** — ni navegación dentro del mismo WebView, ni apertura de un navegador externo, ni ningún error visible para el usuario.
+En el emulador, esa misma navegación in-place no ocurre (ni siquiera se ve el contenido institucional cargar) — es un **falso negativo específico del emulador**, no reproducible en hardware real. Mismo patrón exacto que el falso positivo de "Vetify PLUS"/Chrome-sin-first-run del 2026-08-12 (`qa-workspace/decision-log.md`) y que BUG-009 (el banner de cookies solo reproduce en hardware real, no en el emulador) — el emulador y el dispositivo físico no son intercambiables para validar comportamiento de WebView en esta app.
 
-## Pasos para reproducir
+## Por qué no se cierra como "confirmado en hardware, sigue roto en emulador"
 
-1. Iniciar sesión con un usuario que tenga todos sus planes con mascota ya asociada (`ACTIVE`, `WITH_PET`, `NO_EMPTY_PLAN`).
-2. Navegar a la pantalla de mascotas (`/section/mypets`).
-3. Presionar "Suscribir mascota".
-4. En el modal que aparece, presionar "Ir a la web".
+Porque el objetivo original era evaluar si el CASO DE NEGOCIO (Credenciales TS-01 TC-03 de Desktop) está roto en mobile — y no lo está. El emulador simplemente no es un entorno válido para automatizar/verificar este caso puntual. Se reclasifica en el comparativo Desktop/Mobile como limitación de plataforma (no se puede automatizar de forma confiable contra el emulador, y automatizar contra hardware real está bloqueado por IMP-009), no como gap ni como bug.
 
-## Resultado esperado
+## Lección para la próxima vez
 
-El sistema redirecciona a la web institucional de Vetify (`https://qa.vetify.com.ar` en QA), igual que en Desktop — ya sea dentro de la misma sesión del WebView o abriendo el navegador externo del sistema (como sí hace "Vetify PLUS" desde el menú lateral).
-
-## Resultado actual
-
-El modal se cierra. La URL de la app (confirmada con `browser.getUrl()`) sigue siendo `https://vetify-qa.ikeapp.com/section/mypets`, sin cambios. No aparece ningún contexto nuevo (`browser.getContexts()` solo devuelve `NATIVE_APP` + `WEBVIEW_vetify.cliente.dev`, nunca `WEBVIEW_chrome`) y el paquete en foreground no cambia (`browser.getCurrentPackage()` sigue siendo `vetify.cliente.dev`). Verificado con click vía JS y con tap nativo — mismo resultado en ambos casos, con hasta 2.5s de espera.
-
-## Notas adicionales
-
-- **Control case usado para descartar bug de tooling**: `vetify-plus.spec.ts` TC-01 ("Vetify PLUS" del menú lateral) SÍ logra abrir un contexto `WEBVIEW_chrome` externo desde el mismo emulador, en la misma sesión de exploración — descarta que el problema sea el first-run de Chrome del AVD o una limitación de Appium/WebdriverIO para detectar navegación externa. La diferencia real parece estar en el mecanismo: "Vetify PLUS" es (según el código ya documentado en `AsistenciaDomicilioPage.ts`/`vetify-plus.spec.ts`) un link real que el WebView intercepta a nivel de navegación (`shouldOverrideUrlLoading`, dispara un intent `ACTION_VIEW` nativo), mientras que "Ir a la web" es un `<button>` (no un `<a>`) — su handler casi seguro llama a `window.open(url, '_blank')` por JS. Los WebView de Android no soportan `window.open()`/ventanas múltiples salvo que la app implemente `WebChromeClient.onCreateWindow()` explícitamente — si no está implementado, la llamada falla en silencio, exactamente el síntoma observado.
-- **Pista técnica para dev (no confirmada, a validar)**: revisar si `MainActivity`/el `WebChromeClient` de la app implementa `onCreateWindow()` con `setSupportMultipleWindows(true)`, o si conviene cambiar el botón "Ir a la web" para navegar por `location.href`/disparar el mismo mecanismo de intent que ya usa "Vetify PLUS" en vez de `window.open()`.
-- Encontrado evaluando la portabilidad de `credentials.spec.ts` TS-01 TC-03 (Desktop) a mobile, como parte del punch-list de paridad Desktop/Mobile — no es la técnica de "intent externo" que se esperaba reutilizar (esa técnica sigue sirviendo para detectar el resultado, lo que cambió es que acá no hay ningún resultado que detectar).
+Antes de confirmar un hallazgo de este tipo como bug real basado solo en el emulador, agregar un control case reproducido en **hardware físico** cuando la señal que se está midiendo es "¿pasó algo visible de UI/navegación?" — un control case en el mismo emulador (como se hizo acá con `vetify-plus.spec.ts`) descarta problemas de configuración del AVD (Chrome sin first-run, etc.) pero NO descarta que el propio mecanismo de WebView bajo prueba se comporte distinto en el emulador vs. hardware real. Ver `qa-workspace/decision-log.md` (entrada 2026-08-13, "BUG-011 retractado") para el detalle completo de la validación cruzada con el usuario.

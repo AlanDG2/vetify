@@ -1,8 +1,12 @@
-# BUG-010 — Backend: `/api/files/upload/pets` devuelve 500 crudo en vez de validar el tamaño máximo del archivo
+# BUG-010 — RECLASIFICADO A MEJORA: Backend: `/api/files/upload/pets` devuelve 500 crudo en vez de validar el tamaño máximo del archivo
 
-**Título**: BUG | Backend — endpoint de subida de archivos no valida tamaño máximo, devuelve 500 sin mensaje
-**Severidad**: Medio — no bloquea el flujo normal en Desktop NI en mobile (ambos frontends impiden enviar un archivo de más de 10MB antes de llegar a este endpoint — confirmado en los dos, ver "Reconfirmado en vivo"), pero es una falla real de robustez del backend: cualquier request que sí llegue con un archivo grande (un cliente distinto, una integración, o el mismo frontend si cambia su validación) recibe un error genérico sin información útil.
-**Categoría**: Backend
+**Estado**: Reclasificado 2026-08-13, decisión del usuario del proyecto. No se filea como Defect en Jira — queda documentado como sugerencia de robustez (hardening), no como bug de producto.
+
+**Por qué no es un bug**: ningún usuario real puede pisar este código — tanto Desktop como mobile validan y bloquean el archivo de más de 10MB **antes** de que la request salga (confirmado en ambos, ver "Reconfirmado en vivo" más abajo). El 500 crudo solo aparece si algo golpea el endpoint sin pasar por ninguno de los 2 frontends (una llamada directa, un cliente futuro, una integración) — un escenario de robustez de API, no un defecto de producto con impacto real hoy.
+
+**Título original (para referencia)**: BUG | Backend — endpoint de subida de archivos no valida tamaño máximo, devuelve 500 sin mensaje
+**Severidad**: Bajo/Mejora — sin impacto de usuario actual, ambos frontends ya validan client-side.
+**Categoría**: Backend / Robustez de API
 **HU relacionada**: IMAS-3889 (Adjuntos de videollamada) / IMAS-4023 (regresión de adjuntos) — mismo endpoint que usa esa pantalla; no ligado a una HU de mobile puntual.
 
 ## Información del entorno

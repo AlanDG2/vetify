@@ -1,7 +1,7 @@
 # BUG-012 — App Android: los íconos de la barra de estado (wifi, batería, notificaciones) quedan invisibles sobre la landing institucional ("Ir a la web")
 
 **Título**: BUG | App Android — barra de estado ilegible al cargar la landing institucional desde "Ir a la web"
-**Jira**: No creado — pendiente de OK explícito del usuario del proyecto (guardrail `jira/update-rules.md`).
+**Jira**: **IMAS-4324** (tipo Error, sin parent/link, estado Backlog) — creado 2026-08-13. https://ikeasistencia-arg.atlassian.net/browse/IMAS-4324
 **Severidad**: Bajo — no bloquea ningún flujo (la landing se ve y se usa bien), pero es una regresión de accesibilidad/legibilidad real: el usuario pierde visibilidad de señal, batería y notificaciones mientras está en esta pantalla.
 **Categoría**: Accesibilidad / Layout
 **HU relacionada**: N/A — encontrado por el usuario del proyecto validando manualmente BUG-011 (retractado) en su dispositivo físico.

@@ -117,6 +117,18 @@ export class VetifyMobileAddPetFormPage extends VetifyMobileLoggedBasePage {
         await this.selectFileViaNativePicker('label[for="pet-photo-file-input"]');
     }
 
+    // Paso final — pantalla de felicitación, igual que Playwright's congratsHeadingLbl/goToHomeBtn.
+    // No usado por ningún spec activo todavía (los específicos de wizard nunca llegan a enviar el
+    // formulario final, a propósito, para no consumir cuentas del pool compartidas) — sí usado por
+    // scripts de provisión de cuentas que SÍ necesitan completar el alta real.
+    get congratsHeadingLbl() {
+        return $('//h2[contains(., "ya tiene su credencial lista")]');
+    }
+
+    get goToHomeBtn() {
+        return $('//button[contains(., "Ir al inicio")]');
+    }
+
     // Igual que MyProfilePage.getAllParagraphTexts() — $$('h2') con CSS es confiable, xpath con
     // funciones de texto no. Filtra el título del modal (puede seguir en el DOM oculto) y
     // devuelve el primer heading real de la pantalla.

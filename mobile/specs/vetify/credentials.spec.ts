@@ -1,4 +1,4 @@
-import { expect } from '@wdio/globals';
+import { browser, expect } from '@wdio/globals';
 import { SiteId } from '../../../src/config/environment';
 import { UserTag } from '../../../src/providers/user/tags';
 import type { TestUser } from '../../../src/providers/user/user-provider';
@@ -51,11 +51,11 @@ describe('TS-07 Credenciales - Visualizacion de Planes', () => {
         expect(await myPetsPage.addPetToPlanBtn.isDisplayed()).toBe(true);
     });
 
-    // SKIP dinámico [pool sin datos]: no hay ningún usuario ACTIVE+WITH_PET+PLAN_WITHOUT_PET en
-    // pooled-users.json (VETIFY_ADQUIRENTE) — verificado en vivo, 0 matches incluso sin filtrar
-    // numberOfPlans. Es un gap de datos del pool compartido (Playwright/mobile), no un bug de
-    // este test ni de IMP-010 — sin este chequeo, el test fallaba confuso 30s después esperando
-    // Home (nunca hay login real porque loginWithUserRequest devuelve undefined sin loguear).
+    // RESUELTO 2026-08-12: se provisionó una cuenta ACTIVE+WITH_PET+PLAN_WITHOUT_PET real (2
+    // planes, 1 con mascota completada vía mobile, el otro deliberadamente vacío) — ver
+    // qa-workspace/decision-log.md. El `this.skip()` dinámico de abajo queda como red de
+    // seguridad genérica (mismo patrón que el resto del proyecto), no porque se espere que siga
+    // disparando.
     it('TC-02 - Vetify Mobile App - Suscribir mascota con planes libres abre el modal de carga', async function () {
         const loginPage = new VetifyMobileLoginPage();
         const homePage = new VetifyMobileHomePage();
@@ -80,8 +80,11 @@ describe('TS-07 Credenciales - Visualizacion de Planes', () => {
         await myPetsPage.load();
         await myPetsPage.addNewPlanBtn.waitForDisplayed({ timeout: 20_000 });
 
+        // Click vía JS, no nativo — mismo motivo que el resto del proyecto (viewport angosto,
+        // intercepción de coordenadas). Nunca se había disparado antes porque este test siempre
+        // quedaba en skip por falta de cuenta en el pool (ver known-issues.md, resuelto 2026-08-12).
         const btn = await myPetsPage.addNewPlanBtn;
-        await btn.click();
+        await browser.execute((el: HTMLElement) => el.click(), btn);
 
         await addPetFormPage.startWarningModalTitle.waitForDisplayed({ timeout: 10_000 });
         expect(await addPetFormPage.startWarningModalTitle.isDisplayed()).toBe(true);

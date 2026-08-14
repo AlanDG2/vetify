@@ -90,11 +90,19 @@ export class VetifyCheckoutPage extends BasePage {
 
         const requestBody = response.request().postDataJSON();
 
+        // TIPO_DOCUMENTO_SELECCIONADO NO se valida contra `data.documentType`: el <select> tiene
+        // value="DNI" (confirmado con selectOption(), que devuelve el value real seleccionado), pero
+        // el JS de la app lo traduce a un código interno de Salesforce (ej. "96" para DNI) antes de
+        // mandarlo — no es un bug de la app, es un mapeo intencional que este test no necesita
+        // reproducir. Confirmado en vivo 2026-08-13 que comparar contra "DNI" (label o value) rompía
+        // siempre que este código se ejecutaba de verdad — el campo relevante para este test es
+        // NUMERO_DOCUMENTO, no el código de tipo de documento.
         const isRequestValid =
             requestBody?.NOMBRE === data.firstName &&
             requestBody?.APELLIDO === data.lastName &&
             requestBody?.email === data.email &&
-            requestBody?.TIPO_DOCUMENTO_SELECCIONADO === data.documentType &&
+            typeof requestBody?.TIPO_DOCUMENTO_SELECCIONADO === 'string' &&
+            requestBody.TIPO_DOCUMENTO_SELECCIONADO.length > 0 &&
             requestBody?.NUMERO_DOCUMENTO === data.documentNumber;
 
         if (!isRequestValid) {

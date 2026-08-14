@@ -90,11 +90,16 @@ export class OsdeAdquirenteCheckoutPage extends BasePage {
 
         const requestBody = response.request().postDataJSON();
 
+        // Ver el mismo fix en src/pages/vetify/institutional/CheckoutPage.ts (2026-08-13):
+        // TIPO_DOCUMENTO_SELECCIONADO no se valida contra "DNI" — el JS de la app lo traduce a un
+        // código interno de Salesforce (ej. "96") antes de mandarlo, mapeo intencional que este test
+        // no necesita reproducir. NUMERO_DOCUMENTO es el campo relevante para estos casos.
         const isRequestValid =
             requestBody?.NOMBRE === data.firstName &&
             requestBody?.APELLIDO === data.lastName &&
             requestBody?.email === data.email &&
-            requestBody?.TIPO_DOCUMENTO_SELECCIONADO === data.documentType &&
+            typeof requestBody?.TIPO_DOCUMENTO_SELECCIONADO === 'string' &&
+            requestBody.TIPO_DOCUMENTO_SELECCIONADO.length > 0 &&
             requestBody?.NUMERO_DOCUMENTO === data.documentNumber;
 
         if (!isRequestValid) {

@@ -156,10 +156,34 @@
           "00QO200000UFLAvMAP"
         ],
         "tags": [
-          "REGISTERED",
           "WITH_PET",
           "NO_EMPTY_PLAN"
         ],
+        "_note": "2026-08-14: se sacó el tag REGISTERED — confirmado en vivo vía /api/users/me que esta cuenta tiene identification:null, userIdentifications:[] en el backend real (nunca completó /validation/policy con éxito, a pesar del tag). No usar para TS-03 Asociación de Compra ni para nada que dependa de un DNI real asociado. Ver qa-workspace/decision-log.md 2026-08-14. WITH_PET/NO_EMPTY_PLAN tampoco están confirmados hoy (una investigación anterior, 2026-08-13, ya había visto getUserPets() devolver 0 planes reales pese al numberOfPlans:1 del fixture) — quedan sin tocar por ahora, no reverificados en esta pasada.",
+        "reserved": false
+      },
+      {
+        "id": "f50d267f-7051-42c7-9f93-13fd346b5772",
+        "siteId": "VETIFY_ADQUIRENTE",
+        "email": "user_1786732621674_b4ae5c7c@automation.com",
+        "password": "Te1!46e3d518",
+        "identification": {
+          "type": "DNI",
+          "number": "170217323"
+        },
+        "numberOfPlans": 1,
+        "source": "fresh",
+        "registration": true,
+        "leadIds": [
+          "00QO200000W7ZehMAF"
+        ],
+        "tags": [
+          "REGISTERED",
+          "ACTIVE",
+          "NO_PET",
+          "PLAN_WITHOUT_PET"
+        ],
+        "_note": "2026-08-14: provisionada específicamente para TS-03 Asociación de Compra con Usuario (purchase-flow.spec.ts) — la única cuenta REGISTERED anterior tenía identification:null real en el backend (ver nota de user_1782769446332 arriba). Compra real vía UserFactory.generateTestUsers() + espera de 15min (IMP-004) + activateFreshAccounts(), que falló por timeout de navegación en el paso de login post-validación — pero /validation/policy sí había quedado pendiente sin completar. Se completó manualmente (VetifyWebappPolicyValidationPage.validatePolicy()) y se confirmó vía /api/users/me: identification:\"170217323\", idType:\"DNI\", isClient:true, userIdentifications con 1 entrada real. Ver qa-workspace/decision-log.md 2026-08-14.",
         "reserved": false
       },
       {

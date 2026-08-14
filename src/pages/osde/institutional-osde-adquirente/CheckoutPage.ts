@@ -37,8 +37,10 @@ export class OsdeAdquirenteCheckoutPage extends BasePage {
     readonly documentTypeSelect: Locator;
     private readonly documentNumberInput: Locator;
     readonly continueButton: Locator;
-    private readonly provinceSelect: Locator;
-    private readonly localityInput: Locator;
+    readonly backButton: Locator;
+    readonly requiredFieldErrors: Locator;
+    readonly provinceSelect: Locator;
+    readonly localityInput: Locator;
     private readonly addressInput: Locator;
     private readonly zipCodeInput: Locator;
     private readonly floorInput: Locator;
@@ -47,7 +49,7 @@ export class OsdeAdquirenteCheckoutPage extends BasePage {
     private readonly cardholderNameInput: Locator;
     private readonly cvvInput: Locator;
     private readonly expiryInput: Locator;
-    private readonly finalizeButton: Locator;
+    readonly finalizeButton: Locator;
 
     constructor(page: Page) {
         super(page);
@@ -59,6 +61,8 @@ export class OsdeAdquirenteCheckoutPage extends BasePage {
         this.documentTypeSelect = this.page.locator('select[name="documentType"]');
         this.documentNumberInput = this.page.locator('input[name="documentNumber"]');
         this.continueButton = this.page.getByRole('button', { name: /continuar/i });
+        this.backButton = this.page.getByRole('button', { name: /regresar/i });
+        this.requiredFieldErrors = this.page.getByText('Este campo es obligatorio');
         this.provinceSelect = this.page.getByLabel('Provincia');
         this.localityInput = this.page.getByLabel('Localidad');
         this.addressInput = this.page.getByLabel('Calle y número');
@@ -70,6 +74,23 @@ export class OsdeAdquirenteCheckoutPage extends BasePage {
         this.cvvInput = this.page.getByLabel('CVV');
         this.expiryInput = this.page.getByLabel('Vencimiento');
         this.finalizeButton = this.page.getByRole('button', { name: /finalizar/i });
+    }
+
+    async getProvinceOptionTexts(): Promise<string[]> {
+        // El <select> arranca con un placeholder "Cargando provincias..." (1 sola opción) mientras
+        // trae el listado real por API — confirmado en vivo 2026-08-14. Esperar a que aparezca una
+        // provincia real antes de leer, si no se lee la carga en progreso.
+        await this.provinceSelect.locator('option', { hasText: 'Buenos Aires' }).first().waitFor({ state: 'attached' });
+        const options = await this.provinceSelect.locator('option').allTextContents();
+        return options.map((option) => option.trim()).filter((option) => option !== '[ Seleccione ]');
+    }
+
+    // Precondición: ya se seleccionó una provincia (el input de Localidad queda deshabilitado hasta
+    // entonces). Devuelve el texto de las sugerencias que ofrece el buscador, sin seleccionar ninguna.
+    async searchLocalitySuggestions(searchTerm: string): Promise<string[]> {
+        await this.localityInput.fill(searchTerm);
+        await this.page.getByRole('listitem').first().waitFor({ state: 'visible' });
+        return this.page.getByRole('listitem').allTextContents();
     }
 
     async expectSelectedPlan(plan: Plan): Promise<void> {

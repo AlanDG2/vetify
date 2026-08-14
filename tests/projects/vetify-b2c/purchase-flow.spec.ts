@@ -430,4 +430,178 @@ test.describe('Flujo de Compra', () => {
             await expect(page).not.toHaveURL(/\/checkout\/billing$/);
         });
     });
+
+    // Portado de documentation/Casos de Prueba (1).xlsx, hoja "Flujo de Compra", TS-06 Formulario -
+    // Paso 2. Confirmado en vivo (2026-08-14, Playwright MCP) antes de automatizar: el mensaje de
+    // campo obligatorio es "Este campo es obligatorio" (aparece 1 vez por campo, inline), Provincia
+    // es un <select> con las 23 provincias argentinas + CABA (24 opciones reales), y Localidad pasa
+    // de deshabilitado a un buscador con autocompletado recién después de elegir una provincia.
+    test.describe('TS-06 Formulario - Paso 2', () => {
+        async function reachBillingStep(container: TestContainer): Promise<void> {
+            const institutional = container.b2c.landingPage;
+            const checkout = container.b2c.checkoutPage;
+
+            await institutional.load();
+            await institutional.plans.scrollIntoView();
+            await institutional.plans.contractRandomPlan();
+
+            await checkout.completePersonalData({
+                firstName: 'Test',
+                lastName: `Automation ${Date.now()}`,
+                email: getRandomEmail(),
+                phone: '1161898707',
+                documentType: 'DNI',
+                documentNumber: getRandomIdentificationNumber(),
+            });
+        }
+
+        test('TC-01 Listado de Provincias', async ({ container }) => {
+            await setAllureDetails({
+                preconditions: ['Usuario seleccionó un plan y se encuentra en el paso 2 del checkout.'],
+                steps: ['Completar el paso 1', 'Desplegar el listado de provincias'],
+                expectedResult: ['El sistema lista correctamente todas las provincias correspondientes a la República Argentina exclusivamente'],
+            });
+
+            await reachBillingStep(container);
+            const checkout = container.b2c.checkoutPage;
+
+            const provinces = await checkout.getProvinceOptionTexts();
+            expect(provinces).toHaveLength(24);
+            expect(provinces).toEqual(expect.arrayContaining(['Buenos Aires', 'Ciudad Autónoma de Buenos Aires', 'Córdoba']));
+        });
+
+        test('TC-02 Listado de Localidades', async ({ container }) => {
+            await setAllureDetails({
+                preconditions: ['Usuario seleccionó un plan y se encuentra en el paso 2 del checkout.'],
+                steps: ['Completar el paso 1', 'Seleccionar una provincia', 'Buscar una localidad'],
+                expectedResult: ['El sistema lista correctamente las localidades correspondientes a la provincia seleccionada'],
+            });
+
+            await reachBillingStep(container);
+            const checkout = container.b2c.checkoutPage;
+
+            await checkout.provinceSelect.selectOption({ label: 'Ciudad Autónoma de Buenos Aires' });
+            const suggestions = await checkout.searchLocalitySuggestions('Ciudad');
+
+            expect(suggestions.length).toBeGreaterThan(0);
+            expect(suggestions).toContain('CIUDAD AUTONOMA DE BUENOS AIRES');
+        });
+
+        test('TC-03 Campos obligatorios', async ({ container, page }) => {
+            await setAllureDetails({
+                preconditions: ['Usuario seleccionó un plan y se encuentra en el paso 2 del checkout.'],
+                steps: ['Completar el paso 1', 'Presionar "Continuar" sin completar ningún campo'],
+                expectedResult: [
+                    'El sistema muestra un mensaje de error indicando que Provincia, Localidad, Calle y número y Código postal son obligatorios',
+                    'El sistema no avanza al paso 3 (formas de pago)',
+                ],
+            });
+
+            await reachBillingStep(container);
+            const checkout = container.b2c.checkoutPage;
+
+            await checkout.continueButton.click();
+
+            await expect(page).not.toHaveURL(/\/checkout\/payment/);
+            await expect(checkout.requiredFieldErrors).toHaveCount(4);
+        });
+
+        test('TC-04 Volver al paso 1', async ({ container, page }) => {
+            await setAllureDetails({
+                preconditions: ['Usuario seleccionó un plan y se encuentra en el paso 2 del checkout.'],
+                steps: ['Completar el paso 1', 'Presionar el botón "Regresar"'],
+                expectedResult: ['El sistema redirecciona correctamente al primer paso del flujo de compra'],
+            });
+
+            await reachBillingStep(container);
+            const checkout = container.b2c.checkoutPage;
+
+            await checkout.backButton.click();
+
+            await expect(page).toHaveURL(/\/checkout\/form/);
+        });
+
+        test('TC-05 Navegar al Paso 3', async ({ container, page }) => {
+            await setAllureDetails({
+                preconditions: ['Usuario seleccionó un plan y se encuentra en el paso 2 del checkout.'],
+                steps: ['Completar el paso 1', 'Completar Provincia, Localidad, Calle y número y Código postal', 'Presionar el botón "Continuar"'],
+                expectedResult: ['El sistema almacena temporalmente los datos ingresados', 'El sistema redirecciona correctamente al usuario al paso 3 del formulario de compra'],
+            });
+
+            await reachBillingStep(container);
+            const checkout = container.b2c.checkoutPage;
+
+            await checkout.completeBillingData({
+                province: 'Ciudad Autónoma de Buenos Aires',
+                localitySearch: 'Ciudad',
+                locality: 'CIUDAD AUTONOMA DE BUENOS AIRES',
+                address: 'Av Corrientes 123',
+                zipCode: '1414',
+            });
+
+            await expect(page).toHaveURL(/\/checkout\/payment/);
+        });
+    });
+
+    // Portado de documentation/Casos de Prueba (1).xlsx, hoja "Flujo de Compra", TS-07 Formulario -
+    // Paso 3. Mismo copy de error confirmado en vivo ("Este campo es obligatorio", 4 apariciones al
+    // presionar "Finalizar" sin completar nada).
+    test.describe('TS-07 Formulario - Paso 3', () => {
+        async function reachPaymentStep(container: TestContainer): Promise<void> {
+            const institutional = container.b2c.landingPage;
+            const checkout = container.b2c.checkoutPage;
+
+            await institutional.load();
+            await institutional.plans.scrollIntoView();
+            await institutional.plans.contractRandomPlan();
+
+            await checkout.completePersonalData({
+                firstName: 'Test',
+                lastName: `Automation ${Date.now()}`,
+                email: getRandomEmail(),
+                phone: '1161898707',
+                documentType: 'DNI',
+                documentNumber: getRandomIdentificationNumber(),
+            });
+
+            await checkout.completeBillingData({
+                province: 'Ciudad Autónoma de Buenos Aires',
+                localitySearch: 'Ciudad',
+                locality: 'CIUDAD AUTONOMA DE BUENOS AIRES',
+                address: 'Av Corrientes 123',
+                zipCode: '1414',
+            });
+        }
+
+        test('TC-01 Campos obligatorios', async ({ container, page }) => {
+            await setAllureDetails({
+                preconditions: ['Usuario seleccionó un plan y se encuentra en el paso 3 del checkout.'],
+                steps: ['Completar los pasos 1 y 2', 'Presionar el botón "Finalizar" sin completar ningún campo'],
+                expectedResult: ['El sistema muestra un mensaje de error indicando que Número de tarjeta, Nombre, CVV y Vencimiento son obligatorios'],
+            });
+
+            await reachPaymentStep(container);
+            const checkout = container.b2c.checkoutPage;
+
+            await checkout.finalizeButton.click();
+
+            await expect(page).toHaveURL(/\/checkout\/payment/);
+            await expect(checkout.requiredFieldErrors).toHaveCount(4);
+        });
+
+        test('TC-02 Volver al paso 2', async ({ container, page }) => {
+            await setAllureDetails({
+                preconditions: ['Usuario seleccionó un plan y se encuentra en el paso 3 del checkout.'],
+                steps: ['Completar los pasos 1 y 2', 'Presionar el botón "Regresar"'],
+                expectedResult: ['El sistema redirecciona correctamente al segundo paso del flujo de compra'],
+            });
+
+            await reachPaymentStep(container);
+            const checkout = container.b2c.checkoutPage;
+
+            await checkout.backButton.click();
+
+            await expect(page).toHaveURL(/\/checkout\/billing/);
+        });
+    });
 });

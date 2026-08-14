@@ -604,4 +604,41 @@ test.describe('Flujo de Compra', () => {
             await expect(page).toHaveURL(/\/checkout\/billing/);
         });
     });
+
+    // Portado de documentation/Casos de Prueba (1).xlsx, hoja "Flujo de Compra", TS-04 Cupones.
+    // Solo TC-01 (cupón inexistente) se automatiza hoy — TC-02 a TC-07 necesitan un código de cupón
+    // real y válido para probar, y los 2 códigos del fixture del proyecto (src/fixtures/cupons/
+    // reusable-cupons.json, "UNIVERSAL-REUSE-10"/"OSDE-REUSE-20") se confirmaron FALSOS en vivo
+    // 2026-08-14 — ambos dan error real de "cupón inválido" contra el checkout real. Investigado:
+    // esos códigos solo aparecen en tests/unit-tests/cupon-provider.unit.spec.ts, que los escribe
+    // temporalmente para probar la lógica de CuponPool y los revierte después — nunca fueron
+    // sembrados como cupones reales en el backend. Sin un código real, TC-02-07 quedan bloqueados
+    // (ver qa-workspace/decision-log.md 2026-08-14 para el detalle completo).
+    test.describe('TS-04 Cupones', () => {
+        test('TC-01 Aplicar cupón no existente', async ({ container, page }) => {
+            await setAllureDetails({
+                preconditions: ['Usuario seleccionó un plan en la landing de Vetify.'],
+                steps: ['Ingresar un cupón no válido'],
+                expectedResult: ['El sistema muestra un mensaje de error indicando que el cupón ingresado no es válido', 'El valor de compra no es modificado', 'El usuario puede agregar otro cupón si lo desea'],
+            });
+
+            const institutional = container.b2c.landingPage;
+            const checkout = container.b2c.checkoutPage;
+
+            await institutional.load();
+            await institutional.plans.scrollIntoView();
+            await institutional.plans.contractRandomPlan();
+
+            const totalBefore = await checkout.getOrderTotalText();
+
+            await checkout.applyCoupon('CUPON-INEXISTENTE-XYZ');
+
+            await expect(page.getByText('Cupón no encontrado')).toBeVisible();
+            expect(await checkout.getOrderTotalText()).toBe(totalBefore);
+
+            // El usuario puede agregar otro cupón si lo desea: el input sigue habilitado.
+            await checkout.applyCoupon('OTRO-CUPON-INEXISTENTE');
+            await expect(page.getByText('Cupón no encontrado')).toBeVisible();
+        });
+    });
 });

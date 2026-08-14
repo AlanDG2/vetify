@@ -93,6 +93,34 @@ export class OsdeAdquirenteCheckoutPage extends BasePage {
         return this.page.getByRole('listitem').allTextContents();
     }
 
+    async getOrderTotalText(): Promise<string> {
+        const container = this.totalLabel.locator('..');
+        // El monto tarda un instante en hidratar después de seleccionar el plan — mismo patrón de
+        // carga async ya visto con el listado de provincias (2026-08-14). Esperar a que aparezca un
+        // "$" antes de leer, si no se lee el estado vacío/placeholder.
+        // El placeholder de carga también muestra "$ ..." (con puntos suspensivos, sin dígitos) —
+        // exigir al menos un dígito real, si no el filtro anterior (solo "$") matcheaba la carga.
+        const amountPattern = /\$\s*[\d.,]*\d/;
+        await container.filter({ hasText: amountPattern }).waitFor({ state: 'visible' });
+        const text = (await container.innerText()) ?? '';
+        // Se extrae solo el monto ($ NNN.NNN) en vez de comparar el texto completo del contenedor:
+        // el layout alrededor puede cambiar levemente (espacios/saltos de línea distintos), lo que
+        // rompía una comparación por igualdad de texto completo.
+        return text.match(amountPattern)?.[0].replace(/\s+/g, ' ').trim() ?? text.trim();
+    }
+
+    // A diferencia de Vetify B2C, acá el campo de cupón (#coupon-input) está siempre visible en el
+    // resumen de la orden desde el paso 1 — no hace falta abrir ningún panel (confirmado en vivo
+    // 2026-08-14). El id se repite en el DOM (versión desktop/mobile responsive, mismo patrón "DOM
+    // duplicado por breakpoint" ya documentado en este proyecto para otras pantallas) — filtrar por
+    // el visible en vez de tomar el primero a ciegas.
+    async applyCoupon(code: string): Promise<void> {
+        const couponInput = this.page.locator('#coupon-input:visible');
+        const applyButton = this.page.locator('button:visible', { hasText: 'APLICAR' });
+        await couponInput.fill(code);
+        await applyButton.click();
+    }
+
     async expectSelectedPlan(plan: Plan): Promise<void> {
         await this.page.getByText(plan.name, { exact: false }).last().waitFor({ state: 'visible' });
         await this.totalLabel.waitFor({ state: 'visible' });

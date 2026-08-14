@@ -363,4 +363,38 @@ test.describe('Registración y Adquisición Test Suite', () => {
             await expect(page).toHaveURL(/\/checkout\/billing/);
         });
     });
+
+    // Portado de documentation/Casos de Prueba (1).xlsx, hoja "Flujo de Compra", TS-04 Cupones.
+    // Solo TC-01 (cupón inexistente) se automatiza hoy — ver el comentario completo en
+    // tests/projects/vetify-b2c/purchase-flow.spec.ts (misma investigación, mismo bloqueo: los 2
+    // códigos del fixture del proyecto son falsos, confirmado en vivo 2026-08-14). Mensaje de error
+    // real de OSDE distinto al de Vetify B2C ("Verificá el código que está en +OSDE..." vs "Cupón no
+    // encontrado") — mismo checkout compartido, pero cada producto valida/redacta su propio mensaje.
+    test.describe('TS-04 Cupones', () => {
+        test('TC-01 Aplicar cupón no existente', async ({ container, page }) => {
+            await setAllureDetails({
+                preconditions: ['Usuario seleccionó un plan en la landing de adquirente OSDE.'],
+                steps: ['Ingresar un cupón no válido'],
+                expectedResult: ['El sistema muestra un mensaje de error indicando que el cupón ingresado no es válido', 'El valor de compra no es modificado', 'El usuario puede agregar otro cupón si lo desea'],
+            });
+
+            const institutional = container.osdeAdquiriente.landingPage;
+            const checkout = container.osdeAdquiriente.checkoutPage;
+
+            await institutional.load();
+            await institutional.plans.scrollIntoView();
+            await institutional.plans.contractRandomPlan();
+
+            const totalBefore = await checkout.getOrderTotalText();
+
+            await checkout.applyCoupon('CUPON-INEXISTENTE-XYZ');
+
+            await expect(page.getByText('Verificá el código', { exact: false })).toBeVisible();
+            expect(await checkout.getOrderTotalText()).toBe(totalBefore);
+
+            // El usuario puede agregar otro cupón si lo desea: el input sigue habilitado.
+            await checkout.applyCoupon('OTRO-CUPON-INEXISTENTE');
+            await expect(page.getByText('Verificá el código', { exact: false })).toBeVisible();
+        });
+    });
 });

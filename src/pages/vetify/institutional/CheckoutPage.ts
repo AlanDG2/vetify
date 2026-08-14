@@ -93,6 +93,37 @@ export class VetifyCheckoutPage extends BasePage {
         return this.page.getByRole('listitem').allTextContents();
     }
 
+    async getOrderTotalText(): Promise<string> {
+        const container = this.totalLabel.locator('..');
+        // El monto tarda un instante en hidratar después de seleccionar el plan — mismo patrón de
+        // carga async ya visto con el listado de provincias (2026-08-14). Esperar a que aparezca un
+        // "$" antes de leer, si no se lee el estado vacío/placeholder.
+        // El placeholder de carga también muestra "$ ..." (con puntos suspensivos, sin dígitos) —
+        // exigir al menos un dígito real, si no el filtro anterior (solo "$") matcheaba la carga.
+        const amountPattern = /\$\s*[\d.,]*\d/;
+        await container.filter({ hasText: amountPattern }).waitFor({ state: 'visible' });
+        const text = (await container.innerText()) ?? '';
+        // Se extrae solo el monto ($ NNN.NNN) en vez de comparar el texto completo del contenedor:
+        // el layout alrededor cambia levemente según si el panel de cupón está abierto o cerrado
+        // (espacios/saltos de línea distintos), lo que rompía una comparación por igualdad de texto.
+        return text.match(amountPattern)?.[0].replace(/\s+/g, ' ').trim() ?? text.trim();
+    }
+
+    // El panel de cupón vive detrás de un botón "EDITAR" en el resumen de la orden (confirmado en
+    // vivo 2026-08-14) — a diferencia de OSDE Adquirente, que lo muestra siempre visible. No falla
+    // si ya está abierto.
+    async applyCoupon(code: string): Promise<void> {
+        const editButton = this.page.getByRole('button', { name: /^editar$/i });
+        if (await editButton.isVisible().catch(() => false)) {
+            await editButton.click();
+        }
+
+        const applyButton = this.page.getByRole('button', { name: 'APLICAR' });
+        const couponInput = applyButton.locator('..').getByRole('textbox');
+        await couponInput.fill(code);
+        await applyButton.click();
+    }
+
     async expectSelectedPlan(plan: Plan): Promise<void> {
         await this.page.getByText(plan.name, { exact: false }).last().waitFor({ state: 'visible' });
         await this.totalLabel.waitFor({ state: 'visible' });

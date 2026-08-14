@@ -157,6 +157,77 @@ test.describe('Registración y Adquisición Test Suite', () => {
         });
     });
 
+    // Portado de documentation/Casos de Prueba (1).xlsx, hoja "Flujo de Compra", TS-02 Compra de
+    // Planes Fallida, TC-01 "Tarjeta Prepaga". MercadoPago sandbox no tiene una tarjeta de prueba
+    // marcada como prepaga — el cardholderName maneja el escenario simulado (ver
+    // MercadoPagoCardsHelper), así que se usa REJECTED_CARD_TYPE_NOT_ALLOWED (CTNA), el código de
+    // MP más cercano a "tipo de tarjeta no permitido". Confirmado en vivo 2026-08-14 que el backend
+    // de este proyecto (Quantum) NO tiene un mapeo limpio para este código específico — a diferencia
+    // de otros rechazos (ver TC-02 arriba, "cc_rejected_insufficient_amount" sí tiene status:
+    // "rejected" prolijo), acá cae a un fallback genérico ("Error de código de respuesta de MP
+    // inexistente en StatusErrorMp", status:"404" como string dentro de statusMP). El comportamiento
+    // esencial de la CA sí se cumple (no se procesa el pago, no se completa la compra) — la
+    // redacción específica "tarjetas prepagas no son aceptadas" no se pudo confirmar porque MP
+    // sandbox no ofrece ese escenario exacto para simular.
+    test.describe('TS-02 Compra de Planes Fallida', () => {
+        test('TC-01 Compra fallida - Tarjeta Prepaga (simulada via CTNA)', async ({ container, page }) => {
+            await setAllureDetails({
+                preconditions: ['Usuario seleccionó un plan en la landing de adquirente OSDE.'],
+                steps: [
+                    'Completar los datos obligatorios del paso 1',
+                    'Navegar al paso 2',
+                    'Completar los datos obligatorios del paso 2',
+                    'Navegar al paso 3',
+                    'Ingresar los datos de una tarjeta cuyo tipo no está permitido',
+                    'Presionar el botón "Finalizar"',
+                ],
+                expectedResult: ['El sistema no procesa el pago', 'El usuario permanece en el paso 3 (no se completa la compra)'],
+            });
+
+            await container.osdeAdquiriente.landingPage.load();
+            await container.osdeAdquiriente.landingPage.plans.scrollIntoView();
+            await container.osdeAdquiriente.landingPage.plans.contractRandomPlan();
+
+            await container.osdeAdquiriente.checkoutPage.completePersonalData({
+                firstName: 'Test',
+                lastName: 'Automation',
+                email: getRandomEmail(),
+                phone: '1161898707',
+                documentType: 'DNI',
+                documentNumber: getRandomIdentificationNumber(),
+            });
+
+            await container.osdeAdquiriente.checkoutPage.completeBillingData({
+                province: 'Ciudad Autónoma de Buenos Aires',
+                localitySearch: 'Ciudad',
+                locality: 'CIUDAD AUTONOMA DE BUENOS AIRES',
+                address: 'Av Corrientes 123',
+                zipCode: '1414',
+            });
+
+            const paymentData = MercadoPagoCardsHelper.buildCheckoutPaymentData(MERCADOPAGO_PAYMENT_STATUSES.REJECTED_CARD_TYPE_NOT_ALLOWED, MERCADOPAGO_CARD_PROVIDER.VISA);
+
+            await container.osdeAdquiriente.checkoutPage.completePaymentData({
+                cardNumber: paymentData.cardNumber,
+                cardholderName: paymentData.cardholderName,
+                cvv: paymentData.cvv,
+                expiry: paymentData.expiry,
+            });
+
+            const [response] = await Promise.all([page.waitForResponse('**/api/quantum/jengage/payment/pagar-mp**'), page.getByRole('button', { name: /finalizar/i }).click()]);
+
+            expect(response.status()).toBe(400);
+
+            const responseBody = await response.json();
+            expect(responseBody.status).toBe(400);
+            expect(typeof responseBody.statusMP?.statusDetail).toBe('string');
+            expect(responseBody.statusMP.statusDetail).toContain('cc_rejected_card_type_not_allowed');
+
+            // Ensure user is not redirected to success page
+            await expect(page).toHaveURL(/\/checkout\/payment\?from=osde.*$/);
+        });
+    });
+
     test.describe('TS-05 Formulario - Paso 1', () => {
         test('TC-01 Listado de tipos de documentos', async ({ container }) => {
             await setAllureDetails({

@@ -26,6 +26,11 @@ describe('TS-02 Navegacion', () => {
         await homePage.openSideMenu();
         await homePage.sideMenuSection.closeSideMenuBtn.waitForDisplayed({ timeout: 10_000 });
         expect(await homePage.sideMenuSection.closeSideMenuBtn.isDisplayed()).toBe(true);
+
+        // Cerrar el menú antes de terminar: dejarlo abierto choca con el próximo test que
+        // intente abrirlo de nuevo (el botón que lo dispara queda tapado por el drawer todavía
+        // en pantalla — "element click intercepted").
+        await homePage.sideMenuSection.closeSideMenuBtn.click();
     });
 
     it('TC-02 - Vetify Mobile App - cierra sesion y vuelve al login', async () => {

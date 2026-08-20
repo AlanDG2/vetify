@@ -17,7 +17,7 @@ Como tutor de Vetify, quiero recibir información clara cuando ocurra un error a
 
 ## Contexto — no es un módulo nuevo, es la misma pantalla de "Adjuntos" ya automatizada parcialmente
 
-Esta HU cae sobre la pantalla de adjuntos del flujo de videollamada (`VetifyWebappVideocallFormPage`, sección "Subí una foto, video o archivo"), que **ya tiene POM construido y varios casos automatizados** desde IMAS-3174/IMAS-3889 (`tests/projects/vetify-webapp/videocall.spec.ts`, `src/pages/vetify/webapp/videocall/VideocallFormPage.ts`). El Excel de casos manuales (`documentation/Casos de Prueba (1).xlsx`, hoja Videollamadas, grupo IMAS-3889) ya tenía diseñados varios CPs que mapean casi 1:1 con los CA de IMAS-4023 — ver tabla abajo. No hace falta diseñar de cero ni construir un POM nuevo.
+Esta HU cae sobre la pantalla de adjuntos del flujo de videollamada (`VetifyWebappVideocallFormPage`, sección "Subí una foto, video o archivo"), que **ya tiene POM construido y varios casos automatizados** desde IMAS-3174/IMAS-3889 (`tests/projects/vetify-webapp/videocall.spec.ts`, `src/pages/vetify/webapp/videocall/VideocallFormPage.ts`). El Excel de casos manuales (`documentation/Casos de Prueba.xlsx`, hoja Videollamadas, grupo IMAS-3889) ya tenía diseñados varios CPs que mapean casi 1:1 con los CA de IMAS-4023 — ver tabla abajo. No hace falta diseñar de cero ni construir un POM nuevo.
 
 ### Ya automatizado y verde hoy (reusable, no tocar)
 

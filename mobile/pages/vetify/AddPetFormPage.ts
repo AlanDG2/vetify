@@ -188,6 +188,10 @@ export class VetifyMobileAddPetFormPage extends VetifyMobileLoggedBasePage {
         return $('//button[contains(., "Ir al inicio")]');
     }
 
+    async goToHome(): Promise<void> {
+        await this.jsClick(this.goToHomeBtn);
+    }
+
     // Igual que MyProfilePage.getAllParagraphTexts() — $$('h2') con CSS es confiable, xpath con
     // funciones de texto no. Filtra el título del modal (puede seguir en el DOM oculto) y
     // devuelve el primer heading real de la pantalla.

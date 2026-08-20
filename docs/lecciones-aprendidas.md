@@ -72,7 +72,7 @@
 
 ### [2026-08-08] El Excel de casos de prueba queda desactualizado respecto al código real — patrón recurrente (4+ veces en una sesión)
 
-**HU relacionada**: Auditoría completa de `documentation/Casos de Prueba (1).xlsx` (hojas Videollamadas, Credenciales, Gestión de Usuario, Flujo de Compra, Perfil)  ·  **Categoría**: Proceso / gestión de casos de prueba
+**HU relacionada**: Auditoría completa de `documentation/Casos de Prueba.xlsx` (hojas Videollamadas, Credenciales, Gestión de Usuario, Flujo de Compra, Perfil)  ·  **Categoría**: Proceso / gestión de casos de prueba
 
 **Problema**: al cruzar cada hoja del Excel contra los `.spec.ts` reales, aparecieron divergencias en ambas direcciones, repetidas en casi todas las hojas: (a) CPs marcados `No` que en realidad ya estaban cubiertos por un test de regresión con nombre distinto al CP original (ej. `TC-07 CP10,CP12` en videollamada), y (b) CPs marcados `No`/`Parcial` que describían un comportamiento que **ya no existe** en el producto (ej. "Cargar credencial sin foto (Omitir)" — la foto es obligatoria por diseño hoy; "Cambiar DNI" en Perfil — no existe forma de cambiar el DNI desde la UI, solo llamando a un 0800).
 

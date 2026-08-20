@@ -24,6 +24,8 @@ Plataforma de **venta y gestión de planes de mascotas/salud veterinaria** (marc
 
 Además existe **`vetify-webapp`**: el panel logueado donde el usuario YA con plan activo gestiona sus mascotas, ve su credencial y agenda videollamadas veterinarias.
 
+**Contenido institucional/marketing de cada landing** (textos reales, planes, precios, FAQ, comparativa QA vs. PROD) — relevado completo en [`docs/contenido-institucional.md`](contenido-institucional.md), separado de este archivo para no mezclar comportamiento funcional con copy de marketing.
+
 **Backend real de pagos/catálogo**: API "Quantum" (`api/v1/jengage/...`, `api/quantum/jengage/...`), autenticación separada "jauth" (`api/quantum/jauth/token`, Auth0 para usuarios de portal). El parámetro de query `cuenta` en Quantum identifica el producto/backoffice (`MA_VETIFY` = Vetify, `LN_MASC_CD` = otra línea mascotas, `LN_AAPAS` = asistencia vial `pagar-pas`) — confirmado con la colección Postman real del equipo (ver [Integración: backend Quantum](#integración-backend-quantum-pagos-y-catálogo) más abajo).
 
 **Última actualización**: 2026-08-08 (auditoría completa del Excel de casos de prueba vs `tests/projects/**` — ver `docs/lecciones-aprendidas.md` para el detalle de qué se corrigió).

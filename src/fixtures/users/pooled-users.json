@@ -11,7 +11,7 @@
           "number": "1588816521"
         },
         "numberOfPlans": 2,
-        "source": "fresh",
+        "source": "pooled",
         "registration": true,
         "leadIds": [],
         "tags": [
@@ -32,7 +32,7 @@
           "number": "1203963334"
         },
         "numberOfPlans": 2,
-        "source": "fresh",
+        "source": "pooled",
         "registration": true,
         "leadIds": [
           "00QO200000UHoiHMAT",
@@ -150,7 +150,7 @@
           "number": "438462881"
         },
         "numberOfPlans": 1,
-        "source": "fresh",
+        "source": "pooled",
         "registration": false,
         "leadIds": [
           "00QO200000UFLAvMAP"
@@ -172,10 +172,55 @@
           "number": "170217323"
         },
         "numberOfPlans": 1,
-        "source": "fresh",
+        "source": "pooled",
         "registration": true,
         "leadIds": [
           "00QO200000W7ZehMAF"
+        ],
+        "tags": [
+          "CONTAMINATED",
+          "NO_PET"
+        ],
+        "_note": "2026-08-14: provisionada específicamente para TS-03 Asociación de Compra con Usuario (purchase-flow.spec.ts) — la única cuenta REGISTERED anterior tenía identification:null real en el backend (ver nota de user_1782769446332 arriba). Compra real vía UserFactory.generateTestUsers() + espera de 15min (IMP-004) + activateFreshAccounts(), que falló por timeout de navegación en el paso de login post-validación — pero /validation/policy sí había quedado pendiente sin completar. Se completó manualmente (VetifyWebappPolicyValidationPage.validatePolicy()) y se confirmó vía /api/users/me: identification:\"170217323\", idType:\"DNI\", isClient:true, userIdentifications con 1 entrada real. Ver qa-workspace/decision-log.md 2026-08-14. || 2026-08-18: se sacó el tag REGISTERED — esta cuenta recibió ~10 compras de prueba en el día de hoy (corridas repetidas de TS-03 antes de tener reserva propia) y su cantidad de planes siguió subiendo entre corridas ya aisladas unas de otras (sin concurrencia), lo que sugiere una asociación con demora larga e impredecible (no descartada por el chequeo de 30s/10min de BUG-013) contaminando cualquier comparación antes/después futura. No usar para TS-03 hasta reverificar. Reemplazada en el pool por 2 cuentas nuevas y limpias (3ac57f75, a7dc5b96). Ver qa-workspace/decision-log.md 2026-08-18. || 2026-08-20: se sacaron los tags ACTIVE+PLAN_WITHOUT_PET (quedó solo NO_PET+CONTAMINATED) — mobile/specs/vetify/credentials.spec.ts TS-07 TC-01 usa reserve:false+ignoreReserved:true con esa combinación exacta, y con .find() de orden de array esta cuenta (la primera en matchear) se seguía eligiendo siempre pese a la advertencia de arriba, causando que 'plan sin mascota' ya no se vea (la cuenta tiene más de 1 plan real acumulado). Con los tags sacados, TS-07 ahora cae en una cuenta limpia del pool. Ver qa-workspace/decision-log.md 2026-08-20.",
+        "reserved": false
+      },
+      {
+        "id": "3ac57f75-80cc-4f8a-bac6-892387b07a9c",
+        "siteId": "VETIFY_ADQUIRENTE",
+        "email": "user_1787086478298_7768b2cc@automation.com",
+        "password": "Te1!f20cb553",
+        "identification": {
+          "type": "DNI",
+          "number": "1608781492"
+        },
+        "numberOfPlans": 3,
+        "source": "pooled",
+        "registration": true,
+        "leadIds": [
+          "00QO200000WHc3FMAT"
+        ],
+        "tags": [
+          "REGISTERED",
+          "ACTIVE",
+          "PLAN_WITHOUT_PET"
+        ],
+        "_note": "2026-08-18: 2da y 3ra cuenta REGISTERED del pool (junto con f50d267f arriba), provisionadas para que TS-03 Asociación de Compra con Usuario (3 TCs) pueda reservar una cuenta exclusiva por test en vez de compartir una sola sin reservar — ver qa-workspace/decision-log.md 2026-08-18. Mismo flujo de generación que f50d267f: UserFactory.generateTestUsers() + espera de 15min (IMP-004) + activateFreshAccounts(), esta vez sin fallas. || 2026-08-20: confirmado en vivo vía API (getUserPets) -- ya tiene 3 planes (1 OCUPADO con mascota de una corrida vieja de TS-09 mobile, 2 LIBRE), no 1 como decía numberOfPlans. Corregido a 3 y sacado NO_PET (uno de los 3 productos sí tiene mascota). TS-03 no filtra por numberOfPlans ni por estos tags puntuales (solo REGISTERED), así que este cambio no la afecta. Ver qa-workspace/decision-log.md 2026-08-20.",
+        "reserved": false
+      },
+      {
+        "id": "a7dc5b96-d5a5-4bdc-92d8-35d504fb608a",
+        "siteId": "VETIFY_ADQUIRENTE",
+        "email": "user_1787086493798_34de7a0d@automation.com",
+        "password": "Te1!bc09e5e8",
+        "identification": {
+          "type": "DNI",
+          "number": "1608936467"
+        },
+        "numberOfPlans": 1,
+        "source": "pooled",
+        "registration": true,
+        "leadIds": [
+          "00QO200000WHISkMAP"
         ],
         "tags": [
           "REGISTERED",
@@ -183,7 +228,7 @@
           "NO_PET",
           "PLAN_WITHOUT_PET"
         ],
-        "_note": "2026-08-14: provisionada específicamente para TS-03 Asociación de Compra con Usuario (purchase-flow.spec.ts) — la única cuenta REGISTERED anterior tenía identification:null real en el backend (ver nota de user_1782769446332 arriba). Compra real vía UserFactory.generateTestUsers() + espera de 15min (IMP-004) + activateFreshAccounts(), que falló por timeout de navegación en el paso de login post-validación — pero /validation/policy sí había quedado pendiente sin completar. Se completó manualmente (VetifyWebappPolicyValidationPage.validatePolicy()) y se confirmó vía /api/users/me: identification:\"170217323\", idType:\"DNI\", isClient:true, userIdentifications con 1 entrada real. Ver qa-workspace/decision-log.md 2026-08-14.",
+        "_note": "2026-08-18: ver nota de user_1787086478298_7768b2cc arriba (mismo lote, mismo motivo).",
         "reserved": false
       },
       {
@@ -196,7 +241,7 @@
           "number": "439876254"
         },
         "numberOfPlans": 1,
-        "source": "fresh",
+        "source": "pooled",
         "registration": false,
         "leadIds": [
           "00QO200000UF4QJMA1"
@@ -218,7 +263,7 @@
           "number": "1607570217"
         },
         "numberOfPlans": 1,
-        "source": "fresh",
+        "source": "pooled",
         "leadIds": [
           "00QO200000VjqAsMAJ"
         ],
@@ -238,7 +283,7 @@
           "number": "16525485"
         },
         "numberOfPlans": 1,
-        "source": "fresh",
+        "source": "pooled",
         "registration": true,
         "tags": [
           "ACTIVE",
@@ -257,7 +302,7 @@
           "number": "16525403"
         },
         "numberOfPlans": 1,
-        "source": "fresh",
+        "source": "pooled",
         "registration": true,
         "tags": [
           "ACTIVE",
@@ -276,7 +321,7 @@
           "number": "1893500693"
         },
         "numberOfPlans": 1,
-        "source": "fresh",
+        "source": "pooled",
         "registration": true,
         "tags": [
           "ACTIVE",
@@ -295,7 +340,7 @@
           "number": "1208808255"
         },
         "numberOfPlans": 1,
-        "source": "fresh",
+        "source": "pooled",
         "registration": true,
         "tags": [
           "ACTIVE",
@@ -315,7 +360,7 @@
           "number": "1588464286"
         },
         "numberOfPlans": 2,
-        "source": "fresh",
+        "source": "pooled",
         "registration": true,
         "leadIds": [],
         "tags": [
@@ -338,7 +383,7 @@
           "number": "439995039"
         },
         "numberOfPlans": 1,
-        "source": "fresh",
+        "source": "pooled",
         "registration": true,
         "leadIds": [
           "00QO200000UFECmMAP"
@@ -364,7 +409,7 @@
           "00QO200000UzC6DMAV"
         ],
         "registration": false,
-        "source": "fresh",
+        "source": "pooled",
         "tags": [
           "REGISTERED",
           "NO_PET",
@@ -448,7 +493,7 @@
         "numberOfPlans": 1,
         "leadIds": [],
         "registration": true,
-        "source": "fresh",
+        "source": "pooled",
         "tags": [
           "ACTIVE",
           "NO_PET",

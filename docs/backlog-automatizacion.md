@@ -1,6 +1,6 @@
 # Backlog de automatización — gap analysis vs. Casos de Prueba manuales
 
-> Qué falta automatizar, priorizado por esfuerzo/valor. Fuente: `documentation/Casos de Prueba (1).xlsx` (columna `Automatizado?`) cruzado contra el código real (`tests/projects/**/*.spec.ts`, POMs en `src/pages/`). Complementa `docs/coverage-register.md` (que trackea lo YA automatizado por HU) — este archivo trackea lo que falta, No confundir ambos.
+> Qué falta automatizar, priorizado por esfuerzo/valor. Fuente: `documentation/Casos de Prueba.xlsx` (columna `Automatizado?`) cruzado contra el código real (`tests/projects/**/*.spec.ts`, POMs en `src/pages/`). Complementa `docs/coverage-register.md` (que trackea lo YA automatizado por HU) — este archivo trackea lo que falta, No confundir ambos.
 >
 > **Última actualización**: 2026-08-07 — Tier 2 (Videollamadas) queda 100% cerrado, ver `docs/coverage-register.md` para las 6 HUs de videollamada.
 

@@ -1,10 +1,12 @@
+Jira: IMAS-4351 (https://ikeasistencia-arg.atlassian.net/browse/IMAS-4351) — creado 2026-08-20, tipo Error, sin HU padre (mismo patrón que BUG-004 e IMAS-4347).
+
 [Título]: DEFECT | Comprar con el DNI de un usuario existente no asocia el plan a su cuenta — sin mecanismo automático ni manual de reclamo
 
 [Severidad]: Medio — no bloquea la compra en sí (se cobra y confirma correctamente), pero el cliente que ya tiene cuenta y compra un plan adicional identificándose con su mismo DNI nunca ve ese plan en su cuenta, sin ninguna vía (automática o manual) para reclamarlo.
 
 [Categoría]: Divergencia HU vs UI (Flujo de Compra, TS-03 Asociación de Compra con Usuario)
 
-[HU relacionada]: N/A — el caso viene de `documentation/Casos de Prueba (1).xlsx`, hoja "Flujo de Compra", TS-03 "Asociación de Compra con Usuario", no de un ticket Jira puntual.
+[HU relacionada]: N/A — el caso viene de `documentation/Casos de Prueba.xlsx`, hoja "Flujo de Compra", TS-03 "Asociación de Compra con Usuario", no de un ticket Jira puntual.
 
 [Información del entorno]:
 - Ambiente: QA (`https://vetify-qa.ikeapp.com` + checkout institucional)
@@ -34,11 +36,10 @@ El plan nuevo aparece asociado a la cuenta del paso 1 (conteo de planes +1), seg
 El conteo de planes de la cuenta del paso 1 no cambia — permanece exactamente igual al de antes de la compra, sin importar cuánto se espere. No hay ninguna pantalla, aviso o acción en la webapp que permita reclamar/vincular manualmente esa compra a la cuenta existente.
 
 [Notas adicionales]:
-- **Incertidumbre que dejo explícita, no la escondo**: verifiqué el endpoint que la webapp usa para mostrarle sus propios planes al usuario logueado — es la interpretación más directa y natural de "el usuario ve su plan asociado". No puedo descartar al 100% que exista algún proceso de back-office/CRM (Salesforce) que vincule ambos registros manualmente por fuera de lo que la webapp expone — pero desde la perspectiva de lo que un cliente real experimenta al loguearse, la asociación descrita por el CA no ocurre.
-- **Contexto de este mismo proyecto que motiva pedir confirmación de producto antes de escalar esto como Defect**: el Excel de "Flujo de Compra" ya se confirmó desactualizado/aspiracional en 2 áreas distintas esta misma semana (auditoría general del 2026-08-13 — ver `qa-workspace/decision-log.md` — y TS-04 Cupones, 2026-08-14, donde ni siquiera existe el campo de cupón en el checkout institucional). Es decir, hay precedente real de que este Excel describa comportamiento que nunca se implementó, no necesariamente una regresión. Antes de cargarlo como Defect en Jira pediría confirmación explícita de producto sobre si "asociación automática por DNI" es una funcionalidad real esperada hoy o una descripción de casos que quedó desactualizada — la fuente de verdad de esto está pendiente de PM.
+- **CONFIRMADO por el equipo 2026-08-20**: se consultó al equipo (mensaje al grupo) sobre cuál es el comportamiento esperado, en vez de asumirlo del Excel. Respuesta textual: *"le aparece al usuario (por dni) los dos productos aunque haya puesto distinto email — y le van a aparecer en su webapp con la que creo la cuenta (con el mail que haya usado)"*. Esto confirma que la asociación automática por DNI (independiente del email usado en la segunda compra) SÍ es el comportamiento esperado real — coincide con lo que decía el Excel, no es una descripción desactualizada. Con esto, **BUG-013 queda confirmado como Defect real**, no una duda de expectativa.
 - **Bug relacionado en este mismo repo**: `docs/bugs/BUG-004-tipo-documento-no-dni-no-vincula-compra.md` — describe el mecanismo REAL de vinculación (vía `/validation/policy`, solo disponible una vez, en el flujo de alta inicial de una cuenta nueva) y confirma que incluso ESE mecanismo (con DNI) funciona correctamente para el caso de una cuenta nueva. Este hallazgo (BUG-013) es distinto: es sobre una cuenta YA activa comprando un SEGUNDO plan con el mismo DNI — un escenario para el que no existe ningún mecanismo de vinculación, ni automático ni manual.
 - Evidencia técnica: `tests/projects/vetify-b2c/purchase-flow.spec.ts`, suite `TS-03 Asociación de Compra con Usuario` (líneas 274-389), función helper `getLivePlanCount()` (líneas 17-30) y `purchasePlanFor()` (líneas 32-60 aprox.).
-- **Decisión del usuario (2026-08-14): NO filear en Jira.** Queda solo como este `.md` local — no crear el Defect salvo que se pida explícitamente más adelante.
+- **Decisión original del usuario (2026-08-14): NO filear en Jira, pendiente de esta confirmación.** Con la confirmación de arriba, queda pendiente decidir si ahora sí se reporta como Defect.
 
 | CP | Condición | Esperado (Excel TS-03) | Recibido |
 | --- | --- | --- | --- |

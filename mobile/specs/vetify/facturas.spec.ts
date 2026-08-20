@@ -24,12 +24,15 @@ describe('TS-01 Facturas - Estado vacío', () => {
         const homePage = new VetifyMobileHomePage();
         const facturasPage = new VetifyMobileFacturasPage();
 
+        // 2026-08-20: sin reserva exclusiva, esto siempre tomaba la MISMA cuenta (la primera que
+        // matchea "ACTIVE" en el pool, sin importar cuántas haya) — y esa cuenta puntual
+        // (`b64bc406`) fue provisionada a propósito con plan y mascota reales para otros tests,
+        // no representa una cuenta "sin facturas". Con reserva exclusiva (default), rota entre
+        // las 13 cuentas ACTIVE del pool en vez de chocar siempre con la misma.
         reservedUser = await loginPage.loginWithUserRequest({
             source: UserSource.Pooled,
             siteId: SiteId.VETIFY_ADQUIRENTE,
             tags: [UserTag.ACTIVE],
-            reserve: false,
-            ignoreReserved: true,
         });
 
         if (!reservedUser) {

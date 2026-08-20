@@ -69,8 +69,16 @@ export class VetifyMobileVideocallFormPage extends VetifyMobileLoggedBasePage {
 
     async verifyPetSelectorVisible(): Promise<void> {
         await this.petSelectorHeadingLbl.waitForDisplayed({ timeout: 15_000 });
-        const disabled = await this.continueBtn.getAttribute('disabled');
-        if (disabled === null) throw new Error('Se esperaba "Continuar" deshabilitado con el selector de mascota vacío.');
+        // 2026-08-20: leer el atributo "disabled" inmediatamente después de que el heading se hace
+        // visible es una carrera — confirmado en vivo con un dump que el botón SÍ queda
+        // deshabilitado, pero React puede tardar un instante más en aplicar el atributo que en
+        // pintar el heading. Sin este poll, el chequeo fallaba de forma intermitente en corridas
+        // largas (después de muchos tests previos) aunque nunca en aislamiento.
+        await browser.waitUntil(async () => (await this.continueBtn.getAttribute('disabled')) !== null, {
+            timeout: 5_000,
+            interval: 250,
+            timeoutMsg: 'Se esperaba "Continuar" deshabilitado con el selector de mascota vacío.',
+        });
     }
 
     // Sin argumento selecciona la primera opción disponible (igual que Playwright's selectPet()).

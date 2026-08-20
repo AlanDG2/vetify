@@ -130,6 +130,26 @@ export async function addComment(key, text) {
   return jira('POST', `/issue/${key}/comment`, { body: toDoc(text) });
 }
 
+// Attachments use multipart/form-data, not the JSON body the `jira()` helper sends -- separate
+// request here. X-Atlassian-Token: no-check is required by Jira Cloud for this endpoint (XSRF check).
+export async function addAttachment(key, filePath) {
+  if (!BASE || !EMAIL || !TOKEN) {
+    throw new Error('Missing JIRA_BASE_URL, JIRA_EMAIL, or JIRA_API_TOKEN in .env');
+  }
+  const auth = Buffer.from(`${EMAIL}:${TOKEN}`).toString('base64');
+  const bytes = readFileSync(filePath);
+  const form = new FormData();
+  form.append('file', new Blob([bytes]), filePath.split(/[\\/]/).pop());
+  const res = await fetch(`${BASE}/rest/api/3/issue/${key}/attachments`, {
+    method: 'POST',
+    headers: { Authorization: `Basic ${auth}`, Accept: 'application/json', 'X-Atlassian-Token': 'no-check' },
+    body: form,
+  });
+  const text = await res.text();
+  if (!res.ok) throw new Error(`[${res.status}] POST /issue/${key}/attachments\n${text}`);
+  return text ? JSON.parse(text) : null;
+}
+
 export async function getTransitions(key) {
   return (await jira('GET', `/issue/${key}/transitions`)).transitions;
 }

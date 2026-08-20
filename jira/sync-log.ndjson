@@ -41,3 +41,25 @@
 {"timestamp":"2026-08-12T19:24:31.605Z","action":"createDefect","parentKey":null,"defectKey":"IMAS-4300","summary":"App Android — banner de cookies tapado por el bottom nav, sin forma de aceptar/rechazar","result":"ok"}
 {"timestamp":"2026-08-13T18:05:31.929Z","action":"createDefect","parentKey":null,"summary":"App Android — barra de estado ilegible al cargar la landing institucional desde \"Ir a la web\"","result":"error","error":"[400] POST /issue\n{\"errorMessages\":[\"目标项目不存在，或者您无权在该项目中创建事务。\"],\"errors\":{\"project\":\"目标项目不存在，或者您无权在该项目中创建事务。\"}}"}
 {"timestamp":"2026-08-13T18:06:53.608Z","action":"createDefect","parentKey":null,"defectKey":"IMAS-4324","summary":"App Android — barra de estado ilegible al cargar la landing institucional desde \"Ir a la web\"","result":"ok"}
+{"timestamp":"2026-08-13T18:41:26.714Z","action":"comment","issueKey":"IMAS-3215","summary":"Reasignacion a Oscar Tello: correo de reseteo confirmado que no llega con cuenta personal real","result":"ok"}
+{"timestamp":"2026-08-13T18:41:27.732Z","action":"assign","issueKey":"IMAS-3215","assignee":"Oscar Tello","result":"ok"}
+{"timestamp":"2026-08-13T18:41:29.273Z","action":"transition","issueKey":"IMAS-3215","fromStatus":"Bloqueado","toStatus":"Pending Validation","result":"ok"}
+{"timestamp":"2026-08-13T18:41:30.210Z","action":"comment","issueKey":"IMAS-3216","summary":"Reasignacion a Oscar Tello: correo de reseteo confirmado que no llega con cuenta personal real","result":"ok"}
+{"timestamp":"2026-08-13T18:41:31.023Z","action":"assign","issueKey":"IMAS-3216","assignee":"Oscar Tello","result":"ok"}
+{"timestamp":"2026-08-13T18:41:32.141Z","action":"transition","issueKey":"IMAS-3216","fromStatus":"Bloqueado","toStatus":"Pending Validation","result":"ok"}
+{"timestamp":"2026-08-13T18:41:32.821Z","action":"comment","issueKey":"IMAS-3217","summary":"Reasignacion a Oscar Tello: correo de reseteo confirmado que no llega con cuenta personal real","result":"ok"}
+{"timestamp":"2026-08-13T18:41:33.530Z","action":"assign","issueKey":"IMAS-3217","assignee":"Oscar Tello","result":"ok"}
+{"timestamp":"2026-08-13T18:41:34.705Z","action":"transition","issueKey":"IMAS-3217","fromStatus":"Bloqueado","toStatus":"Pending Validation","result":"ok"}
+{"timestamp":"2026-08-13T18:41:35.838Z","action":"comment","issueKey":"IMAS-4198","summary":"Reasignacion a Oscar Tello: correo de reseteo confirmado que no llega con cuenta personal real","result":"ok"}
+{"timestamp":"2026-08-13T18:41:36.595Z","action":"assign","issueKey":"IMAS-4198","assignee":"Oscar Tello","result":"ok"}
+{"timestamp":"2026-08-13T18:41:37.670Z","action":"transition","issueKey":"IMAS-4198","fromStatus":"Tareas Por Hacer","toStatus":"Pending Validation","result":"ok"}
+{"timestamp":"2026-08-13T18:41:38.552Z","action":"comment","issueKey":"IMAS-4199","summary":"Reasignacion a Oscar Tello: correo de reseteo confirmado que no llega con cuenta personal real","result":"ok"}
+{"timestamp":"2026-08-13T18:41:39.059Z","action":"assign","issueKey":"IMAS-4199","assignee":"Oscar Tello","result":"ok"}
+{"timestamp":"2026-08-13T18:41:40.232Z","action":"transition","issueKey":"IMAS-4199","fromStatus":"Tareas Por Hacer","toStatus":"Pending Validation","result":"ok"}
+{"timestamp":"2026-08-13T18:41:41.163Z","action":"comment","issueKey":"IMAS-4272","summary":"Reasignacion a Oscar Tello: correo de reseteo confirmado que no llega con cuenta personal real","result":"ok"}
+{"timestamp":"2026-08-13T18:41:41.666Z","action":"assign","issueKey":"IMAS-4272","assignee":"Oscar Tello","result":"ok"}
+{"timestamp":"2026-08-13T18:41:42.503Z","action":"transition","issueKey":"IMAS-4272","fromStatus":"Tareas Por Hacer","toStatus":"Pending Validation","result":"ok"}
+{"timestamp":"2026-08-13T18:42:08.595Z","action":"comment","issueKey":"IMAS-3742","summary":"Reasignacion a Oscar Tello: sigue bloqueada por falta de usuario de prueba Ike-only/Vetify+Ike (IMP-005)","result":"ok"}
+{"timestamp":"2026-08-13T18:42:09.413Z","action":"assign","issueKey":"IMAS-3742","assignee":"Oscar Tello","result":"ok"}
+{"timestamp":"2026-08-20T15:44:14.700Z","action":"createDefect","parentKey":null,"defectKey":"IMAS-4347","summary":"Error 502 (Auth) al cargar el listado de planes en Flujo de Compra","result":"ok"}
+{"timestamp":"2026-08-20T17:04:34.002Z","action":"createDefect","parentKey":null,"defectKey":"IMAS-4351","summary":"Comprar con el DNI de un usuario existente no asocia el plan a su cuenta","result":"ok"}

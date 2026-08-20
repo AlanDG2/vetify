@@ -261,7 +261,7 @@ describe('TS-09 Credenciales - Crear Credencial - Alta completa end-to-end (cuen
         // "Ir al inicio" cuando se llega desde el flujo normal de Mascotas (a diferencia del CTA
         // "Continuar" que usa el flujo interrumpido de videollamada, ver videocall.spec.ts TS-01 TC-03).
         await addPetFormPage.goToHomeBtn.waitForDisplayed({ timeout: 10_000 });
-        await addPetFormPage.goToHomeBtn.click();
+        await addPetFormPage.goToHome();
         await homePage.greetingLbl.waitForDisplayed({ timeout: 15_000 });
 
         // Resultado esperado: el backend confirma la mascota creada con los datos reales.

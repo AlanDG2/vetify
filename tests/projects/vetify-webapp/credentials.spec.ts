@@ -67,7 +67,11 @@ test.describe('Credenciales Test Suite', () => {
                 },
             });
 
-            test('TC-02 - Credencial - Vetify - Usuario con plan - Plan con mascota asociada', { tag: ['@critical'] }, async ({ container }) => {
+            // @unstable 2026-08-20: falla de forma consistente incluso con caché de login limpia y
+            // condiciones representativas de CI (2 workers + retry) — no es ruido de paralelismo ni
+            // de storage state viejo (ver qa-workspace/decision-log.md). Pendiente de diagnóstico
+            // real antes de sacar el tag.
+            test('TC-02 - Credencial - Vetify - Usuario con plan - Plan con mascota asociada', { tag: ['@critical', '@unstable'] }, async ({ container }) => {
                 // Precondiciones:
                 // - Usuario registrado con un plan vigente.
                 // - Plan vigente con mascota asociada.

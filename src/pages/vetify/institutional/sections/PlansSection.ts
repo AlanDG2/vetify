@@ -21,6 +21,7 @@ export class PlansSection extends BaseSection {
     }
 
     async getPlanNames(): Promise<string[]> {
+        await this.root.getByRole('heading', { level: 3 }).first().waitFor({ state: 'visible' });
         const names = await this.root.getByRole('heading', { level: 3 }).allTextContents();
         return [...new Set(names.map((name) => name.trim()).filter(Boolean))];
     }

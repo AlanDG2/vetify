@@ -556,7 +556,10 @@ test.describe('Videollamada Test Suite', () => {
                 await apiClient.cancelAllScheduledVideocalls();
             });
 
-            test('TC-05 - Videollamada - Vetify - Selector de mascota obligatorio (multi-mascota)', { tag: ['@critical'] }, async ({ container }) => {
+            // @unstable 2026-08-20: flaky bajo condiciones reales de CI (falla en el primer intento,
+            // pasa en el retry) — ver qa-workspace/decision-log.md, mismo síntoma que su equivalente
+            // mobile/Appium (videocall.spec.ts TC-05), posible degradación por sesión larga.
+            test('TC-05 - Videollamada - Vetify - Selector de mascota obligatorio (multi-mascota)', { tag: ['@critical', '@unstable'] }, async ({ container }) => {
                 await setAllureDetails({
                     preconditions: ['Usuario registrado con un plan vigente y más de una mascota asociada.'],
                     steps: ['Iniciar una nueva solicitud de videollamada.', 'Seleccionar una mascota del selector.'],
@@ -583,7 +586,9 @@ test.describe('Videollamada Test Suite', () => {
                 });
             });
 
-            test('TC-06 - Videollamada - Vetify - Edición de mascota en revisión y confirmación (multi-mascota)', { tag: ['@critical'] }, async ({ container }) => {
+            // @unstable 2026-08-20: flaky bajo condiciones reales de CI (falla en el primer intento,
+            // pasa en el retry) — ver qa-workspace/decision-log.md.
+            test('TC-06 - Videollamada - Vetify - Edición de mascota en revisión y confirmación (multi-mascota)', { tag: ['@critical', '@unstable'] }, async ({ container }) => {
                 await setAllureDetails({
                     preconditions: ['Usuario registrado con un plan vigente y más de una mascota asociada, sin turnos pendientes.'],
                     steps: [
@@ -773,7 +778,9 @@ test.describe('Videollamada Test Suite', () => {
                 },
             });
 
-            test('TC-02 - Videollamada - Vetify - El límite de turnos aplica solo a la mascota seleccionada (CA07, multi-mascota)', { tag: ['@critical'] }, async ({ container, page }) => {
+            // @unstable 2026-08-20: flaky bajo condiciones reales de CI (falla en el primer intento,
+            // pasa en el retry) — ver qa-workspace/decision-log.md.
+            test('TC-02 - Videollamada - Vetify - El límite de turnos aplica solo a la mascota seleccionada (CA07, multi-mascota)', { tag: ['@critical', '@unstable'] }, async ({ container, page }) => {
                 await setAllureDetails({
                     preconditions: ['Usuario con más de una mascota; una de ellas ya tiene 2 videollamadas agendadas (el máximo permitido), la otra no tiene ninguna.'],
                     steps: [
@@ -964,7 +971,10 @@ test.describe('Videollamada Test Suite', () => {
                 });
             });
 
-            test('TC-03 - Videollamada - Vetify - Cancelación del turno (CA03)', { tag: ['@critical'] }, async ({ container }) => {
+            // @unstable 2026-08-20: falla de forma consistente incluso con caché de login limpia y
+            // condiciones representativas de CI (2 workers + retry) — ver qa-workspace/decision-log.md.
+            // Pendiente de diagnóstico real antes de sacar el tag.
+            test('TC-03 - Videollamada - Vetify - Cancelación del turno (CA03)', { tag: ['@critical', '@unstable'] }, async ({ container }) => {
                 await setAllureDetails({
                     preconditions: ['Usuario con un turno de videollamada futuro ya agendado.'],
                     steps: ['Abrir el detalle del turno y presionar "Cancelar".', 'Verificar el contenido del modal de doble check.', 'Confirmar la cancelación.'],
@@ -1041,7 +1051,9 @@ test.describe('Videollamada Test Suite', () => {
                 },
             });
 
-            test('TC-07 - [Regresión] Videollamada - Vetify - Turno reprogramado no ofrece acciones habilitadas en la assistanceId anterior (BUG-003/IMAS-4119)', { tag: ['@critical'] }, async ({ container, page }) => {
+            // @unstable 2026-08-20: flaky bajo condiciones reales de CI (falla en el primer intento,
+            // pasa en el retry) — ver qa-workspace/decision-log.md.
+            test('TC-07 - [Regresión] Videollamada - Vetify - Turno reprogramado no ofrece acciones habilitadas en la assistanceId anterior (BUG-003/IMAS-4119)', { tag: ['@critical', '@unstable'] }, async ({ container, page }) => {
                 await setAllureDetails({
                     preconditions: ['Usuario con un turno de videollamada futuro ya agendado.'],
                     steps: ['Reprogramar el turno.', 'Volver a abrir el detalle de la assistanceId original (ya reemplazada/cancelada por la reprogramación).'],

@@ -35,6 +35,7 @@ export class PlansSection extends BaseSection {
     }
 
     async getAllPlans(): Promise<PlanCard[]> {
+        await this._planItemList.first().waitFor({ state: 'visible' });
         const planItemList = await this._planItemList.all();
         return planItemList.map((item, index) => this.plan(item, index));
     }

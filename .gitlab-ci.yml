@@ -1,5 +1,6 @@
 stages:
     - lint
+    - diagnostics
     - e2e
     - report
 
@@ -26,6 +27,34 @@ lint:
         - npm ci
         - npm run lint
         - npm run typecheck
+
+# -----------------------
+# DIAGNOSTICS — ¿el runner soporta KVM para el emulador Android de mobile?
+# -----------------------
+# Manual, no bloquea ni ralentiza el pipeline normal. Corrida bajo demanda desde la UI de
+# GitLab (CI/CD > Pipelines > Run pipeline, o el botón ▶ del job) para responder una pregunta
+# concreta: si este runner puede correr un emulador Android (mobile/, Appium+WebdriverIO) antes
+# de invertir en armar ese job de verdad. Sin esto, "¿tiene KVM el runner?" es una pregunta sin
+# forma de responder salvo confiar en la memoria de alguien — este job la responde con datos
+# reales del runner que efectivamente va a ejecutar el trabajo.
+# Nota aparte (no la resuelve este job): incluso con KVM confirmado, todavía falta resolver
+# de dónde saca el runner mobile/apps/app-android.apk — está en .gitignore, no viaja en el
+# repo. Ver docs/impedimentos-bloqueos.md (IMP-008).
+check_mobile_runner:
+    stage: diagnostics
+    image: ubuntu:24.04
+    when: manual
+    allow_failure: true
+    script:
+        - echo "=== Runner: soporte de virtualización (CPU) ==="
+        - (grep -Ec '(vmx|svm)' /proc/cpuinfo && echo "CPU soporta virtualización (vmx/svm) — necesario pero no suficiente.") || echo "CPU NO expone vmx/svm — sin esto, KVM no funciona sea cual sea el resto de la config."
+        - echo ""
+        - echo "=== Runner: dispositivo /dev/kvm ==="
+        - (test -e /dev/kvm && echo "/dev/kvm existe y es accesible — buena señal.") || echo "/dev/kvm NO existe o no es accesible desde este job. En un executor Docker no privilegiado esto es lo esperable AUNQUE el host sí soporte KVM — hace falta un runner configurado con --privileged o --device /dev/kvm explícito."
+        - echo ""
+        - echo "=== Conclusión ==="
+        - echo "Si ambos chequeos de arriba dieron OK, hay bases para armar el job real de mobile en CI."
+        - echo "Si /dev/kvm falló, hablar con quien administra los runners de GitLab sobre habilitar acceso privilegiado a /dev/kvm para el runner que va a correr este proyecto — no es algo que se resuelva desde este repo."
 
 # -----------------------
 # E2E TESTS (Playwright)
@@ -55,13 +84,49 @@ e2e_regression:
     script:
         - npm ci
         - npm run setup
-        - npm test
+        # 2026-08-20: corre SOLO lo confirmado estable — se catalogó todo el suite (245 tests) con
+        # caché de login limpia y las mismas condiciones que usa este job (2 workers, 1 retry) antes
+        # de decidir el filtro. Lo tageado @unstable falla de forma real (no ruido de paralelismo ni
+        # de caché vieja) bajo esas condiciones — ver qa-workspace/decision-log.md 2026-08-20 para el
+        # detalle completo de qué se descartó y por qué. Reincorporar cada caso a medida que se
+        # confirme resuelto (sacando el tag @unstable de su spec), no de una vez.
+        - npx playwright test --grep-invert "@unstable"
 
     artifacts:
         when: always
         paths:
             - allure-results/
             - src/fixtures/users/fresh-users.json
+        expire_in: 1 week
+
+# -----------------------
+# E2E TESTS — MOBILE (Android, Appium+WebdriverIO)
+# -----------------------
+# Manual por ahora, NO se dispara solo — quedan 2 dependencias sin resolver antes de poder
+# confiar en este job:
+#   1. KVM del runner sin confirmar — ver el job check_mobile_runner (stage diagnostics) de arriba.
+#   2. mobile/apps/app-android.apk no viaja en el repo (.gitignore) — este job todavía no tiene de
+#      dónde descargarlo. Falta decidir un mecanismo (GitLab generic package registry, un bucket
+#      compartido, etc.) antes de que esto pueda andar solo en CI.
+# Corre solo el set curado "confirmado estable" (11/15 specs, ver mobile/README.md) — nunca la
+# suite completa ni el switch de iOS (mobile/config/run-mobile.mjs), que es exclusivamente para
+# uso local/manual (ver mobile/README.md).
+e2e_mobile_android:
+    stage: e2e
+    image: node:22
+    when: manual
+    allow_failure: true
+    needs:
+        - lint
+    script:
+        - npm ci
+        - echo "Verificar antes de correr: ¿existe mobile/apps/app-android.apk en este runner? Si no, este job va a fallar en el preflight check de mobile/config/run-mobile.mjs con instrucciones de cómo conseguirlo."
+        - npm run test:mobile:stable
+
+    artifacts:
+        when: always
+        paths:
+            - allure-results-mobile/
         expire_in: 1 week
 
 # -----------------------

@@ -5,7 +5,10 @@ import { MERCADOPAGO_PAYMENT_STATUSES } from '@integrations/mercadopago/mercadoP
 import { expect } from '@playwright/test';
 import { setAllureDetails, test, type TestContainer } from '@tests/framework/base-test';
 
-test.describe('Registración y Adquisición Test Suite', () => {
+// @unstable 2026-08-20: mismo motivo que tests/projects/vetify-b2c/purchase-flow.spec.ts — el
+// flujo de compra depende del backend de pago compartido (IMAS-4347/IMP-012), "recuperándose pero
+// no 100% estable". Ver qa-workspace/decision-log.md. Sacar el tag cuando se confirme resuelto.
+test.describe('Registración y Adquisición Test Suite', { tag: ['@unstable'] }, () => {
     test.describe('TS-01 Flujo de Compra', () => {
         test('TC-01 - Flujo de compra - Nuevo usuario adquirente - Compra existosa - Plan individual', async ({ container, page }) => {
             await setAllureDetails({
@@ -157,7 +160,7 @@ test.describe('Registración y Adquisición Test Suite', () => {
         });
     });
 
-    // Portado de documentation/Casos de Prueba (1).xlsx, hoja "Flujo de Compra", TS-02 Compra de
+    // Portado de documentation/Casos de Prueba.xlsx, hoja "Flujo de Compra", TS-02 Compra de
     // Planes Fallida, TC-01 "Tarjeta Prepaga". MercadoPago sandbox no tiene una tarjeta de prueba
     // marcada como prepaga — el cardholderName maneja el escenario simulado (ver
     // MercadoPagoCardsHelper), así que se usa REJECTED_CARD_TYPE_NOT_ALLOWED (CTNA), el código de
@@ -242,6 +245,7 @@ test.describe('Registración y Adquisición Test Suite', () => {
             await institutional.plans.scrollIntoView();
             await institutional.plans.contractRandomPlan();
 
+            await checkout.documentTypeSelect.locator('option', { hasText: 'DNI' }).waitFor({ state: 'attached' });
             const options = await checkout.documentTypeSelect.locator('option').allTextContents();
             expect(options.map((o) => o.trim())).toContain('DNI');
         });
@@ -264,7 +268,7 @@ test.describe('Registración y Adquisición Test Suite', () => {
         });
     });
 
-    // Portado de documentation/Casos de Prueba (1).xlsx, hoja "Flujo de Compra", TS-06 Formulario -
+    // Portado de documentation/Casos de Prueba.xlsx, hoja "Flujo de Compra", TS-06 Formulario -
     // Paso 2. Mismo checkout compartido que Vetify B2C (confirmado en vivo 2026-08-14, Playwright
     // MCP, misma URL /checkout/billing?from=osde) — mismo copy de error y misma lista de provincias.
     test.describe('TS-06 Formulario - Paso 2', () => {
@@ -374,7 +378,7 @@ test.describe('Registración y Adquisición Test Suite', () => {
         });
     });
 
-    // Portado de documentation/Casos de Prueba (1).xlsx, hoja "Flujo de Compra", TS-07 Formulario -
+    // Portado de documentation/Casos de Prueba.xlsx, hoja "Flujo de Compra", TS-07 Formulario -
     // Paso 3.
     test.describe('TS-07 Formulario - Paso 3', () => {
         async function reachPaymentStep(container: TestContainer): Promise<void> {
@@ -435,7 +439,7 @@ test.describe('Registración y Adquisición Test Suite', () => {
         });
     });
 
-    // Portado de documentation/Casos de Prueba (1).xlsx, hoja "Flujo de Compra", TS-04 Cupones.
+    // Portado de documentation/Casos de Prueba.xlsx, hoja "Flujo de Compra", TS-04 Cupones.
     // Solo TC-01 (cupón inexistente) se automatiza hoy — ver el comentario completo en
     // tests/projects/vetify-b2c/purchase-flow.spec.ts (misma investigación, mismo bloqueo: los 2
     // códigos del fixture del proyecto son falsos, confirmado en vivo 2026-08-14). Mensaje de error

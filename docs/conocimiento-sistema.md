@@ -232,6 +232,17 @@ Auth Nexus: **un único API-KEY fijo por header, igual en los 3 ambientes** (no 
 
 **Evidencia pendiente de revisar (no visualizable con las herramientas actuales)**: `IMAS-4052` tiene 7 videos adjuntos (`.mp4`/`.mov`, validación manual QA del workaround de capitados + un bug de iOS) — quedan como referencia para quien tenga que auditar ese caso puntual, no se transcribieron acá.
 
+### ⚠️ Divergencia real entre ramas `qa` y `develop` (confirmado 2026-08-22, vía GitLab)
+
+**Nexus SÍ está operativo en el ambiente QA real** (`REINTEGROS_CORE_PROVIDER=NEXUS` activo en `.pipeline/qa.env.yml` de la rama `qa`) — pero la rama `qa` recibió su **propio track de fixes**, aplicados directo ahí (MRs `#100`-`#115`, 18-20/08), **independiente** de `develop`:
+- `#109` — agregó `contact.name` (requerido) al alta en Nexus, ausente en la versión que yo había leído de `develop`.
+- `#110` — hack temporal (`TEMP_CAPABILITY_CATALOG_POLICY_KEY`, IMAS-4143): `resolveCapabilityId` prueba primero la póliza real del cliente y si `claimsHistory` no la tiene cargada en el datalake de Nexus QA (confirmado con Core que no toda póliza real está ahí), cae a una póliza catálogo fija — el `id` de capability es dato de catálogo estable por `capabilityCode`, verificado igual en cuentas distintas. Sacar este fallback en cuanto Core confirme un endpoint de catálogo real o garantice la sincronización SISE→Nexus.
+- `#113`/`#115` — Nexus rechazaba `urlRefund`/`observaciones` vacíos en el cierre ("is not allowed to be empty", a diferencia de SISE) — confirmado con curl directo contra QA, fix probado end-to-end (200 OK).
+
+**Implicancia para QA**: `qa` y `develop` no son el mismo código hoy — cada rama tiene fixes que la otra no tiene. Si se reporta un bug, aclarar contra qué rama/ambiente se vio, no asumir que el comportamiento de `develop` (lo documentado en la sección de arriba, leído de esa rama) es idéntico al de QA real. Reconciliar ambas ramas es tarea pendiente del equipo, no bloqueante para probar hoy.
+
+Hay además una MR abierta (`#111`) con el mismo objetivo que `#113`/`#115` (ya mergeadas) — parece simplemente no cerrada, no bloquea nada.
+
 ### El servicio completo, de su propio README (`reintegros-backend`, rama `develop`)
 
 > Solo leí 6 clases de las 549 `.java` del repo — dirigidas a la migración Nexus. Esto es distinto: es el **README real del servicio**, que sí da el mapa completo de qué hace, aunque el detalle de implementación de cada endpoint siga sin explorarse.

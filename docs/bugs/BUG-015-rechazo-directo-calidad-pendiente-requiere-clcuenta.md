@@ -46,3 +46,15 @@ El expediente `3188-1` quedó en `PENDIENTE`, sin cambios (ambos intentos de rec
 - **No se filó todavía en Jira** — se documenta acá primero, siguiendo el criterio de "documentar y frenar" antes de escalar, dado que no se descartó del todo si esto es (a) un bug real de precondiciones faltantes, o (b) una limitación conocida y aceptada del flujo QA que el equipo de dev ya tiene presente. Recomendado confirmar con dev/Mariana Navarro antes de crear el Defect.
 - Los otros 3 caminos de esta suite (CP01/CP03: aprobar→pagar; CP07/CP08: aprobar→Finanzas rechaza→Calidad rechaza definitivo) **sí funcionan end-to-end** y fueron verificados en vivo el mismo día — el problema es específico al camino "rechazo directo desde `PENDIENTE`, sin aprobación previa ni paso por Finanzas".
 - Relacionado con el error 502 de ARCA ya documentado (`docs/conocimiento-sistema.md`) — es esperado en QA por diseño del ambiente, no es la causa de este bug.
+
+## Segunda reproducción independiente (2026-08-22, mismo día)
+
+Alan reprodujo el mismo bug de forma independiente (siguiendo el instructivo de reproducción, sin usar las herramientas de automatización de esta sesión), en un **expediente y categoría distintos**:
+
+- Expediente: `3192-1` (solicitudId `28834654-b4e2-4373-a321-069c1a000504`)
+- Categoría: **"Videollamada Veterinaria"** (`clSubServicio=493`) — distinta a la usada en la primera reproducción (`445`, Consulta en centro veterinario)
+- Mismo resultado exacto: `404 BUS-005` — *"Nexus pets/refund requires clCuenta."*
+
+**Por qué importa**: confirma que el bloqueo **no depende de la categoría del gasto** — es un problema general del camino "Calidad rechaza directo desde `PENDIENTE`", reproducible con distintos datos, por dos personas distintas, el mismo día. Sube la confianza de que es un bug real y no un artefacto de una cuenta/dato puntual.
+
+**Hallazgo adicional en el camino** (no directamente parte de este bug, pero relacionado con el mismo pipeline): al dar de alta un reintegro con categoría **"Traslado de mascotas"** (`clSubServicio=502`) para la misma cuenta, el alta falló con `502 Bad Gateway / BUS-006 "Nexus claimsHistory does not report capability for clSubServicio=502"` — un gap de cobertura en el datalake de Nexus (ya documentado como límite conocido, ver CP02 en `IMAS-4152`), agravado porque el sistema devuelve **502** (error de infraestructura) para lo que en realidad es una falta de dato de negocio. No bloqueó la reproducción de este bug (se resolvió probando con otra categoría), pero vale la pena que dev lo revise por separado — un 502 en vez de un 4xx con mensaje claro puede confundir a monitoreo/soporte.

@@ -80,6 +80,29 @@ export async function getIssue(key) {
   return jira('GET', `/issue/${key}`);
 }
 
+// extractText() walks ADF and only collects `text` nodes -- it silently drops `media`/`mediaSingle`
+// nodes (images/videos pasted into a comment), which is easy to miss when reading a comment as
+// plain text. This walks the same tree but collects attachment ids referenced by media nodes, so
+// callers can cross-reference against `getIssue(key).fields.attachment` (which has filename/
+// mimeType/content URL per id) instead of silently treating those comments as text-only.
+export function extractMediaIds(node, out = []) {
+  if (!node) return out;
+  if (node.type === 'media' && node.attrs?.id) out.push(node.attrs.id);
+  if (Array.isArray(node.content)) for (const child of node.content) extractMediaIds(child, out);
+  return out;
+}
+
+// Comments aren't part of the default GET /issue/{key} response -- separate subresource.
+export async function getComments(key) {
+  const data = await jira('GET', `/issue/${key}/comment`);
+  return (data?.comments ?? []).map((c) => ({
+    author: c.author?.displayName ?? '?',
+    created: c.created,
+    body: extractText(c.body),
+    mediaIds: extractMediaIds(c.body),
+  }));
+}
+
 export async function searchIssues(jql, maxResults = 50) {
   // /search was removed by Atlassian (CHANGE-2046) — use /search/jql instead.
   return jira('POST', '/search/jql', {
@@ -217,6 +240,7 @@ if (IS_CLI) {
   const HELP = `
 Jira client — commands:
   get <KEY>                   Get issue details and subtasks
+  media <KEY>                 List attachments + which comments reference images/videos
   search "<JQL>" [limit]      Search issues by JQL
   sprint [PROJECT-KEY]        List open sprint issues
   create <PARENT-KEY> <title> Create a subtask under a HU/Story
@@ -263,6 +287,28 @@ Jira client — commands:
     async get([key]) {
       if (!key) throw new Error('Usage: get <KEY>');
       console.log(formatIssue(await getIssue(key)));
+    },
+
+    async media([key]) {
+      if (!key) throw new Error('Usage: media <KEY>');
+      const issue = await getIssue(key);
+      const attachments = issue.fields.attachment ?? [];
+      const byId = new Map(attachments.map((a) => [a.id, a]));
+      console.log(`\nAttachments on ${key} (${attachments.length}):`);
+      for (const a of attachments) {
+        console.log(`  [${a.id}] ${a.filename} (${a.mimeType}, ${a.created})\n    ${a.content}`);
+      }
+      const comments = await getComments(key);
+      const withMedia = comments.filter((c) => c.mediaIds.length);
+      if (withMedia.length) {
+        console.log(`\nComments referencing media (${withMedia.length}):`);
+        for (const c of withMedia) {
+          const names = c.mediaIds.map((id) => byId.get(id)?.filename ?? `id:${id} (not in attachment list)`);
+          console.log(`  ${c.author} (${c.created}): ${names.join(', ')}`);
+        }
+      } else {
+        console.log('\nNo comments reference media nodes.');
+      }
     },
 
     async search([jql, limit]) {

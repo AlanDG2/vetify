@@ -4,7 +4,7 @@
 >
 > **Fuente**: código real de `reintegros-backend` (`ReintegrosCoreProviderRouter`, `NexusHttpClient`, `DecideClaimDossierQualityUseCaseImpl`, `RegisterFinancePaymentUseCaseImpl` — MR `!103`, rama `develop`) **+ 4 MRs de fixes aplicados directo a la rama `qa`** (`#109`, `#110`, `#113`, `#115` — ver `docs/conocimiento-sistema.md` §"Divergencia real entre ramas qa y develop"), Gherkin de la propia HU `IMAS-4124`, y capturas ya revisadas del backoffice + panel interno de Nexus.
 >
-> **Confirmado 2026-08-22**: Nexus está operativo en el ambiente QA real (`REINTEGROS_CORE_PROVIDER=NEXUS` en la rama `qa`, no solo en `develop`). `IMP-013` (VPN) se destrabó en la misma sesión — **se ejecutaron en vivo con éxito, con 2 solicitudes distintas: CP01, CP03 (expediente `3184-1`) y CP07, CP08 (expediente `3186-1`, el camino Calidad-aprueba→Finanzas-rechaza→Calidad-rechaza-definitivo)**. Siguen pendientes CP04/CP05 (rechazo directo de Calidad desde `PENDIENTE`, sin pasar por Finanzas — no se ejerció ese camino en ninguna de las 2 solicitudes) y CP11 (panel interno de Nexus, sin credenciales).
+> **Confirmado 2026-08-22**: Nexus está operativo en el ambiente QA real (`REINTEGROS_CORE_PROVIDER=NEXUS` en la rama `qa`, no solo en `develop`). `IMP-013` (VPN) se destrabó en la misma sesión — **se ejecutaron en vivo con éxito 4 casos, con 2 solicitudes distintas: CP01, CP03 (expediente `3184-1`) y CP07, CP08 (expediente `3186-1`, el camino Calidad-aprueba→Finanzas-rechaza→Calidad-rechaza-definitivo)**. Una 3ª solicitud (expediente `3188-1`) se creó específicamente para CP04/CP05 (rechazo directo de Calidad desde `PENDIENTE`, sin pasar por Finanzas) y **quedó bloqueada por un bug real** — ver `docs/bugs/BUG-015-rechazo-directo-calidad-pendiente-requiere-clcuenta.md`. CP11 (panel interno de Nexus) sigue sin credenciales.
 >
 > **Ambiente/datos**: `reintegros-backoffice.ike.qa` (Calidad/Finanzas, cuenta dual **Alex** `acastellano@ikeasistencia.com.ar`) + webapp tutor QA. Cuenta de prueba con evidencia ya vista: DNI `12540524` ("Automation Test", mascota "Popi", plan Vetify Esencial OSDE).
 
@@ -31,18 +31,20 @@
 - Entonces: `POST /api/bff/reintegros/backoffice/expedientes/3184-1/registro-pago` → **204**. El expediente pasó a estado final (ambos botones Rechazar/Pagar quedaron deshabilitados). **Antes del fix `#113`/`#115` esto fallaba** con `"urlRefund/observaciones is not allowed to be empty"` — este pase confirma en vivo que el fix sigue andando, no solo que "funciona en teoría".
 - Trazabilidad: `IMAS-4104` · regresión `#113`/`#115` **confirmada en vivo**.
 
-**CP04 - Verificar rechazo directo de Calidad con motivo** 🟡 PENDIENTE — ninguna de las 2 solicitudes ejecutadas pasó por este camino (ambas: Calidad aprobó en el primer paso). Necesita una tercera solicitud donde Calidad rechace directo desde `PENDIENTE`, sin pasar por Finanzas.
-- Dado: expediente en `PENDIENTE`.
-- Cuando: Calidad rechaza seleccionando un motivo del catálogo `CALIDAD`.
-- Entonces: cierre en Nexus con `idEstado=5`, expediente pasa a `RECHAZADO`. El tutor, al expandir su reintegro, ve el texto exacto del motivo (verbatim) — comportamiento ya documentado en `docs/conocimiento-sistema.md`.
+**CP04 - Verificar rechazo directo de Calidad con motivo** 🔴 **BLOQUEADO 2026-08-22 — ver `docs/bugs/BUG-015`**
+- Dado: expediente `3188-1` en `PENDIENTE` (3ra solicitud, creada específicamente para este caso).
+- Cuando: Calidad intenta rechazar directo desde `PENDIENTE`, sin pasar por "Validar manualmente"/aprobación.
+- Entonces (esperado): cierre en Nexus con `idEstado=5`, expediente pasa a `RECHAZADO`.
+- **Resultado real**: el rechazo falló dos veces con errores reales y reproducibles, no simulados — primero `400 BUS-009` ("must have a positive amount", resuelto distribuyendo la factura vía "Distribuir factura"), y luego `404 BUS-005` ("Nexus pets/refund requires clCuenta"), que no se pudo resolver sin pasar por el mismo pipeline de validación de cobertura que usa el camino de aprobación. Documentado en detalle en `docs/bugs/BUG-015-rechazo-directo-calidad-pendiente-requiere-clcuenta.md` (no filado en Jira todavía, pendiente confirmar con dev si es bug o limitación conocida).
 - Trazabilidad: `IMAS-4104`.
 
 ## TS-03 Notas en Nexus (`IMAS-4124` — foco real de `IMAS-4152`)
 
-**CP05 - Nota de rechazo directo (Escenario 1 de la HU)** 🟡 PENDIENTE — misma razón que CP04, no se ejerció ese camino
-- Dado: expediente `PENDIENTE` con `filecase` ya generado (CP01).
-- Cuando: Calidad rechaza con un motivo.
-- Entonces: se dispara `POST /auxiliaries/notes` con ese `filecase`, `noteType: "shared"` y el texto del motivo — visible en el panel interno de Nexus, mismo `filecase` que CP01.
+**CP05 - Nota de rechazo directo (Escenario 1 de la HU)** 🔴 **BLOQUEADO 2026-08-22 — misma causa que CP04, ver `docs/bugs/BUG-015`**
+- Dado: expediente `PENDIENTE` con `filecase` ya generado.
+- Cuando: Calidad rechaza con un motivo, directo desde `PENDIENTE`.
+- Entonces (esperado): se dispara `POST /auxiliaries/notes` con ese `filecase`, `noteType: "shared"` y el texto del motivo — visible en el panel interno de Nexus.
+- **No se pudo ejercer**: el rechazo directo en sí nunca se completó (ver CP04 — falló con `400 BUS-009` y luego `404 BUS-005`), así que no hay nota que verificar para este camino todavía.
 - Trazabilidad: `IMAS-4124` (Escenario 1 Gherkin de la HU).
 
 **CP06 - Nota de pago (Escenario 2 de la HU)** 🟡 MUY PROBABLE, NO VERIFICADO VISUALMENTE
@@ -92,10 +94,10 @@
 | Ticket | Cubierto por | Estado |
 |---|---|---|
 | `IMAS-4103` (Alta) | CP01 ✅, CP02 🟡, CP11 🔴 | Parcial — CP01 pasó en vivo |
-| `IMAS-4104` (Cierre) | CP03 ✅, CP04 🟡 | Parcial — CP03 pasó en vivo (regresión `#113`/`#115` confirmada); CP04 pendiente de una 3ª solicitud |
-| `IMAS-4124` / `IMAS-4152` (Notas) | CP05-CP10 | CP07 ✅, CP08 ✅ ejecutados en vivo; CP09 🟡 parcial (confirmado del lado backoffice, no server-a-server); CP06 muy probable no confirmado visualmente; CP05 pendiente de una 3ª solicitud; CP10 no ejecutable a mano |
+| `IMAS-4104` (Cierre) | CP03 ✅, CP04 🔴 | Parcial — CP03 pasó en vivo (regresión `#113`/`#115` confirmada); CP04 **bloqueado por bug real, ver `BUG-015`** |
+| `IMAS-4124` / `IMAS-4152` (Notas) | CP05-CP10 | CP07 ✅, CP08 ✅ ejecutados en vivo; CP09 🟡 parcial (confirmado del lado backoffice, no server-a-server); CP06 muy probable no confirmado visualmente; CP05 **bloqueado, misma causa que CP04**; CP10 no ejecutable a mano |
 
-**11 casos diseñados. 4 ejecutados y pasando en vivo (CP01, CP03, CP07, CP08 — 2026-08-22)**, contra QA real, con VPN conectada, en 2 solicitudes distintas (`3184-1`: alta→pago; `3186-1`: alta→Calidad aprueba→Finanzas rechaza (Inconveniente)→Calidad rechaza definitivo). Ambas solicitudes ya llegaron a estado terminal (`PAGADO` y `RECHAZADO` respectivamente), así que el único camino de negocio que queda sin ejercer es el rechazo directo de Calidad desde `PENDIENTE` sin pasar por Finanzas (**CP04/CP05** — necesitan una 3ª solicitud). CP02 no se forzó explícitamente. CP06 y CP09 quedaron parcialmente confirmados: el 204 de `registro-pago`/`decision-calidad` prueba que el flujo de negocio cerró bien, pero la nota específica en Nexus (best-effort, servidor-a-servidor) sigue sin verificación visual — requiere el panel interno de Nexus (CP11), sin credenciales en esta sesión. CP10 requiere fault-injection no disponible manualmente. **Esta HU NO puede reportarse como cerrada/lista todavía** — faltan CP04/CP05 (camino de rechazo directo) y la confirmación visual en el panel interno de Nexus (CP06/CP09/CP11).
+**11 casos diseñados. 4 ejecutados y pasando en vivo (CP01, CP03, CP07, CP08 — 2026-08-22)**, contra QA real, con VPN conectada, en 3 solicitudes distintas (`3184-1`: alta→pago; `3186-1`: alta→Calidad aprueba→Finanzas rechaza (Inconveniente)→Calidad rechaza definitivo; `3188-1`: intento de rechazo directo desde `PENDIENTE`, bloqueado). Se intentó específicamente ejercer el camino de rechazo directo de Calidad (**CP04/CP05**) con una 3ª solicitud creada para ese fin, y se encontró un bloqueo real y reproducible (dos errores de backend distintos, `400 BUS-009` y `404 BUS-005`), documentado en `docs/bugs/BUG-015-rechazo-directo-calidad-pendiente-requiere-clcuenta.md` — no filado en Jira todavía, pendiente confirmar con dev si es bug o limitación conocida del ambiente. CP02 no se forzó explícitamente. CP06 y CP09 quedaron parcialmente confirmados: el 204 de `registro-pago`/`decision-calidad` prueba que el flujo de negocio cerró bien, pero la nota específica en Nexus (best-effort, servidor-a-servidor) sigue sin verificación visual — requiere el panel interno de Nexus (CP11), sin credenciales en esta sesión. CP10 requiere fault-injection no disponible manualmente. **Esta HU NO puede reportarse como cerrada/lista todavía** — CP04/CP05 quedaron bloqueados (no solo pendientes) y falta la confirmación visual en el panel interno de Nexus (CP06/CP09/CP11).
 
 ## Notas y limitaciones a tener presentes durante la ejecución
 

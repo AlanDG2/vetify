@@ -118,7 +118,10 @@ export async function createChildTask({ parentKey, summary, description, assigne
   const fields = {
     project:   { key: parent.fields.project.key },
     summary,
-    issuetype: { name: 'Subtask' },
+    // El issuetype de subtarea en este proyecto Jira está en español ("Subtarea"), no "Subtask"
+    // (confirmado via npm run jira:metadata) -- "Subtask" en inglés no existe acá y falla con
+    // "Especifica un tipo de incidencia válido".
+    issuetype: { name: 'Subtarea' },
     parent:    { key: parentKey },
   };
   if (description)       fields.description = toDoc(description);

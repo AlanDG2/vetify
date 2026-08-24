@@ -63,3 +63,10 @@
 {"timestamp":"2026-08-13T18:42:09.413Z","action":"assign","issueKey":"IMAS-3742","assignee":"Oscar Tello","result":"ok"}
 {"timestamp":"2026-08-20T15:44:14.700Z","action":"createDefect","parentKey":null,"defectKey":"IMAS-4347","summary":"Error 502 (Auth) al cargar el listado de planes en Flujo de Compra","result":"ok"}
 {"timestamp":"2026-08-20T17:04:34.002Z","action":"createDefect","parentKey":null,"defectKey":"IMAS-4351","summary":"Comprar con el DNI de un usuario existente no asocia el plan a su cuenta","result":"ok"}
+{"timestamp":"2026-08-24T15:59:20.984Z","action":"createChildTask","parentKey":"IMAS-4341","childKey":"IMAS-4412","summary":"Cobertura funcional Android: Login, Navegación y menú lateral"}
+{"timestamp":"2026-08-24T15:59:20.984Z","action":"createChildTask","parentKey":"IMAS-4341","childKey":"IMAS-4413","summary":"Cobertura funcional Android: Mascotas, Planes y Perfil"}
+{"timestamp":"2026-08-24T15:59:20.984Z","action":"createChildTask","parentKey":"IMAS-4341","childKey":"IMAS-4414","summary":"Cobertura funcional Android: Credenciales"}
+{"timestamp":"2026-08-24T15:59:20.984Z","action":"createChildTask","parentKey":"IMAS-4341","childKey":"IMAS-4415","summary":"Cobertura funcional Android: Videollamada"}
+{"timestamp":"2026-08-24T15:59:20.984Z","action":"createChildTask","parentKey":"IMAS-4341","childKey":"IMAS-4416","summary":"Arquitectura de sesión estable entre tests (Android)"}
+{"timestamp":"2026-08-24T15:59:20.984Z","action":"createChildTask","parentKey":"IMAS-4341","childKey":"IMAS-4417","summary":"Creación de casos de prueba para mobile"}
+{"timestamp":"2026-08-24T15:59:20.984Z","action":"createChildTask","parentKey":"IMAS-4341","childKey":"IMAS-4418","summary":"Probar suite mobile en iOS"}

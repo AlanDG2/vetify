@@ -1,6 +1,6 @@
 # BUG-015 — Rechazo directo de Calidad desde PENDIENTE falla (400/404) por precondiciones no documentadas ligadas a Nexus
 
-**Jira**: N/A (no filed — ver nota al final)
+**Jira**: **`IMAS-4354`** ("[Reintegros Calidad] Rechazo de expediente falla (BUS-005): Nexus pets/refund requiere clCuenta") — **ya existía**, creado por Mariana Navarro (dev) el 2026-08-21, un día antes de que lo encontráramos por nuestra cuenta. Estado en Jira: "En Progreso", colgando de `IMAS-4101`. No hace falta filear un Defect nuevo — confirmado 2026-08-24 vía `search "parent = IMAS-4101"`.
 **Título sugerido**: BUG | Rechazo de Calidad desde PENDIENTE bloqueado por BUS-009/BUS-005 (monto no distribuido / clCuenta ausente en Nexus)
 **Severidad**: Medio-Alto — no bloquea el camino feliz (Calidad aprueba primero, como en CP01/CP03/CP07/CP08, todos verificados en vivo), pero bloquea por completo el camino "Calidad rechaza directo desde PENDIENTE sin pasar por Finanzas" (Escenario 1 de `IMAS-4124`, casos CP04/CP05), que es un camino de negocio real y esperado según el Gherkin de la HU.
 **Categoría**: Backend / Reglas de negocio (`reintegros-backend`)
@@ -43,7 +43,7 @@ El expediente `3188-1` quedó en `PENDIENTE`, sin cambios (ambos intentos de rec
 
 ## Notas adicionales
 
-- **No se filó todavía en Jira** — se documenta acá primero, siguiendo el criterio de "documentar y frenar" antes de escalar, dado que no se descartó del todo si esto es (a) un bug real de precondiciones faltantes, o (b) una limitación conocida y aceptada del flujo QA que el equipo de dev ya tiene presente. Recomendado confirmar con dev/Mariana Navarro antes de crear el Defect.
+- **Ya está en Jira como `IMAS-4354`** (ver arriba) — no filar un Defect nuevo. Nuestra evidencia (2 reproducciones adicionales + la causa raíz del pipeline `clCuenta`, ver sección siguiente) queda documentada acá; decisión pendiente del usuario sobre si sumarla como comentario en Jira o dejarla solo en este doc interno (2026-08-24: por ahora, solo interno).
 - Los otros 3 caminos de esta suite (CP01/CP03: aprobar→pagar; CP07/CP08: aprobar→Finanzas rechaza→Calidad rechaza definitivo) **sí funcionan end-to-end** y fueron verificados en vivo el mismo día — el problema es específico al camino "rechazo directo desde `PENDIENTE`, sin aprobación previa ni paso por Finanzas".
 - Relacionado con el error 502 de ARCA ya documentado (`docs/conocimiento-sistema.md`) — es esperado en QA por diseño del ambiente, no es la causa de este bug.
 

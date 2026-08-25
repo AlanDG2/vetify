@@ -764,3 +764,61 @@ Tras el fix de `f50d267f` (continuación 6), TS-07 volvió a fallar con el mismo
 - `a7dc5b96`: verificada — 1 plan real, LIBRE, sin mascota. Coincide con el fixture. Es la única cuenta confirmada como realmente apta para TS-07/TS-09 ahora mismo.
 
 Conclusión: el pool completo de cuentas "1 plan sin mascota" para VETIFY_ADQUIRENTE se había ido degradando con reuso repetido sin que los fixtures se actualizaran (mismo patrón de fondo que ya se había documentado para `f50d267f` el 2026-08-18, pero no se había propagado la lección a las cuentas "de reemplazo"). No es un bug de producto — es deuda de mantenimiento de fixtures. TS-07 se re-corrió aislado con `a7dc5b96` para confirmar el fix.
+
+## 2026-08-24 - Retomando los 3 pendientes acordados el 2026-08-20 (services.spec.ts TC-02, TS-09, videocall TC-05)
+
+### TS-09: pool completo re-confirmado muerto, nuevo intento también falló
+
+Las 4 cuentas fresh que matchean el filtro exacto de TS-09 (`fe0fa059`, `053a00eb`, `7f6ae9d5`, `34de7a0d`) se re-chequearon vía API (`getUserPets()`) — **las 4 devuelven 0 planes**, incluida `7f6ae9d5` que el 2026-08-13 se había confirmado con mascota real (estado OCUPADO). No es demora de propagación (ya pasaron 4+ días para la más vieja) — el historial de plan real de estas cuentas parece haberse perdido/nunca haber quedado bien vinculado. Limpiadas del fixture (`fresh-users.json`: 3 eliminadas, `a7dc5b96` retageada `DEAD` numberOfPlans:0 en vez de borrada porque también vive en `pooled-users.json` con nota espejo actualizada ahí).
+
+Se generó una cuenta nueva (`a7cff559`, DNI 1781043098) — **también falló la activación**, pero con un síntoma distinto: no quedó en 0 planes silenciosamente, sino que `/validation/policy` rebotó de vuelta a `/auth/login` (`TimeoutError` en `waitForPageLoaded()`, log de navegación mostrando el bounce). Este es el síntoma clásico de IMP-004 (isClient false / gate de validación que no prende), no visto en esta forma específica desde hace tiempo. Con 2 intentos consecutivos de generación fallando por motivos distintos, se corta acá por hoy en vez de seguir reintentando a ciegas — **queda como impedimento real, no resuelto**, candidato a revisar si IMP-004 sigue realmente cerrado o si hay una regresión.
+
+### services.spec.ts TC-02: confirmado y arreglado — cambio real de deploy, no bug
+
+Investigado en vivo contra el sitio real (Playwright MCP, viewport Pixel 5 para replicar el contexto mobile real): las tarjetas "Emergencias" y "Asistencia presencial" siguen existiendo visualmente, pero **el atributo `data-cy="vetifyServiceCard-*"` fue removido de las 8 tarjetas de Servicios** (confirmado: `document.querySelectorAll('[data-cy^="vetifyServiceCard"]')` devuelve 0 elementos en el DOM real). Coincide con un diálogo de "nueva versión disponible" que tiró el sitio al navegar — probablemente un deploy reciente sacó estos hooks de automatización sin que sea un cambio de comportamiento real.
+
+Nota aparte encontrada en el proceso: cada tarjeta se renderiza DOS veces en el DOM (variante mobile + desktop de Chakra UI, una oculta por CSS según breakpoint) — confirmado comparando viewport desktop vs. Pixel 5. Con viewport mobile real, el primer match por orden de DOM es el visible, que es justo el que agarra `$()` de WebdriverIO por defecto — no hace falta lógica extra para filtrar, pero quedó documentado por si aparece en otra pantalla.
+
+Fix: `mobile/pages/vetify/ServicesPage.ts` — `emergenciasCard`/`asistenciaPresencialCard` (y de paso `planesCard`/`videocallCard`, no usados hoy pero con el mismo problema) reescritos de `data-cy` a XPath por texto visible. **Confirmado 2/2 passing** contra el emulador real tras el fix.
+
+### Emulador: crash de arranque nuevo (GPU/Vulkan), no relacionado a nada de lo anterior
+
+Al intentar correr el diagnóstico de videocall TC-05, `npm run emulator:start` crasheó al bootear — `Critical: Failed to load opengl32sw`, cientos de `Failed to find ColorBuffer`, quedó colgado en un crashdialog no interactivo. Causa probable: incompatibilidad del backend gráfico gfxstream/Vulkan con el driver de la GPU integrada (AMD Radeon) de esta máquina — no es el problema de instrumentación intermitente ya documentado en IMP-010, es un fallo de arranque distinto y nuevo.
+
+Workaround confirmado: forzar renderizado por software con `-gpu swiftshader_indirect`. Con ese flag el emulador bootea limpio. Se hizo permanente en `package.json` (`emulator:start` ahora incluye el flag por default) para no volver a pisar esto.
+
+### videocall TC-05: el problema NO es TC-05 puntual — el grupo entero TS-03 se degrada bajo carga
+
+Con el emulador ya estable, TC-05 aislado falló — pero con un síntoma nuevo, ni siquiera llegando al selector de mascota (se cae antes, esperando el botón "Agendar nueva videollamada" en la pantalla de entrada). Corriendo el grupo completo TS-03 (8 tests) para darle a TC-05 el setup de cuenta que sus hermanos le dejan: **7 de 8 fallaron**, todos con el mismo tipo de error (elementos no encontrados a tiempo), no solo TC-05.
+
+Se verificó en vivo (Playwright MCP) que el botón "Agendar nueva videollamada" SIGUE existiendo con el texto exacto — no es un cambio de deploy como el de Servicios, la pantalla simplemente tardó en cargar más de lo esperado en el chequeo manual. Hipótesis inicial: timing/carga bajo sesión larga (mismo patrón de fondo que IMP-010) — **descartada más abajo**, ver "Corrección" al final de esta entrada.
+
+## 2026-08-24 (continuación) - Corrección: el problema NO era GPU ni timing — es degradación más amplia del pool de cuentas
+
+Al sumar `services.spec.ts` (ya arreglado) al set `test:mobile:stable` y re-verificar los 12 archivos, **6 de 12 fallaron** — incluyendo archivos que llevaban semanas 100% sólidos (`credential-wizard.spec.ts` 6/6 fallos, `historial-atencion.spec.ts`, `pets.spec.ts`, `plans.spec.ts`). Esto es mucho más amplio que el problema de TS-03/videocall que se venía investigando.
+
+**Hipótesis 1 (descartada) — el emulador estaba en modo software rendering**: el emulador había crasheado al bootear más temprano hoy (falla de GPU/Vulkan, ver entrada anterior) y se había aplicado `-gpu swiftshader_indirect` como workaround permanente. Sospecha: el renderizado por software es mucho más lento que GPU real y podría explicar timeouts generalizados. **Se probó reiniciar el emulador SIN el flag (GPU real) — bootea limpio, el crash de antes fue transitorio, no un problema persistente.** Se revirtió `package.json` (`emulator:start` vuelve a su forma original, sin `-gpu`). Se re-corrió el set de 12 archivos con GPU real: **los mismos 6 archivos volvieron a fallar, exactamente igual.** Esto descarta la hipótesis de rendimiento por software rendering — no era la causa.
+
+**Causa real, confirmada**: revisando el error puntual de `pets.spec.ts` y `plans.spec.ts` — ambos fallan con `expect(0).toBeGreaterThan(0)` (cero mascotas / cero planes). Ambos specs SÍ reservan una cuenta exclusiva con tag correcto (`ACTIVE, WITH_PET` con `reserve:true` por defecto — no es el bug de `.find()`/`ignoreReserved:true` ya diagnosticado y arreglado antes en otros specs). Es decir: la cuenta que el pool entrega como "activa y con mascota" ya no tiene mascota real en el backend. Esto confirma que la degradación de datos del pool (ya vista hoy en las 4 cuentas fresh muertas de TS-09, y en `3ac57f75`/`a7dc5b96`) **es más amplia de lo que se pensaba** — no son 4-5 cuentas puntuales contaminadas, es un problema de fondo en varias cuentas del pool compartido `VETIFY_ADQUIRENTE` que los fixtures no reflejan.
+
+**Decisión**: se corta la investigación línea-por-línea de specs individuales por hoy. Seguir arreglando cuenta por cuenta a medida que aparecen fallos es pan-para-hoy — hace falta una auditoría sistemática del pool completo (chequear cada cuenta pooled/fresh contra la API real, no solo las que fallan en el momento) antes de volver a confiar en el set "confirmado estable". El debug temporal agregado a `VideocallFormPage.ts` para investigar TC-05 se removió sin conclusión — probablemente comparte esta misma causa de fondo (cuenta con datos reales distintos a lo que dice el tag), no un bug de selector ni de timing.
+
+**Pendiente para una próxima sesión**: auditoría completa de `pooled-users.json` (VETIFY_ADQUIRENTE) vía API real, no solo re-etiquetar cuentas a medida que fallan.
+
+## 2026-08-24 (continuación 2) - Auditoría del pool ejecutada — resultado serio, con 2 hipótesis sin descartar
+
+Se armó un script ad-hoc (`tmp-audit-pool.ts`, Playwright `chromium.launch()` manual) para chequear las 11 cuentas `VETIFY_ADQUIRENTE` no marcadas ya-conocidas-malas. **Resultado inicial: 11/11 con 0 planes reales**, incluida `7768b2cc` (confirmada con 3 planes reales el 2026-08-20). Un resultado 100% uniforme así, contradiciendo una cuenta verificada hace 4 días, no era creíble como hallazgo real — se sospechó bug del script antes de confiar en el número.
+
+**2 bugs reales encontrados en el script de auditoría** (no en el producto):
+1. Faltaba precargar `GENERAL_COOKIES_STORAGE_STATE_PATH` (consentimiento de cookies) que Playwright inyecta solo via config — no alcanzó para explicar todo, pero es una diferencia real vs. los specs reales.
+2. **El bug real**: el script nunca llamaba a `homePage.load()` (navegación explícita a Home) — solo esperaba una respuesta de `/api/users/me`, que responde 200 aunque no haya login real. `page.url()` seguía en `/auth/login` sin que el script lo notara.
+
+Se reescribió como spec real (`tests/projects/vetify-webapp/tmp-audit.spec.ts`, corrido vía `npx playwright test`, harness completo con `globalSetup`/config real) con el fix (`homePage.load()` + chequeo de URL). Primer chequeo aislado de `7768b2cc`: login exitoso, llega a Home, **pero `getUserPets()` sigue devolviendo `[]` real** — ya no es bug de script, es un hallazgo confirmado: la cuenta perdió sus 3 planes reales entre el 2026-08-20 y hoy.
+
+**Corrida completa (9 cuentas, 2 workers, harness real)**: **9/9 con 0 planes reales o LOGIN_FAILED** (rebote a `/auth/login?prevPage=...`) — incluida `7768b2cc`, que en el chequeo aislado inmediatamente anterior SÍ había logueado bien. Esa inconsistencia entre 2 corridas de la MISMA cuenta a minutos de diferencia es la señal más importante: no es un estado fijo y verificable, es intermitente.
+
+**2 hipótesis abiertas, sin poder descartar ninguna hoy**:
+1. **Incidente real de backend/Auth actualmente en curso** — conecta con IMAS-4347/IMP-012 (backend de pago/planes), que ya se había documentado como "recuperándose pero no 100% estable" el 2026-08-20. Si el mismo backend sigue inestable, explicaría intermitencia + planes en 0 + logins que a veces rebotan.
+2. **Rate-limiting o protección anti-bot autoinfligida** — en esta sesión se hicieron decenas de logins automatizados (scripts ad-hoc, corridas de test, MCP browser) contra el mismo ambiente QA en pocas horas. Es un patrón consistente con activar algún límite de tasa o detección de tráfico automatizado, que empezaría a fallar más tarde en el día tras acumular volumen.
+
+**Decisión**: no se sigue insistiendo hoy — si es la hipótesis 2, seguir generando tráfico solo empeora el diagnóstico. Se corta toda actividad de testing en vivo por hoy. Antes de retomar: esperar un tiempo de enfriamiento razonable (unas horas / al día siguiente) y repetir un chequeo mínimo (1 sola cuenta, 1 sola vez) para ver si el síntoma persiste — si persiste igual de mal después del enfriamiento, es mucho más probable que sea la hipótesis 1 (incidente real) y amerita reportarse a Jira: escalar como continuación de IMAS-4347/IMP-012, no como impedimento nuevo.

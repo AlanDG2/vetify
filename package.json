@@ -31,7 +31,7 @@
         "validate:jira": "node scripts/validate/validate-jira-guardrails.mjs",
         "prepare": "husky",
         "test:mobile": "node mobile/config/run-mobile.mjs",
-        "test:mobile:stable": "node mobile/config/run-mobile.mjs --spec mobile/specs/example/app-launch.spec.ts --spec mobile/specs/vetify/ayuda.spec.ts --spec mobile/specs/vetify/credential-wizard.spec.ts --spec mobile/specs/vetify/facturas.spec.ts --spec mobile/specs/vetify/historial-atencion.spec.ts --spec mobile/specs/vetify/login.spec.ts --spec mobile/specs/vetify/navigation.spec.ts --spec mobile/specs/vetify/pets.spec.ts --spec mobile/specs/vetify/plans.spec.ts --spec mobile/specs/vetify/profile.spec.ts --spec mobile/specs/vetify/reintegros.spec.ts",
+        "test:mobile:stable": "node mobile/config/run-mobile.mjs --spec mobile/specs/example/app-launch.spec.ts --spec mobile/specs/vetify/ayuda.spec.ts --spec mobile/specs/vetify/facturas.spec.ts --spec mobile/specs/vetify/login.spec.ts --spec mobile/specs/vetify/navigation.spec.ts --spec mobile/specs/vetify/profile.spec.ts --spec mobile/specs/vetify/reintegros.spec.ts --spec mobile/specs/vetify/services.spec.ts",
         "test:android": "wdio run ./mobile/config/wdio.android.conf.ts",
         "test:ios": "wdio run ./mobile/config/wdio.ios.conf.ts",
         "emulator:start": "emulator -avd Pixel_6_QA -no-snapshot"

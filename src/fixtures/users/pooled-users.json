@@ -216,19 +216,16 @@
           "type": "DNI",
           "number": "1608936467"
         },
-        "numberOfPlans": 1,
+        "numberOfPlans": 0,
         "source": "pooled",
         "registration": true,
         "leadIds": [
           "00QO200000WHISkMAP"
         ],
         "tags": [
-          "REGISTERED",
-          "ACTIVE",
-          "NO_PET",
-          "PLAN_WITHOUT_PET"
+          "REGISTERED"
         ],
-        "_note": "2026-08-18: ver nota de user_1787086478298_7768b2cc arriba (mismo lote, mismo motivo).",
+        "_note": "2026-08-18: ver nota de user_1787086478298_7768b2cc arriba (mismo lote, mismo motivo). || 2026-08-24: confirmado en vivo vía API (getUserPets) -- 0 planes reales, pese a que el 2026-08-20 sí tenía 1 plan LIBRE real. Se sacaron ACTIVE+NO_PET+PLAN_WITHOUT_PET (quedó solo REGISTERED, que es lo único que usa TS-03 desktop) para que ninguna query de 'plan sin mascota' la vuelva a elegir. Ver qa-workspace/decision-log.md 2026-08-24.",
         "reserved": false
       },
       {

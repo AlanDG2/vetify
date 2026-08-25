@@ -32,26 +32,28 @@ npm run test:ios
 npm run test:mobile:stable
 ```
 
-Corre SOLO los archivos que en la última corrida completa (2026-08-20, Android) dieron 0 fallos — pensado como el set de referencia para correr con confianza (ej. primera validación en iOS, smoke rápido antes de un commit). Auto-detecta plataforma igual que `test:mobile`.
+Corre SOLO los archivos confirmados estables tras la última revisión (2026-08-24, Android, confirmado 2 veces con GPU real) — pensado como el set de referencia para correr con confianza (ej. primera validación en iOS, smoke rápido antes de un commit). Auto-detecta plataforma igual que `test:mobile`.
+
+**Importante (2026-08-24)**: el pool de cuentas compartido `VETIFY_ADQUIRENTE` tiene degradación de datos más amplia de lo que se pensaba — varias cuentas que el fixture marca `WITH_PET`/`ACTIVE` ya no tienen mascota/plan real en el backend. Esto sacó 4 archivos que antes estaban en este set (ver tabla). No es timing, no es GPU, no es bug de selector — es que la cuenta reservada no tiene los datos que el fixture promete. Pendiente una auditoría completa del pool antes de poder confiar en reincorporarlos. Ver `qa-workspace/decision-log.md` 2026-08-24.
 
 | Archivo | Estado | Nota |
 |---|---|---|
 | `example/app-launch.spec.ts` | ✅ Confirmado estable | |
 | `vetify/ayuda.spec.ts` | ✅ Confirmado estable | |
-| `vetify/credential-wizard.spec.ts` | ✅ Confirmado estable (6/6) | |
 | `vetify/facturas.spec.ts` | ✅ Confirmado estable | |
-| `vetify/historial-atencion.spec.ts` | ✅ Confirmado estable | |
 | `vetify/login.spec.ts` | ✅ Confirmado estable | |
 | `vetify/navigation.spec.ts` | ✅ Confirmado estable | |
-| `vetify/pets.spec.ts` | ✅ Confirmado estable | |
-| `vetify/plans.spec.ts` | ✅ Confirmado estable | |
 | `vetify/profile.spec.ts` | ✅ Confirmado estable (3/3) | |
 | `vetify/reintegros.spec.ts` | ✅ Confirmado estable | |
+| `vetify/services.spec.ts` | ✅ Confirmado estable (2/2, arreglado 2026-08-24 — selectores por data-cy quedaron rotos por un deploy, reescritos por texto) | |
+| `vetify/credential-wizard.spec.ts` | ⚠️ Sacado del set 2026-08-24 | 6/6 fallando — cuenta pooled sin los datos que su tag promete (pool degradado, no bug de test) |
+| `vetify/historial-atencion.spec.ts` | ⚠️ Sacado del set 2026-08-24 | Mismo motivo — cuenta pooled degradada |
+| `vetify/pets.spec.ts` | ⚠️ Sacado del set 2026-08-24 | `expect(0).toBeGreaterThan(0)` — la cuenta reservada `ACTIVE+WITH_PET` no tiene mascotas reales |
+| `vetify/plans.spec.ts` | ⚠️ Sacado del set 2026-08-24 | `expect(0).toBeGreaterThan(0)` — la cuenta reservada no tiene planes reales |
 | `vetify/asistencia-domicilio.spec.ts` | ⚠️ No incluido | TC-01 cuelga 120s+ tras abrir el marcador telefónico nativo (`tel:`), no recupera control — estructural, no flake |
-| `vetify/credentials.spec.ts` | ⚠️ Parcial | TS-07/TS-08 estables, TS-09 bloqueado por propagación de cuentas fresh (ver `qa-workspace/decision-log.md`) |
-| `vetify/services.spec.ts` | ⚠️ Parcial | TC-01 estable, TC-02 (tarjetas Emergencias/Asistencia presencial) sin diagnosticar |
+| `vetify/credentials.spec.ts` | ⚠️ Parcial | TS-07/TS-08 estables, TS-09 bloqueado — pool de cuentas fresh muerto + posible regresión de IMP-004 (ver `qa-workspace/decision-log.md` 2026-08-24) |
 | `vetify/vetify-plus.spec.ts` | ⚠️ No incluido | Necesita que Chrome haya completado su first-run en el dispositivo/emulador — gap de setup, no bug |
-| `vetify/videocall.spec.ts` | ⚠️ Parcial | 16/17 — TC-05 (selector de mascota obligatorio) pasa aislado pero es inestable bajo sesión larga acumulada |
+| `vetify/videocall.spec.ts` | ⚠️ Parcial | El grupo TS-03 (7/8 TCs) probablemente comparte la misma causa (cuenta pooled degradada), no confirmado aún — ver `qa-workspace/decision-log.md` 2026-08-24 |
 
 Los archivos "No incluido"/"Parcial" siguen corriendo normalmente con `npm run test:mobile` (suite completa) — no están en skip, solo no forman parte del subset garantizado.
 

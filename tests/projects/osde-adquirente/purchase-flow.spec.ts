@@ -5,10 +5,7 @@ import { MERCADOPAGO_PAYMENT_STATUSES } from '@integrations/mercadopago/mercadoP
 import { expect } from '@playwright/test';
 import { setAllureDetails, test, type TestContainer } from '@tests/framework/base-test';
 
-// @unstable 2026-08-20: mismo motivo que tests/projects/vetify-b2c/purchase-flow.spec.ts — el
-// flujo de compra depende del backend de pago compartido (IMAS-4347/IMP-012), "recuperándose pero
-// no 100% estable". Ver qa-workspace/decision-log.md. Sacar el tag cuando se confirme resuelto.
-test.describe('Registración y Adquisición Test Suite', { tag: ['@unstable'] }, () => {
+test.describe('Registración y Adquisición Test Suite', () => {
     test.describe('TS-01 Flujo de Compra', () => {
         test('TC-01 - Flujo de compra - Nuevo usuario adquirente - Compra existosa - Plan individual', async ({ container, page }) => {
             await setAllureDetails({

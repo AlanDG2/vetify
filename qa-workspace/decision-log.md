@@ -822,3 +822,17 @@ Se reescribió como spec real (`tests/projects/vetify-webapp/tmp-audit.spec.ts`,
 2. **Rate-limiting o protección anti-bot autoinfligida** — en esta sesión se hicieron decenas de logins automatizados (scripts ad-hoc, corridas de test, MCP browser) contra el mismo ambiente QA en pocas horas. Es un patrón consistente con activar algún límite de tasa o detección de tráfico automatizado, que empezaría a fallar más tarde en el día tras acumular volumen.
 
 **Decisión**: no se sigue insistiendo hoy — si es la hipótesis 2, seguir generando tráfico solo empeora el diagnóstico. Se corta toda actividad de testing en vivo por hoy. Antes de retomar: esperar un tiempo de enfriamiento razonable (unas horas / al día siguiente) y repetir un chequeo mínimo (1 sola cuenta, 1 sola vez) para ver si el síntoma persiste — si persiste igual de mal después del enfriamiento, es mucho más probable que sea la hipótesis 1 (incidente real) y amerita reportarse a Jira: escalar como continuación de IMAS-4347/IMP-012, no como impedimento nuevo.
+
+## 2026-08-25 - Auditoría de impedimentos/bugs + IMAS-4347 confirmado resuelto
+
+A pedido del usuario ("consulta de los bugs, bloqueos, impedimentos, test en skip — validemos el estado"), se armó un inventario completo: 12 issues Jira ligados a bugs locales (`docs/bugs/`) consultados en vivo vía `npm run jira -- search`, la tabla completa de `docs/impedimentos-bloqueos.md`, y todos los `test.skip`/`this.skip()` del repo. Hallazgo clave: **IMAS-4347 (BUG-014, el impedimento de backend de pago IMP-012 que veníamos arrastrando desde el 2026-08-19) figura "Hecho" en Jira** — no se había notado hasta este chequeo sistemático.
+
+**Verificación** (siguiendo exactamente la hipótesis 1 del enfriamiento de ayer): caché de `playwright/auth/*.json` limpiada, corrida limpia con `CI=1` de `purchase-flow.spec.ts` (Vetify B2C + OSDE Adquirente, incluyendo los tests tageados `@unstable` el 2026-08-20) — **29/29 passing**. Confirma que la hipótesis 1 (incidente real de backend) era la correcta, y que ya se resolvió — no era rate-limiting autoinfligido.
+
+Se re-chequearon las 2 cuentas más golpeadas del audit de ayer: `8aea8baa` (ayer con login intermitente) ahora loguea limpio 2/2; `7768b2cc` (ayer y hoy con 0 planes reales, contra los 3 que tenía confirmados el 2026-08-20) sigue en 0 — pero esto ya no se interpreta como el bug activo, sino como pérdida de datos histórica del incidente que no se recupera sola. Como esta cuenta ya había sido retageada correctamente ayer (ver continuación 2), no hace falta ninguna acción nueva sobre el fixture.
+
+**Acciones tomadas**:
+- Sacado el tag `@unstable` de `test.describe('Flujo de Compra', ...)` (vetify-b2c) y `test.describe('Registración y Adquisición Test Suite', ...)` (osde-adquirente) — vuelven a correr en el pipeline de CI sin el `--grep-invert`.
+- `docs/impedimentos-bloqueos.md`: IMP-012 movido a 🟢 Resuelto, con la verificación de hoy documentada en el detalle.
+
+**Resto del inventario** (sin acción hoy, para referencia): IMAS-4119/IMAS-4102 también "Hecho" en Jira (ya sabíamos, sin cambios de código pendientes). Bugs abiertos sin bloquear nuestro trabajo: IMAS-4351, IMAS-4324, IMAS-4300, IMAS-4294, IMAS-4279, IMAS-4274 (Bloqueado), IMAS-4272, IMAS-4118 — todos esperando a que dev los tome, no requieren acción de QA por ahora. IMAS-4354 en curso por Mariana Navarro (dev), solo seguimiento.

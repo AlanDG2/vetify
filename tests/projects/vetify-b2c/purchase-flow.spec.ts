@@ -76,11 +76,7 @@ async function purchasePlanFor(container: TestContainer, page: Page, data: { ema
     }
 }
 
-// @unstable 2026-08-20: todo el flujo de compra depende del backend de pago (mismo endpoint que
-// IMAS-4347/IMP-012), documentado como "recuperándose pero no 100% estable" — pasa aislado,
-// falla bajo carga real de pipeline. Ver qa-workspace/decision-log.md e IMP-012 en
-// docs/impedimentos-bloqueos.md. Sacar el tag cuando IMAS-4347 se confirme resuelto.
-test.describe('Flujo de Compra', { tag: ['@unstable'] }, () => {
+test.describe('Flujo de Compra', () => {
     test.describe('TS-01 Flujo de Compra', () => {
         test('TC-01 - Flujo de compra - Nuevo usuario adquirente - Compra existosa - Plan individual', async ({ container, page }) => {
             await setAllureDetails({

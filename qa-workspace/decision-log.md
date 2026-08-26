@@ -836,3 +836,19 @@ Se re-chequearon las 2 cuentas más golpeadas del audit de ayer: `8aea8baa` (aye
 - `docs/impedimentos-bloqueos.md`: IMP-012 movido a 🟢 Resuelto, con la verificación de hoy documentada en el detalle.
 
 **Resto del inventario** (sin acción hoy, para referencia): IMAS-4119/IMAS-4102 también "Hecho" en Jira (ya sabíamos, sin cambios de código pendientes). Bugs abiertos sin bloquear nuestro trabajo: IMAS-4351, IMAS-4324, IMAS-4300, IMAS-4294, IMAS-4279, IMAS-4274 (Bloqueado), IMAS-4272, IMAS-4118 — todos esperando a que dev los tome, no requieren acción de QA por ahora. IMAS-4354 en curso por Mariana Navarro (dev), solo seguimiento.
+
+## 2026-08-25 (continuación) - Los 4 archivos mobile sacados el 2026-08-24 NO se recuperaron — confirmado que es independiente de IMAS-4347
+
+Con el backend de pago confirmado resuelto (ver continuación anterior), se re-corrieron `credential-wizard.spec.ts`, `historial-atencion.spec.ts`, `pets.spec.ts` y `plans.spec.ts` (los 4 sacados del set `test:mobile:stable` ayer) contra el emulador real. **Mismos 9 fallos exactos, sin cambios** — `pets.spec.ts`/`plans.spec.ts` siguen con `expect(0).toBeGreaterThan(0)`, la cuenta pooled `ACTIVE+WITH_PET` reservada exclusivamente sigue sin mascotas/planes reales.
+
+Esto confirma que la pérdida de datos de estas cuentas puntuales (igual que `7768b2cc`) es permanente/histórica del incidente — arreglar el backend hacia adelante no restaura datos que ya se perdieron. **No es un impedimento nuevo, es la misma causa ya documentada el 2026-08-24** — sigue pendiente re-provisionar cuentas `WITH_PET` genuinas para el pool `VETIFY_ADQUIRENTE` (compra + alta de mascota real vía la app, no solo compra) antes de poder reincorporar estos 4 archivos al set estable.
+
+## 2026-08-25 (continuación 2) - Grupo TS-03 videollamada: root cause cerrado (misma causa), 2 cuentas quarantinadas; intento de cuenta fresh nueva falló con 500 puntual
+
+Se re-corrió el grupo `TS-03 IMAS-3889` completo de `videocall.spec.ts` — **mismos 7/8 fallos que ayer, sin cambios**. Se identificó la cuenta exacta: usa `reserve:false+ignoreReserved:true` con tags `[ACTIVE, WITH_PET, NO_EMPTY_PLAN]` + `numberOfPlans:1` (mismo patrón de `.find()` determinístico ya diagnosticado varias veces esta semana). Solo hay **2 cuentas en `pooled-users.json`** que matchean ese filtro exacto (`452f3aa0`/`user_1782499435430`, `a57c244e`/`user_1782769587577`) — **ambas ya estaban en la lista de 9 cuentas confirmadas muertas en la auditoría de ayer**. Con las dos muertas, el grupo queda sin ninguna cuenta válida posible, no es cuestión de mala suerte de `.find()`.
+
+Se retagearon ambas a `DEAD` (`numberOfPlans:0`, `reserved:true`) con nota explicando el motivo — mismo patrón ya usado para `a7dc5b96`/`34de7a0d`. `mobile/README.md` actualizado.
+
+**Intento de generar una cuenta fresh nueva para TS-09** (ver continuación de más arriba): la compra en sí falló con `Failed to create purchase: 500 Internal Server Error` en el primer intento tras confirmarse resuelto IMAS-4347. Un solo fallo puntual no contradice el 29/29 de `purchase-flow.spec.ts` de hace un rato (evidencia mucho más fuerte) — se interpreta como un hiccup aislado, no como que el fix no haya funcionado. No se reintentó una segunda vez hoy por tiempo — queda pendiente.
+
+**Pendiente real para destrabar por completo mobile**: re-provisionar cuentas `WITH_PET` genuinas (compra + alta de mascota real vía la app — más largo que un fresh account simple de "solo comprar") para reincorporar `credential-wizard`, `historial-atencion`, `pets`, `plans` al set estable y destrabar el grupo TS-03 de `videocall.spec.ts`. Es un trabajo de una sesión dedicada, no un ajuste rápido.

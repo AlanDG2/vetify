@@ -128,17 +128,16 @@
           "type": "DNI",
           "number": "738350272"
         },
-        "numberOfPlans": 1,
+        "numberOfPlans": 0,
         "source": "pooled",
         "leadIds": [
           "00QO200000UABIfMAP"
         ],
         "tags": [
-          "ACTIVE",
-          "WITH_PET",
-          "NO_EMPTY_PLAN"
+          "DEAD"
         ],
-        "reserved": false
+        "_note": "2026-08-24/25: confirmado en vivo vía API (getUserPets) -- 0 planes/mascotas reales, pese a tags ACTIVE+WITH_PET+NO_EMPTY_PLAN. Es la cuenta que mobile/specs/vetify/videocall.spec.ts TS-03 (reserve:false+ignoreReserved:true) elegía siempre por orden de array -- causaba el fallo masivo del grupo (7/8 TCs). No se recuperó tras confirmarse resuelto IMAS-4347 el 2026-08-25 (pérdida de datos histórica del incidente, no bug activo). Tags vaciados a DEAD para que ninguna query la vuelva a elegir. Ver qa-workspace/decision-log.md 2026-08-25.",
+        "reserved": true
       },
       {
         "id": "0f26d14f-a0bf-4f4f-9649-11ae34526721",
@@ -237,18 +236,17 @@
           "type": "DNI",
           "number": "439876254"
         },
-        "numberOfPlans": 1,
+        "numberOfPlans": 0,
         "source": "pooled",
         "registration": false,
         "leadIds": [
           "00QO200000UF4QJMA1"
         ],
         "tags": [
-          "ACTIVE",
-          "WITH_PET",
-          "NO_EMPTY_PLAN"
+          "DEAD"
         ],
-        "reserved": false
+        "_note": "2026-08-24/25: confirmado en vivo vía API (getUserPets) -- 0 planes/mascotas reales, pese a tags ACTIVE+WITH_PET+NO_EMPTY_PLAN. Era la única otra candidata para el mismo filtro que 452f3aa0 (mobile videocall.spec.ts TS-03) -- con las dos muertas, ese grupo queda sin ninguna cuenta válida hasta re-provisionar. Tags vaciados a DEAD. Ver qa-workspace/decision-log.md 2026-08-25.",
+        "reserved": true
       },
       {
         "id": "034796ff-c24d-45e8-8e44-4a1cd8ac5ba3",

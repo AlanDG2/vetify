@@ -53,7 +53,7 @@ Corre SOLO los archivos confirmados estables tras la última revisión (2026-08-
 | `vetify/asistencia-domicilio.spec.ts` | ⚠️ No incluido | TC-01 cuelga 120s+ tras abrir el marcador telefónico nativo (`tel:`), no recupera control — estructural, no flake |
 | `vetify/credentials.spec.ts` | ⚠️ Parcial | TS-07/TS-08 estables, TS-09 bloqueado — pool de cuentas fresh muerto + posible regresión de IMP-004 (ver `qa-workspace/decision-log.md` 2026-08-24) |
 | `vetify/vetify-plus.spec.ts` | ⚠️ No incluido | Necesita que Chrome haya completado su first-run en el dispositivo/emulador — gap de setup, no bug |
-| `vetify/videocall.spec.ts` | ⚠️ Parcial | El grupo TS-03 (7/8 TCs) probablemente comparte la misma causa (cuenta pooled degradada), no confirmado aún — ver `qa-workspace/decision-log.md` 2026-08-24 |
+| `vetify/videocall.spec.ts` | ⚠️ Parcial | El grupo TS-03 (7/8 TCs) confirmado bloqueado — las 2 únicas cuentas pooled que matchean su filtro (`ACTIVE+WITH_PET+NO_EMPTY_PLAN`) están muertas, retageadas `DEAD`. Necesita reprovisionar una cuenta con mascota real. Ver `qa-workspace/decision-log.md` 2026-08-25 |
 
 Los archivos "No incluido"/"Parcial" siguen corriendo normalmente con `npm run test:mobile` (suite completa) — no están en skip, solo no forman parte del subset garantizado.
 

@@ -103,12 +103,13 @@
 ### Contenido
 - Estructura **idéntica** a OSDE Capitado (mismo formulario, mismo "Plan Esencial", mismas 6 categorías de FAQ) — solo cambia "FLUX" por "OSDE" en el hero: *"Por tener FLUX, tu mascota cuenta con Vetify..."*.
 
-### 🐛 Hallazgo de contenido (no reportado aún)
+### 🐛 Hallazgo de contenido — reportado como `IMAS-4430`
+
 Las respuestas del FAQ **no fueron adaptadas de OSDE a Flux** — quedaron con el copy original:
 - Categoría del FAQ: **"Alianza Vetify x OSDE"** (debería decir "Alianza Vetify x Flux").
 - Primera pregunta/respuesta: *"¿Qué es Vetify y por qué **OSDE** lo eligió como aliado para el cuidado de mascotas? ... **OSDE** nos eligió porque compartimos la misma visión..."* — debería decir "Flux".
 - Confirmado en **QA y PROD por igual** (no es drift de ambiente, es el mismo contenido mal copiado en el CMS/código de ambos).
-- Pendiente: confirmar con el usuario del proyecto si se reporta como Defect (`BUG | Landing Flux Capitado — FAQ con copy de OSDE sin adaptar a la marca`).
+- **Re-confirmado en vivo 2026-08-25** (11 días después del hallazgo original, sin cambios) y reportado como [`IMAS-4430`](https://ikeasistencia-arg.atlassian.net/browse/IMAS-4430) (`docs/bugs/BUG-016-flux-faq-copy-osde-sin-adaptar.md`).
 
 ---
 

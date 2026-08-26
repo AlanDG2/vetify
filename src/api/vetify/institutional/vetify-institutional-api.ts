@@ -267,7 +267,11 @@ export class VetifyInstitutionalApiClient extends BaseApiClient {
         });
 
         if (!response.ok()) {
-            throw new Error(`Failed to create purchase: ${response.status()} ${response.statusText()}`);
+            // Incluir el body crudo -- el backend devuelve mensajes de error específicos
+            // (ej. {"error":"Error al calcular precio del producto"}) que un status code solo
+            // no muestra, y son la única pista real para diagnosticar un fallo de compra.
+            const bodyText = await response.text().catch(() => '<no se pudo leer el body>');
+            throw new Error(`Failed to create purchase: ${response.status()} ${response.statusText()} | body: ${bodyText}`);
         }
 
         return response.json();

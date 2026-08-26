@@ -71,3 +71,4 @@
 {"timestamp":"2026-08-24T15:59:20.984Z","action":"createChildTask","parentKey":"IMAS-4341","childKey":"IMAS-4417","summary":"Creación de casos de prueba para mobile"}
 {"timestamp":"2026-08-24T15:59:20.984Z","action":"createChildTask","parentKey":"IMAS-4341","childKey":"IMAS-4418","summary":"Probar suite mobile en iOS"}
 {"timestamp":"2026-08-26T01:18:29.804Z","action":"createDefect","parentKey":null,"summary":"BUG | Landing Flux Capitado - FAQ con copy de OSDE sin adaptar a la marca","key":"IMAS-4430","result":"ok"}
+{"timestamp":"2026-08-26T02:15:06.294Z","action":"createDefect","parentKey":null,"defectKey":"IMAS-4431","summary":"Error 500 \"Error al calcular precio del producto\" al finalizar la compra (Vetify B2C)","result":"ok"}

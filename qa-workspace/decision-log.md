@@ -1357,3 +1357,42 @@ A pedido del usuario ("traeme todas las HU de este sprint para que tengas contex
 **Guardado en memoria de Claude** (pedido explícito del usuario: "guardá en tu base de conocimiento") — actualizado `project_sprint_2026_q3_s4_mascotas.md` con el detalle completo de los 24 items agrupados por tema. **No se tocó** el archivo espejo en `vetify-squad-knowledge` (el pedido fue específicamente sobre la memoria de Claude, no se asumió que había que replicarlo ahí también).
 
 **No se investigó a fondo ninguno de los 6 tickets nuevos de Reintegros todavía** — solo se leyó su resumen. Candidatos naturales para la próxima tanda de trabajo si se sigue en esta línea.
+
+## 2026-08-29 — Auditoría desktop/mobile de automatización + correcciones al Excel
+
+A pedido del usuario ("auditar qué está y qué no está automatizado desktop/mobile, no ejecutar, actualizar Excel, validar si se pueden destrabar tests bloqueados"), se hizo un pase de auditoría (sin correr la suite) cruzando `documentation/Casos de Prueba.xlsx` contra el código real de `tests/projects/` (desktop) y `mobile/specs/` (mobile), y contra `docs/impedimentos-bloqueos.md` completo.
+
+**Correcciones aplicadas al Excel** (3 rondas, `Automatizado`/`Automatizable` reales vía Excel COM, sin tocar la hoja Metricas directamente):
+1. **Gestión de Usuario, 24 filas** (TS-04 CP-02 "Recibir Email" + TS-05 completo, en los 4 productos): `Automatizable` de No a Sí — bloqueadas históricamente por `IMP-006` (sin infra de lectura de email), resuelto 2026-08-28. `Automatizado` queda en No — falta escribir el `.spec.ts` real que use `EmailClient`.
+2. **Credenciales, fila 22** (TS-02 CP-15 "Seleccionar una fecha futura"): `Automatizado` de Sí a No, `Automatizable Desktop` de Sí a No — el código tiene `test.skip(true, 'El nuevo selector no permite seleccionar una fecha futura...')`, nunca corre.
+3. **Flujo de Compra, filas 13 y 51** (TS-02 CP-02 "Compra fallida - Problema tarjeta", Vetify B2C y OSDE Adquirente): `Automatizado` de Sí a No — confirmado que el `test.describe('TS-02 Compra de Planes Fallida')` de ambos productos solo tiene 1 test (Tarjeta Prepaga), no existe un segundo test de "problema de tarjeta". Los productos Capitado no tienen este CP (su TS-02 es un flujo distinto, de cupones).
+
+**Impacto en el dashboard**: Automatizables (Desktop) subió de 215 a 239; % Automatizado sobre lo automatizable bajó de 81% a ~73% (refleja que el universo automatizable creció, no una pérdida de cobertura).
+
+**Hallazgos documentados, sin corregir (requieren criterio humano o más investigación)**:
+- Vetify B2C TS-01 TC-01 usa `contractRandomPlan()` (plan aleatorio) — no mapea de forma determinística a ninguna de las 8 combinaciones que lista el Excel (individual/familiar × con/sin cupón × débito/crédito). No se tocó ninguna de esas 8 filas (siguen "No") porque no se puede confirmar con certeza cuál combinación cubre.
+- Mobile `credential-wizard.spec.ts` TC-20 ("Usar cámara — variación: tomar una foto") no tiene fila correspondiente en el Excel — hueco de inventario, no inconsistencia de estado.
+- Hoja "Perfil" está vacía (sin casos cargados) pese a que sí existen specs reales (`profile.spec.ts` desktop y mobile).
+- Hojas "Reintegros" y "Misceláneas" vacías — toda la investigación de la épica `IMAS-4101` vive solo en `docs/user-stories/*.tests.md`, nunca se volcó al Excel.
+
+**No se hizo una verificación exhaustiva línea por línea de las ~270 filas restantes** (requeriría leer el cuerpo completo de los 13 specs desktop + 15 mobile, no solo los títulos de test) — se priorizó la búsqueda de `test.skip(true, ...)` (skips incondicionales) cruzada contra el Excel, que es donde aparecen las inconsistencias más claras y de mayor confianza.
+
+**Impedimentos (IMP-XXX) — resumen de destrabe**: `IMP-006` ya destrabado (recién reflejado en Excel). `IMP-003` tiene método reproducible pero se re-consume cada uso. `IMP-009`/`IMP-010` (mobile, celular físico) siguen bloqueados por falta de build Debug de dev. `IMP-011` ya resuelto (workaround de picker nativo). `IMP-013` parcialmente — vale la pena pedirle acceso al panel interno de Nexus a Paula Scalzo (encontrado ayer que también lo tiene). `IMP-001`/`002`/`005`/`015` siguen abiertos, dependen de terceros (dev/proceso), no de esta sesión.
+
+## 2026-08-29 (continuación) — Hallazgo grande: "Olvidé contraseña" en Gestión de Usuario estaba completamente desactualizado
+
+Continuando la auditoría exhaustiva a pedido del usuario, se leyeron completos los 4 specs de Capitado (nunca antes leídos línea por línea) y se encontró que `test.describe('TS-04 IMAS-321X - Olvidé contraseña')` tiene 5 tests reales en los 4 productos (CP01-CP05) que **no tienen nada que ver** con lo que el Excel listaba (CP-01 "Campos Obligatorios" + CP-02 "Recibir Email"). 2 de los 5 tests reales (CP04/CP05) ya automatizan los bugs `IMAS-4198`/`IMAS-4199` encontrados en el pull de sprint de ayer — documentan el comportamiento buggy actual, se esperan verdes hasta que se arreglen.
+
+Con OK explícito del usuario (eligió reemplazar sobre 2 alternativas más conservadoras), se insertaron 12 filas nuevas (3 por producto) y se reescribió el bloque completo con el contenido real de cada test (`setAllureDetails()`). Verificado matemáticamente que el dashboard recalculó sin corrupción (Total 241→253, Automatizados 175→188, Automatizables Desktop 239→250 — todos los deltas cuadran con lo esperado).
+
+**Actualizado**: `documentation/casos-de-prueba-trazabilidad.md` con el detalle completo de esta ronda y qué queda pendiente (Videollamadas cuerpo-por-cuerpo, 3 specs mobile no leídos).
+
+## 2026-08-29 (cierre) — Validación exhaustiva completa; corrección de un hallazgo falso ("Perfil vacía")
+
+A pedido explícito del usuario ("necesito que termines completamente"), se cerraron los 2 pendientes que quedaban: `videocall.spec.ts` completo (desktop 1112 líneas + mobile 1058 líneas) contra las ~54 filas de Videollamadas, y los 3 specs mobile no leídos (`credentials.spec.ts`, `credential-wizard.spec.ts`, `profile.spec.ts`) contra Credenciales y Perfil.
+
+**Resultado**: Videollamadas y Credenciales — cero discrepancias nuevas, ambas hojas ya estaban correctas (incluida una re-verificación en vivo de CP-15 en Credenciales, que seguía correctamente aplicado desde la ronda 1 — una alarma falsa mía por confiar en un TSV de scratchpad con columnas corridas).
+
+**Corrección de un error propio de esta misma auditoría**: la entrada de arriba (2026-08-29, "Hallazgos documentados, sin corregir") afirma *"Hoja 'Perfil' está vacía (sin casos cargados)"* — **eso era incorrecto**. Se verificó en vivo: la hoja Perfil tiene 13 filas con contenido real, ya alineado en su mayoría con el código (incluye la nota `[Bug conocido: backend no valida formato...]` en su título). El único problema real era una fila con el título ya corregido pero el "Resultado Esperado" con el texto viejo contradictorio — corregido. Causa raíz del error: un TSV de scratchpad heredado de antes del `/compact` de esta sesión no reflejaba el contenido real de la hoja. Lección: no repetir una afirmación "está vacía"/"no existe" de una sesión anterior sin re-verificar en vivo, aunque venga de la propia bitácora — ver `feedback_negative_grep_not_proof` y `feedback_validate_before_trusting_shared_state` en memoria de Claude.
+
+**Estado final de la auditoría de automatización desktop/mobile**: cerrada. 5 correcciones reales aplicadas en total a lo largo de las 3 rondas (IMP-006 ×24 filas, CP-15, 2× "Problema tarjeta", restructuración TS-04 Olvidé contraseña ×12 filas, 1 texto en Perfil). Detalle completo en `documentation/casos-de-prueba-trazabilidad.md`.

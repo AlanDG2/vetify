@@ -144,3 +144,17 @@ Siguiente ítem de la lista de "con qué avanzar" (después de TS-05, que quedó
 **Hallazgo de comportamiento real, no documentado antes**: a diferencia de `CTNA` (tarjeta prepaga — regla de negocio de Vetify, responde HTTP 400 directo), un rechazo real de MercadoPago (`OTHE`/fondos/expiración) responde **HTTP 200** — el endpoint de Vetify procesó el intento de pago correctamente, y el rechazo viene *embebido en el body*: `{"status":400, "message":"Tenemos un error al procesar tu compra, te contactaremos a la brevedad para solucionarlo.", "statusMP":{"status":"rejected","statusDetail":"cc_rejected_other_reason"}}`. Confirmado con un log de debug temporal antes de escribir la aserción final (no se asumió el shape del body).
 
 **Excel actualizado**: `Flujo de Compra` filas 13 (Vetify B2C) y 51 (OSDE Adquirente) — `Automatizado` de No a Sí (correcto ahora que el test existe y pasa). Dashboard verificado: `C5` sin cambio (273, las filas ya existían), `K5` 202→204 (+2 exacto).
+
+### 2026-08-29, mismo día — 2 de las 8 combinaciones individuales de Vetify B2C TS-01 (las únicas viables hoy)
+
+Última tarea de la lista de "con qué avanzar". Antes de tocar código se investigaron 2 bloqueos reales: (1) **cupón real inexistente** (ya documentado desde el 14/08 — bloquea 4 de las 8 filas, todas las "Con Cupón", sin solución de código posible) y (2) **"Plan familiar" (2+ planes) no tiene ninguna implementación de referencia** en todo el repo — necesitaría exploración en vivo nunca hecha antes. Con el OK explícito de Alan, se acotó el alcance a las 2 únicas filas viables hoy: individual + sin cupón, débito y crédito (filas 3 y 7).
+
+**Hallazgo que simplificó todo**: `contractRandomPlan()` selecciona y contrata SIEMPRE un solo plan — por construcción, ya es "individual" sin importar qué tier (Classic/Premium/Cachorros) toque al azar. No hizo falta tocarlo ni hacerlo determinístico para nada.
+
+**Fila 7 (individual/sin cupón/crédito) ya estaba cubierta sin saberlo**: el test existente `TS-01 Flujo de Compra > TC-01 - ... - Compra existosa - Plan individual` ya usa `MercadoPagoCardsHelper.buildCheckoutPaymentData(APPROVED, VISA)` — y ese helper, antes de hoy, **solo sabía construir tarjetas de crédito** (`getCreditCard()` hardcodeado, sin parámetro de tipo). Es decir, todo lo que decía "tarjeta" en este helper era en realidad siempre crédito, nunca débito, sin que el nombre del método lo dejara claro.
+
+**Construido**: se extendió `MercadoPagoCardsHelper.buildCheckoutPaymentData()` con un 3er parámetro opcional `cardKind: 'credit' | 'debit' = 'credit'` (default preserva el comportamiento de todo el código existente, cambio aditivo sin riesgo) y un `getDebitCard()` nuevo (ya existían las tarjetas de débito en `MERCADOPAGO_DEBIT_CARDS`, solo no había forma de pedirlas desde el helper de checkout). Se agregó `TC-01b` (fila 3, individual/débito) en el mismo `describe` que el test de crédito existente. Ambos verificados pasando en vivo.
+
+**Excel actualizado**: `Flujo de Compra` filas 3 y 7 (Vetify B2C) — `Automatizado` de No a Sí. Dashboard verificado: `K5` 204→206 (+2 exacto), `C5` sin cambio.
+
+**Sigue sin resolver, a propósito**: las 6 filas restantes (4 "Con Cupón" bloqueadas de raíz; 2 "familiar" sin explorar) — quedan igual que estaban, `Automatizable=Sí` pero `Automatizado=No`, no se tocó nada de eso.

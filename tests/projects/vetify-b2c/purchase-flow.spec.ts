@@ -183,6 +183,96 @@ test.describe('Flujo de Compra', () => {
             // Hit the API to get the purchase data
         });
 
+        // Portado de documentation/Casos de Prueba.xlsx, hoja "Flujo de Compra", TS-01 Compra de
+        // Planes Exitosa. El test de arriba ("Plan individual") ya usa MercadoPagoCardsHelper con
+        // el default `cardKind: 'credit'` — cubre la fila "Plan individual - Sin Cupón - Tarjeta
+        // Crédito" aunque no estaba etiquetado así. Este test cubre la variante que faltaba:
+        // mismo flujo, tarjeta de débito.
+        test('TC-01b - Flujo de compra - Nuevo usuario adquirente - Compra exitosa - Plan individual - Tarjeta Débito', async ({ container, page }) => {
+            await setAllureDetails({
+                preconditions: [],
+                steps: [
+                    'Cargar la web institucional',
+                    'Seleccionar un plan',
+                    'Completar los datos solicitados',
+                    'Presionar el botón "Continuar"',
+                    'Completar la dirección de facturación',
+                    'Presionar el botón "Continuar"',
+                    'Ingresar los datos de una tarjeta de débito válida, vigente y con saldo a favor',
+                    'Presionar el botón "Finalizar"',
+                ],
+                expectedResult: [
+                    'El pago es procesado correctamente',
+                    'El sistema redirecciona hacia la página de checkout exitoso mostrando confirmación de la compra',
+                    'En el sistema se registra una activación de una poliza para el DNI ingresado',
+                ],
+            });
+            const institutional = container.b2c.landingPage;
+            const checkout = container.b2c.checkoutPage;
+
+            const dataset = {
+                firstName: 'Test',
+                lastName: 'Automation',
+                email: getRandomEmail(),
+                document: {
+                    type: 'DNI',
+                    number: getRandomIdentificationNumber(),
+                },
+            };
+
+            await institutional.load();
+            await institutional.plans.scrollIntoView();
+            const selectedPlan = await institutional.plans.contractRandomPlan();
+
+            await checkout.expectSelectedPlan(selectedPlan);
+
+            await checkout.completePersonalData({
+                firstName: dataset.firstName,
+                lastName: dataset.lastName,
+                email: dataset.email,
+                phone: '1161898707',
+                documentType: dataset.document.type,
+                documentNumber: dataset.document.number,
+            });
+
+            await checkout.completeBillingData({
+                province: 'Ciudad Autónoma de Buenos Aires',
+                localitySearch: 'Ciudad',
+                locality: 'CIUDAD AUTONOMA DE BUENOS AIRES',
+                address: 'Av Corrientes 123',
+                zipCode: '123',
+            });
+
+            const paymentData = MercadoPagoCardsHelper.buildCheckoutPaymentData(MERCADOPAGO_PAYMENT_STATUSES.APPROVED, MERCADOPAGO_CARD_PROVIDER.VISA, 'debit');
+
+            await checkout.completePaymentData({
+                cardNumber: paymentData.cardNumber,
+                cardholderName: paymentData.cardholderName,
+                cvv: paymentData.cvv,
+                expiry: paymentData.expiry,
+            });
+
+            const [response] = await Promise.all([page.waitForResponse('**/api/quantum/jengage/payment/pagar-mp**'), page.getByRole('button', { name: /finalizar/i }).click()]);
+
+            expect(response.ok()).toBeTruthy();
+
+            const responseBody = await response.json();
+
+            expect(responseBody).toMatchObject({
+                status: 200,
+                statusMP: {
+                    status: 'approved',
+                    statusDetail: 'accredited',
+                },
+            });
+
+            expect(Array.isArray(responseBody.statusMP.saleConfirmProducts)).toBe(true);
+            expect(responseBody.statusMP.saleConfirmProducts).toHaveLength(1);
+
+            // Validate that the user lands in the Checkout Success page
+            await expect(page).toHaveURL(/\/checkout\/success$/);
+        });
+
         test('TC-02 - Flujo de compra - Nuevo usuario adquirente - Compra fallida', async ({ container, page }) => {
             setAllureDetails({
                 preconditions: [],

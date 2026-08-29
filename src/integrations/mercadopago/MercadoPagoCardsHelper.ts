@@ -15,12 +15,19 @@ export class MercadoPagoCardsHelper {
         return MercadoPagoCardsHelper.creditCards[brand];
     }
 
+    static getDebitCard(brand: Extract<MercadoPagoCardBrand, 'visa' | 'mastercard'> = 'visa'): MercadoPagoCard {
+        return MercadoPagoCardsHelper.debitCards[brand];
+    }
+
     static listPaymentStatusCodes(): MercadoPagoPaymentStatusCode[] {
         return Object.keys(MercadoPagoCardsHelper.paymentStatuses) as MercadoPagoPaymentStatusCode[];
     }
 
-    static buildCheckoutPaymentData(statusCode: MercadoPagoPaymentStatusCode, brand: MercadoPagoCardBrand = 'visa'): MercadoPagoCheckoutPaymentData {
-        const card = MercadoPagoCardsHelper.getCreditCard(brand);
+    /** `cardKind` default ('credit') preserva el comportamiento de siempre para todo el código
+     * existente — MercadoPago sandbox no tiene tarjetas de débito Amex, por eso el tipo de `brand`
+     * se restringe a visa/mastercard únicamente cuando se pide débito. */
+    static buildCheckoutPaymentData(statusCode: MercadoPagoPaymentStatusCode, brand: MercadoPagoCardBrand = 'visa', cardKind: 'credit' | 'debit' = 'credit'): MercadoPagoCheckoutPaymentData {
+        const card = cardKind === 'debit' ? MercadoPagoCardsHelper.getDebitCard(brand as 'visa' | 'mastercard') : MercadoPagoCardsHelper.getCreditCard(brand);
 
         return {
             cardNumber: card.number,

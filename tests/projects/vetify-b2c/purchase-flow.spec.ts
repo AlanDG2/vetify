@@ -338,6 +338,71 @@ test.describe('Flujo de Compra', () => {
             // Ensure user is not redirected to success page
             await expect(page).toHaveURL(/\/checkout\/payment$/);
         });
+
+        test('TC-02 Compra fallida - Problema tarjeta (simulada via OTHE)', async ({ container, page }) => {
+            await setAllureDetails({
+                preconditions: ['Usuario seleccionó un plan en la landing de Vetify.'],
+                steps: [
+                    'Completar los datos obligatorios del paso 1',
+                    'Navegar al paso 2',
+                    'Completar los datos obligatorios del paso 2',
+                    'Navegar al paso 3',
+                    'Ingresar los datos de una tarjeta de débito o crédito que no sea válida (expirada/sin fondos/o rechace el banco)',
+                    'Presionar el botón "Finalizar"',
+                ],
+                expectedResult: ['El sistema no procesa el pago', 'El sistema muestra un mensaje de error indicando que hubo un problema al procesar la compra'],
+            });
+
+            const institutional = container.b2c.landingPage;
+            const checkout = container.b2c.checkoutPage;
+
+            await institutional.load();
+            await institutional.plans.scrollIntoView();
+            await institutional.plans.contractRandomPlan();
+
+            await checkout.completePersonalData({
+                firstName: 'Test',
+                lastName: 'Automation',
+                email: getRandomEmail(),
+                phone: '1161898707',
+                documentType: 'DNI',
+                documentNumber: getRandomIdentificationNumber(),
+            });
+
+            await checkout.completeBillingData({
+                province: 'Ciudad Autónoma de Buenos Aires',
+                localitySearch: 'Ciudad',
+                locality: 'CIUDAD AUTONOMA DE BUENOS AIRES',
+                address: 'Av Corrientes 123',
+                zipCode: '1414',
+            });
+
+            const paymentData = MercadoPagoCardsHelper.buildCheckoutPaymentData(MERCADOPAGO_PAYMENT_STATUSES.DECLINED_GENERAL, MERCADOPAGO_CARD_PROVIDER.VISA);
+
+            await checkout.completePaymentData({
+                cardNumber: paymentData.cardNumber,
+                cardholderName: paymentData.cardholderName,
+                cvv: paymentData.cvv,
+                expiry: paymentData.expiry,
+            });
+
+            const [response] = await Promise.all([page.waitForResponse('**/api/quantum/jengage/payment/pagar-mp**'), page.getByRole('button', { name: /finalizar/i }).click()]);
+
+            // A diferencia de CTNA (regla de negocio de Vetify, HTTP 400 directo), un rechazo real de
+            // MercadoPago (fondos/expiración/rechazo del banco) responde HTTP 200 — el pago se procesó
+            // correctamente como intento, pero el resultado embebido en el body es un rechazo. Confirmado
+            // en vivo 2026-08-29.
+            expect(response.status()).toBe(200);
+
+            const responseBody = await response.json();
+            expect(responseBody.status).toBe(400);
+            expect(responseBody.message).toBe('Tenemos un error al procesar tu compra, te contactaremos a la brevedad para solucionarlo.');
+            expect(responseBody.statusMP.status).toBe('rejected');
+            expect(responseBody.statusMP.statusDetail).toBe('cc_rejected_other_reason');
+
+            // Ensure user is not redirected to success page
+            await expect(page).toHaveURL(/\/checkout\/payment$/);
+        });
     });
 
     // Portado de documentation/Casos de Prueba.xlsx, hoja "Flujo de Compra", TS-03 Asociación

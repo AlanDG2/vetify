@@ -13,7 +13,7 @@
 | Perfil | `tests/projects/vetify-webapp/profile.spec.ts` | `mobile/specs/vetify/profile.spec.ts` | **Hoja del Excel vacía** — hay specs reales en ambas plataformas pero el inventario de casos nunca se cargó |
 | Credenciales | `tests/projects/vetify-webapp/credentials.spec.ts` | `mobile/specs/vetify/{credentials,credential-wizard}.spec.ts` | |
 | Videollamadas | `tests/projects/vetify-webapp/videocall.spec.ts` | `mobile/specs/vetify/videocall.spec.ts` | |
-| Reintegros | (sin specs — todo manual) | (sin specs) | **Hoja vacía**. Toda la investigación de la épica `IMAS-4101` vive en `docs/user-stories/*.tests.md`, nunca se volcó acá |
+| Reintegros | (sin specs) | `mobile/specs/vetify/reintegros.spec.ts` (1 test real, sin equivalente Desktop) | Ya NO está vacía (corregido 2026-08-29) — tiene 1 fila real. La investigación de la épica `IMAS-4101` sigue viviendo en `docs/user-stories/*.tests.md`, no se volcó acá (es manual, no automatización) |
 | Misceláneas | — | — | **Hoja vacía** |
 
 ## Técnica de auditoría que funcionó (usar primero, es la más barata)
@@ -61,6 +61,16 @@
 **No cubierto todavía**: Videollamadas cuerpo-por-cuerpo (solo se verificaron los skips incondicionales, ya reportado antes), mobile `credentials.spec.ts`/`credential-wizard.spec.ts`/`profile.spec.ts` (solo se miró la estructura de `videocall.spec.ts`).
 
 **Próxima auditoría, empezar por**: mismo pendiente que la ronda anterior (Videollamadas completo) + los 3 specs mobile no leídos (`credentials`, `credential-wizard`, `profile`).
+
+### 2026-08-29, mismo día — Alan pregunta directo "¿está COMPLETAMENTE auditado?"; se encuentra 1 hueco real más
+
+Pregunta pointed del usuario después de que se reportó la auditoría como "cerrada". En vez de responder "sí" en base a lo ya hecho, se verificaron en vivo 3 puntos de incertidumbre real que quedaban sin cerrar:
+
+1. **`tests/projects/vetify-webapp/credentials.spec.ts` (desktop, 1250 líneas) nunca se había releído completo esta sesión** — la ronda 1 solo hizo skip-grep + comparación contra el dump del Excel, no una lectura línea por línea como sí se hizo con `videocall.spec.ts`/`profile.spec.ts`. Se leyó completo ahora: **cero discrepancias nuevas** — CP-15 y las 3 filas de cámara están literalmente comentadas en el código (`/* ... */`, ni siquiera es un `test.skip` activo), CP-02 de TS-03 ya tiene su propia nota explicando por qué el Excel quedó desactualizado. Nota de calidad de código (no de Excel): hay un bug real de naming, existen 2 tests llamados `TC-23` en el archivo (debería ser TC-23/TC-24) — no afecta la precisión del Excel.
+2. **De los 15 specs mobile, solo 4 se habían leído completos** (`videocall`, `credentials`, `credential-wizard`, `profile`) — los otros 11 (`login`, `pets`, `plans`, `services`, `ayuda`, `reintegros`, `historial-atencion`, `vetify-plus`, `asistencia-domicilio`, `navigation`, `facturas`) no. Se verificó cuáles de esos 11 realmente importan para el Excel: la mayoría no tiene ninguna hoja que los rastree (Login/Plans/Servicios/Ayuda/Historial/Vetify Plus/Asistencia a domicilio/Navigation/Facturas no son hojas del Excel — quedan fuera del alcance de esta auditoría por diseño, no son un hueco). `pets.spec.ts` se grepeó puntualmente (no leído completo) para confirmar una referencia cruzada de un comentario en `credentials.spec.ts` ("TC-02 ya está cubierto por pets.spec.ts TC-01") — confirmado que el test citado existe y hace lo que el comentario afirma.
+3. **`reintegros.spec.ts` (mobile) SÍ importa y no se había mirado** — tiene 1 test real (`TC-01 - Muestra la sección de cuentas de acreditación`), sin equivalente Desktop, que además documenta en vivo el bug `BUG-007`/`IMAS-4279` (el historial de reintegros falla por un DNI con formato inválido). La hoja "Reintegros" del Excel estaba genuinamente vacía (a diferencia de la falsa alarma de "Perfil" de la ronda anterior — acá si era cierto). **Se agregó 1 fila nueva** con el contenido real de ese test.
+
+**Conclusión honesta**: la auditoría NO estaba (ni está ahora) matemáticamente "100% completa" en el sentido de "cada línea de cada spec fue releída." Lo que sí es cierto: cada hoja del Excel con contenido real (Flujo de Compra, Gestión de Usuario, Credenciales, Videollamadas, Perfil, y ahora Reintegros con 1 fila) fue cruzada contra el código que le corresponde, con al menos un nivel de verificación fuerte (línea por línea para las 5 primeras, grep dirigido + comentario cruzado para Reintegros). Sigue **deliberadamente sin resolver**: las 8 filas de combinaciones individuales de Vetify B2C Flujo de Compra TS-01 (`contractRandomPlan()` no es determinístico, no se puede confirmar cuál cubre el test real). Sigue **fuera de alcance por diseño**: hoja "Misceláneas" (vacía, sin specs de ningún lado que la llenen) y los 9 specs mobile que no tienen hoja de Excel asociada.
 
 ### 2026-08-29, mismo día — cierre de la validación exhaustiva (Alan: "necesito que termines completamente")
 

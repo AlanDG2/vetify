@@ -44,19 +44,92 @@ Flujo real (5 pasos, fuente: onboarding oficial): **Ana contacta CDS y agenda** 
 
 ⚠️ Cuentas reales compartidas por el equipo — tratarlas como en el resto de este documento (no exponer/duplicar innecesariamente más allá de esta referencia). Las de PRODUCCIÓN úsense con la misma cautela que cualquier acción en Prod (`qa-workspace/qa-playbook.md`).
 
-| Ambiente | Usuario | Notas |
-|---|---|---|
-| QA | `montefiori@mail.com` | Adquiriente \| Capitado |
-| Producción | `pauscalzo@gmail.com` | Adquiriente \| Capitado — **esta es la misma cuenta "Paula Scalzo" que ya usamos en QA** (`vetify-qa.ikeapp.com`); el equipo la lista también como válida en Producción |
-| Producción | `user_1783951005615@automation.com` | Adquiriente \| Capitado |
-| Producción | `pruebasadquirentes@gmail.com` | Adquiriente \| Capitado |
-| Producción | `mauroicardi@gmail.com` | Adquiriente \| Capitado |
+| Ambiente | Usuario | Pass | Notas |
+|---|---|---|---|
+| DEV | — | — | adquiriente (sin cuenta puntual asignada por el equipo) |
+| QA | `montefiori@mail.com` | `La.3657890#a` | Adquiriente \| Capitado |
+| Producción | `pauscalzo@gmail.com` | `Elo2014!Ama2017!` | Adquiriente \| Capitado — **esta es la misma cuenta "Paula Scalzo" que ya usamos en QA** (`vetify-qa.ikeapp.com`); el equipo la lista también como válida en Producción |
+| Producción | `user_1783951005615@automation.com` | `Te1!0685f68b` | Adquiriente \| Capitado |
+| Producción | `pruebasadquirentes@gmail.com` | `Vetify15%` | Adquiriente \| Capitado |
+| Producción | `mauroicardi@gmail.com` | `Vetify15%` | Adquiriente \| Capitado |
 
 **Contenido institucional/marketing de cada landing** (textos reales, planes, precios, FAQ, comparativa QA vs. PROD) — relevado completo en [`docs/contenido-institucional.md`](contenido-institucional.md), separado de este archivo para no mezclar comportamiento funcional con copy de marketing.
 
 **Backend real de pagos/catálogo**: API "Quantum" (`api/v1/jengage/...`, `api/quantum/jengage/...`), autenticación separada "jauth" (`api/quantum/jauth/token`, Auth0 para usuarios de portal). El parámetro de query `cuenta` en Quantum identifica el producto/backoffice (`MA_VETIFY` = Vetify, `LN_MASC_CD` = otra línea mascotas, `LN_AAPAS` = asistencia vial `pagar-pas`) — confirmado con la colección Postman real del equipo (ver [Integración: backend Quantum](#integración-backend-quantum-pagos-y-catálogo) más abajo).
 
-**Última actualización**: 2026-08-21 (detalle técnico de la migración Reintegros SISE→Nexus verificado contra el código real del repo `reintegros-backend` + capturas adjuntas en Jira, ver sección propia más abajo — fuente: épica Jira `IMAS-4101` completa con sus 6 tareas hijas + MR `!103` de GitLab). Actualización previa: 2026-08-21 (migración de Reintegros a Nexus + rediseño de videollamadas, ver review de sprint en `transcripciones/MASCOTAS - Review-20260821_100549-Grabación de la reunión.vtt`). Actualización anterior: 2026-08-08 (auditoría completa del Excel de casos de prueba vs `tests/projects/**` — ver `docs/lecciones-aprendidas.md` para el detalle de qué se corrigió).
+### Repositorios y links oficiales por módulo (fuente: onboarding oficial del equipo)
+
+| Módulo | Links públicos | Repositorios |
+|---|---|---|
+| **E-commerce / landing** | `https://vetify.com.ar/` \| `https://qa.vetify.com.ar/` — activación capitados OSDE: `/osde` y `/flux` en ambos ambientes | `ike-asistencia/ike-bapi-vetify` \| `ike-asistencia/ike-platform-vetify-institucional` |
+| **Webapp (tutor)** | `https://vetify.ikeapp.com/` \| `https://vetify-qa.ikeapp.com/` | Frontend: `webapp-ike/ike-webapp` (Bitbucket) |
+| **Webview (app mobile del tutor)** | Google Play `vetify.cliente` \| App Store `id6751985163` | `https://gitlab.com/grupo-flux/webapp/ike-webapp-mobile` |
+| **Backend / microservicios webapp** | — | Bitbucket `webapp-ike/services-service` \| `webapp-ike/brands-service` \| `webapp-ike/users-service` \| `webapp-ike/ike-service` |
+| **Pet Services** | — | `https://gitlab.com/grupo-ike-arg/webapp-mascotas/backend` |
+| **App Prestadores** (mobile nativa, Expo) | APK "Vetify Prestadores" en Google Play (build `ad54bb67`, `@adminexpoike/vetify-app-prestadores` en Expo) | `https://gitlab.com/grupo-ike-arg/webapp-mascotas/app-mobile` |
+| **Webapp Prestadores** | `qa.prestadores.ike.ar` (QA) / prod — usuario QA `acastellano@ikeasistencia.com.ar` / `Veti123*` (ya documentado arriba) | `https://gitlab.com/grupo-ike-arg/webapp-mascotas/webapp-proveedores-mascotas` \| `https://gitlab.com/grupo-ike-arg/webapp-mascotas/backend-prestadores` |
+| **Reintegros** | Backoffice: `https://reintegros-backoffice.ike.ar` (Prod) \| `https://reintegros-backoffice.ike.qa` (QA) — usuario Backoffice QA `acastellano@ikeasistencia.com.ar` / `Veti123*` | `webapp-mascotas/reintegros-terraform` \| `webapp-mascotas/reintegros-backoffice` \| `webapp-mascotas/reintegros-backend` (mismo repo ya citado en la sección de Reintegros más abajo) |
+
+⚠️ Credenciales reales del equipo — mismo criterio de cautela que el resto de este documento, en especial las de Producción (`qa-workspace/qa-playbook.md`).
+
+**Última actualización**: 2026-08-26 (repos/links oficiales por módulo + passwords reales de la tabla de usuarios, completados desde el onboarding oficial — fuente: `Onboarding_Vetify_Puki_.docx.pdf`). Actualización previa: 2026-08-21 (detalle técnico de la migración Reintegros SISE→Nexus verificado contra el código real del repo `reintegros-backend` + capturas adjuntas en Jira, ver sección propia más abajo — fuente: épica Jira `IMAS-4101` completa con sus 6 tareas hijas + MR `!103` de GitLab). Actualización previa: 2026-08-21 (migración de Reintegros a Nexus + rediseño de videollamadas, ver review de sprint en `transcripciones/MASCOTAS - Review-20260821_100549-Grabación de la reunión.vtt`). Actualización anterior: 2026-08-08 (auditoría completa del Excel de casos de prueba vs `tests/projects/**` — ver `docs/lecciones-aprendidas.md` para el detalle de qué se corrigió).
+
+---
+
+## Hallazgos históricos — Bitácora y regresión manual OSDE (ronda del 30/06/2026)
+
+> ⚠️ **Histórico, no verificado en vivo en esta sesión** — fuente: `documentation/Pruebas OSDE.xlsx` (8 hojas) + `documentation/Bitacora de pruebas 30.06.docx`, analizados 2026-08-27. Todo lo de acá es de una ronda de testing manual de **hace ~2 meses** — antes de usar cualquier hallazgo como si fuera el estado actual, volver a probar en vivo (mismo criterio que ya dejó `feedback_excel_casos_prueba_desactualizado` en memoria persistente).
+
+### Cuentas de prueba manuales nombradas (distintas del pool de `pooled-users.json`)
+
+El equipo (Lu/Lili/Cyn/Javi) mantenía sus propias cuentas manuales en QA, con nombres de fantasía reconocibles (Simpsons, Disney, superhéroes). Las más reusadas, por segmento:
+
+| Segmento | Mail | Contraseña | Notas |
+|---|---|---|---|
+| Capitado OSDE | `patriciacarpinacci@gmail.com` | `Dalmatas101` | Cupón `OSDE488192` |
+| Capitado Flux | `susanacarpinacci@gmail.com` | `Durmiente01` | Cupón `FLUX550410` |
+| Capitado (Lili) | `manuelbelgrano@gmail.com` | `Vetify15` | Usada en pruebas de videollamada; hoja "Capitados" la asocia a cupón `FLUX326458` pero anotada "Web OSDE" — origen ambiguo en la fuente, no asumir si se reusa |
+| Capitado Flux (Lili) | `pruebacapitadoflux@gmail.com` | `Vetify15%` | — |
+| Capitado OSDE (Lili) | `pruebacapitadoosde@gmail.com` | `Vetify15%` | — |
+| B2C (Lili) | `pruebasb2c@gmail.com` | `Vetify15%` | — |
+| Adquirente (Lili) | `prueba@gmail.com` | `Vetify15%` | — |
+| Adquirente (Lu) | `mariano.caresia@hotmail.com` | `Agrabah1` | Plan Classic, 4 planes |
+
+**Regla de negocio real observada** (fila 23, hoja "Adquirentes"): *"Como se utilizó el DNI de la tarjeta de MercadoPago, arroja error de usuario duplicado"* — usar el mismo DNI que ya tiene una tarjeta/cuenta asociada en MercadoPago dispara un error de duplicado. Conceptualmente relacionado con `BUG-013` (compra no asocia DNI si el DNI ya tiene cuenta existente, encontrado independientemente el 2026-08-14) — no confirmado si es la misma causa raíz, pero apunta a la misma zona de fricción (DNI reusado en un alta nueva).
+
+### Cobertura de regresión manual (hoja "REGRESIÓN CA", 13 áreas x Desktop/iOS/Android)
+
+Matriz pensada para 5 cuentas en paralelo (PRUEBA1 Capitado OSDE, PRUEBA2 Capitado Flux, PRUEBA3 Adquirente x1, PRUEBA4 B2C, PRUEBA7 Capitado Flux) — pero la **única columna con datos realmente cargados fue PRUEBA3 / Adquirente x1** (Lu, `julietatestpoggio@gmail.com`); el resto de las cuentas quedaron sin ejecutar en esta hoja. Las 13 áreas previstas, con el resultado real de Adquirente x1 donde existe:
+
+| # | Área | Desktop | iOS | Android |
+|---|---|---|---|---|
+| 1 | Enrolarse como usuario desde las landings | OK | — | — |
+| 2 | Compra de plan individual | OK | — | — |
+| 3 | Compra de plan familiar | (sin probar) | (sin probar) | (sin probar) |
+| 4 | Compra de plan desde sección de planes webapp/mobile | (sin probar) | (sin probar) | (sin probar) |
+| 5 | Aplicación de cupón de descuento | (sin probar) | (sin probar) | (sin probar) |
+| 6 | Flujo de carrito abandonado | (sin probar) | (sin probar) | (sin probar) |
+| 7 | Creación de usuario | OK | — | — |
+| 8 | Carga de credencial | OK | OK | OK |
+| 9a | Descarga PDF — Factura | OK | OK | **FALLA** |
+| 9b | Descarga PDF — Credencial | **FALLA** | **FALLA** | **FALLA** |
+| 9c | Descarga PDF — Condicionado | OK | OK | **FALLA** |
+| 10 | Videollamada (programar/reprogramar/cancelar/realizar) | OK | OK | OK |
+| 11 | Mapa de veterinarias (scroll + actualización) | OK | OK | (sin dato) |
+| 12 | Botón de emergencia | OK | OK | OK |
+| 13 | Reintegros (carga manual / lectura automática) | (sin probar) | (sin probar) | (sin probar) |
+
+**⚠️ Contradicción real entre las 2 fuentes, sin resolver**: la bitácora narrativa (`.docx`) dice explícitamente *"iOS: Credencial: OK"* — pero la matriz de regresión (`.xlsx`) marca "Descarga PDF — Credencial" como **FALLA en los 3 sistemas operativos**, incluido iOS. No se puede saber cuál de las 2 fuentes tiene el dato correcto sin volver a probarlo en vivo — **no asumir ninguna de las dos como verdad** si esto se retoma.
+
+### Hallazgos/bugs notados en esa ronda (histórico, estado actual desconocido)
+
+1. **Android — descarga de Factura**: no descarga, muestra error. Nota de la bitácora: *"Pau dice que es la WebView"*.
+2. **Android — botón de descarga de Credencial**: no hace nada (sin error visible, simplemente no responde).
+3. **Android — Condicionado**: marcado "MAL" — nota: *"falta nueva webview en prod"*.
+4. **Desktop — Credencial**: la vista previa (preview) mostrada es la **versión vieja**, pero el PDF que efectivamente se descarga es la **versión nueva** — inconsistencia entre preview y archivo real.
+5. **iOS — después de descargar un PDF**: *"no puedo volver atrás"* (navegación rota tras la descarga).
+6. **Pagos — 2 cuentas Adquirente distintas** (filas 3 y 4, hoja "Adquirentes"): ambas anotadas *"no me dejo pagar"*, sin más detalle de la causa.
+7. **Fila 5, hoja "Adquirentes"**: marcada *"PROD!!!"* — advertencia de que esa prueba puntual se hizo (¿o casi se hizo?) contra Producción en vez de QA — dejar la advertencia por si se reusa esa cuenta.
 
 ---
 
@@ -99,6 +172,10 @@ Portal al que entra un usuario con plan **ACTIVO** (ver `UserTag` más abajo). I
     - En modo "Editar datos" hay un aviso fijo: *"Para corregir tu nombre, mail o DNI llamá al 0800 122 1183."* — **nombre, apellido y DNI NO son editables desde la UI en absoluto**, solo teléfono (y dirección, sin explorar). No existe ningún flujo de "cambiar DNI" — cualquier caso de prueba que lo asuma está desactualizado.
     - **Bug conocido** (documentado en `TC-03 [Bug conocido]`, no reportado a Jira): `POST /api/files/upload` (foto de avatar) responde **200 para cualquier archivo**, incluido un `.txt` — no valida formato en el backend. Lo que parece "rechazo" al subir un archivo inválido es solo que el `<img>` no puede renderizarlo, así que el Avatar de Chakra cae a mostrar las iniciales como fallback; si se presiona "Guardar" en ese estado, el archivo inválido queda persistido igual como `foto_url`.
     - Guardar cambios muestra un toast **"Perfil actualizado correctamente"** — hay que esperarlo antes de recargar/verificar persistencia (ver `docs/lecciones-aprendidas.md`, entrada 2026-08-08 sobre carreras en guardados async).
+- **Banner de beneficios en Home — "Vetify PLUS" / "Cooper" (IMAS-4356, verificado en vivo 2026-08-26/27)**: la pantalla de Home tiene un banner de "descuentos y beneficios" (también replicado como entrada propia en el menú lateral, sección "Cuenta") que **varía según el segmento y el estado del perfil del usuario**, no es fijo:
+  - **Vetify B2C**: banner "Vetify PLUS" (abre `https://vetifyplus.com/` en el navegador externo del sistema — confirmado también en mobile por `mobile/specs/vetify/vetify-plus.spec.ts`, mismo mecanismo).
+  - **OSDE Capitado con perfil completo** (mascota + credencial cargada): el banner se reemplaza por uno de **"Cooper"** (prestador de paseos/guardería/entrenamiento canino, "20% off en el primer servicio", botón "Ir a Cooper") — el menú lateral, en cambio, simplemente pierde la entrada "Vetify PLUS" sin agregar una de Cooper en su lugar.
+  - **OSDE Adquirente con perfil incompleto** (sin mascota): sigue mostrando "Vetify PLUS", igual que B2C — **no confirmado si es porque Adquirente no debería tener Cooper, o porque cualquier perfil incompleto (sin importar el segmento) sigue viendo el banner default** — no hay una cuenta Adquirente con perfil completo disponible todavía para aislar la variable. Ver `docs/user-stories/IMAS-4356-banner-cooper-webapp-osde.md`.
 - **Mensajes por sistema caído** (`SystemUnavailableComponent`, `FeatureUnavailableModal`, IMAS-3860, automatizado 2026-08-07 en `tests/projects/vetify-webapp/system-availability.spec.ts`):
   - **La app usa un Service Worker (Workbox, estrategia `NetworkFirst` sobre `/api/*`)** — cualquier test que necesite simular una caída de backend **NO puede usar `page.route()`/`context.route()` de Playwright**: confirmado que esas llamadas quedan resueltas igual (200) porque pasan por el SW, que Playwright no intercepta de forma confiable en este sitio. Hay que bloquear a nivel CDP (`Network.setBlockedURLs`, igual que "Block request URL" de DevTools) — ver helper `NetworkOutageSimulator` en `src/helpers/simulateOutage.ts`. Importante: reusar la MISMA sesión CDP para bloquear y restablecer — una sesión nueva no levanta de forma confiable el bloqueo de otra.
   - **Heartbeat de disponibilidad**: sondea `/api/brand/<host>/bootstrap` de forma continua e independiente de la pantalla en la que esté el usuario. Necesita **2 fallos consecutivos (~16-17s)** para mostrar la pantalla de caída total, y **2 chequeos sanos + 15s sin fallas (~16-24s)** para ocultarla sola. Bloquear `/api/users/me` o `/api/users/me/tour` solos NO alcanza para sostener el estado caído — el SW cae a cache y el heartbeat lo ve como sano; hay que bloquear `bootstrap` específicamente.
@@ -131,6 +208,19 @@ Ambos siguen el mismo modelo: landing institucional (`container.b2c.landingPage`
 - Redirección final a `/checkout/success` (OSDE agrega `?from=osde...`).
 - URL institucional OSDE Adquirente en QA: `https://qa.vetify.com.ar/mas-osde-beneficios` ("Planes con OSDE").
 - Tarjetas de prueba usadas en pagos reales contra Quantum (ver colección Postman): Visa `4509953566233704`/`4002768694395619`, Mastercard `5031433215406351`/`5031755734530604` — nombre titular `APRO` para forzar aprobación en el sandbox de MercadoPago (`MERCADOPAGO_PAYMENT_STATUSES.APPROVED`), `securityCode: 123`.
+
+### Landing de Performance — `/salud-mascotas` (IMAS-3610, verificado 2026-08-26)
+
+Landing paralela a la institucional (`qa.vetify.com.ar/salud-mascotas`, prod `vetify.com.ar/salud-mascotas`), pensada para tráfico de campañas — solo 3 planes (Emergencias/Classic/Premium, sin Cachorro), comparte el mismo checkout (`/checkout/form` → `billing` → `payment`) que la landing institucional.
+
+- **Query params que pasa el CTA de cada plan al checkout**: `plan=<id>`, `cupon=<código>`, `from=salud_mascotas`. El checkout usa `from` para saber a qué landing volver con el botón "Regresar" del wizard (funciona bien) — **el logo del header, en cambio, tiene el link hardcodeado a `/` e ignora `from`** (bug real, `IMAS-4439`, sigue abierto).
+- **Mecanismo de cupón/UTM**: si la URL de la landing NO trae `cupon`, debería aplicarse por default `VETIFY20X3` ("20% OFF los primeros 3 meses", coincide con el badge del hero) — **hoy aplica `VETIFY20` en su lugar** ("20% OFF el primer mes", bug real, `IMAS-4447`, sigue abierto). Si la URL SÍ trae un cupón explícito (ej. `?cupon=VETIFY25X3`), el override funciona bien y se propaga correctamente al checkout. El badge "20% OFF POR TRES MESES" del hero es **texto estático** — no depende de ningún cupón real (la landing llama a `payment/calculate` con `cupon: ""` para mostrar los precios tachados, el cupón real solo se resuelve al entrar al checkout).
+- **Cupones activos en la landing institucional de Vetify deberían aplicar también acá, excepto los de OSDE** (spec de MKT) — pero **OSDE Adquirente no usa el mecanismo `cupon=` en absoluto**: su checkout llega con `?from=osde` sin `cupon`, y el descuento está incorporado en IDs de producto propios (ver tabla de IDs abajo, `payment/calculate` siempre con `cupon: ""`). Esa cláusula de exclusión de la spec puede no tener un caso real que excluir tal como está redactada — confirmar con MKT antes de asumir que hace falta implementar algo.
+- **Switch "Ampliar detalles"** (tabla comparativa de coberturas): viene **expandido por default** — hubo una contradicción real entre el comentario original de la HU (dice "apagado por defecto" y "encendido por default" en el mismo comentario), la recomendación de UX en un mail posterior (cerrado por default), y la instrucción más reciente del PO (expandido) — esta última es la vigente, confirmado contra QA real.
+- **Cartilla veterinaria**: el botón "Conocé la cartilla" sirve `https://qa.vetify.com.ar/img/MAPA_VETERINARIAS_VETIFY_10.pdf` (no un adjunto de Jira) — si se actualiza de nuevo, el archivo se reemplaza en esa misma ruta estática, no hace falta ir a buscar el adjunto del ticket.
+- **Analítica**: dispara Google Tag Manager, GA4 (`G-L1Y9Y5BRCT`, vía server-side tagging en `ss.vetify.com.ar`) y Google Ads (`AW-17413499394`) — eventos `page_view` y `scroll` confirmados. No confirmado si es el esquema definitivo que Marketing quería (había una duda abierta en Jira sobre diferenciar el esquema por origen de campaña, nunca resuelta).
+
+**Última actualización**: 2026-08-26 (IMAS-3610)
 
 ## Módulo: OSDE Capitado + Flux Capitado (canje de cupón)
 
@@ -167,7 +257,7 @@ Flujo: el tutor solicita el reintegro de un gasto veterinario (Vetify WebApp →
 2. Regla de cuadratura: la suma de los montos aceptados + rechazados de todas las líneas debe dar exactamente el total de la factura, o el sistema no deja confirmar la distribución.
 3. Recién después de confirmar la distribución se puede validar manualmente la factura (paso separado).
 4. Al validar, el sistema trae de SISE el **"tope por evento"** (ej. $28.000 para una vacuna) y ese es el monto sugerido a reintegrar — puede ser menor al monto de la línea aceptada.
-5. La **validación de ARCA (automática) confirmada que NO funciona en ambientes bajos/QA** (siempre falla, 502 "no se le está pudiendo pegar bien al servicio de arca") — **pero sí funciona en Producción**, confirmado explícitamente en esta reunión ("hasta lo último que habíamos verificado está funcionando [en producción]"). En QA, Calidad usa el botón de validación manual como bypass — esto es intencional/esperado en QA, no reportar como bug salvo que se confirme la misma falla en Producción.
+5. La **validación de ARCA (automática) confirmada que NO funciona en ambientes bajos/QA** (siempre falla, 502 "no se le está pudiendo pegar bien al servicio de arca") — en su momento se dijo que **sí funcionaba en Producción** ("hasta lo último que habíamos verificado está funcionando [en producción]"), por lo que no se reportaba como bug salvo que fallara también ahí. **Actualización 2026-08-28 (pull del sprint activo)**: existe ahora **`IMAS-4472`** ("[Reintegros] Validación de factura con ARCA no funciona en QA y Producción", Error, Tareas Por Hacer, sin asignar) — **contradice directamente el supuesto anterior de que ARCA funciona bien en Producción**. No confirmado de forma independiente todavía (el ticket no trae logs/evidencia propia en su resumen) — antes de seguir tratando el 502 de ARCA en QA como "bypass esperado, no reportar", conviene leer `IMAS-4472` completo y/o preguntar al equipo si esto ya es un problema real de Producción.
 6. La validación de ARCA **solo chequea validez de la factura en sí** (que exista, CAE válido, etc.) — no lee ni entiende el concepto/línea incluido, eso es responsabilidad de la distribución manual de Calidad.
 
 **Medio de pago del reintegro**: siempre se paga por **CBU** (corta o larga/CVU) — nunca a la tarjeta con la que el cliente paga su plan. Esto resuelve de raíz la duda sobre clientes con tarjeta prepaga (que no pueden recibir débitos automáticos): como el reintegro no usa la tarjeta del plan, no hay conflicto con ese universo de clientes.
@@ -200,6 +290,18 @@ Flujo: el tutor solicita el reintegro de un gasto veterinario (Vetify WebApp →
 **Bloqueo real vigente a 2026-08-21 (comentario del equipo en la épica)**: el pase a **Producción queda fuera de alcance** de estos 5 tickets — falta que el equipo Core migre datos de usuarios para poder probar primero en QA. Mientras tanto hay un **parche/interim** para que los usuarios tengan servicios auxiliares. El equipo va a abrir un ticket nuevo el sprint siguiente para dejar esto formalmente documentado. **No reportar ni asumir nada de esta migración como ya productivo** hasta confirmar ese ticket nuevo.
 
 **Trabajo de QA real, en curso (actualizado 2026-08-22)**: la subtarea `IMAS-4152` ("Pruebas QA Manuales Nexus", bajo `IMAS-4124`) ya arrancó — **5 de 11 casos ejecutados en vivo contra QA real** (alta, cierre por pago, rechazo operativo de Finanzas + rechazo definitivo de Calidad, y el escenario de fallback de catálogo). Se encontró y documentó **`BUG-015`**: el camino de rechazo directo de Calidad desde `PENDIENTE` (sin pasar por Finanzas) está bloqueado — falla con `400 BUS-009` (monto no distribuido a la línea de cobertura) y luego, ya resuelto eso, con `404 BUS-005` ("Nexus pets/refund requires clCuenta"), sin salida conocida sin pasar por el mismo pipeline que aprueba el expediente. Confirmado 2 veces de forma independiente el mismo día. Ver detalle en `docs/bugs/BUG-015-rechazo-directo-calidad-pendiente-requiere-clcuenta.md` y `docs/user-stories/IMAS-4152-pruebas-qa-manuales-nexus.tests.md` — **confirmado 2026-08-24: ya trackeado en Jira como `IMAS-4354`** (dev, Mariana Navarro, "En Progreso", creado 2026-08-21, un día antes de que lo encontráramos nosotros).
+
+**🔄 Re-intake completo de la épica 2026-08-28** (a pedido explícito del usuario — "analiza todo desde cero, todos los campos, comentarios, tareas, bugs"). Detalle exhaustivo en `docs/user-stories/IMAS-4101-migracion-reintegros-nexus.md`. Resumen de lo que cambió o es nuevo desde el 2026-08-22:
+
+- **Las 5 fases (A-E) siguen "In Validation"** (A ya Hecho) — de sus subtareas propias, **solo 2 siguen sin cerrar**: `IMAS-4107` ("Pruebas en QA" de la Fase D) y el combo `IMAS-4152`/`IMAS-4429` ("Pruebas en QA" de la Fase E / del bug `IMAS-4354`) — ambos "Tareas Por Hacer"/"In Validation" según el caso, ninguno "Hecho" todavía pese a que el resto del desarrollo+deploy de cada fase sí lo está.
+- **`IMAS-4354` (BUG-015) — actualización importante**: sus subtareas de Desarrollo y Deploy a QA (`IMAS-4427`/`IMAS-4428`) están **Hecho**, y una captura del 2026-08-26 muestra un rechazo directo de Calidad **exitoso** (`204 No Content`, antes daba `404 BUS-005`) sobre el expediente `3279-1`, verificado cruzado contra el panel interno de Nexus. **Parece resuelto, pero la subtarea `IMAS-4429` ("Pruebas en QA") sigue "Tareas Por Hacer"** — no se validó formalmente todavía, 1 captura ajena no reemplaza un retest propio.
+- **❌ Retest en vivo, mismo día 2026-08-28: NO se sostuvo.** Reproducidos los pasos exactos en 2 expedientes distintos (`3131739`, `3131793`) — ambos fallaron con el mismo `404 BUS-005 "Nexus pets/refund requires clCuenta"` de siempre, sin cambios respecto al bug original. Contradice directamente la captura "204" de 2 días antes. Detalle en `docs/bugs/BUG-015-rechazo-directo-calidad-pendiente-requiere-clcuenta.md` § "Retest en vivo 2026-08-28". `IMAS-4429` no debería cerrarse en este estado.
+- **✅ Causa raíz confirmada y aislada a `reintegros-backend`**: se ejecutó en vivo hoy (2026-08-28) la secuencia completa de rechazo directo contra Nexus (`claimsHistory`→`createPetAuxiliary`→`POST refund idEstado=5`→nota, vía la colección de Postman de Mariana Navarro del 14/08) — **los 4 pasos dieron `200`**. Confirma de forma definitiva e independiente que Nexus/Core nunca tuvo problema real para procesar un rechazo directo — el bloqueo `clCuenta` de `BUG-015` es 100% una validación propia de `reintegros-backend`. Detalle en `docs/user-stories/IMAS-4104-cierre-nexus.tests.md` y `docs/bugs/BUG-015-*.md`.
+- **Hallazgo del 502 "IKE Mascotas lookup failed" (`INT-005`)** — visto en una captura sin texto del 2026-08-25 (`GET /api/reintegros/v1/mascotas` fallando en `vetify-qa.ikeapp.com/section/nuevo-reintegro`, un paso más temprano que `IMAS-4354`). **Retesteado en vivo 2026-08-28: no reprodujo** (cuenta `pauscalzo@hotmail.com`, 2 intentos, ambos `200`). Con un solo intento no se descarta del todo, pero no se sostiene como impedimento activo — queda como hallazgo histórico, no bloqueo confirmado.
+- **`IMAS-4052` (workaround Reintegros para OSDE Capitado) — Hecho en Jira, pero el retest en vivo del 2026-08-28 NO reprodujo el bloqueo esperado**: con la única cuenta `OSDE_CAPITADO` del pool con DNI válido (producto real confirmado `2349` "Vetify Esencial OSDE"), tanto el Menú Principal como "Nuevo reintegro" cargaron el flujo real de autogestión — nunca apareció el mensaje del 0800. El control (cuenta Adquirente real) sí se comportó bien. **Actualización**: esa misma cuenta (DNI `12540524`, "Popi") resultó ser la que dev usa para validar `IMAS-4092` (Fase B) — confirmada "Osde/capitado (H)" en el panel interno de Nexus — probablemente habilitada a propósito para poder probar el flujo real de Capitados, no necesariamente un gap del workaround. Detalle completo en `docs/user-stories/IMAS-4052-workaround-reintegros-osde-capitado.tests.md`. Para probar el flujo real (Nexus) sigue recomendándose usar un Adquirente — pero ya no se puede asumir con total certeza que un capitado OSDE jamás llegue al formulario real, dado este hallazgo.
+- **`IMAS-4092` (Fase B, Obtener Historial Servicios Auxiliares) — funcionaba el 26/08, no funciona hoy para la misma cuenta**: dev (Paula Scalzo) confirmó un ciclo completo exitoso de reintegro Capitado vía Nexus el 2026-08-26 (cuenta Popi, DNI `12540524`, expediente `3268-1`, $6 pagados). Retest en vivo 2026-08-28: el historial sigue ahí (confirmado independientemente), pero intentar iniciar un reintegro NUEVO con la misma cuenta falla — `GET /mascotas` devuelve `200` con el registro de la mascota pero todos sus campos de identidad en `null`, y la UI muestra "No hay mascotas registradas para tu documento". El control Adquirente no tiene este problema. Se investigó a fondo si se podía sumar una 2da mascota a alguna cuenta para probar el límite de multi-mascota (CP04) — no es posible hoy: "Suscribir mascota" solo completa la credencial de la única mascota que ya existe (plan `x1`), y la única cuenta del pool provisionada con 2 mascotas reales (`user_1786584481760_8aea8baa@automation.com`) tiene DNI de 10 dígitos, bloqueada por `BUG-007`/`IMAS-4279`. Detalle en `docs/user-stories/IMAS-4092-obtener-historial-servicios-auxiliares.tests.md`.
+- **`IMAS-4103` (Fase C, Alta Nexus) — mismo patrón que IMAS-4092**: dev confirmó otro alta exitosa de Popi el 21/08 (expediente `3147-1`, distinto del de IMAS-4092) — 2 fechas distintas confirman que esta cuenta es la referencia estándar del equipo. Hoy, mismo bloqueo (`/mascotas` con campos null). 3 de los 9 criterios de aceptación de este ticket (`assisted.capability` desde `capabilityList`, `provider.internalCode=2080`, fallo-Nexus-no-corrompe) son de caja negra, no verificables sin logs de backend. Detalle en `docs/user-stories/IMAS-4103-alta-nexus.tests.md`.
+- **Catálogo completo de estados `refund` de Nexus, nunca documentado en detalle antes**: 1=Recepción de Información, 2=Envío a Finanzas (sin uso hoy), 3=Aviso de Pago, 4=Rechazo Incompleto (sin uso hoy), 5=Rechazo Definitivo, 6=Pendiente de Aprobación (sin uso hoy), 7=Rechazado Devuelto a Calidad (sin uso hoy).
 
 ### Verificado contra el código real (repo GitLab `grupo-ike-arg/webapp-mascotas/reintegros-backend`, MR !103 `feat/IMAS-4104-on-develop → develop`, mergeada)
 
@@ -359,6 +461,8 @@ Colección Postman real del equipo (`Vetify`, IKE Asistencia) — endpoints conf
 | `{{IKE_API_BASE_URL}}/cliente` | POST (Api-Key) | Busca cliente por `clGrupoCuenta`/`clCuenta`/DNI — backend distinto (IKE core), no Quantum |
 
 **`cuenta` conocidas**: `MA_VETIFY` (Vetify), `LN_MASC_CD` (otra línea de mascotas), `LN_AAPAS` (asistencia vial, no relacionado a mascotas).
+
+**IDs de producto (`listInvoicedProducts[].id`) confirmados vía Network real, cuenta `MA_VETIFY`** (verificado 2026-08-26, IMAS-3610): `2319` = Vetify Emergencias (Vetify B2C / landing de Performance, precio full $19.990) — `2364` = plan equivalente de **OSDE Adquirente** (`/mas-osde-beneficios`, ya con el descuento OSDE incorporado en el propio ID, no vía cupón). Confirma que OSDE Adquirente usa una familia de IDs de producto separada de Vetify B2C para el mismo plan, en vez de aplicar un descuento por cupón sobre el mismo ID — explica por qué no hay "cupón de OSDE" que excluir en otras landings (ver nota en Módulo Vetify B2C arriba).
 
 **⚠️ Nota de seguridad**: la colección Postman compartida traía un **Bearer token JWT real (Auth0 client-credentials)** hardcodeado en el request `pagar-pas` y un **Api-Key real** en el request `Get Client`. **No se persistieron en este repo** — si ese token/API-Key siguen vigentes, rotarlos; usar siempre variables de entorno (`{{TOKEN}}`, `{{QUANTUM_AUTH_TOKEN}}`) nunca valores pegados directo en un request guardado en un repo compartido.
 

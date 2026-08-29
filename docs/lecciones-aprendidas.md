@@ -199,3 +199,35 @@
 **Solución**: no se cambió el código — se documenta como patrón a vigilar. Si una suite nueva con `ignoreReserved: true` sobre pocos usuarios empieza a fallar de forma intermitente con síntoma "aterrizó en login", correr primero con `--workers=1` para confirmar si es esto antes de investigar el POM/spec.
 
 **Aprendizaje/Regla**: `ignoreReserved: true` está pensado para tests de solo-lectura que no les importa compartir cuenta, pero **no serializa el acceso a la `storageState` cacheada** — con varios `describe`/tests independientes pidiendo el mismo perfil de usuario y corriendo en workers paralelos, hay una carrera real de lectura/escritura sobre `playwright/auth/<id>.json`. Si una suite nueva reutiliza una sola cuenta para varios tests de solo-lectura, considerar `test.describe.configure({ mode: 'serial' })` (como ya hace `TS-03 Activación de Cuenta`) en vez de dejarlos correr en paralelo sobre la misma cuenta compartida.
+
+### [2026-08-26] `createDefect()` sin `description` no avisa en el padre — el comentario automático se salta en silencio
+
+**HU relacionada**: IMAS-3610 (bugs `IMAS-4439`/`IMAS-4447`/`IMAS-4450`)  ·  **Categoría**: Jira / `adapters/jira/client.mjs`
+
+**Problema**: al reportar `IMAS-4439` con `createDefect({ parentKey, summary, briefDescription, steps, actualResult, expectedResult, environment, evidence })` (sin pasar `description`), el Defect se creó bien y el campo "Descripción del error" quedó completo — pero el comentario automático de aviso en la HU padre (`Bug reportado: <key> — <summary>`) **no se publicó**, sin ningún error ni warning visible. Se detectó recién al verificar manualmente los comentarios de la HU después de la escritura.
+
+**Solución**: la condición real en el código es `if (bug.parentKey && bug.description)` — el aviso depende específicamente de `description` (string plano), no de los campos estructurados (`briefDescription`/`steps`/etc.) que sí alimentan el campo custom. Se agregó el comentario faltante a mano con `scripts/jira/jira-client.mjs comment <KEY> <texto>`. En las 2 llamadas siguientes (`IMAS-4447`, `IMAS-4450`) se pasó también un `description` corto y el aviso se publicó solo, sin intervención.
+
+**Aprendizaje/Regla**: al llamar `createDefect()` con `parentKey`, pasar SIEMPRE también un `description` (aunque sea una oración corta) — no alcanza con los campos estructurados para que se dispare el aviso automático en el padre. Regla del guardrail Jira igual aplica: releer el padre después de escribir (paso 5 de `jira/update-rules.md`) para confirmar que el comentario efectivamente llegó, no asumirlo.
+
+### [2026-08-27] Comparar 2 cuentas del pool que difieren en más de una variable a la vez invalida la comparación
+
+**HU relacionada**: IMAS-4356 (banner Cooper OSDE)  ·  **Categoría**: Datos de prueba / diseño de casos
+
+**Problema**: para saber si el banner de "Cooper" (nuevo, reemplaza a "Vetify PLUS" para OSDE) depende del segmento OSDE (Capitado vs. Adquirente), se probó con el único usuario Capitado disponible (`WITH_PET`, perfil completo) y el único Adquirente disponible (`NO_PET`, perfil incompleto) — Capitado mostró Cooper, Adquirente no. A punto de concluir "Adquirente no tiene Cooper, puede ser un bug", se notó que los dos usuarios NO solo difieren en el segmento — también difieren en si el perfil está completo o no. La comparación mezclaba dos variables a la vez, así que no se puede saber cuál de las dos explica la diferencia observada.
+
+**Solución**: no se concluyó nada — se dejó documentado como confusión sin resolver (`docs/user-stories/IMAS-4356-*.tests.md`, CP06/CP07) en vez de reportar un bug con evidencia débil. Se intentó conseguir una cuenta Adquirente CON perfil completo para aislar la variable (bloqueado por otro problema, `BUG-021`).
+
+**Aprendizaje/Regla**: antes de comparar el comportamiento de 2 cuentas del pool para aislar una variable puntual (segmento, plan, tipo de documento, lo que sea), revisar **todos** los tags de las dos cuentas, no solo el que se cree que es la variable en juego — `pooled-users.json` casi nunca tiene cuentas que difieran en una sola dimensión. Si no hay una cuenta que aísle la variable real, decirlo explícitamente como limitación en vez de concluir con una comparación contaminada.
+
+### [2026-08-27/28] Issues tipo "Tarea" guardan la descripción real en `customfield_11620`, no en `description` — una sesión entera investigó un confound que el spec ya resolvía
+
+**HU relacionada**: IMAS-4356 (banner Cooper OSDE) e IMAS-4408 (ocultar credenciales planes inactivos)  ·  **Categoría**: Jira / `scripts/jira/jira-client.mjs`
+
+**Problema**: se reportó "descripción vacía" en `IMAS-4408` (tipo Tarea) — el campo estándar `description` efectivamente venía vacío vía `getIssue()`. El usuario pegó el texto completo de la descripción real (objetivo, estados, escenarios, 12 criterios de aceptación), contradiciendo lo reportado. Al investigar, el contenido completo estaba en **`customfield_11620`**, un campo custom que ni `getIssue()` ni `fetchStory()` revisan. Se confirmó retroactivamente que **`IMAS-4356`** (también tipo Tarea, trabajada toda la sesión anterior) tenía el mismo problema — su spec real (incluyendo que el banner debía mostrarse a OSDE Adquirente sin ninguna ambigüedad) estuvo ahí todo el tiempo, sin leerse. Un ticket tipo "Historia" (`IMAS-3610`) se verificó limpio — su contenido real sí está en el campo estándar.
+
+**Costo real**: la sesión anterior completa investigando si "OSDE Adquirente debía ver el banner de Cooper" (segmento vs. perfil vs. plataforma, con retest en vivo, catálogos de producto, etc.) hubiera sido innecesaria — el spec real en `customfield_11620` decía explícitamente que sí, sin condición, desde el principio.
+
+**Solución**: se extrajo el texto real con `extractText(issue.fields.customfield_11620)`, se corrigieron ambos documentos de HU (`IMAS-4408-*.md` desde cero, `IMAS-4356-*.md` con una sección de corrección al principio sin borrar el análisis original). No se modificó el código de `jira-client.mjs` todavía — pendiente de decidir con el usuario si conviene que `getIssue()`/`fetchStory()` revisen ambos campos automáticamente.
+
+**Aprendizaje/Regla**: ante cualquier issue de Jira con `description` estándar vacío, **no concluir que la HU no tiene especificación** — chequear `customfield_11620` primero, especialmente si el tipo de issue es "Tarea". Esto aplica retroactivamente a cualquier Tarea ya analizada en sesiones previas cuyo `description` estándar haya salido vacío — no se puede asumir que ese análisis fue completo sin volver a chequear este campo.

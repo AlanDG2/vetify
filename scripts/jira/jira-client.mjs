@@ -156,6 +156,12 @@ export async function addComment(key, text) {
   return jira('POST', `/issue/${key}/comment`, { body: toDoc(text) });
 }
 
+// Distinto de addComment: recibe un doc ADF crudo (no texto plano vía toDoc), para poder incluir
+// nodos `mention` -- toDoc() solo arma texto/hardBreak, no soporta @menciones.
+export async function editComment(key, commentId, adfBody) {
+  return jira('PUT', `/issue/${key}/comment/${commentId}`, { body: adfBody });
+}
+
 // Attachments use multipart/form-data, not the JSON body the `jira()` helper sends -- separate
 // request here. X-Atlassian-Token: no-check is required by Jira Cloud for this endpoint (XSRF check).
 export async function addAttachment(key, filePath) {

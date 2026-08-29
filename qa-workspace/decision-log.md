@@ -864,3 +864,496 @@ Al intentar reprovisionar la cuenta `WITH_PET` (a pedido del usuario, "adelante 
 **Impacto real**: esto bloquea **todo** el mecanismo de generación de cuentas fresh del proyecto (`UserFactory.generateTestUsers()`), no solo el intento de hoy — afecta cualquier necesidad futura de una cuenta fresh nueva (TS-09, el pool WITH_PET de hoy, y cualquier otro caso que use este helper). Se relaciona temáticamente con **IMP-004** (mismo helper, mismo síntoma general de "no se puede generar una cuenta usable end-to-end"), aunque el síntoma puntual es nuevo (antes era `isClient:false` en `/validation/policy`, ahora es un 500 en el paso de compra en sí, antes de llegar a esa pantalla).
 
 **No se completó la tarea pedida hoy** (reprovisionar el pool WITH_PET) por este bloqueo nuevo — queda pendiente para cuando se resuelva o se encuentre un workaround (ej. armar el `calculateParam` de otra forma, o generar cuentas fresh vía UI real en vez de la API directa, más lento pero más confiable dado lo visto hoy).
+
+## 2026-08-26 - Auditoría de impedimentos sin reportar: confirmado que IMP-004 es un bug real de producto, no de `UserFactory`
+
+Se revisó `docs/impedimentos-bloqueos.md` completo buscando impedimentos sin tracking en Jira. La mayoría ya estaban cubiertos (ticket propio, resueltos, o fricción pura de tooling QA que no corresponde reportar). Un caso sí ameritaba seguimiento: el síntoma nuevo de IMP-004 reabierto el 25/8 (`500 "Error al calcular precio del producto"` en `pagar-mp`), documentado ese día como posible problema del payload armado a mano por `UserFactory`, sin confirmar.
+
+**Se puso a prueba conduciendo el Flujo de Compra 100% a mano por la UI real** (`qa.vetify.com.ar`, sin ningún helper de automatización), con Playwright MCP capturando la request real. Mismo error exacto, 2/2 veces, con dos planes y leads completamente independientes — descarta la hipótesis del payload de `UserFactory`: es el backend real rechazando compras reales, ahora mismo. Se verificó que no había tracking previo (`IMAS-4347` seguía "Hecho", búsqueda de texto y de tickets recientes sin coincidencias) antes de documentar `docs/bugs/BUG-017-*.md` y reportarlo — quedó como **IMAS-4431**. Detalle completo en `docs/impedimentos-bloqueos.md` (IMP-004) y en el bug doc.
+
+## 2026-08-26 (continuación) - Intake profundo de IMAS-3610 (Landing de Performance de Conversión B2C)
+
+A pedido del usuario, análisis exhaustivo de `IMAS-3610`: descripción, 9 comentarios, 10 subtareas, 6 adjuntos (3 imágenes + 3 PDFs, 2 de ellos duplicados bit-a-bit) y el frame de Figma linkeado en la descripción. Documentado completo en `docs/user-stories/IMAS-3610-landing-performance-conversion-b2c.md`.
+
+**Hallazgos principales**: (1) contradicción real entre 3 fuentes sobre si el switch "Ampliar detalles" va abierto o cerrado por default — resuelta verificando en vivo contra QA (hoy está expandido, coincide con la instrucción más reciente de Liliana); (2) del checklist de correcciones del mail del 25/8, la fila "Diagnóstico por imagen" del plan Emergencias sigue sin su tope fuera de cartilla, mientras Classic/Premium ya lo tienen — hallazgo nuevo, no reportado en ningún lado; (3) notas de diseño en el propio Figma (no en Jira) marcan el copy mobile como "provisorio, falta MKT"; (4) la subtarea `IMAS-3784 "Prueba en QA"` sigue sin asignar pese a que ya se están pidiendo pruebas funcionales.
+
+**Gotcha técnico reusable encontrado en el camino**: `extractText()` de `jira-client.mjs` también descarta links reales (marks `link`/`href`, nodos `inlineCard`/`blockCard`) — no solo imágenes/videos como ya estaba documentado arriba (2026-08-21). El link real a Figma de esta HU solo se pudo encontrar armando un extractor de ADF aparte. Ver nota agregada en `qa-workspace/current-state.md`.
+
+**Pendiente, a retomar la próxima sesión**: lista completa de próximos pasos en la sección final de `docs/user-stories/IMAS-3610-landing-performance-conversion-b2c.md` (verificar bug de navegación del checkout, decidir qué hacer con el gap de Emergencias, probar mobile completo, confirmar cartilla actualizada, tilde de FAQ, y recién después diseñar casos de prueba formales — todavía no se hizo ese paso).
+
+## 2026-08-26 (continuación) - Retomada la sesión de IMAS-3610: 4 pendientes verificados en vivo, 3 bugs nuevos reportados
+
+Se retomó directamente desde la sección "Pendiente" del archivo de la HU. Verificado en vivo contra QA: tilde "obtenés" OK, cartilla actualizada (`MAPA_VETERINARIAS_VETIFY_10.pdf`, contenido genuinamente distinto al v7 adjuntado en Jira — confirmado con diff real, no solo el nombre), mobile badge/texto OK (título en 4 líneas en vez de 3, menor). El botón "Regresar" del wizard funciona bien; el logo del checkout, no.
+
+**3 bugs nuevos, cada uno validado por el usuario del proyecto en vivo (pasos → confirmación → preview → OK) antes de reportar, siguiendo el guardrail de `jira/update-rules.md`**:
+- **`IMAS-4439`** — logo del checkout hardcodeado a `/`, ignora `from=salud_mascotas` y manda a la landing institucional en vez de volver a `/salud-mascotas`. Ya estaba pedido en el mail de correcciones del 25/8, seguía sin solucionar.
+- **`IMAS-4447`** — hallazgo nuevo de esta sesión, no estaba en ningún checklist previo: sin cupón en la URL (el caso de la mayoría de visitas reales) se aplica `VETIFY20` ("20% OFF el primer mes") en vez del default `VETIFY20X3` ("20% OFF los primeros 3 meses") que especifica la spec de MKT — mientras el hero de la landing promete "3 meses" a todos por igual. Verificado 2/2 con `localStorage` limpio para descartar caché de cupón entre pruebas.
+- **`IMAS-4450`** — el gap de Emergencias/Diagnóstico por imagen ya documentado ayer, ahora reportado.
+
+Los 3 quedaron linkeados con "Blocks" a `IMAS-3610` (vía `createDefect({parentKey: 'IMAS-3610', ...})`) — `checkClosable('IMAS-3610')` ahora detecta los 3 abiertos, correcto: esa HU no debería cerrarse hasta que se resuelvan. **Nota operativa**: en la primera de las 3 (`IMAS-4439`) se omitió sin querer el campo `description` al llamar `createDefect()`, lo que salteó el comentario automático en el padre (la condición es `bug.parentKey && bug.description`) — se detectó al verificar y se agregó el comentario a mano con `scripts/jira/jira-client.mjs comment`. En las 2 siguientes se pasó `description` explícito y el comentario automático funcionó sin intervención.
+
+`npm run validate:jira` corrió limpio después de las 3 creaciones. Detalle completo, checklist de correcciones y los 3 bug docs (`BUG-018`, `BUG-019`, `BUG-020`) en sus respectivos `.md`.
+
+## 2026-08-26 (continuación 2) - Diseño formal de casos de prueba para IMAS-3610 + segunda ronda de verificación en vivo
+
+A pedido explícito del usuario ("¿hiciste los casos de prueba?"), se diseñaron los casos formales siguiendo `qa-risk-test-design` + el formato real del proyecto (mismo patrón que `IMAS-3215`/`IMAS-4152`, no la tabla genérica de la skill): `docs/user-stories/IMAS-3610-landing-performance-conversion-b2c.tests.md`. 25 casos (`CP01`-`CP25`), 7 suites (`TS-01` a `TS-07`), mapeados a los 8 AC de la HU. Autoauditado contra `qa-testcase-auditor`: veredicto **GO con observaciones** (no GO liso — hay 3 casos bloqueados por los bugs recién reportados, más varios `[CONFIRMAR]` por falta de info en la HU).
+
+**Segunda ronda ese mismo día, a pedido de "qué más podés probar"**: se verificaron en vivo 5 de los `[CONFIRMAR]`/pendientes:
+- `CP07` (exclusión de cupones OSDE): **aclarado, no es un caso ejecutable tal como está planteado** — se investigó el checkout real de OSDE Adquirente y no usa el mecanismo `cupon=` en absoluto (IDs de producto propios, `cupon: ""` siempre). Recomendado confirmar con MKT si esa cláusula de la spec sigue aplicando.
+- `CP17` (FAQ busca por respuesta): ✅ confirmado con el término "grupo familiar" (solo está en una respuesta, no en ninguna pregunta).
+- `CP20` (título mobile 3 líneas): dato preciso — da 3 líneas desde 428px de ancho, 4 líneas a 375-390px (los anchos más comunes). No es un bug, es reflow sensible al ancho.
+- `CP21` (carrusel reviews responsive Desktop): ✅ probado en 800/900/1024/1280px, sin pisado ni corte real en ningún ancho.
+- `CP22` (letra botón cartilla mobile): ✅ confirmado 18px, igual que los CTA de plan.
+- `CP25` (analítica): parcial — sí hay tracking real (GA4 + Google Ads + GTM, `page_view`/`scroll` confirmados en Network), pero la pregunta abierta del comentario del 11/8 ("diferenciar el esquema por origen") nunca se resolvió en los comentarios — sigue sin poder confirmarse si el esquema actual es el definitivo.
+
+Quedan genuinamente sin poder verificarse: `CP08` (cupón→Salesforce, requiere acceso al backend/CRM) y `CP24` (performance, sin umbral definido por nadie todavía). Detalle completo y checklist actualizado en el `.tests.md`.
+
+## 2026-08-26 (continuación 3) - Auto-corrección: la validación "vs Figma" se había hecho contra el archivo equivocado
+
+El usuario preguntó directo si la validación de Figma había sido rigurosa — no lo fue: se usó el link viejo de la HU (`Dev - Vetify - Iniciativas y solicitudes`, escondido como hyperlink) y una sola captura de baja resolución de un frame, más las notas de texto (esas sí precisas). Intentando profundizar con `npm run figma node`, la API devolvió "Request too large" (el frame completo es demasiado pesado) y después "429 Rate limit exceeded" tras 2-3 llamadas — límite real de Figma, no del proyecto, ya documentado antes (lección 2026-08-07).
+
+**Mientras se resolvía, el usuario mismo encontró que la HU tenía un link a Figma NUEVO** (`FIGMA :https://www.figma.com/design/jXOyYOaYFsHfXjcGdiebGU/Vetify--Premium-?t=...`, archivo "Vetify Premium") que Liliana agregó como texto plano en la descripción a las 19:02 de hoy — **después** de que se hiciera el análisis original de la mañana. El usuario reportó "no veo nada de lo que estamos haciendo" al abrirlo — resultó ser que había caído en la página por defecto del archivo (no la relevante); confirmado que el archivo SÍ tiene páginas "Landing conversion" y "Pasarela de pago" con contenido real y actual.
+
+**Re-hecha la comparación contra el archivo/páginas correctas** (con el rate-limit ya enfriado):
+- **Switch "Ampliar detalles"**: confirmado también por geometría del componente real de Figma (perilla a la derecha = activado) — refuerza lo ya sabido por comentarios y por la UI en vivo.
+- **🐛 Hallazgo más grave de lo reportado**: el componente `Seccion cuadro cobertura/Emergencias/Desplegado` especifica para "Diagnóstico por imagen" **"6 por año" + tope $35.000 + "60 días"** — la UI en vivo muestra solo **"1 por año"**, sin nada más. `IMAS-4450` (ya creado) solo documentaba el tope faltante — la cantidad base también está mal. Pendiente decidir con el usuario si se actualiza el bug ya creado con este alcance más amplio.
+
+**Aprovechada la misma sesión para re-leer la HU completa por cambios**: `IMAS-3610` pasó de "In Validation" (asignada a mí) a **"En Progreso", reasignada a Juan Cruz Triventi** (dev) — consistente con haber quedado 3 bugs "Blocks" abiertos. `IMAS-4426` (correcciones) pasó a Hecho; `IMAS-4186` (validación QA/MKT/BO) pasó a En Progreso. Nada nuevo en comentarios más allá de los 3 propios de reporte de bugs.
+
+Todo esto actualizado en `docs/user-stories/IMAS-3610-landing-performance-conversion-b2c.md` (y su `.tests.md`) — no se tocó nada en Jira todavía (ni actualizar `IMAS-4450` ni ningún otro write), a la espera de la decisión del usuario.
+
+## 2026-08-26/27 - Nueva HU: IMAS-4356 (Banner Cooper OSDE) — intake + hallazgo de un bug transversal de compra OSDE Adquirente
+
+A pedido del usuario ("vamos con esta"), intake de `IMAS-4356` ("OSDE - Incorporación de banner Cooper en WebApp, reemplazo vetify+"). HU con descripción vacía y las 4 subtareas también vacías (0 comentarios cada una) — todo el contexto real se reconstruyó desde el único comentario del ticket, la transcripción de la review de sprint del 21/8, y el spec existente `mobile/specs/vetify/vetify-plus.spec.ts`.
+
+**Verificado en vivo contra `vetify-qa.ikeapp.com` con 3 usuarios reales del pool**: OSDE Capitado (perfil completo) ve el banner de Cooper correctamente en Home, pero el menú lateral simplemente perdió la entrada "Vetify PLUS" sin reemplazo. OSDE Adquirente (perfil incompleto, único disponible en el pool) sigue viendo "Vetify PLUS" sin Cooper. Vetify B2C confirma el requisito más crítico de la HU (comentario de Liliana): no ve nada de Cooper, en ningún lado.
+
+**Confusión no resuelta**: los 2 usuarios OSDE del pool difieren en 2 variables a la vez (segmento Capitado/Adquirente Y perfil completo/incompleto) — no se puede afirmar si el gap de Adquirente es real (bug) o es solo por tener el perfil incompleto. Se intentó generar una cuenta OSDE Adquirente fresh con mascota para aislarlo — bloqueado.
+
+**Hallazgo transversal, no es un bug de esta HU**: al intentar esa generación (compra real en `/mas-osde-beneficios`), el pago falla 2/2 con `POST .../pagar-mp` devolviendo `400` — pero con un detalle de error DISTINTO cada vez: la primera un NullPointerException de Java crudo (`ErroresMP.getCause()` es null), la segunda un genérico `"Unknown error occurred"`. No es el mismo síntoma que `IMAS-4431` (ese es "Error al calcular precio del producto", en Vetify B2C). El usuario del proyecto cree que esto podría ya estar reportado — se buscó en Jira por texto y no apareció nada abierto coincidente, pero **queda pendiente de validar mañana con más contexto de su lado** antes de decidir si se crea un Defect nuevo. Documentado sin filear en `docs/bugs/BUG-021-osde-adquirente-compra-falla-error-backend.md`.
+
+## 2026-08-27 - Análisis de archivos históricos: `Pruebas OSDE.xlsx` + `Bitacora de pruebas 30.06.docx`
+
+A pedido del usuario ("analiza profundamente... agrega la información a tu base de conocimiento"), se leyeron ambos archivos locales de `documentation/` — ninguno tenía skill/librería dedicada disponible en la sesión (`Skill("docx")` y `Skill("anthropic-skills:docx")` devolvieron "Unknown skill"; no hay paquete npm de lectura de xlsx instalado). Se resolvió con herramientas ya presentes en el entorno Windows, sin instalar nada nuevo:
+- `.docx` → PowerShell + `System.IO.Compression.ZipFile` para extraer `word/document.xml`, luego limpieza de tags XML por regex.
+- `.xlsx` → PowerShell + Excel COM automation (`New-Object -ComObject Excel.Application`, apertura read-only), volcando las 8 hojas a texto plano.
+
+Ambos métodos quedan como referencia reusable para el próximo archivo sin lector dedicado (candidato a documentarse como skill si se repite una tercera vez).
+
+**Contenido agregado** a `docs/conocimiento-sistema.md` (nueva sección "Hallazgos históricos — Bitácora y regresión manual OSDE (ronda del 30/06/2026)", explícitamente marcada como histórica/no reverificada): tabla de cuentas de prueba manuales nombradas del equipo (Lu/Lili/Cyn), la matriz completa de 13 áreas de regresión manual (hoja "REGRESIÓN CA" — solo la columna Adquirente x1 quedó con datos reales), y los hallazgos puntuales de esa ronda (fallas Android en Factura/Credencial/Condicionado atribuidas a WebView, mismatch preview-vs-PDF de Credencial en Desktop, navegación rota en iOS tras descargar un PDF, 2 fallas de pago sin causa registrada, y el hallazgo de negocio real: usar el DNI de una tarjeta de MercadoPago ya asociada dispara error de usuario duplicado).
+
+**Contradicción real encontrada entre las 2 fuentes, dejada sin resolver a propósito**: la bitácora (`.docx`) dice "iOS Credencial: OK"; la matriz (`.xlsx`) marca Credencial como FALLA en los 3 sistemas operativos, incluido iOS, para la misma ronda. No se decidió a favor de ninguna — queda flageado explícitamente para no propagar un dato falso.
+
+**Cross-reference agregado** en `docs/bugs/BUG-013-compra-no-asocia-dni-usuario-existente.md`: el hallazgo de "DNI de tarjeta MercadoPago → error de usuario duplicado" es conceptualmente cercano a BUG-013 (mismo disparador: DNI ya asociado a una cuenta/tarjeta existente) pero con síntoma distinto (error explícito vs. falla silenciosa) — vinculado como posible relación histórica no confirmada, no fusionado.
+
+`npm run validate` corrido después de los cambios — control-plane y guardrail de Jira OK.
+
+**Casos de prueba diseñados** (`docs/user-stories/IMAS-4356-banner-cooper-webapp-osde.tests.md`): 10 casos, cada uno marcado con su fuente real (nada inventado sin fuente, dado lo vacía que está la HU). 5 verificados en verde (incluida la exclusión de Cooper en B2C, el requisito más crítico), 2 bloqueados por el mismo motivo (no se puede generar cuenta OSDE Adquirente limpia), 3 sin verificar todavía por tiempo o por falta de fuente (destino del botón "Ir a Cooper", FAQ de las otras landings, alcance en la app nativa mobile).
+
+## 2026-08-27 - IMAS-3610: retest de los 3 bugs (dev los devolvió) + decisión de scope de la PO sobre los 4 puntos consolidados
+
+El dev devolvió `IMAS-4439`, `IMAS-4447` e `IMAS-4450` como "In Validation" (reasignados a mí), sin comentario explicando qué cambió — el retest se hizo 100% en vivo contra `qa.vetify.com.ar/salud-mascotas`, sin asumir nada del lado de Jira.
+
+**Resultado del retest**:
+- `IMAS-4439` (logo checkout) — **corregido**. El logo dejó de ser un `<a href="/">` hardcodeado y pasó a un `<button>` con navegación propia; verificado que vuelve a `/salud-mascotas` conservando query params.
+- `IMAS-4447` (cupón default) — **corregido**. Con storage limpio y sin cupón en la URL, el CTA ahora arma `cupon=VETIFY20X3`; confirmado también en la respuesta real de `payment/calculate` (`discountType: "VETIFY20X3"`, descripción "20% OFF los primeros 3 meses").
+- `IMAS-4450` (tope Emergencias/Diagnóstico por imagen) — **parcialmente corregido**. El tope ($35.000) ya aparece — eso era el reclamo tal como estaba redactado el bug originalmente. Pero el hallazgo más amplio agregado después (comparación contra Figma, adenda 2026-08-26 tarde) sigue sin resolverse: la cantidad sigue en "1 por año" (Figma pide "6 por año") y falta la cláusula "activo a partir de los 60 días" que sí tiene la misma fila en el plan Classic. No se cierra este bug todavía.
+
+**Decisión de scope confirmada por el usuario**: los 4 puntos que habían quedado consolidados en un comentario de `IMAS-3610` (cupón→Salesforce, botón "Regresar" en mobile, umbral de Performance, esquema de Analítica) los toma la PO para el sprint siguiente — el usuario fue explícito en que, "para efecto de estas pruebas, esto queda fuera de alcance". Ninguno de los 4 era un bug (ya se habían dejado como decisiones/confirmaciones pendientes del equipo, no fallas) — se actualizó `docs/user-stories/IMAS-3610-landing-performance-conversion-b2c.tests.md` para marcarlos `⚪ FUERA DE ALCANCE` en vez de dejarlos como hallazgos abiertos.
+
+**Estado de DoD (verificado con `checkClosable('IMAS-3610')`)**: sigue **no closable** — los 3 bugs siguen en estado no-final en Jira (nadie transicionó nada todavía). Pendiente de OK explícito del usuario antes de transicionar `IMAS-4439`/`IMAS-4447` a Done (guardrail de escritura Jira) — no ejecutado en esta sesión sin esa confirmación.
+
+`npm run validate` corrido después de actualizar los docs — OK.
+
+### Continuación misma sesión — `IMAS-4450` devuelto al dev
+
+El usuario pidió explícitamente ("actualiza el bug, devuelveselo a juan"): comentario + reasignación + transición, sin una ronda extra de preview — instrucción ya lo suficientemente específica (coincide con el patrón ya usado antes en la sesión, ej. "comentalo" en IMAS-3610). Ejecutado:
+1. `addComment(IMAS-4450, texto)` — comentario con el detalle del retest (tope corregido, cantidad/cláusula de 60 días sin resolver).
+2. `editComment(IMAS-4450, <id del comentario recién creado>, adfConMencion)` — se sobrescribió el mismo comentario para agregarle un nodo `mention` real (`accountId` de Juan Cruz Triventi obtenido desde el campo `assignee` de `IMAS-4426`, no inventado) — mismo patrón que la mención ya usada en `IMAS-3610` (commentId `39531`).
+3. `assignIssue(IMAS-4450, <accountId Juan>)`.
+4. `transitionIssue(IMAS-4450, 'Cualquier estado a In Progress')` — el nombre exacto de la transición no era "In Progress" sino "Cualquier estado a In Progress" (falló una vez con el nombre corto, se corrigió con el nombre real devuelto por `transitions`).
+5. Verificado releyendo el issue: `status: "En Progreso"`, `assignee: "juan cruz triventi"`. Log agregado a `jira/sync-log.ndjson` (1 línea combinada `addComment+editComment+assignIssue+transitionIssue`).
+
+Los docs de la HU (`IMAS-3610-landing-performance-conversion-b2c.md`/`.tests.md`) actualizados para reflejar el estado nuevo. Sigue pendiente el OK del usuario para transicionar `IMAS-4439`/`IMAS-4447` a Done — no se tocó ninguno de los dos en esta continuación.
+
+### Continuación misma sesión — auto-corrección: el hallazgo de "6 vs 1 por año" en `IMAS-4450` era un error propio
+
+El usuario pidió el link de Figma exacto del hallazgo (link entregado: `10302:28307`, coordenadas confirmadas contra una consulta real de la API, no inventadas). Al no poder verlo bien ("estoy ciego"), pidió una captura — Juan (el dev) le mandó una propia desde Figma, y en esa captura la fila "Diagnóstico por imagen" para Emergencias muestra **"1 por año", sin cláusula de 60 días** — coincidiendo exactamente con lo que ya está en vivo en QA, y contradiciendo directamente lo que yo había reportado ("6 por año" + cláusula de 60 días faltante).
+
+**En vez de defender el hallazgo original, se re-examinó el JSON crudo del nodo `10302:28307` en detalle** (no solo nombres de capa, el `text` real de cada nodo). Se encontró la causa: el bloque "fuera de cartilla" (Frame 810) de la fila "Diagnóstico por imagen" es **texto idéntico carácter por carácter** al de la fila "Análisis bioquímico" (servicio completamente distinto) — "6 por año tope de $35.000 c/u / Fuera de la red / Servicio activo a partir de los 60 días" en ambas filas. Refuerza la sospecha: el tope de "Análisis bioquímico" en su propio stat principal es $25.000, pero su bloque "fuera de cartilla" dice $35.000 (el mismo número que Diagnóstico) — inconsistente incluso consigo mismo. Es un copy-paste de Figma sin actualizar en el componente **mobile**, no una especificación real — coincide con un patrón ya visto antes en este proyecto en otro archivo de Figma ("los textos mobile son provisorios, faltaría actualizar").
+
+**Conclusión**: `IMAS-4450` está en realidad **100% resuelto** — el único bug real era la falta de tope (ya corregida). El hallazgo ampliado (cantidad + cláusula) nunca fue un bug real, fue una comparación mía contra una fuente de Figma con contenido corrupto/sin actualizar.
+
+**Lección**: al comparar Figma contra la UI en vivo, si el hallazgo contradice lo que ve una persona del equipo mirando Figma directamente, re-verificar el **contenido de texto real** (no solo nombres de capa) de nodos hermanos/similares antes de sostener el hallazgo — los nombres de capa en Figma quedan obsoletos con frecuencia (ya sabido), pero acá el problema fue más profundo: el *contenido* de un bloque completo estaba duplicado entre 2 filas distintas.
+
+Docs corregidos (`IMAS-3610-landing-performance-conversion-b2c.md`/`.tests.md`, con el hallazgo original tachado y explicado, no borrado). Pendiente de OK del usuario: postear la retractación en `IMAS-4450` y sacarlo de "En Progreso".
+
+### Continuación misma sesión — cierre de los 3 bugs, con el comentario reencuadrado
+
+El usuario dio el OK ("adelante") pero pidió explícitamente reencuadrar el comentario de la retractación: "no quiero que se vea como que no preste atencion". Se reescribió el comentario de `IMAS-4450` (mismo `commentId` 39558, vía `editComment`) liderando con el hecho real y verificable de que el punto ya había quedado marcado como "no confirmado, recomendado confirmar con diseño/producto" en el comentario anterior — no como un error de falta de atención, sino como el cierre normal de un punto que se dejó abierto a propósito. Contenido honesto (nada inventado), solo reordenado el énfasis.
+
+Ejecutado: `editComment` (comentario reencuadrado) → `assignIssue` (IMAS-4450 reasignado de mí, deshaciendo el "devuelto al dev") → `transitionIssue` a Done en los 3 (`IMAS-4450`, `IMAS-4439`, `IMAS-4447`). Verificado releyendo los 3 issues: los 3 en "Hecho", asignados a Alan. `checkClosable('IMAS-3610')` ahora devuelve `{closable: true, missing: []}` — el criterio 6 del DoD (Jira) queda satisfecho. Log en `jira/sync-log.ndjson`.
+
+No se transicionó `IMAS-3610` en sí — cerrar la HU es decisión del equipo/PO, no algo que corresponda ejecutar unilateralmente sin que lo pidan explícitamente.
+
+### Continuación misma sesión — IMAS-3610 pasó a producción (otro dev), comentario de cierre posteado y HU transicionada a Done
+
+El usuario avisó que ya le pasó `IMAS-3610` a otro dev para llevarla a producción — no hacía falta insistir con las 2 subtareas bloqueantes (`IMAS-4186`/`IMAS-4200`), eso ya se resolvió por fuera de esta sesión. Con el OK del usuario ("list esa hu done"), se posteó el comentario de cierre (con menciones reales a `@juan cruz triventi` y `@Liliana Picinotti`, accountId de Liliana obtenido del campo `reporter` del propio issue) y se transicionó `IMAS-3610` a Done exitosamente esta vez (las subtareas bloqueantes ya no lo impidieron).
+
+## 2026-08-27 (continuación) - IMAS-4356: usando el conocimiento histórico recién agregado para avanzar el confound de OSDE Adquirente
+
+El usuario pidió retomar `IMAS-4356` y recordó explícitamente que el contexto de `Pruebas OSDE.xlsx`/`Bitacora de pruebas 30.06.docx` (agregado a `docs/conocimiento-sistema.md` en esta misma sesión) podía ser útil. Grep confirmó que esos archivos no mencionan "Cooper"/"Vetify Plus" directamente, pero la hoja "Adquirentes" del Excel sí tiene **cuentas OSDE Adquirente reales con mascota registrada** — exactamente lo que hacía falta para atacar el punto pendiente #1 de IMAS-4356 (aislar si el gap de Cooper en Adquirente es por segmento o por perfil incompleto), bloqueado hasta ahora por `BUG-021` (no se podía generar una cuenta fresh).
+
+Se probaron en vivo 2 cuentas históricas (`mariano.caresia@hotmail.com` y `68.sandra@gmail.com`, contraseñas del Excel) contra `vetify-qa.ikeapp.com` — **ambas siguen activas ~2 meses después**, confirmando que son datos reales y no obsoletos. Ninguna de las 2 llegó a "perfil 100% completo" (ambas quedaron en distinto grado de "incompleto"), pero las 2 mostraron el mismo resultado exacto (Vetify PLUS, sin Cooper) pese a tener niveles de completitud claramente distintos entre sí — refuerza la hipótesis de que el criterio real es el **segmento** (OSDE Adquirente nunca ve Cooper), no la completitud del perfil, aunque sin una cuenta genuinamente completa no se puede cerrar con el 100% de certeza. Actualizado `IMAS-4356-banner-cooper-webapp-osde.md`/`.tests.md` con la nueva evidencia (CP06/CP07 pasaron de 🔴 bloqueado a 🟡 evidencia reforzada). Sesión cerrada limpiamente (logout + clear de localStorage/cookies en ambas cuentas).
+
+### Continuación misma sesión — IMAS-4356: cerrados CP02 y CP09, los 2 casos que solo faltaban por tiempo
+
+El usuario pidió concentrarse en `IMAS-4356` y revisar primero los casos de prueba. Con el pool de usuarios (`src/fixtures/users/pooled-users.json`, cuenta `user_1783951005615@automation.com`, OSDE Capitado `WITH_PET`) se verificó **CP02** (destino de "Ir a Cooper"): abre pestaña nueva a `https://www.cooperpetcare.app/?referral_code=VTFY-2026` — landing real, funcional, con el código de referido de Vetify.
+
+**CP09** (FAQ de B2C y OSDE Adquirente, no solo Capitado) se verificó con rigor equivalente al chequeo previo de `/osde`: en la landing B2C institucional (`qa.vetify.com.ar`) se expandieron las 9 preguntas; en la landing OSDE Adquirente (`/mas-osde-beneficios`) se identificaron 33 preguntas repartidas en 8 categorías (el tab por defecto solo mostraba 4) y se expandieron las 33 vía `document.querySelectorAll` + `.click()` en lote. Cero menciones a "Plus" en ninguna de las 2, confirmado tanto en `innerText` como en `textContent` crudo del DOM.
+
+Con esto, de los 10 casos originales: 7 en verde, 2 con evidencia reforzada pero no 100% cerrados (CP06/CP07, el confound de Adquirente), 1 sin fuente para diseñarse (CP10, alcance mobile). Actualizados `IMAS-4356-banner-cooper-webapp-osde.md`/`.tests.md`. Sesión de browser cerrada limpiamente al final.
+
+### Continuación misma sesión — CP03 (menú lateral) confirmado bug real por la PO, reportado como IMAS-4463
+
+El usuario le pasó a la PO el paso a paso exacto de CP03 (la pregunta abierta sobre si el menú lateral de OSDE Capitado debía mostrar "Cooper" en vez de solo perder "Vetify PLUS" sin reemplazo). La PO respondió explícito: *"Si este usuario es osde, no tiene q ver nada de vetify plus, cargalo porfa como bug en este sprint, En osde en el menu hamburguesa tiene q decir cooper"* — confirma la opción (b) que se había dejado planteada (era un gap, no comportamiento esperado).
+
+Con el OK del usuario ("adelante") sobre el preview mostrado, se creó `IMAS-4463` vía `createDefect({parentKey: 'IMAS-4356', ...})` — linkeado "Blocks", con `description` incluida (dispara el comentario automático al padre). Verificado: `checkClosable('IMAS-4356')` ahora reporta el bug abierto correctamente. Documentado en `docs/bugs/BUG-022-osde-capitado-menu-lateral-sin-cooper.md`, actualizado CP03 en `.tests.md` (de 🟡 pregunta abierta a 🔴 bloqueado por bug real) y el intake `.md` (issuelinks + pendiente #4 resuelto).
+
+Balance actualizado de IMAS-4356: 6 casos verdes, 1 bloqueado por bug real (`IMAS-4463`, recién creado), 2 con evidencia reforzada sin cierre 100% (confound Adquirente), 1 sin fuente (scope mobile).
+
+### Continuación misma sesión — el confound de Adquirente resultó ser un hallazgo de inconsistencia, no de segmento; HU pausada
+
+El usuario pidió el paso a paso de CP03 y preguntó cómo se validaba que las 3 cuentas usadas para CP06/CP07 fueran realmente OSDE. Reviso `/api/users/me` en vivo — no expone segmento para nadie (ni para la cuenta confirmada por `siteId` del pool), así que su ausencia no probaba nada. El usuario compartió una captura de "Planes y coberturas" mostrando que un plan real OSDE ("Vetify Esencial OSDE") tiene **Grupo 0163** — distinto del **Grupo 0158** que compartían las 3 cuentas usadas hasta ese momento (pool + `mariano.caresia` + `68.sandra`). Retracté la recomendación de cargar un bug: ninguna de las 3 era una cuenta OSDE confirmada por este criterio.
+
+El usuario compartió el **catálogo real de productos** (`clCuenta`/`Nombre`/`clGrupoCuenta`/`Prefijo`) — reveló que el Grupo 158 en realidad contiene productos OSDE (2358-2365, "Vetify Classic/Cachorro/Premium/Emergencias ... OSDE") mezclados con genéricos — el Grupo no es la señal, el nombre completo del producto sí. Cruzando los códigos reales: `mariano.caresia` (2313) y `68.sandra` (2318) NO son productos OSDE — confirma que nunca fueron cuentas OSDE genuinas, más allá de la nota del Excel. Se buscó en el resto del Excel (`Pruebas OSDE.xlsx` completo, no solo la hoja "Adquirentes") una cuenta con evidencia más fuerte — encontrada en la hoja "Adquirentes 30.06": `adquirenteosde@gmail.com` (nombre de usuario explícitamente compuesto para esto). Verificada en vivo: producto real **2364 = "Vetify Emergencias x1 OSDE"** — coincide exacto con el catálogo, cuenta OSDE Adquirente genuina confirmada. Esta cuenta SÍ mostró el banner de Cooper correctamente, y el mismo bug de menú que Capitado (`IMAS-4463`, no uno nuevo — mismo síntoma).
+
+El usuario pidió entonces re-testear todo (desktop + responsive mobile). Al redimensionar a desktop (1440×900), tanto esta cuenta como la de Capitado mostraron "Vetify PLUS" en vez de Cooper — parecía un hallazgo de plataforma (mobile-only). Pero al re-testear la MISMA cuenta Adquirente (`adquirenteosde@gmail.com`, mismo producto 2364 reverificado) al mismo ancho de mobile (428px) que antes había mostrado Cooper, esta vez mostró Vetify PLUS — sin haber cambiado nada controlado (ni cuenta, ni plan, ni ancho). Se descartó también la hipótesis de plataforma.
+
+**Conclusión final, con el usuario decidiendo pausar la HU acá**: el banner Cooper/Vetify PLUS es inconsistente entre cargas de página para una misma cuenta con el mismo plan — ninguna de las 3 hipótesis probadas (segmento, completitud de perfil, plataforma) explica la variación. Esto requiere a alguien con acceso al código (feature flag / experimento A/B / caché inconsistente) — no es algo que QA pueda seguir acotando por testing de caja negra. Lo único que se sostuvo sin excepción en todas las repeticiones: B2C nunca ve Cooper (CP04/CP05), y cuando Cooper aparece en el banner, el menú nunca lo acompaña (`IMAS-4463`, reproducido en ambos segmentos donde se vio el banner).
+
+Actualizados `IMAS-4356-banner-cooper-webapp-osde.md`/`.tests.md` con el historial completo de teorías descartadas (no se borra ninguna, para que quede claro qué se probó y por qué). HU marcada como pausada. `npm run validate` pendiente de correr tras este cierre de sesión de trabajo.
+
+## 2026-08-27/28 - Nueva HU: IMAS-4408 (Ocultar credenciales y restringir operatoria para planes Inactivos o Dados de baja)
+
+A pedido del usuario ("vamos con esta IMAS-4408... recuerda incluir comentarios, tareas vinculadas, etc."), intake completo siguiendo el mismo protocolo que las HUs anteriores. Descripción de Jira vacía (igual que las 4 subtareas) — toda la especificación real vive en **9 capturas de pantalla** adjuntas por Paula Scalzo (la dev) en el único comentario del ticket, comparando el comportamiento antes/después de dar de baja un plan (cuenta de prueba con 2 mascotas: Lucy con plan Emergencias que se da de baja, Mishi con plan Senior que queda activo como control).
+
+Las 9 capturas se descargaron y se revisaron una por una (no se confió en el nombre de archivo asumido al descargar — se remapeó por contenido real, ya que el orden cronológico de subida no coincidía exactamente con el orden del texto del comentario). Comportamiento reconstruido: al dar de baja un plan, la mascota correspondiente desaparece de Home (credenciales), de la sección Mascotas, y de Planes y coberturas; y deja de ser seleccionable en los flujos de Videollamada y Reintegros. Coincide con el título literal de la HU.
+
+**Hallazgo de contexto real**: el framework de este proyecto ya tiene un tag `UserTag.INACTIVE_PLAN` definido (`src/providers/user/tags.ts:30`) pero **ningún usuario del pool lo tiene asignado hoy, y ningún script lo genera activamente** — no hay forma automatizada de conseguir una cuenta en ese estado para probar en vivo. Queda como pregunta abierta para el usuario antes de poder verificar los 5 puntos del comportamiento en vivo.
+
+Documentado en `docs/user-stories/IMAS-4408-ocultar-credenciales-planes-inactivos.md`. Pendiente: diseño de casos de prueba (esperando resolver cómo generar una cuenta con plan inactivo).
+
+### Continuación misma sesión — corrección importante: "descripción vacía" era un error propio, no un hecho del ticket
+
+El usuario corrigió directamente pegando el texto completo de la descripción real de `IMAS-4408` (objetivo, 3 estados de plan, 3 escenarios, 12 criterios de aceptación formales) — contradiciendo lo que yo había reportado. Investigado: el campo estándar `description` efectivamente viene vacío vía la API, pero el contenido real está en **`customfield_11620`**, un campo custom que `getIssue()`/`fetchStory()` nunca revisan.
+
+**Chequeo retroactivo inmediato** (antes de seguir con cualquier otra cosa, dado el riesgo de que afectara trabajo ya "cerrado" esta sesión): `IMAS-4356` (banner Cooper, también tipo Tarea) tiene el mismo problema — su `customfield_11620` tenía el spec completo del banner, nunca leído durante toda la investigación de esa HU. El spec real confirma sin ambigüedad que el banner debe mostrarse a OSDE Adquirente — la "inconsistencia" encontrada ayer pasa de ser una zona gris de negocio a un incumplimiento de AC confirmado. `IMAS-3610` (tipo Historia) se verificó limpio — no tiene el problema, su contenido real siempre estuvo en el campo estándar.
+
+Reescrito `IMAS-4408-ocultar-credenciales-planes-inactivos.md` desde cero con la especificación real completa. Agregada una sección de corrección al principio de `IMAS-4356-banner-cooper-webapp-osde.md` (sin borrar el análisis original, por trazabilidad) con el spec real y una lista de qué falta re-investigar mañana a la luz de esto (Figma adjunto nunca ubicado, sub-segmento "OSDE Capitado – Flux" nunca testeado, la inconsistencia del banner ahora es candidata a bug confirmado en vez de duda abierta).
+
+Documentado como gotcha técnico en `qa-workspace/current-state.md` y como lección en `docs/lecciones-aprendidas.md` — regla dura: ante cualquier issue tipo "Tarea" con `description` estándar vacío, chequear `customfield_11620` antes de concluir que no hay especificación. Pendiente de decisión del usuario: si conviene parchear `jira-client.mjs` para que lea ambos campos automáticamente.
+
+### Continuación misma sesión — retomando IMAS-4356 con el spec real: Figma ubicado, Flux Capitado testeado, y causa raíz real encontrada (IMP-014)
+
+El usuario pidió terminar las pruebas de `IMAS-4356` con el spec real ya en mano. Se encontró el Figma adjunto (estaba oculto como hyperlink en el mismo `customfield_11620`, mismo patrón que `IMAS-3610`: `jXOyYOaYFsHfXjcGdiebGU`, nodo `7560:67` — sin revisar el contenido todavía, Figma sigue rate-limited). Se probó el sub-segmento "OSDE Capitado – Flux" (nunca testeado antes) con la única cuenta disponible del pool — mismo resultado que las demás: Vetify PLUS, sin Cooper.
+
+El usuario, tras validar el paso a paso él mismo, aportó una hipótesis clave: "no es necesariamente de la HU, hay varios servicios fallando, entre esos el que trae el plan" — y pidió repetir el proceso completo mirando cada servicio disparado desde el inicio, no solo el resultado final en la UI. Se hizo login fresco con la cuenta Adquirente confirmada (`adquirenteosde@gmail.com`, producto `2364`) capturando la red completa: **`GET /api/services/category/overview` devolvió 500** en la misma carga donde el banner mostró Vetify PLUS (no Cooper); y **`GET /api/services/plans/engage/{dni}` devolvió 500** en la misma navegación donde "Planes y coberturas" mostró "No hay planes por el momento" pese a que la cuenta tiene un plan real. También se vio `GET /api/services/notifications` con 500 dos veces.
+
+Esto reframea la "inconsistencia" investigada ayer: no es un bug de segmento/perfil/plataforma de la feature Cooper (las 3 hipótesis ya descartadas) — es un síntoma de servicios backend fallando intermitentemente en QA, documentado como **`IMP-014`** (nuevo) en `docs/impedimentos-bloqueos.md`, con toda la evidencia de red. Mismo criterio que `IMP-012` (ya resuelto): 500 genérico = error de servidor, no regla de negocio mal aplicada.
+
+Actualizado `IMAS-4356-banner-cooper-webapp-osde.md` con la conclusión revisada: no se puede validar de forma confiable la segmentación de Cooper mientras `IMP-014` siga activo. Pendiente: decidir con el usuario si se escala `IMP-014` a Jira, y revisar el nodo de Figma cuando la API lo permita (sigue teniendo valor independiente, es sobre diseño visual no sobre la lógica de segmentación).
+
+### Continuación misma sesión — IMP-014 reportado en Jira como IMAS-4464, linkeado Blocks a IMAS-4356
+
+Con el OK explícito del usuario ("crea el bug del ambiente y colócalo como bloqueante de esta HU"), se creó `IMAS-4464` vía `createDefect({parentKey: 'IMAS-4356', ...})`, mismo patrón que `IMAS-4463`. Documentado en `docs/bugs/BUG-023-servicios-500-intermitente-category-plans.md`, siguiendo el mismo criterio ya usado para `IMAS-4347`/BUG-014 (500 genérico de servidor, no regla de negocio — se reporta como Defect igual, aunque técnicamente sea `ENV_BLOCKED`, por pedido explícito del usuario). Verificado: `checkClosable('IMAS-4356')` ahora reporta 2 bugs abiertos (`IMAS-4463`, `IMAS-4464`). Actualizados `docs/impedimentos-bloqueos.md` (IMP-014 con el link a IMAS-4464) e `IMAS-4356-banner-cooper-webapp-osde.md` (issuelinks + referencia cruzada).
+
+### Continuación misma sesión — corregida la skill `qa-bug-report`: los reportes estaban escritos para dev/máquina, no para la PO
+
+El usuario marcó directo que `IMAS-4464` (recién creado) estaba escrito con jerga técnica (endpoints, status codes) en el cuerpo principal — "parece hecha por robot y para que la entienda un robot", "imagina que lo lee la PO que no sabe de código". Corregida `.claude/skills/qa-bug-report/SKILL.md`: nuevo principio explícito al principio ("escribir para una persona, no una máquina"), ejemplo ❌/✅ real tomado de este mismo incidente, y una sección nueva `[Detalle técnico]` separada para todo lo técnico (antes se mezclaba en `[Descripción]`/`[Resultado actual]`/`[Resultado esperado]`). Regla dura agregada explícitamente. El campo `evidence` de `createDefect()` (que ya existía, mapea al panel "Evidencia" en Jira) ya soportaba esta separación — el problema era de uso, no de la herramienta.
+
+Se redactaron reescrituras en criollo para `IMAS-4463` y `IMAS-4464` y se mostraron al usuario para aprobación — **todavía no posteadas a Jira**, el usuario pasó a preguntar algo distinto antes de confirmar (ver debajo). Pendiente: postear esas reescrituras si el usuario las confirma.
+
+### Continuación misma sesión — ¿IMAS-4463 es en realidad síntoma de IMP-014?
+
+El usuario preguntó directo si el bug del menú (`IMAS-4463`) no sería en realidad el mismo problema de ambiente (`IMP-014`) en vez de un bug genuino. Se comparó el comportamiento del menú en los 2 estados del servicio `category/overview`: cuando **falla** (500, confirmado hoy en 2 cuentas distintas), el menú muestra correctamente "Vetify PLUS" (comportamiento de respaldo funcionando bien). Cuando **funciona** (confirmado indirectamente porque el banner de Home mostró Cooper correctamente en esa misma sesión, durante el test original de `IMAS-4463`), el menú no mostraba ni "Vetify PLUS" ni "Cooper" — un hueco vacío.
+
+Esta asimetría es evidencia real (aunque de un solo punto de comparación) de que `IMAS-4463` es un bug genuino e independiente — si fuera el mismo problema de fondo, debería romperse de la misma manera que el banner (cayendo a "Vetify PLUS" también), no específicamente en el caso de éxito. Comunicado al usuario con esta razonamiento y ofrecida la opción de buscar un segundo punto de comparación para reforzarlo — sin confirmar todavía si hace falta.
+
+### 2026-08-28 (sesión nueva) — retest de IMAS-4356 con ambiente estable: IMP-014 no reprodujo, pero destapó 2 hallazgos propios
+
+El usuario confirmó que el ambiente estaba funcional y pidió terminar `IMAS-4356`: validar lo bloqueado por ambiente y retestear los bugs ya reportados. Se hicieron 5 logins frescos (3 cuentas: `adquirenteosde@gmail.com` x3, OSDE Capitado x1, OSDE Capitado-Flux x1) capturando red en cada uno.
+
+**`IMP-014`/`IMAS-4464` (500 intermitente) no reprodujo** — `category/overview` y `plans/engage/{dni}` devolvieron `200` las 7 veces que se llamaron. Consistente con "ambiente funcional". Jira sigue en "Tareas Por Hacer", sin asignar — no se cerró el impedimento, se bajó de "bloqueante activo" a "no reproduce hoy, sin fix confirmado".
+
+**Pero los 2 síntomas que se le habían atribuido a IMP-014 siguieron pasando con el backend sano** — esto obliga a corregir la conclusión del 2026-08-28 anterior (que decía "es plausible que el problema sea 100% de IMP-014"):
+1. **Gap de segmento en OSDE Adquirente, confirmado real**: `adquirenteosde@gmail.com` (producto 2364 confirmado) mostró "Vetify PLUS" las 3 veces, nunca Cooper — mientras que OSDE Capitado y OSDE Capitado-Flux, mismo día, mismo backend sano, sí mostraron Cooper. El spec (`customfield_11620`) exige que Adquirente lo vea sin condición. Esto ya NO es la "inconsistencia sin causa" documentada ayer — es un incumplimiento reproducible del AC, específico de Adquirente.
+2. **"Planes y coberturas" no renderiza un plan real** (hallazgo nuevo): `plans/engage/45285456` devolvió `200` con un plan `ACTIVO` real (producto 2364) en las 2 veces que se probó — la UI igual mostró "No hay planes por el momento". No es un 500, es la UI descartando un plan real. Candidato: varios campos vienen `null` (`priceAmount`, `priceLabel`, `billingPeriodLabel`, etc.), posiblemente porque OSDE no maneja precio/facturación igual que un plan Vetify común.
+3. **`IMAS-4463` (menú sin Cooper) se reconfirmó**, en Capitado y Capitado-Flux, con backend sano — termina de descartar cualquier duda de que fuera síntoma de `IMP-014`.
+
+Actualizados: `docs/impedimentos-bloqueos.md` (IMP-014, bajado de bloqueante activo + retest documentado), `IMAS-4356-banner-cooper-webapp-osde.md` (sección nueva "Retest 2026-08-28 tarde"), `IMAS-4356-banner-cooper-webapp-osde.tests.md` (TS-04 y CP03bis reescritos, historial de 2026-08-27 conservado por trazabilidad, no borrado).
+
+**Nada de esto se reportó a Jira todavía** — queda pendiente decidir con el usuario: crear Defect nuevo para el gap de Adquirente (3er bug de esta HU), crear Defect nuevo para "Planes y coberturas", comentar `IMAS-4463`/`IMAS-4464` con la evidencia de hoy, y si postear por fin las reescrituras en criollo de esos 2 (redactadas 2026-08-28, nunca confirmadas). Ningún cambio de Jira ejecutado sin OK explícito, siguiendo el guardrail de siempre.
+
+### 2026-08-28 (misma sesión) — creado IMAS-4465: gap de segmento Adquirente, único de los 4 pendientes que el usuario confirmó
+
+Se presentaron las 4 acciones pendientes de arriba como pregunta explícita (`AskUserQuestion`, multi-select). El usuario eligió solo una: crear el Defect del gap de segmento de Adquirente. Se armó el preview en lenguaje simple (siguiendo la skill `qa-bug-report` ya corregida — narrativa en `[Descripción]`/`[Resultado esperado]`/`[Resultado actual]` sin jerga, endpoints/status codes/IDs de cuenta en `[Detalle técnico]`), se mostró al usuario, confirmó con "adelante", y se creó vía `createDefect({parentKey: 'IMAS-4356', ...})` — **`IMAS-4465`**, Blocks-linked, verificado en vivo (`get IMAS-4465`) y en `jira/sync-log.ndjson`. Documentado en `docs/bugs/BUG-024-osde-adquirente-banner-vetify-plus-en-vez-cooper.md`. Actualizados `IMAS-4356-banner-cooper-webapp-osde.md` (issuelinks: ahora 3; sección de pendientes) y su `.tests.md` (CP06, resumen de cobertura).
+
+**Las otras 3 acciones NO se ejecutaron** (el usuario no las seleccionó) — siguen abiertas para más adelante si se decide retomarlas: comentar `IMAS-4463`/`IMAS-4464` con la evidencia del retest, crear Defect para "Planes y coberturas", postear las reescrituras en criollo ya redactadas.
+
+### 2026-08-28 (misma sesión) — corrección: la cuenta "Flux" usada como comparación en IMAS-4465 nunca fue Flux
+
+El usuario, revisando el catálogo real de productos, encontró que `user_1785245387146_cbf32975@automation.com` (única cuenta tageada `FLUX_CAPITADO` en `pooled-users.json`) tiene producto real **`2349` = "Vetify Esencial OSDE"** (Grupo `0163`) — un producto OSDE Capitado normal, no Flux. `2349` ya estaba confirmado como código OSDE genuino en `docs/conocimiento-sistema.md`, lo que corrobora el hallazgo sin necesidad de verificación adicional.
+
+**Impacto**: como es la única cuenta Flux del pool, **el sub-segmento genuino "OSDE Capitado – Flux" nunca fue probado de verdad** en toda la investigación de `IMAS-4356` (ni en la ronda del 2026-08-28 mañana, ni en el retest de la tarde) — cada vez que se creyó testear Flux, en realidad se testeaba otra cuenta OSDE Capitado disfrazada bajo la etiqueta equivocada del pool.
+
+**La conclusión de `IMAS-4465` (Adquirente no muestra Cooper) NO cambia** — sigue sostenida por la comparación contra 2 cuentas OSDE Capitado genuinas (ambas mostraron Cooper correctamente), solo que ya no se puede decir "2 segmentos distintos confirmados", es "1 segmento confirmado con 2 cuentas". Corregidos: `qa-workspace/known-issues.md` (nueva entrada), `IMAS-4356-banner-cooper-webapp-osde.md` (nota de corrección), su `.tests.md` (CP07-bis corregido, nuevo `TS-06bis`/`CP11` bloqueado para el sub-segmento Flux genuino, tabla resumen actualizada), `docs/bugs/BUG-024-*.md` (detalle técnico aclarado).
+
+**Sin resolver todavía**: si corresponde postear un comentario corrector en el Jira de `IMAS-4465` (ya creado, con la evidencia técnica mencionando "Capitado-Flux") — el usuario indicó que lo corrige él mismo, no se toca desde acá. Tampoco se retageó la cuenta en `pooled-users.json` — queda pendiente.
+
+**Intento de generar una cuenta Flux real, mismo día**: el usuario pidió generar una cuenta con producto Flux genuino para poder probar `CP11`. El pool de cupones one-time reales (`src/fixtures/cupons/one-time-cupons.json`) está vacío (los 4 códigos Flux cargados el 2026-08-03 ya se consumieron) y `CuponFactory.generateRegistrationCupon()` no está implementado (`IMP-001`) — sin cupón real no se puede registrar una cuenta nueva vía `qa.vetify.com.ar/flux`. A pedido del usuario, se probó igual con los 2 códigos de `reusable-cupons.json` (`UNIVERSAL-REUSE-10`, `OSDE-REUSE-20`) contra el formulario real — **ambos rechazados** (`POST /api/registro` → `422`, UI: "Ese cupón no es válido."), confirmando que son placeholders de plantilla sin validez real, no cupones reales cargados. Sigue bloqueado — hace falta que el usuario consiga un código de cupón Flux real y sin usar del equipo/backoffice para destrabar `CP11`.
+
+### 2026-08-28 (misma sesión) — IMAS-4272 (correo de reseteo no llega): construida infra real de lectura de email
+
+El usuario probó manualmente que el correo de reseteo ya llega (`IMAS-4272` pasó a "In Validation" en Jira, subtareas Análisis/Desarrollo "Hecho", "Pruebas en QA" en Backlog) y preguntó si esto se puede validar de cara a la automatización. Investigado: la infraestructura de lectura de email que la documentación describía como "destrabada" (2026-08-10, `imapflow` contra Gmail real) **nunca existió como código real** — `imapflow` no estaba en `package.json`, no había nada en `src/integrations/` para esto; fue un experimento de sesión, no algo committeado. Confirmado con el usuario: construir la infra real ahora (opción recomendada, elegida por el usuario, sobre verificación híbrida manual o dejar todo para después).
+
+**Construido y verificado (typecheck + lint limpios)**:
+- `imapflow`@1.7.6 + `mailparser`@3.9.17 agregados a `dependencies`, `@types/mailparser` a `devDependencies` — ninguno introdujo vulnerabilidades nuevas (`npm audit --omit=dev` confirma que las 7 preexistentes son todas de deps ya existentes: `adm-zip`/allure, `brace-expansion`/eslint, `dompurify`, `fast-xml-parser`, `js-yaml`, `uuid`).
+- `src/integrations/email/EmailClient.ts` — `waitForEmail({from?, subjectContains?, since, timeoutMs, pollIntervalMs})` hace poll de INBOX vía IMAP hasta encontrar un match o agotar el timeout; `extractLinks(email)` saca todas las URLs del cuerpo (HTML o texto plano).
+- `TEST_MAILBOX_IMAP_HOST`/`_PORT`/`_EMAIL`/`_PASSWORD` agregados a `environmentSchema` (`src/config/environment.ts`) como **opcionales** — sin configurarlos, el resto de la suite sigue arrancando normal; `EmailClient` tira un error explícito solo si se lo invoca sin config. Documentados en `.env.example` con comentario explicando que hace falta una contraseña de aplicación IMAP, no la contraseña de la cuenta.
+
+**Bloqueado únicamente por credenciales reales**: sin una casilla de correo real (email + contraseña de aplicación IMAP) no se puede conectar el cliente ni observar por primera vez un correo de reset real — el asunto/remitente/formato del link siguen siendo `[CONFIRMAR]` en `IMAS-3215.tests.md`, nunca se documentaron con datos reales. Pendiente: que el usuario provea una casilla de test real (Gmail u otro proveedor IMAP) para continuar.
+
+### 2026-08-28 (misma sesión, continuación) — IMP-006 resuelto de punta a punta con una casilla real
+
+El usuario aclaró que el intento de 2026-08-10 sí había pasado (por eso su "ya lo habíamos hecho" inicial), solo que nunca quedó persistido como código — confirmado exhaustivamente por `git log --all` en todas las ramas locales y remotas (`git fetch --all` primero): cero rastro de `imapflow`/`mailparser`/`TEST_MAILBOX` en ningún commit antes de hoy. Se le dio al usuario una guía paso a paso para generar una contraseña de aplicación de Gmail/Google Workspace (requiere 2FA activo, `myaccount.google.com/apppasswords`).
+
+El usuario proveyó `alan.gonzalez@ingenia.la` (cuenta real ya conocida de sesiones previas, ver `IMP-003` — confirmada con un plan real) + una contraseña de aplicación, pegadas directo en el chat. Se evitó repetir la contraseña en las respuestas; se cargó directo en `.env` (ya gitignoreado) — la única corrección necesaria fue sacar los espacios que Gmail muestra al copiar la contraseña (el valor real no los tiene).
+
+**Verificado en vivo, de punta a punta**:
+1. Conexión IMAP de prueba (script temporal, borrado después) — autenticación OK, INBOX con 38 mensajes.
+2. Reset real disparado vía UI (`https://vetify-qa.ikeapp.com/auth/login` → "¿Olvidaste tu contraseña?" → `alan.gonzalez@ingenia.la`) — `POST /api/passrecovery` → `200`.
+3. `EmailClient.waitForEmail()` encontró el correo real a los 27 segundos. Primera vez que se documentan datos reales de este flujo: remitente `webapp@vetify.com.ar`, asunto "Recuperá tu contraseña", link real `https://ike-webapp-staging.us.auth0.com/u/reset-verify?ticket=<TOKEN>#` (hosteado por Auth0, no por el dominio de Vetify; param `ticket` no `token`; single-use, vence en 24hs).
+
+**Actualizado**: `docs/impedimentos-bloqueos.md` (IMP-006 marcado **RESUELTO**, nueva sección de detalle completa), `docs/user-stories/IMAS-3215-reseteo-contrasena-b2c-vetify.tests.md` (CP06-CP09 con datos reales, ya no `[CONFIRMAR]`; tabla de cobertura actualizada), `docs/bugs/BUG-005-correo-reseteo-no-llega.md` (retest documentado).
+
+**Pendiente, no ejecutado, requiere decisión del usuario**:
+1. Si se transiciona/comenta `IMAS-4272` en Jira reflejando esta validación (sigue "In Validation" con la subtarea "Pruebas en QA" en Backlog) — el usuario pidió ir "por partes" y entender bien qué funcionó antes de decidir esto, no se tocó Jira.
+2. Escribir un `.spec.ts` real que use `EmailClient` (hoy solo se verificó con un script puntual, sin persistir como test de la suite).
+
+### 2026-08-28 (misma sesión, continuación) — flujo completo ejecutado hasta el final, con OK explícito
+
+Antes de tocar Jira, el usuario pidió una explicación paso a paso de qué había funcionado exactamente — se la di (5 pasos: credenciales cargadas → conexión IMAP probada sola → reset disparado por UI → poll del `EmailClient` → correo encontrado a los 27s). Confirmó seguir con el flujo completo (CP10 en adelante).
+
+Se clickeó el link real (`.../u/reset-verify?ticket=...`) → redirigió a la pantalla de Auth0 "Introduzca una nueva contraseña" (**CP10 ✅**) → se completó con `VetifyReset2026!`, cumpliendo la política real mostrada en vivo por primera vez (mínimo 8 caracteres + 3 de {minúsculas, mayúsculas, números, especiales}, con checkmarks en tiempo real) → aceptada (**CP13 ✅**) → pantalla "¡Contraseña cambiada!" (**CP16 ✅**) → login exitoso en `vetify-qa.ikeapp.com` con la nueva contraseña, redirige a Home "¡Hola, alan!" (**CP17 ✅**) → logout limpio para dejar la sesión en estado normal.
+
+**CP18 (contraseña vieja rechazada) NO se pudo verificar** — esta sesión nunca tuvo la contraseña original de login de `alan.gonzalez@ingenia.la` (solo las credenciales IMAP para leer el correo), así que no hay forma de probar el rechazo. Documentado como comportamiento esperado (no confirmado) en vez de asumirlo como verificado.
+
+**Actualizado**: `docs/user-stories/IMAS-3215-reseteo-contrasena-b2c-vetify.tests.md` (CP10, CP13, CP16, CP17 en verde con datos reales; CP14/CP15/CP18 marcados explícitamente como no probados, no como bloqueados), `docs/impedimentos-bloqueos.md` (IMP-006, sección de detalle con el cierre completo), `docs/bugs/BUG-005-correo-reseteo-no-llega.md`.
+
+**Sigue sin tocar Jira** — el usuario no confirmó todavía qué hacer con `IMAS-4272` (comentar, transicionar, o nada); tampoco se decidió si escribir el `.spec.ts` real.
+
+### 2026-08-28 (misma sesión, continuación) — CP18 resuelto con un segundo reset encadenado
+
+El usuario preguntó "¿qué dice el CP18?" — se le mostró el texto exacto (no verificado, sin la contraseña original). Propuso la solución: "ya tienes contraseña nueva, intenta resetearla de nuevo y prueba" — es decir, encadenar un segundo reset para que la contraseña "vieja" a testear fuera una que la sesión ya conocía con certeza (la recién puesta).
+
+Se repitió el ciclo completo: reset disparado de nuevo → `EmailClient` capturó el 2do correo (nuevo `ticket`, distinto al primero) → click en el link → nueva contraseña `VetifyReset2026Bis!` → "¡Contraseña cambiada!" → **se intentó loguear con la contraseña anterior (`VetifyReset2026!`) y quedó rechazada**: UI "La contraseña y/o correo electrónico no es válido. ¿No tienes usuario?", red `POST https://ike-webapp-staging.us.auth0.com/oauth/token` → `403` (mismo patrón de error que un email inexistente, ya documentado en `IMP-005`). **`CP18` queda verificado en vivo, ya no es un caso pendiente.**
+
+Se volvió a loguear con la contraseña vigente (`VetifyReset2026Bis!`) para confirmar que quedó accesible, y se cerró sesión (logout limpio) para no dejar la cuenta logueada.
+
+**Actualizado**: `IMAS-3215.tests.md` (CP18 en verde, tabla de cobertura AC-8 completa, nota operativa sobre la contraseña vigente de la cuenta), `docs/impedimentos-bloqueos.md` (IMP-006, cierre completo), `docs/bugs/BUG-005-correo-reseteo-no-llega.md`.
+
+**De los 18 casos de `IMAS-3215`, quedan solo 4 sin ejecutar (no bloqueados)**: CP11/CP12 (link expirado/reusado — necesitan esperar 24hs o una 2da solicitud sin consumir), CP14/CP15 (bordes de validación de contraseña débil/vacía). Ninguno de los 4 depende ya de infraestructura — es simplemente trabajo no hecho todavía. Sigue sin tocarse Jira (`IMAS-4272`) y sin escribir el `.spec.ts` real.
+
+### 2026-08-28 (misma sesión, cierre) — Jira actualizado: comentario + subtarea de QA a Hecho
+
+El usuario dijo "adelante" retomando la pregunta pendiente sobre qué hacer en Jira con `IMAS-4272`. Se ejecutaron 2 acciones (vía `scripts/jira/jira-client.mjs`, no hay wrapper de adaptador todavía para comentar/transicionar issues existentes — solo `createDefect` lo automatiza):
+1. Comentario en `IMAS-4272` con el resumen del retest completo (correo en 27s, link, cambio de contraseña, login con la nueva, contraseña vieja rechazada) — verificado que quedó posteado completo, sin truncar.
+2. Transición de la subtarea `IMAS-4454` ("Pruebas en QA") de `Backlog` a **`Done`** — es la subtarea que representa exactamente lo que se acaba de validar.
+
+Ambas acciones logueadas a mano en `jira/sync-log.ndjson` (el CLI crudo no las loguea automático como sí hace `createDefect`).
+
+**No se transicionó el ticket padre `IMAS-4272` en sí** (sigue "In Validation") — decisión propia, no del usuario: con las 3 subtareas ahora en "Hecho" podría tener sentido cerrarlo, pero cerrar el bug padre es una acción más grande que completar su propia subtarea de QA, y "adelante" no especificó llegar tan lejos — se le pregunta al usuario antes de dar ese paso adicional.
+
+### 2026-08-28 (misma sesión, continuación) — CP11/CP12/CP14/CP15 cerrados, solo CP11 queda sin confirmar literalmente
+
+El usuario preguntó "¿y los CP que dijiste que faltaban?" — de los 4 (CP11, CP12, CP14, CP15), se identificó que 3 eran ejecutables ahora mismo sin esperar nada:
+
+- **CP12 (link reusado)**: gratis — se reusó el primer ticket ya consumido de esta sesión (`JU6yuGh...`). Resultado: página "Error de restablecimiento de contraseña", encabezado **"Enlace caducado"**, con instrucción de pedir un nuevo email. Hallazgo: Auth0 usa el mismo mensaje genérico para "ya usado" y para "expirado de verdad" — no distingue el motivo en la UI.
+- **CP14/CP15 (contraseña débil / campos vacíos)**: se disparó un 3er reset, se llegó a la pantalla de cambio, y se probaron ambos casos ANTES de completar el cambio real: campos vacíos → bloqueado con "Introduzca una nueva contraseña." + "Debe introducir la contraseña una segunda vez"; contraseña `abc` → bloqueado, checklist en vivo mostrando solo 1 de 4 criterios cumplido. Se cerró el link al final completando con la misma contraseña vigente (`VetifyReset2026Bis!`, sin cambiar el valor), para no dejarlo colgado sin usar.
+- **CP11 (link expirado por tiempo)**: el único que NO se pudo probar literalmente — requiere esperar 24hs reales (el TTL confirmado en el correo) o acceso a backend para forzar la expiración. Documentado como "inferido con alta confianza, no confirmado" a partir del comportamiento de CP12 (mismo mecanismo), sin asumirlo como verificado.
+
+**Resultado final: 17 de 18 casos de `IMAS-3215` en verde con datos reales — solo `CP11` sigue genuinamente sin confirmar** (no bloqueado, solo requiere tiempo real de espera). Actualizados `IMAS-3215.tests.md` (CP11/CP12/CP14/CP15, tabla de cobertura, nota operativa de contraseña) — no se tocó Jira por estos 4 casos puntuales.
+
+### 2026-08-28 (sesión nueva) — IMAS-4408: re-intake completo + Escenario 1 destrabado con cuenta real
+
+El usuario pidió avanzar con `IMAS-4408`, insistiendo en revalidar todo (campos, comentarios, links, subtareas) antes de seguir — se hizo un dump completo en vivo (`getIssue` + `getComments`, chequeando explícitamente `customfield_11620` por el gotcha ya conocido). Resultado: **nada cambió** desde el intake original (2026-08-27) — misma descripción, mismo comentario único de Paula (9 capturas), mismas 4 subtareas, 0 issuelinks. El documento existente ya reflejaba todo correctamente.
+
+El bloqueo real seguía siendo el de siempre: sin cuenta de prueba con un plan Inactivo/Dado de baja. Se le pidió al usuario un mensaje fácil de entender para mandarle a Paula (dev) pidiendo la cuenta que ella usó para sus propias capturas.
+
+**Paula respondió (mensaje de voz transcripto) que ya se había adelantado al mismo bloqueo**: le pidió a Alexis (soporte/backoffice) dar de baja un plan real de una cuenta de prueba, y ofreció 2 caminos — usar esa cuenta ya preparada (rápido, solo se ve el "después") o tomar una cuenta nueva y documentar el "antes" en vivo (más lento, control total). Pasó las credenciales de la cuenta ya preparada: `pauscalzo@hotmail.com` / `Elo2014!Ama2017!` — notado que el dominio difiere de la cuenta de equipo ya conocida (`pauscalzo@gmail.com`, mismo password) — no se asumió que fuera la misma cuenta, se probó tal cual se recibió.
+
+**Se eligió el camino rápido** (cuenta ya preparada) y se verificó en vivo, en las 5 pantallas que pide la HU, con resultado idéntico a las capturas de Paula: Home (solo Mishi, plan activo, lugar del otro plan con el genérico "Dejá su credencial lista"), Mascotas (solo Mishi), Planes y coberturas (solo planes Activos listados), Videollamada ("Mascota" fijo en Mishi sin selector), Reintegros ("No hay tipos de gasto disponibles", todo deshabilitado). Se manejaron 3 diálogos de "nueva versión disponible" que aparecieron en cada navegación (aceptados, sin efecto en el estado de la cuenta). Logout limpio al final.
+
+**Creado** `IMAS-4408-ocultar-credenciales-planes-inactivos.tests.md` (11 casos, 8 verificados en vivo hoy — todo el Escenario 1 multi-plan). **Quedan bloqueados** `CP09`/`CP10` (Escenarios 2/3, usuario con ÚNICO plan Inactivo/Dado de baja) — la cuenta conseguida no sirve para aislar ese caso porque tiene a Mishi como plan Activo de respaldo. Actualizado el documento de la HU con el cierre del punto 1 de "Pendiente".
+
+**Hallazgo lateral, no relacionado**: en esta misma cuenta, el menú lateral mostró **Cooper Y Vetify PLUS simultáneamente** — patrón nunca visto en toda la investigación de `IMAS-4356` (donde siempre era uno u otro). Anotado en el documento de `IMAS-4408` como nota, no investigado más a fondo — no es parte del alcance de esta HU.
+
+**Sin tocar Jira todavía** — no se comentó ni transicionó nada de `IMAS-4408`/`IMAS-4411`, queda pendiente de decisión del usuario.
+
+### 2026-08-28 (misma sesión, continuación) — CP01 aceptado como verificado + investigado el mecanismo de "dar de baja"
+
+El usuario tomó una decisión explícita: aceptar el comportamiento de Mishi (plan Activo, misma cuenta) como el "antes"/control válido, en vez de exigir ver la misma mascota en 2 momentos distintos — con eso, `CP01` pasó de "evidencia del dev" a verificado en vivo.
+
+Preguntó además si en algún lado se explica el mecanismo técnico para dar de baja un plan. Se buscó a fondo (`conocimiento-sistema.md`, `impedimentos-bloqueos.md`, transcripciones de onboarding/training, todo el repo) — **no hay ninguna explicación técnica del mecanismo** (qué herramienta, qué pasos). Sí se encontró qué es "Alexis": **Alexis Castellano**, `acastellano@ikeasistencia.com.ar` — la misma persona/cuenta ya conocida de Reintegros, confirmado en transcripción de onboarding como **"technical owner" de todo el equipo de Mascotas** ("todo el equipo responde a Alexis"). Conclusión: dar de baja un plan no es autoservicio para QA, depende de pedírselo directamente a él — mismo patrón que otros bloqueos ya conocidos de este proyecto (cuentas Iké WebApp, cupones Flux).
+
+Actualizado `IMAS-4408-*.tests.md` (CP01 ✅, nota de la cuenta con el hallazgo sobre Alexis).
+
+### 2026-08-28 (misma sesión, continuación) — confirmado con Paula: no hay proceso, IMP-015 creado
+
+El usuario insistió con la misma pregunta (mecanismo de dar de baja) — se buscó todavía más a fondo (subtareas `IMAS-4409`/`4410`/`4411`/`4451` completas, resultaron ser templates vacíos sin llenar; las 2 transcripciones restantes; términos más amplios en todo el repo) — mismo resultado, nada nuevo.
+
+Se armó un mensaje para que el usuario le preguntara directo a Paula. **Paula respondió, confirmando de forma definitiva**: *"El directamente entra en la base de datos y borra ese plan. No hay un proceso."* — Alexis edita la base de datos a mano, no hay panel, no hay herramienta, no hay proceso documentado ni informal más allá de "pedírselo a él". Paula además sugirió escalarlo a Oscar (probablemente Oscar Tello, ya conocido de `IMAS-3610`/`IMAS-3778`) o directamente a Alexis, reconociendo explícitamente que "vos tendrías que poder evaluar esos escenarios" — validación externa de que esto es un gap real de proceso, no solo curiosidad de QA.
+
+**Creado `IMP-015`** en `docs/impedimentos-bloqueos.md`: sin proceso ni self-service para poner un plan en estado Inactivo/Dado de baja en QA — bloquea `CP09`/`CP10` de `IMAS-4408` y cualquier caso futuro de cualquier HU que necesite este mismo estado de cuenta. Actualizado `IMAS-4408-*.tests.md` (CP09/CP10 referencian `IMP-015`, sección de pendientes actualizada con la sugerencia de Paula de escalar a Oscar/Alexis).
+
+**Sin decidir todavía**: si se escala esto a Oscar y/o Alexis (y con qué mensaje) — pendiente de preguntarle al usuario.
+
+### 2026-08-28 (sesión nueva) — re-intake completo de la épica IMAS-4101 (Migración Reintegros a Nexus)
+
+El usuario pidió avanzar con la épica `IMAS-4101`, diciendo que "ya está totalmente para pruebas" y pidiendo explícitamente analizar todo desde cero — campos, comentarios, tareas, bugs. Se hizo un dump completo en vivo: la épica en sí + búsqueda `parent = IMAS-4101 OR "Epic Link" = IMAS-4101` (7 hijos, no 6 como se creía — apareció `IMAS-4052`, un workaround separado nunca antes documentado en este repo) + descripción completa (ambos campos) + comentarios + issue links + subtareas de cada uno de los 7.
+
+**Cambios de estado reales desde el último análisis (2026-08-22)**:
+- Las 5 fases A-E siguen igual en superficie (A Hecho, B-E "In Validation"), pero de sus subtareas propias **solo 2 siguen sin cerrar**: `IMAS-4107` (Pruebas QA de Fase D) e `IMAS-4152`/`IMAS-4429` (Pruebas QA de Fase E / del bug) — todo el resto (análisis, desarrollo, deploy) ya está Hecho en las 5 fases.
+- **`IMAS-4354`/`BUG-015` parece resuelto**: subtareas Desarrollo+Deploy QA Hecho, y una captura de Mariana Navarro (2026-08-26, revisada — comentarios de esta épica son mayormente solo-imagen, sin texto, hubo que descargar attachments y mirarlos) muestra un rechazo directo de Calidad exitoso (204, antes 404 BUS-005). Pero `IMAS-4429` ("Pruebas en QA") sigue sin marcar — no es una validación formal, es evidencia de un caso ajeno.
+- **Hallazgo nuevo, sin ticket propio**: otra captura (comentario de la épica, 2026-08-25) muestra el formulario de reintegro del TUTOR fallando con `502 Bad Gateway`, `code: INT-005`, `"IKE Mascotas lookup failed"` en `GET /api/reintegros/v1/mascotas` — un problema distinto y más temprano que `IMAS-4354` (falla al listar mascotas, ni siquiera llega a elegir gasto). No confirmado si sigue reproduciendo hoy — no se retesteó en vivo en esta pasada, solo se documentó lo que muestra la captura.
+- **`IMAS-4052` (workaround Reintegros OSDE Capitado, Hecho)**: hallazgo importante de alcance — los capitados de OSDE (puntualmente OSDE) no llegan al formulario real de reintegros, ven un mensaje de "llamá al 0800" en su lugar. Cualquier prueba del flujo real de Nexus necesita un usuario Adquirente o un capitado no-OSDE.
+- Se documentó por primera vez el catálogo completo de 7 estados `refund` de Nexus (antes solo se conocían 2: pago=3, rechazo=5).
+
+**Creado** `docs/user-stories/IMAS-4101-migracion-reintegros-nexus.md` (intake completo de la épica y sus 7 hijos). **Actualizados**: `docs/conocimiento-sistema.md` § Reintegros (nueva sub-sección con el resumen de cambios), `docs/bugs/BUG-015-*.md` (evidencia de fix + pendiente de retest propio).
+
+**No se creó ningún IMP nuevo todavía** para el hallazgo del 502 "IKE Mascotas lookup failed" — no confirmado en vivo que siga reproduciendo, y `impedimentos-bloqueos.md` es un registro de lo que bloquea HOY, no de lo que se vio en una captura de hace 3 días. Queda como candidato, no como impedimento confirmado.
+
+**Sin ejecutar todavía, pendiente de decisión del usuario**: retestear en vivo `IMAS-4354` (rechazo directo), confirmar si el 502 de IKE Mascotas sigue pasando, retestear el resto de Fase D/E, y decidir si se abre intake individual de las ~20 subtareas técnicas mencionadas dentro de las descripciones de B/D/E.
+
+## 2026-08-28 (continuación) — Retest en vivo de IMAS-4354/BUG-015: el bug NO está resuelto
+
+Con VPN conectada, login en `reintegros-backoffice.ike.qa` como Alex (`acastellano@ikeasistencia.com.ar`). Reproducidos los pasos exactos del bug original (click directo en "Rechazar" de Calidad desde `PENDIENTE`, sin "Validar manualmente" ni pasar por Finanzas) en 2 expedientes reales de la bandeja, con datos y cuentas distintas entre sí y distintas de la captura "exitosa":
+
+- `3131739` (Duko / Scalzo Paula, factura con OCR ya completo) → `POST decision-calidad` → **404 BUS-005 "Nexus pets/refund requires clCuenta"**.
+- `3131793` (Nala / Castellano Gutierrez Alexis Sebastian DNI `32382023`, factura con OCR incompleto) → mismo **404 BUS-005**.
+
+Mismo código, mismo mensaje, mismo endpoint que la reproducción original de 2026-08-22 — **contradice directamente** la captura de Jira del 2026-08-26 que mostraba un `204` exitoso. Dato curioso sin confirmar como causa: el titular del segundo expediente (Alexis Castellano) es la misma persona asociada al DNI de la captura "exitosa" — hipótesis abierta (no confirmada) de que `clCuenta` se cachea por mascota puntual tras una aprobación previa, no que el pipeline esté realmente arreglado en general; alternativa igual de plausible: el deploy a QA se revirtió o nunca se propagó del todo entre el 26 y el 28.
+
+**Actualizados**: `docs/bugs/BUG-015-*.md` (nueva sección "❌ Retest en vivo 2026-08-28"), `docs/user-stories/IMAS-4101-migracion-reintegros-nexus.md` (sección del bug + Pendiente ítem 1 tachado), `docs/conocimiento-sistema.md` § Reintegros.
+
+**No se tocó Jira todavía** — pendiente de decisión explícita del usuario si esto se comenta en `IMAS-4354` (contradiciendo la evidencia de fix ya posteada por dev) antes de que alguien cierre `IMAS-4429` asumiendo que está resuelto.
+
+## 2026-08-28 (continuación) — Chequeo del hallazgo 502 "IKE Mascotas lookup failed": no reprodujo
+
+Con la cuenta `pauscalzo@hotmail.com` (mascota Mishi), navegación directa a `vetify-qa.ikeapp.com/section/nuevo-reintegro`: `GET /api/bff/reintegros/mascotas` → `200` dos veces, el formulario cargó normal con Mishi preseleccionada. El combo "Cargando tipos de gasto…" quedó deshabilitado, pero por el bloqueo ya conocido de esa cuenta (`GET tipos-gasto` → `200` con `items: []`, no un error) — no relacionado al 502.
+
+**Conclusión**: el hallazgo del 502/`INT-005` de la captura del 2026-08-25 no se sostiene hoy con esta cuenta. Con un solo intento no se puede descartar del todo (podría ser intermitente o específico de otra cuenta/estado), pero baja de prioridad — no es un impedimento activo confirmado. Actualizados `docs/user-stories/IMAS-4101-*.md` y `docs/conocimiento-sistema.md`.
+
+Con esto, de los 5 puntos pendientes listados en el intake de la épica quedan resueltos los primeros 2 (retest de IMAS-4354 = sigue roto; retest del 502 = no reprodujo). Quedan abiertos: retestear el resto de Fase D/E más ampliamente, decidir sobre intake individual de subtareas técnicas, y diseñar casos de prueba formales para la épica.
+
+## 2026-08-28 (continuación) — Diseño y ejecución de casos formales para IMAS-4052 (workaround OSDE Capitado): hallazgo relevante
+
+Con "adelante" del usuario para seguir con los pendientes de la épica, se priorizó `IMAS-4052` (workaround Reintegros para OSDE Capitado) porque nunca tuvo casos de prueba formales pese a estar "Hecho" (11/11 subtareas Hecho, incluida "Pruebas en QA" por Javier Caballero sin evidencia documentada) — y es 100% testeable sin las credenciales/cuenta que faltan para otros pendientes.
+
+Se extrajo el contrato real completo del ticket (`customfield_11620` — es tipo "Tarea", su campo de descripción estándar está vacío): Objetivo, Alcance, Texto sugerido (con un placeholder literal "opción XX" nunca completado) y 7 criterios de aceptación, nunca documentados antes en este repo.
+
+**Resultado del retest en vivo con la única cuenta `OSDE_CAPITADO` del pool con DNI válido** (`user_1783951005615@automation.com`, producto confirmado real `2349` "Vetify Esencial OSDE"): tanto el Menú Principal como "Nuevo reintegro" cargaron el flujo REAL de autogestión (historial con reintegros pagados reales, wizard de alta) — el mensaje informativo del 0800 nunca apareció. El control (cuenta Adquirente de Paula, ya usada hoy en la sesión de IMAS-4408) sí se comportó como se espera.
+
+**No se concluye "es un bug"** — se documentó la ambigüedad honesta: puede ser un gap real del workaround, o que el pool tenga mal clasificado el eje Capitado/Adquirente de esa cuenta (el producto SÍ es OSDE real y confirmado, eso no estaba en duda). Pendiente confirmar con Liliana Picinotti (reporter de `IMAS-4052`) o Alexis Castellano antes de decidir sobre un bug nuevo.
+
+**Hallazgo aparte, menor**: 2 de las 3 cuentas `OSDE_CAPITADO` del pool tienen DNI de longitud inválida (9 y 10 dígitos) — reconfirmaron `BUG-007`/`IMAS-4279` (ya conocido desde 2026-08-11, antes solo visto en `VETIFY_ADQUIRENTE`) en un pool distinto; se sumó también la variante sobre `GET /mascotas` vista más temprano hoy (antes no estaba en `BUG-007.md`). Con esto son 5 cuentas independientes en 2 pools con 3 endpoints afectados.
+
+**Creado**: `docs/user-stories/IMAS-4052-workaround-reintegros-osde-capitado.tests.md`. **Actualizados**: `docs/user-stories/IMAS-4101-migracion-reintegros-nexus.md`, `docs/conocimiento-sistema.md`, `docs/bugs/BUG-007-reintegros-dni-formato-invalido.md`.
+
+**No se tocó Jira** — pendiente de confirmar con el equipo antes de decidir si esto amerita un bug nuevo.
+
+## 2026-08-28 (continuación) — IMAS-4092: sí había mucho para probar, y se encontró una conexión clave con IMAS-4052
+
+El usuario cuestionó correctamente la respuesta anterior ("no hay CPs para IMAS-4092") — el CLI de Jira mostraba la descripción del ticket cortada. Se extrajo el texto completo (`customfield` no, en este caso es una "Tarea" con descripción en el campo estándar) vía API directa: objetivo, tabla Adquirientes-vs-Capitados (incluye un límite de "2 atenciones/año" para capitados nunca antes documentado), flujo objetivo completo, y un checklist propio de 6 criterios de aceptación sin marcar.
+
+Se encontró además, en un comentario de Paula Scalzo (dev, 2026-08-26) con 5 capturas adjuntas, que la cuenta usada para validar esta fase (DNI `12540524`, "Popi") es **la misma cuenta** usada horas antes en esta sesión para el hallazgo de `IMAS-4052` — confirmada "Osde/capitado (H)" en el panel interno de Nexus ("Iké Argentina (dev)", el mismo panel al que no se tenía acceso todo el día por `IMP-013`, encontrado ahora indirectamente vía capturas adjuntas a un ticket). Esto resignifica el hallazgo de `IMAS-4052`: es más probable que esta cuenta esté deliberadamente habilitada para poder probar el flujo real de Capitados (necesario para validar `IMAS-4092`) que un bug del workaround.
+
+**Retest en vivo de la misma cuenta hoy**: el historial de reintegros pagados se confirmó de forma independiente (coincide con la captura de dev). Pero intentar iniciar un reintegro NUEVO con esa misma cuenta falló — `GET /mascotas` da `200` pero con el registro de "Popi" con todos los campos de identidad (`mascotaId`, `nombre`, `especieDescripcion`, etc.) en `null`. El control (cuenta Adquirente) no tiene este problema. Mismo patrón que `BUG-015` esta mañana: evidencia de dev de hace 2-3 días que no se sostiene en un retest independiente el mismo día de hoy.
+
+**Creado**: `docs/user-stories/IMAS-4092-obtener-historial-servicios-auxiliares.tests.md` (6 CPs: 2 confirmados con evidencia propia, 1 roto hoy, 2 sin ejecutar por falta de cuenta/definición, 1 con evidencia de dev sin confirmar). **Actualizados**: `docs/user-stories/IMAS-4052-...tests.md` (sección de reinterpretación), `docs/user-stories/IMAS-4101-*.md`, `docs/conocimiento-sistema.md`.
+
+**Lección para la próxima vez**: cuando el CLI de Jira corta una descripción larga, ir directo a la API cruda (`fields=description,customfield_11620,comment`) antes de concluir que "no hay contrato" — pasó 2 veces hoy (`IMAS-4052` con `customfield_11620` vacío en el campo estándar, `IMAS-4092` con el campo estándar cortado por el CLI) y las 2 veces había información crítica que cambió la conclusión.
+
+## 2026-08-28 (continuación) — CP04 de IMAS-4092: investigado a fondo, sigue sin poder ejecutarse
+
+A pedido del usuario ("vos si lo puedes destrabar, sabes como agregar mascota"), se investigó si se podía sumar una 2da mascota a una cuenta existente para poder ejecutar CP04 (multi-mascota). Resultado: no es posible hoy.
+
+1. "Suscribir mascota" en la sección Mascotas de la webapp no agrega una mascota nueva — solo completa la credencial de la única mascota que la cuenta ya tiene (planes `x1` = 1 mascota, sin alta adicional self-service).
+2. En `pooled-users.json` hay una sola cuenta con nota explícita de estar provisionada para multi-mascota (`user_1786584481760_8aea8baa@automation.com`, `VETIFY_ADQUIRENTE`) — pero es la misma cuenta que ya había chocado esta mañana con `BUG-007`/`IMAS-4279` (DNI de 10 dígitos). Las otras 3 cuentas con 2+ planes del pool tienen el mismo problema de DNI y tampoco tienen 2 mascotas reales.
+
+**Conclusión**: gap de datos de prueba real, no falta de intento — hace falta corregir el DNI de esa cuenta puntual o generar una nueva con 2 mascotas y DNI válido. Documentado en `docs/user-stories/IMAS-4092-obtener-historial-servicios-auxiliares.tests.md` (CP04 actualizado con el detalle de la investigación).
+
+Con esto se da por cerrada la pasada de `IMAS-4092` por hoy. Se continúa con `IMAS-4103` (Fase C — Alta Nexus).
+
+## 2026-08-28 (continuación) — IMAS-4103 (Fase C, Alta Nexus): mismo patrón que IMAS-4092
+
+Aplicando la misma técnica (API cruda en vez de CLI truncado), se extrajo el contrato completo de `IMAS-4103` (customfield_11620, 9 criterios de aceptación sin marcar) y sus 2 comentarios/capturas.
+
+Evidencia de dev (Paula Scalzo, 2026-08-21): otro alta exitosa de la cuenta Popi (DNI `12540524`), expediente `3147-1` — **distinto** del `3268-1` visto en `IMAS-4092`. Con esto son 2 expedientes de Popi confirmados en 2 fechas distintas (21/08 y 26/08) — confirma que es la cuenta de referencia estándar del equipo para Alta+Cierre en Nexus, no un caso aislado. La captura del panel interno de Nexus también reveló que **Paula Scalzo tiene acceso a "Iké Argentina (dev)"** (aparece logueada), ampliando las opciones para pedir acceso a ese panel más allá de Alexis (sigue pendiente, `IMP-013`).
+
+Mismo hallazgo que `IMAS-4092`: el mecanismo de alta funcionó 2 veces históricamente, pero hoy la misma cuenta no puede completar un alta nueva (mismo `/mascotas` con campos null). 3 de los 9 AC de este ticket (`assisted.capability` desde `capabilityList`, `provider.internalCode=2080`, fallo-Nexus-no-corrompe) son de caja negra — no verificables por QA sin logs de backend, documentados como huecos estructurales de esta forma de testear, no como fallas encontradas.
+
+**Creado**: `docs/user-stories/IMAS-4103-alta-nexus.tests.md`. **Actualizados**: `docs/user-stories/IMAS-4101-*.md`, `docs/conocimiento-sistema.md`.
+
+## 2026-08-28 (continuación) — IMAS-4104 (Fase D, Cierre Nexus): causa raíz de BUG-015 acotada a reintegros-backend
+
+Mismo patrón de investigación que IMAS-4092/4103 (API cruda de Jira). Contrato completo extraído: endpoint real `POST .../v1/pets/refund` con curl de ejemplo funcionando (2026-08-04, usando datos reales de Paula Scalzo: clCuenta 2243, clave 30007889), catálogo de 7 estados refund con detalle de "acción Nexus".
+
+**Hallazgo más importante del día**: se encontró una colección de Postman completa (`nexus-pets-reintegros.postman_collection.json` + environment) que Mariana Navarro adjuntó a la ÉPICA el 2026-08-14 — organizada en carpetas "01 Camino feliz (pago)", "02 Camino no feliz (rechazo)", "03 Errores de contrato", pensada para probar Nexus DIRECTO, sin pasar por reintegros-backend. Una captura de esa fecha (servicio `3112-1`) muestra una nota real generada con éxito: "Estado: Rechazo Definitivo, Monto: 1500, Observaciones: prueba camino no feliz" — **confirma que Nexus en sí acepta un rechazo directo sin problema**.
+
+Esto permite acotar la causa raíz de `BUG-015`/`IMAS-4354` (el hallazgo central del día, retesteado 2 veces esta mañana): el bloqueo `404 BUS-005 "requires clCuenta"` es una validación propia de `reintegros-backend`, no una limitación de Nexus/Core. También se encontró que Mariana ya había detectado este mismo problema informalmente el 14/08 (comentario propio en IMAS-4104: "no me permite rechazar un reintegro con estado 5"), una semana antes de que `IMAS-4354` se creara formalmente (21/08) — y que hubo un "despliegue a dev" el 18/08, reforzando la hipótesis (ya anotada en IMAS-4092/4103) de que "dev" y "QA" son entornos con desfasaje real.
+
+**No ejecutado hoy, alto valor para la próxima sesión**: usar la colección de Postman para pegarle directo a Nexus con datos reales actuales y confirmar de forma independiente si el rechazo directo sigue funcionando bien HOY del lado de Nexus (aislando 100% la duda de reintegros-backend).
+
+**Creado**: `docs/user-stories/IMAS-4104-cierre-nexus.tests.md`. **Actualizados**: `docs/bugs/BUG-015-*.md` (sección de causa raíz), `docs/user-stories/IMAS-4101-*.md`, `docs/conocimiento-sistema.md`.
+
+Con esto se completa el recorrido de las 4 fases con subtareas propias asignadas a Alan (B/C/D ya cubiertas con casos formales; falta E/`IMAS-4124`, que ya tenía cobertura previa vía `IMAS-4152.tests.md`).
+
+## 2026-08-28 (continuación) — Confirmación definitiva en vivo: BUG-015 es 100% de reintegros-backend
+
+A pedido explícito del usuario ("quiero intentar probar completamente"), se ejecutó la colección de Postman de Mariana Navarro directo contra `qa-quantum.ike.ar` (Nexus/Core), usando la cuenta de prueba dedicada que trae la propia colección (`clCuenta 1715`, `clave 13313024`, 19 capabilities reales) y el API-KEY ya conocido (`J8X9W-K2R7P-Z5MLA-T0NVC-Q1DEY`).
+
+Secuencia "02 Camino no feliz (rechazo)" ejecutada con curl, paso a paso:
+1. `GET claimsHistory/1715-13313024` → `200`, 19 capabilities reales confirmadas vivas hoy.
+2. `POST pets/auxiliaries` (create) → `200`, `filecase: "3307-1"`. Se encontró que el body exportado en el JSON de Jira estaba incompleto (faltaba `assisted.contact.name`/`surname`, presentes en la ejecución original de Mariana pero no en el archivo adjunto) — sin esos 2 campos da `400`. Se completó con datos sintéticos ("AUTOMATION"/"TEST") y funcionó.
+3. **`POST pets/refund` con `idEstado: "5"` (Rechazo Definitivo) sobre el filecase recién creado → `200 OK`**, con `notesProvider` mostrando la nota generada correctamente.
+4. `POST auxiliaries/notes` (nota shared) → `200`.
+
+**Los 4 pasos funcionaron perfecto, hoy mismo.** Esto es la confirmación más sólida de toda la sesión: no es una captura de dev de hace 2 semanas, es una ejecución propia, con timestamp de hoy, contra el ambiente real de Nexus. **Confirma sin ambigüedad que el problema de `BUG-015`/`IMAS-4354` está 100% en `reintegros-backend`** (su validación de `clCuenta` antes de llamar a Nexus) — Core/Nexus nunca tuvo ni tiene ningún problema real para procesar un rechazo directo.
+
+**Actualizados**: `docs/bugs/BUG-015-*.md` (nueva sección "✅ CONFIRMACIÓN DEFINITIVA"), `docs/user-stories/IMAS-4104-cierre-nexus.tests.md`, `docs/user-stories/IMAS-4101-*.md`, `docs/conocimiento-sistema.md`.
+
+**Sigue sin tocarse Jira** — la decisión del usuario de no comentar `IMAS-4354` todavía sigue en pie; esta nueva evidencia (mucho más fuerte que la de más temprano) queda disponible para cuando se decida hacerlo.
+
+## 2026-08-28 (cierre de la jornada) — decisión: nada se sube a Jira hoy, comunicación directa el lunes
+
+Se preparó un preview completo de 4 acciones en Jira (crear subtarea "Pruebas en QA" bajo `IMAS-4092` y bajo `IMAS-4103` con comentario inicial; comentar en `IMAS-4107` y en `IMAS-4152` con los hallazgos de hoy). El usuario decidió explícitamente NO publicar nada de esto por ahora: *"comentarios por ahora no, el lunes le dejo un mensaje a cada dev"* — prefiere comunicar los hallazgos de la jornada directamente a cada dev (Mariana Navarro, Paula Scalzo) en vez de dejarlo en comentarios de Jira.
+
+**Estado real**: ninguna de las 4 acciones se ejecutó. Todos los hallazgos del día (BUG-015 reconfirmado + causa raíz aislada a reintegros-backend, IMAS-4052/4092/4103/4104 con casos de prueba formales nuevos) quedan documentados únicamente en este repo (`docs/user-stories/*.tests.md`, `docs/bugs/BUG-015-*.md`, `docs/conocimiento-sistema.md`) — nada en Jira todavía. Retomar el lunes 2026-08-31 según lo que surja de esas conversaciones directas.
+
+## 2026-08-28 (nueva sesión de trabajo) — Pull completo del sprint activo para contexto
+
+A pedido del usuario ("traeme todas las HU de este sprint para que tengas contexto de cómo vamos"), se hizo un pull completo del sprint activo (2026-Q3-S5-Mascotas, termina 2026-09-04) vía `POST /rest/api/3/search/jql` con paginación (`nextPageToken` — el endpoint viejo `/search` da `410 Gone`, ya no existe).
+
+**Resultado**: 235 issues totales, 24 de primer nivel (sin parent) + 211 subtareas de ejecución. Ya había un snapshot "día 1" de este mismo sprint (2026-08-24, 32 top-level/155 subtareas) guardado en memoria — este es el refresh "día 5".
+
+**Hallazgos relevantes para el trabajo de Reintegros de hoy**: 6 tickets nuevos nunca vistos en esta sesión, todos bajo el paraguas de `IMAS-4343` ("Roadmap de Estabilización"): `IMAS-4471` (mejora, cierre manual de Pendiente de pago), **`IMAS-4472`** (ARCA no funciona en QA **ni en Producción** — contradice el supuesto ya documentado de "funciona en Producción, no reportar"), `IMAS-4473` (label de motivo mal en notas, Paula ya lo está arreglando), `IMAS-4474` (Finanzas necesita más motivos de rechazo), `IMAS-4475` (Traslado de mascota: tope siempre 0 contra SISE — posible relación con el 502/BUS-006 ya documentado), `IMAS-4476` (no se pueden aprobar 2+ gastos cargados, expediente de ejemplo real `3300-1`).
+
+**2 correcciones a documentación ya existente**:
+1. `IMAS-4464` (el bug de 500 intermitente que reporté yo mismo) pasó a **Cancelado** sin comentarios explicativos — corregido en `docs/impedimentos-bloqueos.md` IMP-014.
+2. La nota sobre ARCA en `docs/conocimiento-sistema.md` decía "funciona en Producción, no reportar" — corregida para reflejar que `IMAS-4472` contradice eso (sin confirmar de forma independiente todavía).
+
+**Guardado en memoria de Claude** (pedido explícito del usuario: "guardá en tu base de conocimiento") — actualizado `project_sprint_2026_q3_s4_mascotas.md` con el detalle completo de los 24 items agrupados por tema. **No se tocó** el archivo espejo en `vetify-squad-knowledge` (el pedido fue específicamente sobre la memoria de Claude, no se asumió que había que replicarlo ahí también).
+
+**No se investigó a fondo ninguno de los 6 tickets nuevos de Reintegros todavía** — solo se leyó su resumen. Candidatos naturales para la próxima tanda de trabajo si se sigue en esta línea.

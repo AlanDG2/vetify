@@ -134,6 +134,93 @@ describe('TS-08 Cargar credencial - Camino feliz hasta el paso de foto (sube la 
     });
 });
 
+// Portado de tests/projects/vetify-webapp/credentials.spec.ts TS-02 CP-22 "Paso 5 - Subir foto -
+// Imágen demasiado grande". Confirmado en vivo 2026-08-29 que el <input> real tiene
+// accept="image/png,image/jpeg,image/jpg" — el picker nativo de Android SÍ filtra por tipo (por
+// eso CP-21, formato no permitido, sigue sin ser automatizable en mobile: un usuario real no
+// puede elegir un .txt desde ese picker), pero NO filtra por tamaño de archivo — una imagen
+// verdadera pero pesada igual aparece en la galería y es seleccionable, así que este caso sí es
+// automatizable con el mismo selectFileViaNativePicker() ya usado en TS-08.
+describe('TS-02 Cargar credencial - Paso 5, imagen demasiado grande', () => {
+    let reservedUser: TestUser | undefined;
+
+    before(() => {
+        const localPath = path.resolve(process.cwd(), 'src/fixtures/images/oversize_img_10MB.jpg');
+        const devicePath = '/sdcard/Pictures/qa-pet-photo-oversize.jpg';
+        execFileSync('adb', ['push', localPath, devicePath]);
+        execFileSync('adb', [
+            'shell',
+            'am',
+            'broadcast',
+            '-a',
+            'android.intent.action.MEDIA_SCANNER_SCAN_FILE',
+            '-d',
+            `file://${devicePath}`,
+        ]);
+    });
+
+    afterEach(() => {
+        if (reservedUser) {
+            UserProvider.releaseUser(reservedUser);
+            reservedUser = undefined;
+        }
+    });
+
+    it('TC-22 - [Negativo] Vetify Mobile App - imagen de más de 5Mb muestra error de tamaño', async function () {
+        const loginPage = new VetifyMobileLoginPage();
+        const homePage = new VetifyMobileHomePage();
+        const myPetsPage = new VetifyMobileMyPetsPage();
+        const addPetFormPage = new VetifyMobileAddPetFormPage();
+
+        reservedUser = await loginPage.loginWithUserRequest({
+            source: UserSource.Pooled,
+            siteId: SiteId.VETIFY_ADQUIRENTE,
+            tags: [UserTag.ACTIVE, UserTag.PLAN_WITHOUT_PET],
+            numberOfPlans: 1,
+            reserve: false,
+            ignoreReserved: true,
+        });
+
+        if (!reservedUser) {
+            this.skip();
+        }
+
+        await homePage.waitForLoaded();
+
+        const petName = `Test${Date.now()}`;
+
+        await myPetsPage.load();
+        await myPetsPage.addPetToPlanBtn.waitForDisplayed({ timeout: 20_000 });
+        await (await myPetsPage.addPetToPlanBtn).click();
+
+        await addPetFormPage.startWarningModalTitle.waitForDisplayed({ timeout: 20_000 });
+        await addPetFormPage.dismissStartWarningModal();
+
+        // Pasos 1-4: llegar a la pantalla de foto (mismo camino que TS-08 TC-01).
+        await addPetFormPage.fillPetName(petName);
+        await addPetFormPage.clickContinue();
+        await addPetFormPage.selectPetGender('Macho');
+        await addPetFormPage.selectPetType('Perro');
+        await addPetFormPage.clickContinue();
+        await addPetFormPage.selectFirstPetBreed();
+        await addPetFormPage.clickContinue();
+        await addPetFormPage.selectPetAgeByIndex(2, 3);
+        await addPetFormPage.clickContinue();
+
+        expect(await addPetFormPage.getCurrentStepTitle()).toBe(`Por último, subí una foto de ${petName}`);
+
+        // Paso 5: seleccionar la imagen pesada (>5MB, formato válido) recién empujada a la galería.
+        await addPetFormPage.uploadPetFilePhoto();
+
+        // Resultado esperado: mismo mensaje que Desktop — "La foto que estás intentando subir es
+        // demasiado grande" (mismo locator genérico de error de Chakra usado para petNameErrorLbl,
+        // acá contiene el error de tamaño en vez del de nombre).
+        await addPetFormPage.petNameErrorLbl.waitForDisplayed({ timeout: 10_000 });
+        expect(await addPetFormPage.petNameErrorLbl.getText()).toContain('La foto que estás intentando subir es demasiado grande');
+        expect(await addPetFormPage.continueButton.isEnabled()).toBe(false);
+    });
+});
+
 // Portado de tests/projects/vetify-webapp/credentials.spec.ts TS-02 "Cargar credencial -
 // Validación de Pasos" — la parte de navegación "atrás" y validaciones de campo (TC-02/03/04/
 // 06/07/10/11/12/14/17/23b del original) que TS-08 arriba no cubre (ese test solo prueba el

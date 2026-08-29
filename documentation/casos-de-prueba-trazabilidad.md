@@ -158,3 +158,23 @@ Siguiente ítem de la lista de "con qué avanzar" (después de TS-05, que quedó
 **Excel actualizado**: `Flujo de Compra` filas 3 y 7 (Vetify B2C) — `Automatizado` de No a Sí. Dashboard verificado: `K5` 204→206 (+2 exacto), `C5` sin cambio.
 
 **Sigue sin resolver, a propósito**: las 6 filas restantes (4 "Con Cupón" bloqueadas de raíz; 2 "familiar" sin explorar) — quedan igual que estaban, `Automatizable=Sí` pero `Automatizado=No`, no se tocó nada de eso.
+
+### 2026-08-29, mismo día — corregido el bug de columna en K5 (dashboard)
+
+A pedido de Alan de agotar todo lo avanzable antes del lunes. Se calculó el delta exacto antes de tocar nada: `Perfil` tiene 3 filas `Crítico=Sí` y 3 filas `Automatizado=Sí` (mismo número por coincidencia, la fórmula vieja no cambiaba nada ahí); `Reintegros` tiene 0 `Crítico=Sí` pero 1 `Automatizado=Sí` (la fila real agregada hoy, que no es crítica) — ahí sí había una subcuenta real de -1. Corregido `K5` para usar `Perfil!H:H`/`Reintegros!H:H` (la columna real de `Automatizado?`) en vez de `G:G` (`Crítico?`). Verificado: `K5` 206→207 (+1 exacto, coincide con el cálculo previo). `K25` no tenía este bug — ahí `G` y `H` se usan juntos a propósito (`COUNTIFS`, criterio real es "crítico Y automatizado").
+
+### 2026-08-29, mismo día — Credenciales CP-21/CP-22 (mobile): uno confirmado bloqueado, el otro automatizado
+
+Investigación en vivo del `accept` real del `<input>` de foto de credencial: `image/png,image/jpeg,image/jpg` — confirma que **CP-21 (formato no permitido) sigue sin ser automatizable en mobile** (el picker nativo de Android filtra por tipo, un usuario real no puede elegir un `.txt`) — el Excel ya lo tenía bien clasificado, sin cambios.
+
+Pero el picker NO filtra por tamaño de archivo — una imagen pesada pero de formato válido sí es seleccionable. Se escribió `mobile/specs/vetify/credential-wizard.spec.ts > TS-02 ... imagen demasiado grande > TC-22`, calcado del patrón ya probado de TS-08 TC-01 (`selectFileViaNativePicker()` + `oversize_img_10MB.jpg` empujado por adb). **Código escrito, tipado y linteado limpio, pero NO verificado en vivo**: el emulador Android quedó "offline" (proceso vivo, adb no responde — ni `adb reconnect` lo recuperó) a mitad de la investigación. No se reinició el emulador sin avisar (podía cortar algo en curso). Pendiente: correr `npm run test:android -- --mochaOpts.grep "TC-22"` una vez el emulador esté sano de nuevo.
+
+### 2026-08-29, mismo día — "Plan familiar" resuelto: 2 combinaciones más de Vetify B2C TS-01 (van 4 de 8)
+
+Exploración en vivo de qué significa "familiar" en el flujo de compra: **no es un carrito ni una selección de 2 planes distintos** — es el combobox "Cantidad de planes" del resumen de la orden en el checkout. Elegir 2 aplica automáticamente "Bonificación por grupo familiar" (20% off, confirmado en vivo: 2×$62.990=$125.980, bonificación -$25.196, total $100.784).
+
+Se agregó `CheckoutPage.selectPlanQuantity(n)` (nuevo método, un `<select aria-label="Cantidad de planes">` — hay 2 en el DOM por un resumen responsive duplicado, el índice correcto confirmado en vivo es `.nth(1)`) y se escribieron `TC-02` (familiar/sin cupón/débito) y `TC-06` (familiar/sin cupón/crédito), mismo patrón que `TC-01`/`TC-01b`. Único cambio de aserción real: `saleConfirmProducts` pasa de `toHaveLength(1)` a `toHaveLength(2)` (se emiten 2 pólizas) — confirmado en vivo, no asumido. Ambos tests verificados pasando.
+
+**Excel actualizado**: filas 4 y 8 (Vetify B2C) — `Automatizado` de No a Sí. Dashboard verificado: `K5` 207→209 (+2 exacto).
+
+**Estado final de las 8 combinaciones de Vetify B2C TS-01**: 4 de 8 automatizadas (todas las "sin cupón": individual/familiar × débito/crédito). Las 4 restantes ("con cupón") siguen bloqueadas de raíz — no existe un cupón de prueba real, confirmado desde el 14/08, no es algo que el código pueda resolver.

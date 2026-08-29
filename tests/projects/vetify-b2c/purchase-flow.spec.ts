@@ -273,6 +273,171 @@ test.describe('Flujo de Compra', () => {
             await expect(page).toHaveURL(/\/checkout\/success$/);
         });
 
+        // Portado de documentation/Casos de Prueba.xlsx, hoja "Flujo de Compra", TS-01 Compra de
+        // Planes Exitosa, filas "Plan familiar". Confirmado en vivo 2026-08-29: "familiar" no es un
+        // carrito ni una selección de 2 planes distintos — es el combobox "Cantidad de planes" del
+        // resumen de la orden (CheckoutPage.selectPlanQuantity). Elegir 2 aplica automáticamente
+        // "Bonificación por grupo familiar" (20% off).
+        test('TC-02 - Flujo de compra - Nuevo usuario adquirente - Compra exitosa - Plan familiar - Tarjeta Débito', async ({ container, page }) => {
+            await setAllureDetails({
+                preconditions: ['Usuario selecciona un plan en la landing de Vetify.', 'El usuario selecciona más de un plan para comprar.'],
+                steps: [
+                    'Completar los datos obligatorios del paso 1',
+                    'Navegar al paso 2',
+                    'Completar los datos obligatorios del paso 2',
+                    'Navegar al paso 3',
+                    'Ingresar los datos de una tarjeta de débito válida, vigente y con saldo a favor',
+                    'Presionar el botón "Finalizar"',
+                ],
+                expectedResult: [
+                    'El pago es procesado correctamente aplicando la bonificación por grupo familiar',
+                    'El sistema redirecciona hacia la página de checkout exitoso',
+                    'En el sistema se registran 2 activaciones de póliza para el DNI ingresado',
+                ],
+            });
+            const institutional = container.b2c.landingPage;
+            const checkout = container.b2c.checkoutPage;
+
+            const dataset = {
+                firstName: 'Test',
+                lastName: 'Automation',
+                email: getRandomEmail(),
+                document: { type: 'DNI', number: getRandomIdentificationNumber() },
+            };
+
+            await institutional.load();
+            await institutional.plans.scrollIntoView();
+            const selectedPlan = await institutional.plans.contractRandomPlan();
+
+            await checkout.expectSelectedPlan(selectedPlan);
+            await checkout.selectPlanQuantity(2);
+
+            await checkout.completePersonalData({
+                firstName: dataset.firstName,
+                lastName: dataset.lastName,
+                email: dataset.email,
+                phone: '1161898707',
+                documentType: dataset.document.type,
+                documentNumber: dataset.document.number,
+            });
+
+            await checkout.completeBillingData({
+                province: 'Ciudad Autónoma de Buenos Aires',
+                localitySearch: 'Ciudad',
+                locality: 'CIUDAD AUTONOMA DE BUENOS AIRES',
+                address: 'Av Corrientes 123',
+                zipCode: '123',
+            });
+
+            const paymentData = MercadoPagoCardsHelper.buildCheckoutPaymentData(MERCADOPAGO_PAYMENT_STATUSES.APPROVED, MERCADOPAGO_CARD_PROVIDER.VISA, 'debit');
+
+            await checkout.completePaymentData({
+                cardNumber: paymentData.cardNumber,
+                cardholderName: paymentData.cardholderName,
+                cvv: paymentData.cvv,
+                expiry: paymentData.expiry,
+            });
+
+            const [response] = await Promise.all([page.waitForResponse('**/api/quantum/jengage/payment/pagar-mp**'), page.getByRole('button', { name: /finalizar/i }).click()]);
+
+            expect(response.ok()).toBeTruthy();
+
+            const responseBody = await response.json();
+
+            expect(responseBody).toMatchObject({
+                status: 200,
+                statusMP: {
+                    status: 'approved',
+                    statusDetail: 'accredited',
+                },
+            });
+
+            expect(Array.isArray(responseBody.statusMP.saleConfirmProducts)).toBe(true);
+            expect(responseBody.statusMP.saleConfirmProducts).toHaveLength(2);
+
+            await expect(page).toHaveURL(/\/checkout\/success$/);
+        });
+
+        test('TC-06 - Flujo de compra - Nuevo usuario adquirente - Compra exitosa - Plan familiar - Tarjeta Crédito', async ({ container, page }) => {
+            await setAllureDetails({
+                preconditions: ['Usuario selecciona un plan en la landing de Vetify.', 'El usuario selecciona más de un plan para comprar.'],
+                steps: [
+                    'Completar los datos obligatorios del paso 1',
+                    'Navegar al paso 2',
+                    'Completar los datos obligatorios del paso 2',
+                    'Navegar al paso 3',
+                    'Ingresar los datos de una tarjeta de crédito válida y vigente',
+                    'Presionar el botón "Finalizar"',
+                ],
+                expectedResult: [
+                    'El pago es procesado correctamente aplicando la bonificación por grupo familiar',
+                    'El sistema redirecciona hacia la página de checkout exitoso',
+                    'En el sistema se registran 2 activaciones de póliza para el DNI ingresado',
+                ],
+            });
+            const institutional = container.b2c.landingPage;
+            const checkout = container.b2c.checkoutPage;
+
+            const dataset = {
+                firstName: 'Test',
+                lastName: 'Automation',
+                email: getRandomEmail(),
+                document: { type: 'DNI', number: getRandomIdentificationNumber() },
+            };
+
+            await institutional.load();
+            await institutional.plans.scrollIntoView();
+            const selectedPlan = await institutional.plans.contractRandomPlan();
+
+            await checkout.expectSelectedPlan(selectedPlan);
+            await checkout.selectPlanQuantity(2);
+
+            await checkout.completePersonalData({
+                firstName: dataset.firstName,
+                lastName: dataset.lastName,
+                email: dataset.email,
+                phone: '1161898707',
+                documentType: dataset.document.type,
+                documentNumber: dataset.document.number,
+            });
+
+            await checkout.completeBillingData({
+                province: 'Ciudad Autónoma de Buenos Aires',
+                localitySearch: 'Ciudad',
+                locality: 'CIUDAD AUTONOMA DE BUENOS AIRES',
+                address: 'Av Corrientes 123',
+                zipCode: '123',
+            });
+
+            const paymentData = MercadoPagoCardsHelper.buildCheckoutPaymentData(MERCADOPAGO_PAYMENT_STATUSES.APPROVED, MERCADOPAGO_CARD_PROVIDER.VISA);
+
+            await checkout.completePaymentData({
+                cardNumber: paymentData.cardNumber,
+                cardholderName: paymentData.cardholderName,
+                cvv: paymentData.cvv,
+                expiry: paymentData.expiry,
+            });
+
+            const [response] = await Promise.all([page.waitForResponse('**/api/quantum/jengage/payment/pagar-mp**'), page.getByRole('button', { name: /finalizar/i }).click()]);
+
+            expect(response.ok()).toBeTruthy();
+
+            const responseBody = await response.json();
+
+            expect(responseBody).toMatchObject({
+                status: 200,
+                statusMP: {
+                    status: 'approved',
+                    statusDetail: 'accredited',
+                },
+            });
+
+            expect(Array.isArray(responseBody.statusMP.saleConfirmProducts)).toBe(true);
+            expect(responseBody.statusMP.saleConfirmProducts).toHaveLength(2);
+
+            await expect(page).toHaveURL(/\/checkout\/success$/);
+        });
+
         test('TC-02 - Flujo de compra - Nuevo usuario adquirente - Compra fallida', async ({ container, page }) => {
             setAllureDetails({
                 preconditions: [],

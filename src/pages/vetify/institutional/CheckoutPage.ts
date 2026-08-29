@@ -50,6 +50,11 @@ export class VetifyCheckoutPage extends BasePage {
     private readonly cvvInput: Locator;
     private readonly expiryInput: Locator;
     readonly finalizeButton: Locator;
+    // "Compra familiar" (hoja Flujo de Compra del Excel) no es un carrito ni un 2do plan separado —
+    // confirmado en vivo 2026-08-29: es este combobox de cantidad en el resumen de la orden. Elegir
+    // 2+ aplica automáticamente "Bonificación por grupo familiar" (20% off, confirmado: 2x$62.990 =
+    // $125.980, bonificación -$25.196, total $100.784).
+    readonly planQuantitySelect: Locator;
 
     constructor(page: Page) {
         super(page);
@@ -74,6 +79,13 @@ export class VetifyCheckoutPage extends BasePage {
         this.cvvInput = this.page.getByLabel('CVV');
         this.expiryInput = this.page.getByLabel('Vencimiento');
         this.finalizeButton = this.page.getByRole('button', { name: /finalizar/i });
+        // 2 elementos con el mismo aria-label en el DOM (resumen responsive duplicado, uno oculto
+        // por CSS) — confirmado en vivo 2026-08-29 que el índice 1 (segundo) es el real/visible.
+        this.planQuantitySelect = this.page.getByLabel('Cantidad de planes').nth(1);
+    }
+
+    async selectPlanQuantity(quantity: number): Promise<void> {
+        await this.planQuantitySelect.selectOption(String(quantity));
     }
 
     async getProvinceOptionTexts(): Promise<string[]> {

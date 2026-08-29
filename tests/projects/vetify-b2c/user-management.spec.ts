@@ -1,11 +1,59 @@
 import { SiteId } from '@config/environment';
 import { getRandomEmail, getRandomIdentificationNumber, getRandomPassword } from '@helpers/automation-utils';
 import { NetworkOutageSimulator } from '@helpers/simulateOutage';
+import { EmailClient } from '@integrations/email/EmailClient';
 import { VetifyWebappRegistrationPage } from '@pages/vetify/webapp';
 import { expect, type Response } from '@playwright/test';
 import { TestUser, UserProvider, UserSource, UserTag } from '@providers/user';
-import { setAllureDetails, test } from '@tests/framework/base-test';
+import { TestContainer, setAllureDetails, test } from '@tests/framework/base-test';
 import { step } from 'allure-js-commons';
+
+// 2026-08-29: pedir /api/passrecovery dos veces seguidas para el mismo email en poco tiempo
+// reproducía "Enlace caducado" en el link recién recibido (confirmado en vivo, no es un bug del
+// test: el flujo manual pausado funcionó 2/2 veces, el mismo flujo corrido en secuencia rápida
+// falló consistentemente). Cooldown real entre requests para esta cuenta compartida hasta
+// confirmar la ventana exacta con dev — ver qa-workspace/decision-log.md.
+const RESET_REQUEST_COOLDOWN_MS = 90_000;
+let lastResetRequestAt = 0;
+
+async function waitForResetCooldown(): Promise<void> {
+    const elapsed = Date.now() - lastResetRequestAt;
+    if (lastResetRequestAt !== 0 && elapsed < RESET_REQUEST_COOLDOWN_MS) {
+        await new Promise((resolve) => setTimeout(resolve, RESET_REQUEST_COOLDOWN_MS - elapsed));
+    }
+    lastResetRequestAt = Date.now();
+}
+
+/** Único uso: si `resetPassword` falla a mitad de camino, deja la cuenta compartida (UserTag.REAL_EMAIL)
+ * con una contraseña desconocida para el resto de la suite — hay que restaurarla siempre. */
+async function requestResetLink(container: TestContainer, email: string): Promise<string> {
+    await waitForResetCooldown();
+    const since = new Date();
+    await container.vetify.webapp.loginPage.load();
+    await container.vetify.webapp.loginPage.openForgotPassword();
+    await container.vetify.webapp.loginPage.requestPasswordRecovery(email);
+    const receivedEmail = await EmailClient.waitForEmail({
+        from: 'webapp@vetify.com.ar',
+        subjectContains: 'Recuperá tu contraseña',
+        since,
+    });
+    // El link de reset aparece repetido varias veces en el cuerpo del correo (botón + fallback de
+    // texto plano) — dedupe y filtrar por dominio, ignora otras URLs del correo (ej. el logo).
+    const links = [...new Set(EmailClient.extractLinks(receivedEmail))].filter((link) => link.includes('reset-verify'));
+    if (!links[0]) {
+        throw new Error(`No se encontró el link de reset (reset-verify) en el correo recibido. Asunto: "${receivedEmail.subject}".`);
+    }
+    return links[0];
+}
+
+/** Restaura la contraseña conocida de la cuenta compartida vía un reset real adicional — nunca
+ * asumir que la cuenta soporta quedar en una contraseña distinta a la del pool entre corridas. */
+async function restorePassword(container: TestContainer, page: import('@playwright/test').Page, email: string, knownPassword: string): Promise<void> {
+    const resetLink = await requestResetLink(container, email);
+    await page.goto(resetLink);
+    await container.vetify.webapp.resetPasswordPage.resetPassword(knownPassword);
+    await expect(container.vetify.webapp.resetPasswordPage.successHeadingLbl).toBeVisible();
+}
 
 test.describe('Gestión de Usuario Test Suite', () => {
     test.describe('TS-01 Registración', () => {
@@ -650,6 +698,188 @@ test.describe('Gestión de Usuario Test Suite', () => {
                 expect.soft(response.status()).toBe(200);
                 await expect(container.vetify.webapp.loginPage.recoverySuccessLbl).toBeVisible();
             });
+        });
+    });
+
+    // =========================================================================
+    // CATEGORY: TS-05 IMAS-3215 - Cambio de contraseña (tras el link del correo)
+    // =========================================================================
+    // Requiere la ÚNICA cuenta cuya casilla real está monitoreada por EmailClient (IMP-006, ver
+    // UserTag.REAL_EMAIL en src/providers/user/tags.ts) — el resto del pool usa emails sintéticos
+    // que nunca reciben correo real. reserve:true (default, sin ignoreReserved) es intencional: a
+    // diferencia del resto de esta suite, estos tests SÍ mutan la contraseña real de la cuenta —
+    // no puede compartirse con otro test corriendo en paralelo mientras tanto. Diseño verificado en
+    // vivo 2026-08-29 (ver docs/user-stories/IMAS-3215-reseteo-contrasena-b2c-vetify.tests.md, CP10-18).
+    test.describe('TS-05 IMAS-3215 - Cambio de contraseña', () => {
+        // Los 4 tests compiten por la ÚNICA cuenta REAL_EMAIL — sin serial, `reserveUser()` no
+        // reintenta (retorna undefined de inmediato si ya está reservada), y correrlos en paralelo
+        // dejaría 3 de los 4 en skip por una carrera, no por falta real de cuenta.
+        test.describe.configure({ mode: 'serial' });
+
+        test('TC-01 - Vetify - Redirección al link del correo y campos de contraseña obligatorios', { tag: ['@critical'] }, async ({ container, page }) => {
+            const user = await UserProvider.getUser({ source: UserSource.Pooled, siteId: SiteId.VETIFY_ADQUIRENTE, tags: [UserTag.REAL_EMAIL], reserve: true });
+            test.skip(!user, 'No hay una cuenta con casilla de correo real disponible (UserTag.REAL_EMAIL).');
+
+            await setAllureDetails({
+                preconditions: ['Se solicitó un reseteo de contraseña y se recibió el correo real.'],
+                steps: ['Navegar al link de reset recibido por correo.', 'Presionar "Restablecer contraseña" sin completar ningún campo.'],
+                expectedResult: [
+                    'El sistema redirige a la pantalla "Introduzca una nueva contraseña" (no a error ni a login).',
+                    'Ambos campos se marcan obligatorios: "Introduzca una nueva contraseña." y "Debe introducir la contraseña una segunda vez".',
+                ],
+            });
+
+            try {
+                await step('1. Navegar al link de reset recibido por correo.', async () => {
+                    const resetLink = await requestResetLink(container, user!.email);
+                    await page.goto(resetLink);
+                });
+                await step('El sistema redirige a la pantalla "Introduzca una nueva contraseña".', async () => {
+                    await expect(container.vetify.webapp.resetPasswordPage.headingLbl).toBeVisible();
+                });
+                await step('2. Presionar "Restablecer contraseña" sin completar ningún campo.', async () => {
+                    await container.vetify.webapp.resetPasswordPage.submit();
+                });
+                await step('Ambos campos se marcan obligatorios.', async () => {
+                    await expect(container.vetify.webapp.resetPasswordPage.newPasswordErrorLbl).toBeVisible();
+                    await expect(container.vetify.webapp.resetPasswordPage.confirmPasswordErrorLbl).toBeVisible();
+                });
+            } finally {
+                UserProvider.releaseUser(user!);
+            }
+        });
+
+        test('TC-02 - [Negativo] Vetify - Rechazo de contraseña débil', { tag: ['@critical'] }, async ({ container, page }) => {
+            const user = await UserProvider.getUser({ source: UserSource.Pooled, siteId: SiteId.VETIFY_ADQUIRENTE, tags: [UserTag.REAL_EMAIL], reserve: true });
+            test.skip(!user, 'No hay una cuenta con casilla de correo real disponible (UserTag.REAL_EMAIL).');
+
+            await setAllureDetails({
+                preconditions: ['Se solicitó un reseteo de contraseña y se recibió el correo real.'],
+                steps: ['Navegar al link de reset.', 'Ingresar una contraseña débil ("abc") en ambos campos y confirmar.'],
+                expectedResult: [
+                    'El envío queda bloqueado — no avanza a la pantalla de éxito.',
+                    'El checklist en vivo de la política muestra únicamente "Letras minúsculas (a-z)" cumplido.',
+                ],
+            });
+
+            try {
+                await step('1. Navegar al link de reset.', async () => {
+                    const resetLink = await requestResetLink(container, user!.email);
+                    await page.goto(resetLink);
+                });
+                await step('2. Ingresar una contraseña débil ("abc") en ambos campos y confirmar.', async () => {
+                    await container.vetify.webapp.resetPasswordPage.resetPassword('abc');
+                });
+                await step('El envío queda bloqueado y el checklist muestra un único criterio cumplido.', async () => {
+                    await expect(container.vetify.webapp.resetPasswordPage.headingLbl).toBeVisible();
+                    await expect(container.vetify.webapp.resetPasswordPage.policyCriterionChecked('minusculas')).toBeVisible();
+                    await expect(container.vetify.webapp.resetPasswordPage.policyCriterionChecked('longitud')).toBeHidden();
+                });
+            } finally {
+                UserProvider.releaseUser(user!);
+            }
+        });
+
+        test('TC-03 - [Negativo] Vetify - Contraseñas no coinciden', { tag: ['@critical'] }, async ({ container, page }) => {
+            const user = await UserProvider.getUser({ source: UserSource.Pooled, siteId: SiteId.VETIFY_ADQUIRENTE, tags: [UserTag.REAL_EMAIL], reserve: true });
+            test.skip(!user, 'No hay una cuenta con casilla de correo real disponible (UserTag.REAL_EMAIL).');
+
+            await setAllureDetails({
+                preconditions: ['Se solicitó un reseteo de contraseña y se recibió el correo real.'],
+                steps: ['Navegar al link de reset.', 'Ingresar contraseñas distintas en "Nueva contraseña" y "Reintroduzca contraseña".'],
+                expectedResult: ['El sistema rechaza el envío y muestra "Las contraseñas no coinciden" en ambos campos.'],
+            });
+
+            try {
+                await step('1. Navegar al link de reset.', async () => {
+                    const resetLink = await requestResetLink(container, user!.email);
+                    await page.goto(resetLink);
+                });
+                await step('2. Ingresar contraseñas distintas.', async () => {
+                    await container.vetify.webapp.resetPasswordPage.fillPasswords('Hola123#', 'Hola123$');
+                    await container.vetify.webapp.resetPasswordPage.submit();
+                });
+                await step('El sistema muestra "Las contraseñas no coinciden" en ambos campos.', async () => {
+                    await expect(container.vetify.webapp.resetPasswordPage.mismatchErrorLbl.first()).toBeVisible();
+                });
+            } finally {
+                UserProvider.releaseUser(user!);
+            }
+        });
+
+        test('TC-04 - Vetify - Cambio exitoso, login con la nueva contraseña, la anterior invalidada y el link reusado rechazado (CP13/16/17/18/12)', { tag: ['@critical'] }, async ({ container, page }) => {
+            const user = await UserProvider.getUser({ source: UserSource.Pooled, siteId: SiteId.VETIFY_ADQUIRENTE, tags: [UserTag.REAL_EMAIL], reserve: true });
+            test.skip(!user, 'No hay una cuenta con casilla de correo real disponible (UserTag.REAL_EMAIL).');
+
+            await setAllureDetails({
+                preconditions: ['Se solicitó un reseteo de contraseña y se recibió el correo real.'],
+                steps: [
+                    'Navegar al link de reset y establecer una nueva contraseña cumpliendo la política.',
+                    'Iniciar sesión con la nueva contraseña.',
+                    'Intentar iniciar sesión con la contraseña anterior.',
+                    'Reintentar el mismo link de reset ya usado.',
+                ],
+                expectedResult: [
+                    'El sistema confirma el cambio ("¡Contraseña cambiada!") y permite loguearse con la nueva contraseña.',
+                    'La contraseña anterior queda invalidada — el login con ella es rechazado.',
+                    'El link ya usado queda rechazado ("Enlace caducado") si se reintenta.',
+                ],
+            });
+
+            const oldPassword = user!.password;
+            const newPassword = getRandomPassword();
+            let usedResetLink = '';
+
+            try {
+                await step('1. Navegar al link de reset y establecer una nueva contraseña.', async () => {
+                    usedResetLink = await requestResetLink(container, user!.email);
+                    await page.goto(usedResetLink);
+                    await container.vetify.webapp.resetPasswordPage.resetPassword(newPassword);
+                });
+                await step('El sistema confirma el cambio.', async () => {
+                    await expect(container.vetify.webapp.resetPasswordPage.successHeadingLbl).toBeVisible();
+                    await expect(container.vetify.webapp.resetPasswordPage.successMessageLbl).toBeVisible();
+                });
+
+                await step('2. Iniciar sesión con la nueva contraseña.', async () => {
+                    await container.vetify.webapp.loginPage.load();
+                    await container.vetify.webapp.loginPage.login(user!.email, newPassword);
+                });
+                await step('El login es exitoso.', async () => {
+                    await expect(container.vetify.webapp.homePage.greetingLbl).toBeVisible();
+                });
+
+                // Limpia cookies en vez de buscar un botón de logout específico — lo único que le
+                // importa a este paso es volver a un estado anónimo antes de reintentar el login.
+                let oldPasswordLoginResponse: Response;
+                await step('3. Intentar iniciar sesión con la contraseña anterior.', async () => {
+                    await page.context().clearCookies();
+                    await container.vetify.webapp.loginPage.load();
+                    await container.vetify.webapp.loginPage.emailInput.fill(user!.email);
+                    await container.vetify.webapp.loginPage.passwordInput.fill(oldPassword);
+                    oldPasswordLoginResponse = await container.vetify.webapp.loginPage.clickLoginButton();
+                });
+                await step('El login con la contraseña anterior es rechazado.', async () => {
+                    expect(oldPasswordLoginResponse!.status()).toBe(403);
+                });
+
+                await step('4. Reintentar el mismo link de reset ya usado.', async () => {
+                    await page.goto(usedResetLink);
+                });
+                await step('El link ya usado queda rechazado ("Enlace caducado").', async () => {
+                    await expect(container.vetify.webapp.resetPasswordPage.expiredHeadingLbl).toBeVisible();
+                });
+            } finally {
+                // SIEMPRE restaurar la contraseña conocida del pool, incluso si algo de arriba falló —
+                // esta cuenta es compartida (UserTag.REAL_EMAIL), otros tests asumen esta contraseña.
+                try {
+                    await restorePassword(container, page, user!.email, oldPassword);
+                } catch (restoreError) {
+                    console.error(`No se pudo restaurar la contraseña de ${user!.email} a la del pool. Verificar manualmente. Error:`, restoreError);
+                } finally {
+                    UserProvider.releaseUser(user!);
+                }
+            }
         });
     });
 });

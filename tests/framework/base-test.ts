@@ -16,6 +16,7 @@ import { VetifyWebappMyPlansPage } from '@pages/vetify/webapp/MyPlansPage';
 import { VetifyWebappMyProfilePage } from '@pages/vetify/webapp/MyProfilePage';
 import { VetifyWebappPolicyValidationPage } from '@pages/vetify/webapp/PolicyValidationPage';
 import { VetifyWebappRegistrationPage } from '@pages/vetify/webapp/RegistrationPage';
+import { VetifyWebappResetPasswordPage } from '@pages/vetify/webapp/ResetPasswordPage';
 import { VetifyWebappServicesPage } from '@pages/vetify/webapp/ServicesPage';
 import { VetifyWebappSideMenuSection } from '@pages/vetify/webapp/SideMenuSection';
 import { VetifyWebappSystemUnavailableComponent } from '@pages/vetify/webapp/SystemUnavailableComponent';
@@ -39,6 +40,7 @@ type VetifyWebappContainer = {
     myProfilePage: VetifyWebappMyProfilePage;
     servicesPage: VetifyWebappServicesPage;
     registrationPage: VetifyWebappRegistrationPage;
+    resetPasswordPage: VetifyWebappResetPasswordPage;
     policyValidationPage: VetifyWebappPolicyValidationPage;
     sideMenuSection: VetifyWebappSideMenuSection;
     videocallFormPage: VetifyWebappVideocallFormPage;
@@ -97,6 +99,7 @@ const test = base.extend<{
             myProfilePage: new VetifyWebappMyProfilePage(page),
             servicesPage: new VetifyWebappServicesPage(page),
             registrationPage: new VetifyWebappRegistrationPage(page),
+            resetPasswordPage: new VetifyWebappResetPasswordPage(page),
             policyValidationPage: new VetifyWebappPolicyValidationPage(page),
             sideMenuSection: new VetifyWebappSideMenuSection(page),
             videocallFormPage: new VetifyWebappVideocallFormPage(page),

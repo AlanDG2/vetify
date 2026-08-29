@@ -137,7 +137,7 @@
           "DEAD"
         ],
         "_note": "2026-08-24/25: confirmado en vivo vía API (getUserPets) -- 0 planes/mascotas reales, pese a tags ACTIVE+WITH_PET+NO_EMPTY_PLAN. Es la cuenta que mobile/specs/vetify/videocall.spec.ts TS-03 (reserve:false+ignoreReserved:true) elegía siempre por orden de array -- causaba el fallo masivo del grupo (7/8 TCs). No se recuperó tras confirmarse resuelto IMAS-4347 el 2026-08-25 (pérdida de datos histórica del incidente, no bug activo). Tags vaciados a DEAD para que ninguna query la vuelva a elegir. Ver qa-workspace/decision-log.md 2026-08-25.",
-        "reserved": true
+        "reserved": false
       },
       {
         "id": "0f26d14f-a0bf-4f4f-9649-11ae34526721",
@@ -246,7 +246,7 @@
           "DEAD"
         ],
         "_note": "2026-08-24/25: confirmado en vivo vía API (getUserPets) -- 0 planes/mascotas reales, pese a tags ACTIVE+WITH_PET+NO_EMPTY_PLAN. Era la única otra candidata para el mismo filtro que 452f3aa0 (mobile videocall.spec.ts TS-03) -- con las dos muertas, ese grupo queda sin ninguna cuenta válida hasta re-provisionar. Tags vaciados a DEAD. Ver qa-workspace/decision-log.md 2026-08-25.",
-        "reserved": true
+        "reserved": false
       },
       {
         "id": "034796ff-c24d-45e8-8e44-4a1cd8ac5ba3",
@@ -282,9 +282,11 @@
         "registration": true,
         "tags": [
           "ACTIVE",
-          "WITH_PET"
+          "WITH_PET",
+          "REGISTERED",
+          "REAL_EMAIL"
         ],
-        "_note": "2026-08-07: CONSUMIDA durante el retest de IMAS-4102 (TC-03 subio una mascota real \"Testca051786085162524\" antes de que el locator del boton se corrigiera). Ya NO sirve como NO_PET/PLAN_WITHOUT_PET. Screenshot del hallazgo clave (boton paso de \"Ir al inicio\" a \"Continuar\" en el contexto de videollamada interrumpida) en test-results/. Necesaria otra cuenta con plan sin mascota para un pase limpio end-to-end.",
+        "_note": "2026-08-07: CONSUMIDA durante el retest de IMAS-4102 (TC-03 subio una mascota real \"Testca051786085162524\" antes de que el locator del boton se corrigiera). Ya NO sirve como NO_PET/PLAN_WITHOUT_PET. Screenshot del hallazgo clave (boton paso de \"Ir al inicio\" a \"Continuar\" en el contexto de videollamada interrumpida) en test-results/. Necesaria otra cuenta con plan sin mascota para un pase limpio end-to-end. 2026-08-29: agregado tag REAL_EMAIL — es la unica cuenta cuya casilla real (IMAP) esta monitoreada por EmailClient (IMP-006). Password re-sincronizada a \"Hola123#\" (confirmada en vivo) tras quedar en VetifyReset2026Bis! por la exploracion de IMAS-3215 del 28/08 que nunca actualizo este JSON.",
         "reserved": false
       },
       {

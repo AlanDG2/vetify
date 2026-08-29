@@ -165,6 +165,14 @@ Confirmados en vivo contra QA real y automatizados en `tests/projects/vetify-b2c
 
 **CP10-CP18 (redirección, cambiar contraseña, confirmar, loguearse con la nueva, vieja invalidada) siguen sin automatizar en un `.spec.ts` real** — la infraestructura para conseguir el link ya no es el bloqueo; falta decidir si se ejecuta el flujo completo (cambia la contraseña real de la cuenta de prueba usada) y escribir el spec que use `EmailClient` en vez del script puntual con el que se verificó hoy.
 
+## 2026-08-29 — `.spec.ts` real escrito (TS-05 IMAS-3215 - Cambio de contraseña)
+
+`tests/projects/vetify-b2c/user-management.spec.ts` ahora tiene 4 tests reales cubriendo CP10 (redirección), CP15 (campos obligatorios), CP14 (contraseña débil), CP13/16/17/18/12 combinados (cambio exitoso → login con la nueva → vieja rechazada → link reusado rechazado), más un caso nuevo confirmado en vivo hoy y no documentado en las rondas anteriores: **"Contraseñas no coinciden"** — ingresar valores distintos en "Nueva contraseña"/"Reintroduzca contraseña" responde 400 y muestra "Las contraseñas no coinciden" en ambos campos.
+
+**Nuevo hallazgo de infraestructura, no de negocio**: correr el flujo de reset en secuencia automática rápida (test tras test) reproduce "Enlace caducado" en el link recién recibido, algo que el flujo manual pausado no mostró en 2/2 corridas completas. Ver `qa-workspace/decision-log.md` (entrada 2026-08-29) para el detalle de la investigación — no se pudo aislar entre cooldown del backend vs. escaneo externo del link; se está probando agregar espera real entre requests como primer paso.
+
+`UserTag.REAL_EMAIL` (nuevo) marca ahora `alan.gonzalez@ingenia.la` como la cuenta con casilla real — de paso se resincronizó su contraseña en el pool (estaba en `VetifyReset2026Bis!` desde la exploración del 28/08, nunca se había actualizado `pooled-users.json`; restaurada a `Hola123#`).
+
 ## Hallazgos de la exploración MCP (2026-08-06) — pendientes de decisión del usuario
 
 **✅ Reportados en Jira 2026-08-07**, con OK explícito del usuario del proyecto, vinculados a IMAS-3215 con "Blocks" (aplica también a IMAS-3216/IMAS-3217 por ser la misma pantalla compartida). Ambos observados en `https://vetify-qa.ikeapp.com/auth/login`, endpoint `POST /api/passrecovery`:

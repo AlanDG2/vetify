@@ -40,4 +40,13 @@ export enum UserTag {
 
     /** User has a pet associated with at least one plan */
     WITH_PET = 'WITH_PET',
+
+    /**
+     * Account's email is a real, monitored mailbox (IMAP, ver EmailClient/TEST_MAILBOX_* en .env) —
+     * a diferencia de los emails sintéticos `user_<timestamp>@automation.com`, que nunca reciben
+     * correo real. Solo debería haber 1-2 cuentas con este tag: la casilla real monitoreada hoy es
+     * una sola (IMP-006). Usar `reserve: true` (default) al pedir esta cuenta — mutar su contraseña
+     * de verdad requiere exclusividad, no compartirla con otro test en paralelo.
+     */
+    REAL_EMAIL = 'REAL_EMAIL',
 }

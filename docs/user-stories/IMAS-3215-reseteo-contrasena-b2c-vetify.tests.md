@@ -44,91 +44,94 @@
 
 ## TS-03 Recepción y contenido del email (AC-2, AC-3, AC-4)
 
-**CP06 - Verificar tiempo de envío del correo de recuperación** 🔴 BLOQUEADO
-- Dado: se solicitó un reseteo para un email registrado
-- Cuando: se espera un tiempo razonable `[CONFIRMAR SLA — la HU no define "razonable" en segundos/minutos]`
-- Entonces: el correo llega a la casilla del usuario
-- Trazabilidad: AC-2
-- Bloqueo: requiere lectura de casilla real (IMAP/API) — IMP-006
+> **✅ 2026-08-28 — CP06-CP09 destrabados y verificados en vivo, y el flujo se continuó hasta el final (CP10, CP13, CP16, CP17, ver TS-04/05/06 más abajo).** `IMP-006` (sin infraestructura de lectura de email) se resolvió construyendo `src/integrations/email/EmailClient.ts` (IMAP real vía `imapflow`+`mailparser`) y, en paralelo, `IMAS-4272` (el correo nunca llegaba) se confirmó arreglado — el usuario lo probó manual y el retest de abajo lo reconfirma end-to-end, incluyendo el cambio de contraseña real y el login posterior. Cuenta real usada: `alan.gonzalez@ingenia.la` (ya conocida del pool de cuentas reales, ver `IMP-003`). Reset disparado `2026-08-28T17:24:32Z`, correo recibido `2026-08-28T17:24:59Z` — **27 segundos**, primera vez que se documenta un dato real de SLA.
 
-**CP07 - Verificar remitente y asunto del correo** 🔴 BLOQUEADO
+**CP06 - Verificar tiempo de envío del correo de recuperación** ✅ **verificado en vivo**
+- Dado: se solicitó un reseteo para `alan.gonzalez@ingenia.la` (cuenta real, registrada)
+- Cuando: se esperó con poll de 5s vía `EmailClient.waitForEmail()`
+- Entonces: el correo llegó a los **27 segundos** — dentro de cualquier definición razonable de "tiempo razonable", aunque la HU sigue sin definir un SLA formal en segundos/minutos
+- Trazabilidad: AC-2
+
+**CP07 - Verificar remitente y asunto del correo** ✅ **verificado en vivo**
 - Dado: se recibió el correo de recuperación
 - Cuando: se inspecciona el mensaje
-- Entonces: remitente = `[CONFIRMAR]`, asunto = `[CONFIRMAR]`
-- Trazabilidad: AC-3
-- Bloqueo: IMP-006
-
-**CP08 - Verificar estructura y contenido del correo** 🔴 BLOQUEADO
-- Dado: se recibió el correo de recuperación
-- Cuando: se inspecciona el cuerpo del mensaje
-- Entonces: el mensaje contiene la estructura esperada (saludo, instrucciones, botón/link de reset, vigencia del link si aplica) `[CONFIRMAR]`
+- Entonces: remitente = **`webapp@vetify.com.ar`**, asunto = **"Recuperá tu contraseña"**
 - Trazabilidad: AC-3
 
-**CP09 - Verificar existencia y validez del link de reset dentro del correo** 🔴 BLOQUEADO
+**CP08 - Verificar estructura y contenido del correo** ✅ **verificado en vivo**
 - Dado: se recibió el correo de recuperación
-- Cuando: se extrae el link de reset del cuerpo del mensaje
-- Entonces: el link existe, apunta al dominio esperado y contiene un token `[CONFIRMAR formato del token/param]`
+- Cuando: se inspecciona el cuerpo del mensaje (HTML)
+- Entonces: título "Restablecé tu contraseña", texto "Pediste restablecer tu contraseña. Creá una nueva y volvé a cuidar a los tuyos sin vueltas.", botón "Restablecer contraseña", nota de vigencia explícita: *"Este enlace es de un solo uso y vence en 24 horas. Si no fuiste vos, ignorá este correo: tu cuenta sigue segura."* — preheader (texto de preview): "Creá una nueva contraseña y volvé a lo importante. Vence en 24 horas."
+- Trazabilidad: AC-3
+
+**CP09 - Verificar existencia y validez del link de reset dentro del correo** ✅ **verificado en vivo**
+- Dado: se recibió el correo de recuperación
+- Cuando: se extrae el link de reset del cuerpo del mensaje (`EmailClient.extractLinks()`)
+- Entonces: el link existe y tiene la forma `https://ike-webapp-staging.us.auth0.com/u/reset-verify?ticket=<TOKEN>#` — **importante, no es un link al dominio de Vetify directamente, es una página hosteada por Auth0** (mismo tenant `ike-webapp-staging.us.auth0.com` ya usado para auth de Vetify, ver `AUTH_API_BASE_URL` en `.env`). El param se llama **`ticket`**, no `token`. Vigencia confirmada en el propio texto del correo: single-use, 24 horas.
 - Trazabilidad: AC-4
 
 ## TS-04 Redirección al flujo de reset vía link (AC-5)
 
-**CP10 - Verificar redirección correcta al hacer click en el link del correo** 🔴 BLOQUEADO (requiere obtener el link de CP09)
-- Dado: se cuenta con un link de reset válido y vigente
+**CP10 - Verificar redirección correcta al hacer click en el link del correo** ✅ **verificado en vivo**
+- Dado: se cuenta con un link de reset válido y vigente (confirmado el formato real en CP09)
 - Cuando: se navega al link
-- Entonces: el sistema redirige a la pantalla de cambio de contraseña (no a login ni a error)
+- Entonces: el sistema redirige a `https://ike-webapp-staging.us.auth0.com/u/reset-password/change?state=...` — pantalla real "Introduzca una nueva contraseña" con 2 campos (Nueva contraseña / Reintroduzca contraseña) — no a login ni a error
 - Trazabilidad: AC-5
 
-**CP11 - Verificar comportamiento con link expirado** ✅ (parcial — requiere backend para generar/forzar expiración, o esperar el TTL real)
-- Dado: se cuenta con un link de reset vencido `[CONFIRMAR TTL]`
+**CP11 - Verificar comportamiento con link expirado** 🟡 **no probado literalmente (requiere esperar 24hs), pero inferible con alta confianza a partir de CP12** — TTL real confirmado en el propio correo: "vence en 24 horas" (ver CP08)
+- Dado: se cuenta con un link de reset vencido (24hs+)
 - Cuando: se navega al link
-- Entonces: el sistema muestra un mensaje de link expirado/inválido y no permite continuar `[CONFIRMAR texto exacto]`
+- Entonces: **muy probablemente** el mismo mensaje que CP12 (Auth0 usa una pantalla genérica "Enlace caducado" tanto para expirado por tiempo como para ya usado, no distingue el motivo) — no confirmado en vivo, solo inferido por el comportamiento observado en CP12
 - Trazabilidad: AC-5 (negativo — no está explícito en la HU, gap de cobertura de seguridad)
 
-**CP12 - Verificar comportamiento con link ya utilizado (reuso)** ✅ (parcial — depende de poder generar 2 solicitudes)
-- Dado: un link de reset ya fue usado exitosamente una vez
+**CP12 - Verificar comportamiento con link ya utilizado (reuso)** ✅ **verificado en vivo**
+- Dado: un link de reset ya fue usado exitosamente una vez (el primero de esta sesión, ticket `JU6yuGh...`)
 - Cuando: se navega nuevamente al mismo link
-- Entonces: el sistema rechaza el reuso `[CONFIRMAR comportamiento — no está en la HU]`
+- Entonces: el sistema rechaza el reuso — título de página "Error de restablecimiento de contraseña", contenido: encabezado **"Enlace caducado"** + texto *"Para restablecer su contraseña, por favor vuelva hacia la página de inicio de sesión y seleccione '¿Olvidó su contraseña?' para enviar un nuevo email."* — nota: el mensaje dice "caducado" (expirado) aunque la causa real acá fue el reuso, no el tiempo; Auth0 no distingue los 2 motivos en la UI
 - Trazabilidad: AC-5 (negativo, gap de seguridad)
 
 ## TS-05 Establecer nueva contraseña (AC-6)
 
-**CP13 - Verificar cambio exitoso de contraseña cumpliendo política** ✅ (desde la pantalla de reset, asumiendo llegada por otro medio mientras IMP-006 esté abierto)
-- Dado: usuario en la pantalla de cambio de contraseña (post-link)
-- Cuando: ingresa una nueva contraseña válida (`getRandomPassword()` o equivalente que cumpla política) y confirma
-- Entonces: el sistema acepta el cambio
+> **✅ 2026-08-28 — CP13, CP16, CP17 (y luego CP14/CP15, ver abajo) verificados en vivo de punta a punta** (mismo retest de CP10, cuenta `alan.gonzalez@ingenia.la`).
+
+**CP13 - Verificar cambio exitoso de contraseña cumpliendo política** ✅ **verificado en vivo — política real documentada por primera vez**
+- Dado: usuario en la pantalla de cambio de contraseña (`https://ike-webapp-staging.us.auth0.com/u/reset-password/change?state=...`, post-link real)
+- Cuando: ingresa `VetifyReset2026!` (cumple los 4 criterios, aunque la política solo exige 3 de 4) y confirma
+- Entonces: el sistema acepta el cambio. **Política real, mostrada en vivo en la propia pantalla**: mínimo 8 caracteres + al menos 3 de {minúsculas, mayúsculas, números, caracteres especiales} — con checkmarks (✓) en tiempo real por cada criterio mientras se escribe
 - Trazabilidad: AC-6
 
-**CP14 - Verificar rechazo de contraseña débil** ✅
+**CP14 - Verificar rechazo de contraseña débil** ✅ **verificado en vivo**
 - Dado: usuario en la pantalla de cambio de contraseña
-- Cuando: ingresa una contraseña débil (`'weak'`, patrón ya usado en TC-02 de registración)
-- Entonces: el sistema no permite continuar y muestra "Seguridad: Débil" (mismo patrón verificado en `user-management.spec.ts`) `[CONFIRMAR si aplica igual en este flujo]`
+- Cuando: ingresa `abc` (3 caracteres, solo cumple 1 de los 4 criterios — minúsculas) en ambos campos
+- Entonces: el submit queda **bloqueado** (no avanza a la pantalla de éxito), campo marcado inválido, checklist en vivo muestra solo "Letras minúsculas (a-z)" con ✓ y el resto sin marcar
 - Trazabilidad: AC-6 (borde)
 
-**CP15 - Verificar campo de nueva contraseña obligatorio** ✅
+**CP15 - Verificar campo de nueva contraseña obligatorio** ✅ **verificado en vivo**
 - Dado: usuario en la pantalla de cambio de contraseña
-- Cuando: confirma sin ingresar contraseña
-- Entonces: el sistema no permite continuar y muestra mensaje de campo obligatorio `[CONFIRMAR texto exacto]`
+- Cuando: confirma sin ingresar contraseña en ninguno de los 2 campos
+- Entonces: el sistema no permite continuar — mensajes exactos: **"Introduzca una nueva contraseña."** (campo 1) y **"Debe introducir la contraseña una segunda vez"** (campo 2), ambos campos marcados inválidos
 - Trazabilidad: AC-6 (borde)
 
 ## TS-06 Confirmación e inicio de sesión (AC-7, AC-8)
 
-**CP16 - Verificar confirmación del cambio de contraseña** ✅
+**CP16 - Verificar confirmación del cambio de contraseña** ✅ **verificado en vivo**
 - Dado: se completó el cambio de contraseña exitosamente
 - Cuando: se observa la respuesta del sistema
-- Entonces: se muestra confirmación visual `[CONFIRMAR texto exacto]` y/o respuesta de API exitosa `[CONFIRMAR status]`
+- Entonces: la pantalla cambia a título "¡Contraseña cambiada!" y texto "Su contraseña se ha cambiado con éxito" (página propia de Auth0, `reset-password/change`, mismo `state`)
 - Trazabilidad: AC-7
 
-**CP17 - Verificar login exitoso con la nueva contraseña** ✅
+**CP17 - Verificar login exitoso con la nueva contraseña** ✅ **verificado en vivo**
 - Dado: la contraseña fue reseteada exitosamente
 - Cuando: el usuario inicia sesión en `/auth/login` con el nuevo password
-- Entonces: login exitoso (mismo patrón que `TC-03 Email existente - Contraseña correcta` de `user-management.spec.ts`)
+- Entonces: login exitoso, redirige a Home ("¡Hola, alan!") — confirmado con la cuenta real
 - Trazabilidad: AC-8
 
-**CP18 - Verificar que la contraseña anterior deja de ser válida** ✅
-- Dado: la contraseña fue reseteada exitosamente
-- Cuando: el usuario intenta iniciar sesión con la contraseña vieja
-- Entonces: el sistema rechaza el login (mismo patrón que `TC-01 Email existente - Contraseña Incorrecta`)
+**CP18 - Verificar que la contraseña anterior deja de ser válida** ✅ **verificado en vivo — segundo reset encadenado**
+- Dado: la contraseña fue reseteada exitosamente (a `VetifyReset2026!`, ver CP13)
+- Cuando: se disparó un SEGUNDO reset sobre la misma cuenta, se cambió a `VetifyReset2026Bis!`, y luego se intentó iniciar sesión con la contraseña anterior (`VetifyReset2026!`, ya conocida por ser la que se acababa de establecer)
+- Entonces: el sistema **rechaza el login** — UI: *"La contraseña y/o correo electrónico no es válido. ¿No tienes usuario?"*; red: `POST https://ike-webapp-staging.us.auth0.com/oauth/token` → `403` (mismo patrón de error que un email inexistente, ver `IMP-005`)
 - Trazabilidad: AC-8 (negativo, gap de cobertura no explícito en HU pero crítico para seguridad)
+- Nota de método: como esta sesión nunca tuvo la contraseña ORIGINAL de la cuenta (solo las credenciales IMAP), se resolvió encadenando un segundo reset — la contraseña "vieja" a probar pasó a ser una que la propia sesión ya conocía con certeza (la recién establecida en CP13), no una suposición.
 
 ---
 
@@ -137,16 +140,18 @@
 | AC | Cubierto por | Estado |
 |---|---|---|
 | AC-1 Acceso a "Olvidé mi contraseña" | CP01 | ✅ Automatizable |
-| AC-2 Envío en tiempo razonable | CP02, CP03, CP04, CP05, CP06 | 🟡 Parcial (CP06 bloqueado) |
-| AC-3 Recepción correcta del email | CP06, CP07, CP08 | 🔴 Bloqueado — IMP-006 |
-| AC-4 Link válido en el contenido | CP09 | 🔴 Bloqueado — IMP-006 |
-| AC-5 Redirección al flujo de reset | CP10, CP11, CP12 | 🟡 Parcial (CP10 bloqueado, CP11/CP12 automatizables con datos mockeados/backend) |
-| AC-6 Nueva contraseña cumple política | CP13, CP14, CP15 | ✅ Automatizable |
-| AC-7 Confirmación del cambio | CP16 | ✅ Automatizable |
-| AC-8 Login con nueva contraseña | CP17, CP18 | ✅ Automatizable |
-| AC-9 Sin errores funcionales/UI en todo el flujo | Implícito en todos los CP anteriores (asserts de UI en cada paso) | 🟡 Parcial — depende de que el flujo completo esté desbloqueado |
+| AC-2 Envío en tiempo razonable | CP02, CP03, CP04, CP05, CP06 | ✅ CP06 verificado en vivo (27s) |
+| AC-3 Recepción correcta del email | CP06, CP07, CP08 | ✅ Verificado en vivo 2026-08-28 |
+| AC-4 Link válido en el contenido | CP09 | ✅ Verificado en vivo 2026-08-28 |
+| AC-5 Redirección al flujo de reset | CP10, CP11, CP12 | ✅ CP10/CP12 verificados en vivo. CP11 (link expirado por tiempo) no probado literalmente — inferido con alta confianza a partir de CP12 (mismo mecanismo de Auth0) |
+| AC-6 Nueva contraseña cumple política | CP13, CP14, CP15 | ✅ Los 3 verificados en vivo, política real documentada |
+| AC-7 Confirmación del cambio | CP16 | ✅ Verificado en vivo |
+| AC-8 Login con nueva contraseña | CP17, CP18 | ✅ Ambos verificados en vivo (CP18 vía un 2do reset encadenado) |
+| AC-9 Sin errores funcionales/UI en todo el flujo | Implícito en todos los CP anteriores (asserts de UI en cada paso) | ✅ Ningún error encontrado en todo el flujo feliz de punta a punta |
 
-**18 casos diseñados. 4 bloqueados de punta a punta (CP06-CP09) por IMP-006. 2 parcialmente bloqueados (CP10, y AC-2/AC-9 dependen transitivamente).** El resto (12 casos) es automatizable ya, condicionado a: (a) confirmar textos/locators exactos vía MCP contra la UI real, (b) definir cómo llegar al link de reset sin lectura de casilla real mientras IMP-006 sigue abierto (ej. capturar el link vía intercepción de la request de backend en QA, si el equipo de dev puede exponerlo — a confirmar, no asumir).
+**18 casos diseñados. Actualizado 2026-08-28: flujo completo de reseteo verificado en vivo de punta a punta** (`IMP-006` resuelto, `IMAS-4272` confirmado arreglado) — **17 de 18 casos en verde con datos 100% reales** (CP01-CP10, CP12-CP18), cuenta `alan.gonzalez@ingenia.la`. **Solo `CP11` queda sin confirmar literalmente** — requiere esperar 24hs reales (el TTL del link) o que alguien con acceso al backend fuerce la expiración; se infiere con alta confianza que se comporta igual que `CP12` (mismo mensaje genérico "Enlace caducado" de Auth0), pero no es lo mismo que haberlo visto. Falta además escribir un `.spec.ts` real que use `EmailClient` — todo lo de hoy fue verificación manual vía Playwright MCP + 3 resets encadenados, no quedó persistido como test automatizado de la suite.
+
+**⚠️ Nota operativa**: la cuenta `alan.gonzalez@ingenia.la` quedó con la contraseña `VetifyReset2026Bis!` al cierre de esta sesión (se cambió/reconfirmó 3 veces en total: CP13, CP18, y al cerrar el link de CP14/CP15) — si se reusa esta cuenta más adelante, la contraseña vigente es esa, no la original.
 
 ## Retest 2026-08-07 — CP01-CP05 automatizados
 
@@ -156,9 +161,9 @@ Confirmados en vivo contra QA real y automatizados en `tests/projects/vetify-b2c
 - **CP02/CP03**: confirmado — mismo mensaje genérico de éxito con email registrado y no registrado (previene user enumeration, comportamiento correcto).
 - **CP04/CP05**: confirmados como hallazgos reales, no solo hipótesis — ver sección de hallazgos abajo.
 
-**CP06-CP12 siguen bloqueados** — sin forma de obtener el link/token de reset sin leer la casilla de correo real (IMP-006). Evaluado si el token aparece en la respuesta de `POST /api/passrecovery`: **no aparece**, el body es siempre el mensaje genérico sin datos del token. Sigue pendiente preguntarle al equipo de dev si puede exponerse el token de otra forma en QA (endpoint de debug, feature flag, etc.) antes de dar este bloqueo por definitivo.
+**CP06-CP09 destrabados 2026-08-28** (ver sección TS-03 arriba, con datos reales) — evaluado en su momento que el token no aparece en la respuesta de `POST /api/passrecovery` (siempre el mensaje genérico), así que la única vía real es leer la casilla — ya construida (`EmailClient`).
 
-**CP13-CP18 (cambiar contraseña, confirmar, loguearse con la nueva, vieja invalidada) siguen sin automatizar** — mismo motivo: dependen de tener un link/token de reset válido, que hoy solo se puede conseguir leyendo el email real.
+**CP10-CP18 (redirección, cambiar contraseña, confirmar, loguearse con la nueva, vieja invalidada) siguen sin automatizar en un `.spec.ts` real** — la infraestructura para conseguir el link ya no es el bloqueo; falta decidir si se ejecuta el flujo completo (cambia la contraseña real de la cuenta de prueba usada) y escribir el spec que use `EmailClient` en vez del script puntual con el que se verificó hoy.
 
 ## Hallazgos de la exploración MCP (2026-08-06) — pendientes de decisión del usuario
 

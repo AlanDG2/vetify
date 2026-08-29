@@ -12,6 +12,13 @@ const environmentSchema = z.object({
     OSDE_ADQUIRENTE_INSTITUTIONAL_BASE_URL: z.string().url(),
     FLUX_CAPITADO_INSTITUTIONAL_BASE_URL: z.string().url(),
     IKE_WEBAPP_BASE_URL: z.string().url(),
+    // Casilla real de correo para leer emails de test (ej. reseteo de contraseña) vía IMAP.
+    // Opcionales: sin esto configurado, los specs que dependan de EmailClient fallan con un
+    // mensaje explícito al invocarse, no al arrancar el resto de la suite (ver IMP-006).
+    TEST_MAILBOX_IMAP_HOST: z.string().optional(),
+    TEST_MAILBOX_IMAP_PORT: z.coerce.number().optional(),
+    TEST_MAILBOX_EMAIL: z.string().email().optional(),
+    TEST_MAILBOX_IMAP_PASSWORD: z.string().optional(),
 });
 
 export type AppEnvironment = z.infer<typeof environmentSchema>['APP_ENV'];

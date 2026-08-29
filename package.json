@@ -47,7 +47,9 @@
         "dotenv": "^16.5.0",
         "eslint": "^8.57.1",
         "eslint-plugin-playwright": "^2.10.4",
+        "imapflow": "^1.7.6",
         "luxon": "^3.7.2",
+        "mailparser": "^3.9.17",
         "prettier": "^3.9.4",
         "ts-node": "^10.9.1",
         "tsconfig-paths": "^4.0.0",
@@ -58,6 +60,7 @@
     "devDependencies": {
         "@playwright/mcp": "^0.0.78",
         "@types/luxon": "^3.7.1",
+        "@types/mailparser": "^3.4.6",
         "@types/mocha": "^10.0.0",
         "@types/uuid": "^10.0.0",
         "@wdio/allure-reporter": "^9.0.0",

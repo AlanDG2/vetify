@@ -1,0 +1,3300 @@
+WEBVTT
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/14-0
+00:00:05.797 --> 00:00:07.717
+<v Luciana Godoy>Ahí está, ahí pueden ir.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/15-0
+00:00:08.597 --> 00:00:10.797
+<v Luciana Godoy>Prendiendo nuevamente las cámaras.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/16-0
+00:00:13.397 --> 00:00:14.317
+<v Hernan Casabella>Estamos.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/17-0
+00:00:15.797 --> 00:00:19.538
+<v liliana picinotti>Bueno, buen día a todos,
+estamos en la review de Betify,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/17-1
+00:00:19.538 --> 00:00:24.592
+<v liliana picinotti>les vamos a estar contando lo que hicimos
+en el sprint de estas dos semanas.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/17-2
+00:00:24.592 --> 00:00:28.793
+<v liliana picinotti>Vamos a arrancar por la primera parte que
+tenemos planificadas,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/17-3
+00:00:28.793 --> 00:00:34.043
+<v liliana picinotti>una de las cosas que avanzamos fue en
+migrar lo que es la parte de reintegros a</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/17-4
+00:00:34.043 --> 00:00:34.437
+<v liliana picinotti>Nexus.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/20-0
+00:00:35.637 --> 00:00:38.981
+<v liliana picinotti>Por un lado,
+el sprint anterior habíamos trabajado la</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/20-1
+00:00:38.981 --> 00:00:43.253
+<v liliana picinotti>posibilidad de tener reintegros con el
+mundo capitados. Básicamente,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/20-2
+00:00:43.253 --> 00:00:47.649
+<v liliana picinotti>lo que había pasado cuando estaba
+solamente en el mundo CISE es que se</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/20-3
+00:00:47.649 --> 00:00:52.355
+<v liliana picinotti>había planeado para lo que había en
+Engage. ¿Y qué es lo que hay en Engage?</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/20-4
+00:00:52.355 --> 00:00:55.637
+<v liliana picinotti>Únicamente clientes y no capitados, o sea,
+clientes.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/21-0
+00:00:56.277 --> 00:01:00.552
+<v liliana picinotti>de no capitados así que por ese motivo
+reintegros no funcionaba en el sprint</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/21-1
+00:01:00.552 --> 00:01:05.161
+<v liliana picinotti>anterior lo que hicimos fue arreglar para
+que funcionara reintegros digamos con lo</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/21-2
+00:01:05.161 --> 00:01:09.658
+<v liliana picinotti>que era el mundo cise Y aprovechando que
+tuvimos que hacer todo un análisis para</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/21-3
+00:01:09.658 --> 00:01:13.878
+<v liliana picinotti>poder enganchar reintegros al mundo
+capitados hicimos el pasaje a Nexus Así</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/21-4
+00:01:13.878 --> 00:01:14.877
+<v liliana picinotti>que en este sprint</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/22-0
+00:01:15.157 --> 00:01:19.643
+<v liliana picinotti>a donde llegamos fue hacer ese switch
+para pasar a Nexus,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/22-1
+00:01:19.643 --> 00:01:25.985
+<v liliana picinotti>tanto Capital y Adquirentes, por supuesto.
+Y la idea es hoy hacer la demo en QA y</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/22-2
+00:01:25.985 --> 00:01:31.863
+<v liliana picinotti>después ya la próxima semana hacer el
+pasaje a producción para que para que</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/22-3
+00:01:31.863 --> 00:01:36.117
+<v liliana picinotti>todo lo que es por lo menos el mundo
+reintegros pase a</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/23-0
+00:01:36.597 --> 00:01:36.837
+<v liliana picinotti>No.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/24-0
+00:01:37.757 --> 00:01:42.338
+<v liliana picinotti>A estar dentro de Nexus,
+así que ahí le cedo la palabra a Marian y</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/24-1
+00:01:42.338 --> 00:01:47.397
+<v liliana picinotti>a Paulis que prepararon la demo para
+mostrarnos cómo es este nuevo mundo.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/27-0
+00:01:49.317 --> 00:01:53.928
+<v Mariana Navarro (EXT)>Dale, buenísimo. Bueno, si te parece Pau,
+voy avanzando.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/25-0
+00:01:50.757 --> 00:01:51.277
+<v PAULA SCALZO>Gracias.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/27-1
+00:01:53.928 --> 00:01:59.915
+<v Mariana Navarro (EXT)>Yo con Pau nos vamos a separar un poco lo
+que son las pruebas. Sí, en QA.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/26-0
+00:01:54.437 --> 00:01:54.917
+<v PAULA SCALZO>Vale.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/27-2
+00:01:59.915 --> 00:02:05.901
+<v Mariana Navarro (EXT)>En un inicio lo que yo voy a estar
+mostrando es la desde la creación como</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/27-3
+00:02:05.901 --> 00:02:10.917
+<v Mariana Navarro (EXT)>tutor, el expediente, el expediente.
+Disculpen, me reintegra.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/29-0
+00:02:12.837 --> 00:02:16.428
+<v Mariana Navarro (EXT)>Hasta el rechazo final,
+que sería el de calidad,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/29-1
+00:02:16.428 --> 00:02:20.092
+<v Mariana Navarro (EXT)>así que voy a empezar a presentar
+cualquier cosa,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/29-2
+00:02:20.092 --> 00:02:22.437
+<v Mariana Navarro (EXT)>me avisan si no ven la pantalla.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/32-0
+00:02:24.677 --> 00:02:28.952
+<v PAULA SCALZO>Aclaración, nada más.
+Vamos a estar mostrando 2 escenarios.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/32-1
+00:02:28.952 --> 00:02:34.651
+<v PAULA SCALZO>Ahora Marian va a mostrar una adquiriente
+B2C que solicita un reintegro y se le</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/32-2
+00:02:34.651 --> 00:02:40.280
+<v PAULA SCALZO>rechaza y yo voy a estar mostrando un
+Capital Ozde que solicita un reintegro y</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/32-3
+00:02:40.280 --> 00:02:41.277
+<v PAULA SCALZO>se le aprueba.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/39-0
+00:02:44.757 --> 00:02:48.568
+<v Mariana Navarro (EXT)>Bien,
+entonces yo voy en con el adquiriente en</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/39-1
+00:02:48.568 --> 00:02:53.028
+<v Mariana Navarro (EXT)>un inicio. Bueno,
+acá estamos con la cuenta de pago de</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/39-2
+00:02:53.028 --> 00:02:53.677
+<v Mariana Navarro (EXT)>pruebas.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/38-0
+00:02:53.997 --> 00:02:54.317
+<v PAULA SCALZO>Yeah.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/42-0
+00:02:55.637 --> 00:02:58.517
+<v Mariana Navarro (EXT)>Vamos a actualizarla porque yo estuve
+haciendo pruebas.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/44-0
+00:03:01.597 --> 00:03:02.717
+<v liliana picinotti>No se asusten.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/45-0
+00:03:01.717 --> 00:03:02.717
+<v Mariana Navarro (EXT)>Estamos.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/50-0
+00:03:05.397 --> 00:03:09.077
+<v Mariana Navarro (EXT)>ahí está,
+que me saque esto primero así no me</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/50-1
+00:03:09.077 --> 00:03:10.277
+<v Mariana Navarro (EXT)>molesta, listo.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/53-0
+00:03:14.437 --> 00:03:14.917
+<v Mariana Navarro (EXT)>Bien.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/56-0
+00:03:16.277 --> 00:03:20.477
+<v Mariana Navarro (EXT)>Acá voy a crear el reintero,
+vamos a utilizar a Tijango.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/59-0
+00:03:24.197 --> 00:03:26.637
+<v Mariana Navarro (EXT)>Mhm, ahora estamos.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/62-0
+00:03:25.477 --> 00:03:28.797
+<v PAULA SCALZO>Yo tengo una un refugio de animales.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/63-0
+00:03:31.957 --> 00:03:32.917
+<v Hernan Casabella>What number is on?</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/66-0
+00:03:38.917 --> 00:03:41.637
+<v Mariana Navarro (EXT)>Vamos a pedir reintero por una vacuna.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/71-0
+00:03:45.157 --> 00:03:49.677
+<v Mariana Navarro (EXT)>Acá voy a estar utilizando una factura
+que nos paseó Ariamis.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/79-0
+00:04:02.837 --> 00:04:05.357
+<v Mariana Navarro (EXT)>No me toma el número de la factura,
+le ponemos.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/80-0
+00:04:07.637 --> 00:04:08.917
+<v Mariana Navarro (EXT)>Número random.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/85-0
+00:04:14.597 --> 00:04:16.917
+<v Mariana Navarro (EXT)>Enviamos y esperamos que se confirme.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/92-0
+00:04:31.637 --> 00:04:33.237
+<v Mariana Navarro (EXT)>Ahí se confirmó, reitero.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/95-0
+00:04:35.397 --> 00:04:37.117
+<v Mariana Navarro (EXT)>En primera instancia.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/102-0
+00:04:37.797 --> 00:04:41.367
+<v Mariana Navarro (EXT)>Bueno,
+lo vamos a buscar de acá una vez que</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/102-1
+00:04:41.367 --> 00:04:45.261
+<v Mariana Navarro (EXT)>tenga para no estar pasando rápido de
+pantalla,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/102-2
+00:04:45.261 --> 00:04:51.751
+<v Mariana Navarro (EXT)>que es lo que estoy acostumbrada acá.
+Esta sería la cuenta de Alex que tiene el</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/102-3
+00:04:51.751 --> 00:04:57.917
+<v Mariana Navarro (EXT)>rol de calidad y también de finanzas para
+lo que sería la UI de reintegros.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/103-0
+00:04:59.317 --> 00:05:01.684
+<v Mariana Navarro (EXT)>Sí,
+yo ahora voy a estar actualizando para</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/103-1
+00:05:01.684 --> 00:05:04.437
+<v Mariana Navarro (EXT)>que me llegue el nuevo reintegro que se
+solicitó.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/106-0
+00:05:08.357 --> 00:05:10.077
+<v Mariana Navarro (EXT)>Y acá está Dillango.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/114-0
+00:05:11.157 --> 00:05:14.508
+<v Mariana Navarro (EXT)>Sí,
+desde acá yo ya puedo ver el número de</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/107-0
+00:05:13.637 --> 00:05:14.157
+<v Juan C. Triventi>You need.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/114-1
+00:05:14.508 --> 00:05:19.106
+<v Mariana Navarro (EXT)>expediente que me debería figurar una vez
+creado en Nexus.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/114-2
+00:05:19.106 --> 00:05:24.951
+<v Mariana Navarro (EXT)>Esto que estamos viendo acá es Nexus.
+Nosotros tendríamos que buscarnos en</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/114-3
+00:05:24.951 --> 00:05:29.237
+<v Mariana Navarro (EXT)>servicios auxiliares y buscar el número
+de expediente.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/119-0
+00:05:30.837 --> 00:05:34.498
+<v Mariana Navarro (EXT)>Efectivamente,
+acá se creó el expediente y estamos</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/119-1
+00:05:34.498 --> 00:05:39.164
+<v Mariana Navarro (EXT)>viendo que fue aceptado.
+Aceptado es creado por las dudas y trae</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/119-2
+00:05:39.164 --> 00:05:42.897
+<v Mariana Navarro (EXT)>confusión.
+Después hay otros estados para lo que es</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/119-3
+00:05:42.897 --> 00:05:47.563
+<v Mariana Navarro (EXT)>rechazado o aprobado.
+Si después queremos más detalles para ver,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/119-4
+00:05:47.563 --> 00:05:49.357
+<v Mariana Navarro (EXT)>podemos verlo por dentro.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/127-0
+00:05:51.637 --> 00:05:56.824
+<v Mariana Minutella>Marian, ¿te puedo hacer una pregunta?
+El estado este hace, o sea,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/120-0
+00:05:51.797 --> 00:05:52.277
+<v Mariana Navarro (EXT)>Bien.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/121-0
+00:05:53.677 --> 00:05:54.157
+<v Mariana Navarro (EXT)>Sí.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/127-1
+00:05:56.824 --> 00:06:02.797
+<v Mariana Minutella>acá estamos viendo la visual de las
+aprobaciones que se hacen, o sea, digo,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/127-2
+00:06:02.797 --> 00:06:07.277
+<v Mariana Minutella>la parte más de atrás no es la vista del
+tutor, digamos.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/126-0
+00:06:07.397 --> 00:06:08.797
+<v Mariana Navarro (EXT)>Exactamente sí.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/134-0
+00:06:08.357 --> 00:06:14.219
+<v Mariana Minutella>Okay, hago preguntas, pero digo,
+porque también son cosas que estamos</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/128-0
+00:06:12.077 --> 00:06:12.517
+<v PAULA SCALZO>Sí.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/134-1
+00:06:14.219 --> 00:06:20.248
+<v Mariana Minutella>tratando de empezar a entender. Digo,
+hoy estos estados aceptado y digo</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/130-0
+00:06:15.877 --> 00:06:16.557
+<v Mariana Navarro (EXT)>After all.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/134-2
+00:06:20.248 --> 00:06:24.434
+<v Mariana Minutella>aprobado, hablar, observado, no sé,
+los que haya.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/134-3
+00:06:24.434 --> 00:06:29.877
+<v Mariana Minutella>¿Son de Nexus la herramienta o son del
+módulo de reintegros que?</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/133-0
+00:06:24.957 --> 00:06:25.277
+<v Mariana Navarro (EXT)>Mhm.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/135-0
+00:06:30.037 --> 00:06:31.477
+<v Mariana Minutella>Que se generó desde el squat.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/137-0
+00:06:32.037 --> 00:06:34.797
+<v Mariana Navarro (EXT)>No, lo que sería aceptado.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/136-0
+00:06:33.717 --> 00:06:34.237
+<v Mariana Minutella>O sea.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/141-0
+00:06:35.797 --> 00:06:39.681
+<v Mariana Navarro (EXT)>Sí, aceptado,
+finalizado o anulado serían los estados</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/141-1
+00:06:39.681 --> 00:06:43.350
+<v Mariana Navarro (EXT)>de Nexus.
+Esos estados no llegan a lo que sería la</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/138-0
+00:06:41.317 --> 00:06:42.077
+<v Mariana Minutella>Okay.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/141-2
+00:06:43.350 --> 00:06:48.169
+<v Mariana Navarro (EXT)>UI que maneja calidad o finanzas.
+Acá lo que tenemos es pendiente,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/141-3
+00:06:48.169 --> 00:06:52.197
+<v Mariana Navarro (EXT)>rechazado, finanzas,
+esos lo van a poder ir viendo acá.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/146-0
+00:06:50.837 --> 00:06:54.099
+<v Mariana Minutella>O K o K,
+a ver esto al ser de la herramienta de</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/146-1
+00:06:54.099 --> 00:06:58.381
+<v Mariana Minutella>Nexus, en realidad digo,
+deberíamos buscar al owner que hoy lo</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/146-2
+00:06:58.381 --> 00:07:03.070
+<v Mariana Minutella>administra barra usa para entender si
+está o k con eso, porque digo,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/144-0
+00:07:00.597 --> 00:07:00.877
+<v Mariana Navarro (EXT)>Mhm.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/146-3
+00:07:03.070 --> 00:07:04.837
+<v Mariana Minutella>ahí no están tocando nada.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/145-0
+00:07:04.037 --> 00:07:04.397
+<v Juan C. Triventi>Sí.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/148-0
+00:07:05.557 --> 00:07:09.357
+<v Mariana Navarro (EXT)>Exacto, sí, realizarlo con nexo, sí.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/147-0
+00:07:06.757 --> 00:07:08.277
+<v Mariana Minutella>Okey, ahora.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/149-0
+00:07:09.637 --> 00:07:11.717
+<v Mariana Minutella>Ok, voy del lado tutor.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/150-0
+00:07:12.757 --> 00:07:13.037
+<v Mariana Navarro (EXT)>Mhm.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/154-0
+00:07:13.037 --> 00:07:17.034
+<v Mariana Minutella>No voy del lado tutor,
+lo que estados le mostramos al tutor</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/154-1
+00:07:17.034 --> 00:07:20.698
+<v Mariana Minutella>cuando, o sea,
+carga este reintegro como para entender</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/154-2
+00:07:20.698 --> 00:07:24.962
+<v Mariana Minutella>también ahí y que podemos hacer una
+traducción de esos estados,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/154-3
+00:07:24.962 --> 00:07:30.225
+<v Mariana Minutella>porque parte que de las cosas que hoy nos
+preocupan es entender qué le estamos</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/154-4
+00:07:30.225 --> 00:07:31.557
+<v Mariana Minutella>diciendo al usuario.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/160-0
+00:07:30.757 --> 00:07:35.687
+<v CYNTIA FERRARI>Son esos 3 que están ahí, Marian,
+que ves que aparecen pagado,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/153-0
+00:07:33.517 --> 00:07:33.837
+<v Juan C. Triventi>Yeah.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/155-0
+00:07:33.677 --> 00:07:34.477
+<v Mariana Minutella>Perfecto.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/156-0
+00:07:34.277 --> 00:07:34.837
+<v Mariana Navarro (EXT)>Está.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/160-1
+00:07:35.687 --> 00:07:40.460
+<v CYNTIA FERRARI>solicitado y desaprobado.
+Son esos 3 estados los que tenemos</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/160-2
+00:07:40.460 --> 00:07:45.781
+<v CYNTIA FERRARI>actualmente. Si es, por ejemplo,
+desaprobado y el cliente accede al</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/160-3
+00:07:45.781 --> 00:07:51.258
+<v CYNTIA FERRARI>historial de los reintegros,
+le aparece un doble clic de por qué está</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/160-4
+00:07:51.258 --> 00:07:52.197
+<v CYNTIA FERRARI>desaprobado.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/159-0
+00:07:52.037 --> 00:07:52.597
+<v Mariana Minutella>O K.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/164-0
+00:07:52.277 --> 00:07:57.200
+<v CYNTIA FERRARI>Ves que ahí, por ejemplo, dice,
+no pudimos aprobar tu solicitud porque</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/164-1
+00:07:57.200 --> 00:08:00.458
+<v CYNTIA FERRARI>digo,
+todo esto esta parte cambia según lo que</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/164-2
+00:08:00.458 --> 00:08:05.797
+<v CYNTIA FERRARI>el la persona de finanzas o la persona de
+calidad escribe sobre ese rechazo.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/165-0
+00:08:06.317 --> 00:08:10.677
+<v Mariana Minutella>Le levantamos literal tal cual escribe,
+no decime que no te lo pido, por favor.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/171-0
+00:08:11.477 --> 00:08:15.142
+<v CYNTIA FERRARI>Tienen estados los chicos que tienen como
+tienen su claro,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/168-0
+00:08:13.437 --> 00:08:15.197
+<v Mariana Minutella>Están estructurados, okay.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/171-1
+00:08:15.142 --> 00:08:20.174
+<v CYNTIA FERRARI>tienen estados que ya vienen como armados
+para categorizar y además ellos pueden</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/169-0
+00:08:16.117 --> 00:08:16.837
+<v Mariana Minutella>Perfecto.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/171-2
+00:08:20.174 --> 00:08:24.708
+<v CYNTIA FERRARI>hacer un doble clic sobre algo que esté
+mal, por ejemplo, en la factura,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/171-3
+00:08:24.708 --> 00:08:29.430
+<v CYNTIA FERRARI>que a veces son cosas muy puntuales.
+Entonces ellos pueden como dejar algún</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/170-0
+00:08:27.557 --> 00:08:28.197
+<v Mariana Minutella>Odio.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/171-4
+00:08:29.430 --> 00:08:30.237
+<v CYNTIA FERRARI>verbatim más.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/174-0
+00:08:30.997 --> 00:08:35.566
+<v Mariana Minutella>Okay, perfecto. Y digo,
+acá con estos estados de pagado,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/174-1
+00:08:35.566 --> 00:08:40.055
+<v Mariana Minutella>solicitado, digo,
+son solo 3 o en algún momento tenemos</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/174-2
+00:08:40.055 --> 00:08:45.105
+<v Mariana Minutella>algún estado intermedio donde al cliente
+le damos como, no sé,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/174-3
+00:08:45.105 --> 00:08:50.877
+<v Mariana Minutella>una en revisión por decir algo donde el o
+en o en trámite, porque digo.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/172-0
+00:08:47.077 --> 00:08:49.157
+<v CYNTIA FERRARI>No por ahora.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/173-0
+00:08:49.397 --> 00:08:49.717
+<v Mariana Navarro (EXT)>Yes.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/177-0
+00:08:51.397 --> 00:08:54.766
+<v Mariana Minutella>O sea,
+una cosa es solicitado y otro es darle la</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/177-1
+00:08:54.766 --> 00:09:00.128
+<v Mariana Minutella>digo porque acá debe pasar un tiempo
+hasta que digo después un KPI que iremos</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/175-0
+00:08:58.877 --> 00:08:59.157
+<v Mariana Navarro (EXT)>Mhm.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/177-2
+00:09:00.128 --> 00:09:05.216
+<v Mariana Minutella>poniendo a los sectores para que también
+empecemos a entender los plazos,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/177-3
+00:09:05.216 --> 00:09:10.441
+<v Mariana Minutella>no que no será otro tema que después a
+ustedes les va a dar más visibilidad</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/176-0
+00:09:07.117 --> 00:09:07.357
+<v Mariana Navarro (EXT)>No.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/177-4
+00:09:10.441 --> 00:09:11.197
+<v Mariana Minutella>también de.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/179-0
+00:09:11.317 --> 00:09:17.397
+<v Mariana Minutella>Sí, ¿qué hacemos en ese proceso? No,
+pero digo, o sea, hoy solo o k.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/178-0
+00:09:13.477 --> 00:09:14.077
+<v CYNTIA FERRARI>Sí.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/182-0
+00:09:15.877 --> 00:09:19.309
+<v CYNTIA FERRARI>No, por ahora son solo estos son esos 3.
+Sí,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/182-1
+00:09:19.309 --> 00:09:25.181
+<v CYNTIA FERRARI>en su momento se habían contemplado como
+más estados detallados para el MVP.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/182-2
+00:09:25.181 --> 00:09:29.528
+<v CYNTIA FERRARI>Entraron estos 3. Sí,
+a futuro le haremos un doble clic,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/180-0
+00:09:25.717 --> 00:09:26.757
+<v Mariana Minutella>Perfecto, está bien.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/181-0
+00:09:26.917 --> 00:09:27.197
+<v Juan C. Triventi>Mhm.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/182-3
+00:09:29.528 --> 00:09:32.197
+<v CYNTIA FERRARI>lo que pasa que tenemos quizás más.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/185-0
+00:09:33.397 --> 00:09:37.679
+<v CYNTIA FERRARI>Cosas como más importantes para trabajar
+en el módulo de reintegros,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/183-0
+00:09:34.757 --> 00:09:38.157
+<v Mariana Minutella>no me queda, me queda claro.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/185-1
+00:09:37.679 --> 00:09:41.093
+<v CYNTIA FERRARI>que quizás el estado todavía no nos hizo
+ningún ruido,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/185-2
+00:09:41.093 --> 00:09:43.637
+<v CYNTIA FERRARI>pero sí es algo que tenemos como en cola.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/184-0
+00:09:43.957 --> 00:09:44.637
+<v Mariana Minutella>Okay.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/186-0
+00:09:46.077 --> 00:09:46.797
+<v Mariana Navarro (EXT)>Buenísima.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/187-0
+00:09:46.237 --> 00:09:47.877
+<v Mariana Minutella>Gracias, Mariano, perdón.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/188-0
+00:09:48.157 --> 00:09:49.197
+<v Mariana Navarro (EXT)>No, Fernando.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/193-0
+00:09:50.797 --> 00:09:54.424
+<v Mariana Navarro (EXT)>Bien,
+acá entro en detalle por algo que va a</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/193-1
+00:09:54.424 --> 00:09:59.985
+<v Mariana Navarro (EXT)>ocurrir. Seguro van a surgir dudas,
+lo que es pegarle a Arca para la</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/193-2
+00:09:59.985 --> 00:10:06.351
+<v Mariana Navarro (EXT)>validación de la factura en ambientes
+bajos no está funcionando en producción.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/193-3
+00:10:06.351 --> 00:10:12.557
+<v Mariana Navarro (EXT)>Hasta lo último que habíamos verificado
+está funcionando, por eso van a ver.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/194-0
+00:10:12.597 --> 00:10:15.797
+<v Mariana Navarro (EXT)>Después de yo ahora le voy a poner un
+número cualquiera.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/198-0
+00:10:17.837 --> 00:10:23.117
+<v Mariana Navarro (EXT)>Voy a mandar a verificar la factura y va
+a saltar.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/201-0
+00:10:25.277 --> 00:10:29.197
+<v Mariana Navarro (EXT)>Yo voy a actualizar,
+estamos todavía con yarno, por las dudas.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/204-0
+00:10:30.557 --> 00:10:33.237
+<v Mariana Navarro (EXT)>Van a ver que si yo vuelvo a buscar a
+Django.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/208-0
+00:10:34.237 --> 00:10:38.088
+<v Mariana Navarro (EXT)>Me va a saltar 502.
+Es un mensaje de error que implica que no</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/205-0
+00:10:34.717 --> 00:10:35.357
+<v PAULA SCALZO>Ahí está.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/208-1
+00:10:38.088 --> 00:10:41.317
+<v Mariana Navarro (EXT)>se le está pudiendo pegar bien al
+servicio de arca.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/213-0
+00:10:42.397 --> 00:10:45.806
+<v Mariana Navarro (EXT)>Sí,
+entonces ya ahí antes de validarlo</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/213-1
+00:10:45.806 --> 00:10:52.274
+<v Mariana Navarro (EXT)>manualmente como rol de calidad,
+tengo que primero distribuir la factura.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/213-2
+00:10:52.274 --> 00:10:56.907
+<v Mariana Navarro (EXT)>Esto es también otro cambio que entró
+anteriormente,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/213-3
+00:10:56.907 --> 00:11:01.277
+<v Mariana Navarro (EXT)>que lo que nosotros acá lo que se buscó
+es poder.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/218-0
+00:11:02.437 --> 00:11:08.223
+<v Mariana Navarro (EXT)>Esperen que les muestro la factura es
+poder separar los gastos de la factura.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/218-1
+00:11:08.223 --> 00:11:11.932
+<v Mariana Navarro (EXT)>Claramente,
+en este momento no coincide lo que yo</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/218-2
+00:11:11.932 --> 00:11:15.419
+<v Mariana Navarro (EXT)>puse,
+que es vacunación con todo lo que figura</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/218-3
+00:11:15.419 --> 00:11:18.757
+<v Mariana Navarro (EXT)>acá, pero bueno,
+acá se toma el monto total.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/223-0
+00:11:20.557 --> 00:11:25.302
+<v Mariana Navarro (EXT)>Si vos vas a distribuir,
+te figura el monto total y lo que te</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/223-1
+00:11:25.302 --> 00:11:30.966
+<v Mariana Navarro (EXT)>solicita en esta distribución es que el
+total de los montos sea del monto</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/223-2
+00:11:30.966 --> 00:11:35.405
+<v Mariana Navarro (EXT)>aprobado y monto rechazado de el total de
+la factura. Sí,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/223-3
+00:11:35.405 --> 00:11:39.997
+<v Mariana Navarro (EXT)>yo voy a poner que un número más
+coherente para una vacuna.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/224-0
+00:11:40.077 --> 00:11:41.757
+<v Mariana Navarro (EXT)>Incluso espero que sería menos.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/227-0
+00:11:43.837 --> 00:11:45.517
+<v Mariana Navarro (EXT)>El resto quedaría.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/228-0
+00:11:46.997 --> 00:11:52.510
+<v Mariana Navarro (EXT)>Asumiendo que también está relacionado
+con la vacunación, quedaría rechazado.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/228-1
+00:11:52.510 --> 00:11:54.277
+<v Mariana Navarro (EXT)>320440, creo que era, sí.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/229-0
+00:11:55.997 --> 00:12:00.946
+<v Mariana Navarro (EXT)>Entonces pongo rechazar línea y
+selecciono el motivo, o sea,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/229-1
+00:12:00.946 --> 00:12:04.677
+<v Mariana Navarro (EXT)>el plan no cubre este monto de la
+vacunación.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/230-0
+00:12:07.957 --> 00:12:16.037
+<v Mariana Navarro (EXT)>Confirmo la distribución y ahora ya puedo
+validar manualmente lo que es la factura.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/233-0
+00:12:19.197 --> 00:12:21.197
+<v Mariana Navarro (EXT)>Confirmo, bueno, la validación.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/237-0
+00:12:25.357 --> 00:12:30.400
+<v Mariana Minutella>La validación de arca es solo temas
+relacionados con la validez de la factura.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/237-1
+00:12:30.400 --> 00:12:33.463
+<v Mariana Minutella>Digo,
+no está haciendo una lectura del concepto</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/234-0
+00:12:31.677 --> 00:12:32.317
+<v Mariana Navarro (EXT)>Exacto.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/237-2
+00:12:33.463 --> 00:12:36.783
+<v Mariana Minutella>incluido y demás.
+Eso igual va a validación manual,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/237-3
+00:12:36.783 --> 00:12:37.357
+<v Mariana Minutella>entiendo.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/239-0
+00:12:38.877 --> 00:12:40.317
+<v Mariana Navarro (EXT)>Claro, exacto.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/238-0
+00:12:39.917 --> 00:12:40.437
+<v Mariana Minutella>Okay.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/248-0
+00:12:42.797 --> 00:12:46.373
+<v Mariana Navarro (EXT)>Bueno,
+ahora ya finalmente pasaría a validar lo</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/248-1
+00:12:46.373 --> 00:12:51.885
+<v Mariana Navarro (EXT)>que sería el monto que estamos
+reintegrando, en este caso para la vacuna,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/248-2
+00:12:51.885 --> 00:12:55.684
+<v Mariana Navarro (EXT)>para el tope del evento.
+Esperen que no lo mostré.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/248-3
+00:12:55.684 --> 00:12:59.557
+<v Mariana Navarro (EXT)>El tope del evento que trae desde sise es
+de 28000.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/251-0
+00:13:00.717 --> 00:13:03.850
+<v Mariana Navarro (EXT)>Sí,
+por eso queda como monto sugerido 28000 y</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/251-1
+00:13:03.850 --> 00:13:08.074
+<v Mariana Navarro (EXT)>cuando voy a validar,
+ese es el monto que se va a reintegrar.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/251-2
+00:13:08.074 --> 00:13:10.117
+<v Mariana Navarro (EXT)>Sí, paso a confirmar y enviar.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/252-0
+00:13:11.357 --> 00:13:11.797
+<v Mariana Navarro (EXT)>Ah.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/259-0
+00:13:12.877 --> 00:13:21.503
+<v Mariana Navarro (EXT)>Al final estoy, perdón, Pau,
+estoy haciendo el de aprobación,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/257-0
+00:13:15.917 --> 00:13:18.437
+<v PAULA SCALZO>Olvídate, no hay problema, yo después.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/258-0
+00:13:21.157 --> 00:13:22.397
+<v PAULA SCALZO>Está bien, está bien.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/259-1
+00:13:21.503 --> 00:13:25.677
+<v Mariana Navarro (EXT)>me perdón, me emocioné, bueno.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/262-0
+00:13:26.877 --> 00:13:34.517
+<v Mariana Navarro (EXT)>Acepto y finalmente estaría pagando como
+rol de finanzas.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/265-0
+00:13:43.357 --> 00:13:48.477
+<v Mariana Navarro (EXT)>Ahora ya voy a mostrar cómo figura en
+Nexus, perfecto, quedó pagado.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/270-0
+00:13:49.837 --> 00:13:53.408
+<v Mariana Navarro (EXT)>Vamos a buscar nuevamente el expediente,
+creo que me quedó guardado acá,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/270-1
+00:13:53.408 --> 00:13:56.246
+<v Mariana Navarro (EXT)>vamos a actualizarlo.
+Esperen que me agarró el número del</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/270-2
+00:13:56.246 --> 00:13:59.866
+<v Mariana Navarro (EXT)>expediente. Recuerdo por las dudas,
+sino acá está el número de expediente</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/270-3
+00:13:59.866 --> 00:14:02.997
+<v Mariana Navarro (EXT)>dentro de lo que es la UI que verían los
+de finanzas y calidad.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/271-0
+00:14:05.277 --> 00:14:06.557
+<v Mariana Navarro (EXT)>Actualizo.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/276-0
+00:14:13.877 --> 00:14:16.037
+<v Mariana Navarro (EXT)>Me voy a servicios auxiliares.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/285-0
+00:14:18.877 --> 00:14:23.470
+<v Mariana Navarro (EXT)>Con el expediente y finalmente figura
+como finalizado,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/285-1
+00:14:23.470 --> 00:14:30.067
+<v Mariana Navarro (EXT)>que ese sería el estado correspondiente a
+la aprobación del reintegro. Si acá,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/285-2
+00:14:30.067 --> 00:14:35.244
+<v Mariana Navarro (EXT)>si vamos más abajo,
+dentro de financiero podemos ver el monto</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/285-3
+00:14:35.244 --> 00:14:39.837
+<v Mariana Navarro (EXT)>a reintegrar y cualquier nota que se haya
+sumado esto.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/290-0
+00:14:40.237 --> 00:14:46.316
+<v Mariana Navarro (EXT)>Ya se suma de por sí al aprobar,
+queda registrada la fecha y que es un</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/290-1
+00:14:46.316 --> 00:14:50.169
+<v Mariana Navarro (EXT)>aviso de pago y el monto. Y con esto,
+bueno,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/290-2
+00:14:50.169 --> 00:14:55.477
+<v Mariana Navarro (EXT)>le paso la batuta a Pau para que muestre
+entonces el rechazo.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/293-0
+00:14:56.957 --> 00:15:02.397
+<v PAULA SCALZO>Bueno, bárbaro, gracias, María,
+a ver si se ve.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/301-0
+00:15:05.677 --> 00:15:10.091
+<v PAULA SCALZO>Bueno, este es un cliente.
+Yo para ahorrar paso fui directo acá,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/301-1
+00:15:10.091 --> 00:15:14.845
+<v PAULA SCALZO>pero es un cliente capitado.
+Ya lo vamos a ver más adelante que se va</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/301-2
+00:15:14.845 --> 00:15:18.648
+<v PAULA SCALZO>a mencionar. Vamos,
+va a solicitar el reintegro por una</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/301-3
+00:15:18.648 --> 00:15:20.957
+<v PAULA SCALZO>consulta en un centro veterinario.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/306-0
+00:15:23.117 --> 00:15:27.869
+<v PAULA SCALZO>Para la factura yo bajé una cualquier
+cosa, la primera que tenía,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/306-1
+00:15:27.869 --> 00:15:31.757
+<v PAULA SCALZO>así que voy a tener que rellenar los
+datos porque no.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/310-0
+00:15:32.917 --> 00:15:35.877
+<v PAULA SCALZO>Cuando lea la factura no me va a
+reconocer varias cosas.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/309-0
+00:15:35.357 --> 00:15:35.837
+<v Juan C. Triventi>In.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/317-0
+00:15:53.917 --> 00:15:55.557
+<v PAULA SCALZO>Sapanarle 100 pesos.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/332-0
+00:16:19.477 --> 00:16:24.507
+<v PAULA SCALZO>Bueno,
+ahí ya se envió el la solicitud del</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/332-1
+00:16:24.507 --> 00:16:25.677
+<v PAULA SCALZO>reintegro.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/337-0
+00:16:27.197 --> 00:16:36.356
+<v PAULA SCALZO>Aquí aparece de que está solicitado 100
+pesos el día de hoy para la mascota popi.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/337-1
+00:16:36.356 --> 00:16:39.037
+<v PAULA SCALZO>Bueno, si yo me voy acá.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/340-0
+00:16:42.557 --> 00:16:45.797
+<v PAULA SCALZO>Al Back Office, refresco.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/345-0
+00:16:51.037 --> 00:16:53.117
+<v PAULA SCALZO>Y acá lo voy a encontrar, esperen que.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/348-0
+00:16:58.877 --> 00:17:00.677
+<v PAULA SCALZO>Acá estaba acá.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/353-0
+00:17:03.357 --> 00:17:08.994
+<v PAULA SCALZO>Bueno, esta es la solicitud que es lo ve,
+lo ve en el back office,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/353-1
+00:17:08.994 --> 00:17:16.061
+<v PAULA SCALZO>tanto calidad como finanzas según el rol.
+Este es el número de expediente y vamos a</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/353-2
+00:17:16.061 --> 00:17:18.837
+<v PAULA SCALZO>ver también que aparece en Nexus.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/358-0
+00:17:20.957 --> 00:17:26.634
+<v PAULA SCALZO>Al final no les mostré que era capitado.
+Pensé que a cambio iba a aparecer,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/358-1
+00:17:26.634 --> 00:17:30.444
+<v PAULA SCALZO>pero no, así que bueno,
+como para que se vea bien,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/358-2
+00:17:30.444 --> 00:17:32.237
+<v PAULA SCALZO>voy a ir a la cuenta de.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/359-0
+00:17:33.277 --> 00:17:34.317
+<v PAULA SCALZO>Este usuario.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/360-0
+00:17:36.957 --> 00:17:38.757
+<v PAULA SCALZO>Ven que tiene esencia a los de.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/365-0
+00:17:40.437 --> 00:17:44.768
+<v PAULA SCALZO>Bueno,
+esta había quedado acá en donde les iba a</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/365-1
+00:17:44.768 --> 00:17:49.717
+<v PAULA SCALZO>mostrar que se había registrado OK el
+expediente Nexus.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/370-0
+00:17:51.197 --> 00:17:57.726
+<v PAULA SCALZO>Y acá está otra vez aparece aceptado,
+consulta en centro veterinario. Acá está,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/370-1
+00:17:57.726 --> 00:17:59.277
+<v PAULA SCALZO>es unos decapitado.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/371-0
+00:18:00.077 --> 00:18:01.517
+<v PAULA SCALZO>Si vamos al detalle.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/374-0
+00:18:03.357 --> 00:18:07.917
+<v PAULA SCALZO>Por ahora vemos vacío porque únicamente
+está creado.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/379-0
+00:18:09.517 --> 00:18:13.804
+<v PAULA SCALZO>Bueno, ahora lo que vamos a hacer es,
+como siempre, lo primero,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/379-1
+00:18:13.804 --> 00:18:15.077
+<v PAULA SCALZO>validar la factura.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/381-0
+00:18:17.597 --> 00:18:18.637
+<v PAULA SCALZO>Er.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/387-0
+00:18:28.397 --> 00:18:33.569
+<v PAULA SCALZO>Esto a Mariana se lo traía mejor a mí más
+o menos porque mi factura no la leyó para</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/387-1
+00:18:33.569 --> 00:18:33.877
+<v PAULA SCALZO>nada.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/388-0
+00:18:35.037 --> 00:18:37.157
+<v PAULA SCALZO>Así que bueno, ahí estamos.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/414-0
+00:19:11.037 --> 00:19:16.117
+<v PAULA SCALZO>Bueno, una vez que estamos con la factura.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/415-0
+00:19:24.317 --> 00:19:24.637
+<v Mariana Navarro (EXT)>Up.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/418-0
+00:19:26.317 --> 00:19:27.597
+<v PAULA SCALZO>Ay, lo envié, ¿no?</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/422-0
+00:19:29.277 --> 00:19:32.277
+<v PAULA SCALZO>Lo tenia que rechazar ahi,
+pero no importa, lo puedo rechazar aca.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/421-0
+00:19:29.517 --> 00:19:29.957
+<v Mariana Navarro (EXT)>Sí.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/425-0
+00:19:34.477 --> 00:19:36.277
+<v PAULA SCALZO>Rechazamos por finanzas.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/426-0
+00:19:36.357 --> 00:19:36.637
+<v Mariana Navarro (EXT)>Mhm.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/431-0
+00:19:43.997 --> 00:19:45.997
+<v PAULA SCALZO>Y calidad envía el rechazo.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/434-0
+00:19:50.877 --> 00:19:53.757
+<v PAULA SCALZO>Envío exitoso, registramos el rechazo.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/439-0
+00:19:54.877 --> 00:19:58.922
+<v Mariana Minutella>Pauli,
+el único estado es datos inconsistentes,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/439-1
+00:19:58.922 --> 00:20:01.197
+<v Mariana Minutella>el único motivo de rechazo.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/441-0
+00:20:02.557 --> 00:20:06.167
+<v PAULA SCALZO>Sí,
+sabes que por ahora en finanzas ese es el</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/441-1
+00:20:06.167 --> 00:20:10.483
+<v PAULA SCALZO>único motivo.
+A nosotras también nos llamó la atención</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/440-0
+00:20:07.757 --> 00:20:08.437
+<v Mariana Minutella>Okay.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/441-2
+00:20:10.483 --> 00:20:10.797
+<v PAULA SCALZO>eso.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/445-0
+00:20:10.957 --> 00:20:15.231
+<v Mariana Minutella>Okey, pero es un tema de Nexus.
+¿Por qué lo pregunto? Porque digo,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/445-1
+00:20:15.231 --> 00:20:18.931
+<v Mariana Minutella>si está pensado para otro tipo de
+negocios y para Betify,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/445-2
+00:20:18.931 --> 00:20:22.184
+<v Mariana Minutella>necesitamos tener visibilidad de, no sé,
+fuera de,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/445-3
+00:20:22.184 --> 00:20:27.287
+<v Mariana Minutella>deberíamos también de empezar a ver cómo
+hacemos para crear estados que después</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/445-4
+00:20:27.287 --> 00:20:30.157
+<v Mariana Minutella>podamos transmitir correctamente al
+cliente.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/448-0
+00:20:30.237 --> 00:20:35.724
+<v Mariana Minutella>Sobre todo porque reintegros en salud es
+un poco más sensible también. Y digo,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/448-1
+00:20:35.724 --> 00:20:39.197
+<v Mariana Minutella>no me gustaría decirle datos
+inconsistentes, ¿no?</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/446-0
+00:20:37.997 --> 00:20:38.597
+<v PAULA SCALZO>Sí.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/447-0
+00:20:39.277 --> 00:20:39.757
+<v Gadia Trenes>Pero.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/452-0
+00:20:40.077 --> 00:20:43.695
+<v PAULA SCALZO>El módulo de calidad sí tiene más estados,
+o sea,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/459-0
+00:20:43.117 --> 00:20:47.181
+<v CYNTIA FERRARI>Eso iba a decir.
+El módulo de calidad tiene todos los</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/451-0
+00:20:43.277 --> 00:20:46.597
+<v Gadia Trenes>Claro, ese era un rechazo de finanzas.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/452-1
+00:20:43.695 --> 00:20:46.517
+<v PAULA SCALZO>la el rol de calidad tiene más estados.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/450-0
+00:20:44.157 --> 00:20:45.437
+<v Mariana Minutella>Ah, okay.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/459-1
+00:20:47.181 --> 00:20:52.223
+<v CYNTIA FERRARI>rechazos correspondientes a tipo de
+cobertura, a no tener eventos,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/453-0
+00:20:48.797 --> 00:20:49.037
+<v Juan C. Triventi>No.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/455-0
+00:20:51.517 --> 00:20:55.699
+<v Mariana Minutella>Okey, okey,
+el de finanzas solos tienen uno solo,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/459-2
+00:20:52.223 --> 00:20:57.040
+<v CYNTIA FERRARI>a que ese cargo. Exacto.
+El de finanzas tiene uno solo. Perdón,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/454-0
+00:20:55.677 --> 00:20:56.517
+<v Gadia Trenes>Esa parte.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/455-1
+00:20:55.699 --> 00:20:56.117
+<v Mariana Minutella>okey.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/459-3
+00:20:57.040 --> 00:21:02.910
+<v CYNTIA FERRARI>Gadi, digo esto y ya después te dejo.
+El de finanzas tiene uno solo porque es</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/456-0
+00:20:59.517 --> 00:20:59.757
+<v Gadia Trenes>No.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/459-4
+00:21:02.910 --> 00:21:03.437
+<v CYNTIA FERRARI>el MVP.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/470-0
+00:21:03.837 --> 00:21:07.953
+<v CYNTIA FERRARI>Sí,
+tenemos en el backlog de nuestros sprints</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/470-1
+00:21:07.953 --> 00:21:12.874
+<v CYNTIA FERRARI>el retrabajo,
+porque ellos nos pidieron que agreguemos</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/470-2
+00:21:12.874 --> 00:21:20.121
+<v CYNTIA FERRARI>ciertos estados asus rechazos o también
+ciertos steps para que ellos puedan como</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/465-0
+00:21:14.237 --> 00:21:14.797
+<v Mariana Minutella>Okay.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/468-0
+00:21:17.037 --> 00:21:17.717
+<v Mariana Minutella>Perfecto.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/470-3
+00:21:20.121 --> 00:21:25.757
+<v CYNTIA FERRARI>rechazar cuando les vuelve algo del banco
+que hoy no se puede.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/469-0
+00:21:21.917 --> 00:21:22.237
+<v Juan C. Triventi>Yeah.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/475-0
+00:21:26.317 --> 00:21:30.449
+<v CYNTIA FERRARI>Entonces sí está programado, Marian,
+para que esté y en el de calidad está</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/475-1
+00:21:30.449 --> 00:21:34.912
+<v CYNTIA FERRARI>como el doble clic de toda la cobertura
+de todos los rechazos que pueda llegar a</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/475-2
+00:21:34.912 --> 00:21:37.997
+<v CYNTIA FERRARI>tener por la cobertura. Perdón, Gadi,
+te dejo ahora sí.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/474-0
+00:21:36.237 --> 00:21:38.437
+<v Mariana Minutella>Okey, excelente, excelente.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/473-0
+00:21:36.557 --> 00:21:36.957
+<v PAULA SCALZO>Bien.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/479-0
+00:21:38.317 --> 00:21:41.251
+<v PAULA SCALZO>Sí, yo lo que quería acotar también,
+perdón,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/479-1
+00:21:41.251 --> 00:21:46.597
+<v PAULA SCALZO>es rapidito que ustedes vieron que yo al
+principio me confundí y validé algo y le</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/476-0
+00:21:41.517 --> 00:21:41.837
+<v CYNTIA FERRARI>Yeah.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/479-2
+00:21:46.597 --> 00:21:49.596
+<v PAULA SCALZO>dije a María,
+puedo rechazar en el siguiente.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/479-3
+00:21:49.596 --> 00:21:54.095
+<v PAULA SCALZO>Esa parte que validé fue como si fuera
+calidad. Si ahí yo rechazaba,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/479-4
+00:21:54.095 --> 00:21:59.050
+<v PAULA SCALZO>ahí ustedes iban a ver un montón de
+motivos de rechazo, como yo ahí validé,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/477-0
+00:21:58.077 --> 00:21:58.717
+<v CYNTIA FERRARI>Exacto.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/479-5
+00:21:59.050 --> 00:21:59.637
+<v PAULA SCALZO>es decir.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/481-0
+00:21:59.917 --> 00:22:05.081
+<v PAULA SCALZO>Acá se está viendo todo junto porque
+tenemos rol de calidad y de finanzas,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/478-0
+00:22:00.317 --> 00:22:00.717
+<v Juan C. Triventi>Speed.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/481-1
+00:22:05.081 --> 00:22:10.727
+<v PAULA SCALZO>pero el día de mañana uno va a tener rol
+de calidad y otro de finanzas, es decir,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/481-2
+00:22:10.727 --> 00:22:15.753
+<v PAULA SCALZO>el calidad va a aprobar o rechazar con
+ciertos estados y después le toca</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/481-3
+00:22:15.753 --> 00:22:18.851
+<v PAULA SCALZO>finanzas,
+aprobar o rechazar eso que aprobó,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/481-4
+00:22:18.851 --> 00:22:19.677
+<v PAULA SCALZO>por ejemplo.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/482-0
+00:22:19.917 --> 00:22:20.637
+<v PAULA SCALZO>Calidad.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/480-0
+00:22:20.157 --> 00:22:20.997
+<v CYNTIA FERRARI>Calidad.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/484-0
+00:22:21.277 --> 00:22:25.837
+<v Mariana Minutella>Ok, voy a traer una pregunta,
+probablemente no sea para ustedes,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/483-0
+00:22:21.837 --> 00:22:22.197
+<v PAULA SCALZO>Sí.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/484-1
+00:22:25.837 --> 00:22:30.186
+<v Mariana Minutella>pero averigüémoslo.
+¿Qué pasa si el medio de pago del cliente</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/484-2
+00:22:30.186 --> 00:22:33.624
+<v Mariana Minutella>es la tarjeta prepaga y me está pidiendo?
+O sea,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/484-3
+00:22:33.624 --> 00:22:39.376
+<v Mariana Minutella>yo puedo firmar y reafirmar que débitos
+automáticos en tarjeta prepaga no podemos</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/484-4
+00:22:39.376 --> 00:22:39.797
+<v Mariana Minutella>hacer.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/487-0
+00:22:39.917 --> 00:22:43.824
+<v Mariana Minutella>Ahora tenemos un universo muy grande de
+clientes con tarjeta prepaga,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/487-1
+00:22:43.824 --> 00:22:47.174
+<v Mariana Minutella>todavía purgándose,
+que es la palabra que estoy diciendo en</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/486-0
+00:22:45.597 --> 00:22:46.037
+<v Juan C. Triventi>No.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/487-2
+00:22:47.174 --> 00:22:49.965
+<v Mariana Minutella>esta semana,
+porque se está limpiando o porque lo</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/487-3
+00:22:49.965 --> 00:22:52.700
+<v Mariana Minutella>estamos tratando de migrar a otro medio
+de pago,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/487-4
+00:22:52.700 --> 00:22:56.105
+<v Mariana Minutella>o porque ya está llegando a su tercer
+consecutiva rechazada.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/487-5
+00:22:56.105 --> 00:22:59.677
+<v Mariana Minutella>Pero si lo tiene asignado como medio de
+pago para el reintegro.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/489-0
+00:22:59.917 --> 00:23:05.561
+<v Mariana Minutella>Yo ahí sí desconozco si se puede hacer un
+reintegro sobre ese medio de pago.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/488-0
+00:23:05.437 --> 00:23:12.397
+<v CYNTIA FERRARI>Les pedimos CBU, Marian, para el exacto,
+les pedimos CBU para medio de pago.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/489-1
+00:23:05.561 --> 00:23:10.986
+<v Mariana Minutella>¿Entonces, qué pasa ahí con el cliente?
+Les pedimos CBU siempre, o K o K,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/489-2
+00:23:10.986 --> 00:23:15.237
+<v Mariana Minutella>entonces no debe,
+no deberíamos tener ahí inconvenientes.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/492-0
+00:23:13.837 --> 00:23:18.271
+<v CYNTIA FERRARI>O sea,
+para depositarles el lo que pueden hoy</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/490-0
+00:23:16.557 --> 00:23:17.477
+<v Mariana Minutella>Perfecto.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/492-1
+00:23:18.271 --> 00:23:21.837
+<v CYNTIA FERRARI>cargar es CBU CBV corta, CBU V larga.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/491-0
+00:23:19.677 --> 00:23:20.517
+<v Mariana Minutella>Perfecto.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/493-0
+00:23:21.917 --> 00:23:26.857
+<v Mariana Minutella>Sí, me queda claro, perfecto, buenísimo,
+buenísimo. Entonces hay menos chance.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/494-0
+00:23:25.677 --> 00:23:29.736
+<v PAULA SCALZO>Bueno,
+ahora que le rechazamos el reintegro,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/493-1
+00:23:26.857 --> 00:23:27.357
+<v Mariana Minutella>Gracias.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/494-1
+00:23:29.736 --> 00:23:34.697
+<v PAULA SCALZO>le aparece aparece tanto en el back
+office el rechazo.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/494-2
+00:23:34.697 --> 00:23:39.117
+<v PAULA SCALZO>Vamos a ver que Nexus también aparece
+rechazado.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/497-0
+00:23:44.757 --> 00:23:46.357
+<v PAULA SCALZO>No voy a tener que volver a filtrar.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/510-0
+00:24:04.797 --> 00:24:08.797
+<v PAULA SCALZO>Ahí aparece anulado,
+que es el estado para el rechazo.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/513-0
+00:24:10.557 --> 00:24:12.517
+<v PAULA SCALZO>Si nos vamos al detalle.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/514-0
+00:24:13.357 --> 00:24:15.797
+<v PAULA SCALZO>Acá ya vemos que está anulado.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/523-0
+00:24:17.837 --> 00:24:25.958
+<v PAULA SCALZO>El no se le reintegró nada,
+es cero y acá todas las notas de lo que</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/523-1
+00:24:25.958 --> 00:24:34.437
+<v PAULA SCALZO>fue sucediendo también para el tutor
+cuando vaya a ver los reintegros.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/528-0
+00:24:35.557 --> 00:24:41.084
+<v PAULA SCALZO>Le va a salir que este que realizó este
+esa solicitud le salió desaprobado y de</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/528-1
+00:24:41.084 --> 00:24:43.917
+<v PAULA SCALZO>esta manera lo va a ver también el tutor.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/530-0
+00:24:44.877 --> 00:24:49.344
+<v PAULA SCALZO>Así que bueno,
+ahí ya abarcamos lo que era Capital o</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/530-1
+00:24:49.344 --> 00:24:54.569
+<v PAULA SCALZO>Sode, lo que era cliente,
+un rechazo y uno aprobado. Y bueno,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/529-0
+00:24:53.757 --> 00:24:54.197
+<v Gadia Trenes>Ah.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/530-2
+00:24:54.569 --> 00:24:55.917
+<v PAULA SCALZO>con eso estamos.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/535-0
+00:24:56.317 --> 00:25:01.298
+<v Gadia Trenes>Hago una pregunta que igual tal vez no
+sea todavía la instancia,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/535-1
+00:25:01.298 --> 00:25:07.352
+<v Gadia Trenes>pero yo entiendo que lo que se migraba
+entonces por ahora Nexus es la parte de</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/535-2
+00:25:07.352 --> 00:25:10.954
+<v Gadia Trenes>reintegros.
+¿Saben si esto está apareciendo en</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/534-0
+00:25:09.517 --> 00:25:09.837
+<v Juan C. Triventi>No.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/535-3
+00:25:10.954 --> 00:25:17.314
+<v Gadia Trenes>guardia general o guardia general levanta
+cice y esto de Nexus no va o pregunto en</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/535-4
+00:25:17.314 --> 00:25:18.157
+<v Gadia Trenes>data si no?</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/536-0
+00:25:19.837 --> 00:25:22.757
+<v PAULA SCALZO>Sí, la verdad es que no sabría decirte.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/537-0
+00:25:21.757 --> 00:25:25.585
+<v Gadia Trenes>O K o K,
+le voy a preguntar porque yo porque yo en</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/537-1
+00:25:25.585 --> 00:25:29.413
+<v Gadia Trenes>general lo miro desde ahí los servicios
+que dimos.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/537-2
+00:25:29.413 --> 00:25:33.391
+<v Gadia Trenes>Entonces no sé si ahora lo de Nexus,
+supongo que sí,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/537-3
+00:25:33.391 --> 00:25:38.871
+<v Gadia Trenes>porque otros negocios ya había ya
+migraron y en Guardia General creo que</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/537-4
+00:25:38.871 --> 00:25:40.597
+<v Gadia Trenes>están. Bueno, pregunto.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/538-0
+00:25:41.037 --> 00:25:42.517
+<v Mariana Minutella>Sí, chequeamos por las dudas.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/539-0
+00:25:42.557 --> 00:25:42.957
+<v Gadia Trenes>Hmm.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/540-0
+00:25:43.997 --> 00:25:44.717
+<v Gadia Trenes>Buenísimo.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/541-0
+00:25:44.557 --> 00:25:44.797
+<v Juan C. Triventi>No.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/542-0
+00:25:48.077 --> 00:25:54.058
+<v Mariana Minutella>Entonces voy a preguntar para pasar en
+limpio y chequear a ver si entendí</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/542-1
+00:25:54.058 --> 00:25:59.231
+<v Mariana Minutella>perfecto. O sea, da reintegros,
+está solucionado en producción,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/542-2
+00:25:59.231 --> 00:26:05.212
+<v Mariana Minutella>pero haciendo que el expediente viaje a
+Cise en todavía no está en Nexus.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/542-3
+00:26:05.212 --> 00:26:07.637
+<v Mariana Minutella>Esto que está mostrando es la.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/543-0
+00:26:07.797 --> 00:26:11.437
+<v Mariana Minutella>Lo que después se va a llevar a
+producción en los próximos sprints.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/546-0
+00:26:11.917 --> 00:26:13.837
+<v PAULA SCALZO>Tal cual, eso mismo.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/544-0
+00:26:12.157 --> 00:26:12.877
+<v Mariana Navarro (EXT)>Exacto.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/545-0
+00:26:13.037 --> 00:26:13.597
+<v Mariana Minutella>Okay.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/547-0
+00:26:14.677 --> 00:26:15.277
+<v Mariana Minutella>Tabular.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/548-0
+00:26:19.437 --> 00:26:22.764
+<v liliana picinotti>Bueno,
+hasta acá fue lo que hicimos de Mundo</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/548-1
+00:26:22.764 --> 00:26:28.383
+<v liliana picinotti>Nexus y Reintegros. Por otro lado,
+nosotros aprovechando algunos huecos que</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/548-2
+00:26:28.383 --> 00:26:32.745
+<v liliana picinotti>nos van quedando,
+vamos de a poquito trabajando lo que son</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/548-3
+00:26:32.745 --> 00:26:38.733
+<v liliana picinotti>mejoras que si bien no están priorizadas
+tienen que ver con experiencia y demás,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/548-4
+00:26:38.733 --> 00:26:43.317
+<v liliana picinotti>que cuando nos queda algún puchito dentro
+del sprint tratamos</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/550-0
+00:26:43.517 --> 00:26:48.674
+<v liliana picinotti>de ir tomándolas de a poco es súper
+incremental entonces hoy hoy llegamos</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/550-1
+00:26:48.674 --> 00:26:54.248
+<v liliana picinotti>después de recorrer un par de semanas de
+videollamada hicimos el reajuste de la</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/550-2
+00:26:54.248 --> 00:26:59.892
+<v liliana picinotti>mejora de la experiencia de usuario de
+Cara a la videollamada Así que la idea es</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/550-3
+00:26:59.892 --> 00:27:03.237
+<v liliana picinotti>compartirles Cómo quedó esto ya está
+productivo</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/551-0
+00:27:03.477 --> 00:27:08.767
+<v liliana picinotti>Por un lado hablamos con el equipo de
+prestadores para previo a pasar la</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/551-1
+00:27:08.767 --> 00:27:13.985
+<v liliana picinotti>producción para ver si vamos a estar
+avisándole algo a los prestadores.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/551-2
+00:27:13.985 --> 00:27:18.261
+<v liliana picinotti>Por el momento no,
+por un tema de que de cara al prestador</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/551-3
+00:27:18.261 --> 00:27:24.058
+<v liliana picinotti>no cambia nada y y tanto Belu como Meli
+de prestadores me dijeron no hace falta</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/551-4
+00:27:24.058 --> 00:27:26.957
+<v liliana picinotti>comunicarlo para no sumar ruido, así que</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/553-0
+00:27:28.157 --> 00:27:32.590
+<v liliana picinotti>En eso estamos bien y la idea de hoy es
+mostrarles cómo quedó esa videollamada</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/553-1
+00:27:32.590 --> 00:27:35.227
+<v liliana picinotti>para que sepan qué es lo que se está
+haciendo.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/553-2
+00:27:35.227 --> 00:27:39.997
+<v liliana picinotti>Ahí le cedemos la pantalla SIM que nos va
+a contar esa nueva experiencia cómo quedó.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/552-0
+00:27:38.557 --> 00:27:38.997
+<v CYNTIA FERRARI>Sí.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/556-0
+00:27:41.117 --> 00:27:46.115
+<v liliana picinotti>Esto lo ven todos los usuarios,
+sin importar de que si sos bichos,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/556-1
+00:27:46.115 --> 00:27:49.397
+<v liliana picinotti>sí o sos de en cualquiera de sus
+versiones.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/557-0
+00:27:49.517 --> 00:27:50.597
+<v CYNTIA FERRARI>Ahí lo ven.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/558-0
+00:27:52.637 --> 00:27:53.637
+<v liliana picinotti>Yes.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/572-0
+00:27:52.877 --> 00:27:56.828
+<v CYNTIA FERRARI>Sí. Bien. Bueno,
+como bien dice Lili y nosotros todos</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/560-0
+00:27:53.597 --> 00:27:54.237
+<v Mariana Navarro (EXT)>Easy.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/559-0
+00:27:53.717 --> 00:27:54.237
+<v Hernan Casabella>sí.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/563-0
+00:27:54.797 --> 00:27:55.037
+<v Juan C. Triventi>No.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/572-1
+00:27:56.828 --> 00:28:00.194
+<v CYNTIA FERRARI>sabemos,
+nosotros en su momento habíamos como</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/572-2
+00:28:00.194 --> 00:28:05.390
+<v CYNTIA FERRARI>rediseñado la Home de la web app,
+pero digamos todos los las secciones</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/572-3
+00:28:05.390 --> 00:28:10.512
+<v CYNTIA FERRARI>después dentro de la Home nos habían
+quedado con el formato anterior.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/572-4
+00:28:10.512 --> 00:28:16.512
+<v CYNTIA FERRARI>En las reviews anteriores vimos como los
+chicos habían rediseñado todo lo que era</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/572-5
+00:28:16.512 --> 00:28:17.317
+<v CYNTIA FERRARI>la carga de</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/579-0
+00:28:17.397 --> 00:28:21.387
+<v CYNTIA FERRARI>credencial,
+que era una de las secciones también que</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/579-1
+00:28:21.387 --> 00:28:25.377
+<v CYNTIA FERRARI>nos faltaba.
+Hoy lo que vamos a ver es el proceso de</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/579-2
+00:28:25.377 --> 00:28:31.250
+<v CYNTIA FERRARI>videollamadas. Si bien, como dice Lily,
+no cambia nada en base a lo que es el</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/579-3
+00:28:31.250 --> 00:28:37.197
+<v CYNTIA FERRARI>prestador o no cambia tampoco nada en
+base a lo que es la funcionalidad, si la</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/582-0
+00:28:37.517 --> 00:28:40.899
+<v CYNTIA FERRARI>La estética y la impronta ya pertenecen a
+la nueva,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/582-1
+00:28:40.899 --> 00:28:45.062
+<v CYNTIA FERRARI>como al nuevo look and feel que tiene la
+web app sobre Bettify.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/582-2
+00:28:45.062 --> 00:28:49.420
+<v CYNTIA FERRARI>Esta es como la primera pre pantalla para
+agendar la videollamada.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/582-3
+00:28:49.420 --> 00:28:54.428
+<v CYNTIA FERRARI>Tenemos la posibilidad de volver atrás,
+si es que no queríamos entrar a esta</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/582-4
+00:28:54.428 --> 00:28:58.851
+<v CYNTIA FERRARI>sección o iniciar una programación.
+En este caso nos va a pedir que</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/582-5
+00:28:58.851 --> 00:29:00.477
+<v CYNTIA FERRARI>seleccionemos la mascota.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/591-0
+00:29:00.517 --> 00:29:06.194
+<v CYNTIA FERRARI>mascota para la que queremos sepan que
+este es un usuario de prueba que nosotros</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/591-1
+00:29:06.194 --> 00:29:11.942
+<v CYNTIA FERRARI>usamos así que por eso tiene tantas pero
+si no acá tendría que aparecer una dos o</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/591-2
+00:29:11.942 --> 00:29:16.988
+<v CYNTIA FERRARI>tres las que tenga la persona cuando
+seleccionamos la mascota lo que le</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/591-3
+00:29:16.988 --> 00:29:22.455
+<v CYNTIA FERRARI>pedimos es que nos diga por qué motivo
+quiere hacer esta consulta esto es más</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/591-4
+00:29:22.455 --> 00:29:23.997
+<v CYNTIA FERRARI>que nada para nosotros</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/594-0
+00:29:24.477 --> 00:29:30.327
+<v CYNTIA FERRARI>poder tener un dato de cuáles son las
+casuísticas por las que más se comunican</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/594-1
+00:29:30.327 --> 00:29:36.176
+<v CYNTIA FERRARI>nuestros tutores y también después nos da
+un poco de visibilidad e información</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/594-2
+00:29:36.176 --> 00:29:41.730
+<v CYNTIA FERRARI>sobre si tenemos que hacer un doble clic
+en algo o el día de mañana cuando</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/594-3
+00:29:41.730 --> 00:29:43.877
+<v CYNTIA FERRARI>tengamos planes de engagement</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/595-0
+00:29:44.317 --> 00:29:48.549
+<v CYNTIA FERRARI>También nos sirve como input para tener
+estas casuísticas.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/595-1
+00:29:48.549 --> 00:29:53.641
+<v CYNTIA FERRARI>Si elegimos alguna de las que están antes
+de otro motivo, por ejemplo,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/595-2
+00:29:53.641 --> 00:29:58.877
+<v CYNTIA FERRARI>si yo quiero elegir revisión de estudios,
+el campo de abajo es opcional.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/595-3
+00:29:58.877 --> 00:30:03.611
+<v CYNTIA FERRARI>Ya me da como la casuística,
+ya me da la pauta de por qué se está</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/595-4
+00:30:03.611 --> 00:30:05.117
+<v CYNTIA FERRARI>comunicando el tutor.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/599-0
+00:30:05.597 --> 00:30:08.928
+<v CYNTIA FERRARI>Ahora,
+si yo quiero elegir otro motivo que no</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/599-1
+00:30:08.928 --> 00:30:14.649
+<v CYNTIA FERRARI>tengo casuística, digo desde nuestro lado,
+no sabemos cuál es ese otro motivo.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/599-2
+00:30:14.649 --> 00:30:19.863
+<v CYNTIA FERRARI>El campo de comentarios ahí sí es
+obligatorio para que nosotros podamos</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/599-3
+00:30:19.863 --> 00:30:25.077
+<v CYNTIA FERRARI>entender por qué se está comunicando el
+cliente. Una vez que avanzamos.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/598-0
+00:30:23.757 --> 00:30:24.317
+<v Gadia Trenes>Mm.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/600-0
+00:30:25.517 --> 00:30:29.669
+<v CYNTIA FERRARI>Puede, bueno,
+acá debe cargar una foto o lo que quiera,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/600-1
+00:30:29.669 --> 00:30:34.637
+<v CYNTIA FERRARI>si es que quiere o no, y si no,
+puede directamente omitir el paso.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/603-0
+00:30:36.877 --> 00:30:41.210
+<v CYNTIA FERRARI>Elegimos el día para el que queremos
+programar la videollamada.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/603-1
+00:30:41.210 --> 00:30:46.355
+<v CYNTIA FERRARI>Acá nosotros ya le aplicamos la lógica
+que también acordamos con el área de</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/603-2
+00:30:46.355 --> 00:30:51.771
+<v CYNTIA FERRARI>prestadores de no tener una agenda de
+videollamadas infinita y abierta de acá a</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/603-3
+00:30:51.771 --> 00:30:55.495
+<v CYNTIA FERRARI>los siglos de los siglos,
+sino segmentarlas por meses.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/603-4
+00:30:55.495 --> 00:31:00.775
+<v CYNTIA FERRARI>Entonces ya directamente me aparece hasta
+el 20 de septiembre habilitado para</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/603-5
+00:31:00.775 --> 00:31:01.317
+<v CYNTIA FERRARI>pedirla.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/605-0
+00:31:02.717 --> 00:31:07.239
+<v CYNTIA FERRARI>Y el horario, acá encontramos,
+como los chicos de diseño encontraron</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/605-1
+00:31:07.239 --> 00:31:11.695
+<v CYNTIA FERRARI>esta forma de resolverlo,
+se acuerdan que nosotros tenemos horarios</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/605-2
+00:31:11.695 --> 00:31:15.168
+<v CYNTIA FERRARI>de cada media hora para poder hacer la
+videollamada.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/605-3
+00:31:15.168 --> 00:31:19.559
+<v CYNTIA FERRARI>Entonces los estipulamos en mañana,
+tarde y noche. Si yo quisiera,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/605-4
+00:31:19.559 --> 00:31:21.197
+<v CYNTIA FERRARI>por ejemplo, decir bueno,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/608-0
+00:31:21.357 --> 00:31:24.717
+<v CYNTIA FERRARI>Lo quiero tener entre en el horario de
+las 10:00,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/608-1
+00:31:24.717 --> 00:31:28.077
+<v CYNTIA FERRARI>ya lo selecciono y me queda directamente
+cargado.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/611-0
+00:31:29.357 --> 00:31:34.340
+<v CYNTIA FERRARI>Y en este caso ya me da como una
+confirmación final de para quién estoy</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/611-1
+00:31:34.340 --> 00:31:40.014
+<v CYNTIA FERRARI>pidiendo la videollamada, para qué fecha,
+para qué hora y cuál es el motivo de la</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/611-2
+00:31:40.014 --> 00:31:40.637
+<v CYNTIA FERRARI>consulta.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/616-0
+00:31:43.517 --> 00:31:46.752
+<v CYNTIA FERRARI>Listo,
+acá es la última confirmación de que</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/616-1
+00:31:46.752 --> 00:31:52.340
+<v CYNTIA FERRARI>realmente ya se programó el turno y todos
+los datos nuevamente comunicados.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/616-2
+00:31:52.340 --> 00:31:58.149
+<v CYNTIA FERRARI>También me avisa que esto también fue un
+acuerdo que hicimos con los chicos de</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/616-3
+00:31:58.149 --> 00:32:01.825
+<v CYNTIA FERRARI>prestadores,
+que puedo cancelar el turno hasta 30</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/616-4
+00:32:01.825 --> 00:32:03.957
+<v CYNTIA FERRARI>minutos antes de la consulta.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/617-0
+00:32:04.477 --> 00:32:09.179
+<v CYNTIA FERRARI>Si bien hoy nosotros no tenemos
+limitaciones con respecto a la cantidad</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/617-1
+00:32:09.179 --> 00:32:14.600
+<v CYNTIA FERRARI>de videollamadas que tienen los tutores,
+sí es más que nada este aviso para que el</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/617-2
+00:32:14.600 --> 00:32:17.473
+<v CYNTIA FERRARI>la persona, la veterinaria,
+el veterinario,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/617-3
+00:32:17.473 --> 00:32:22.306
+<v CYNTIA FERRARI>veterinaria que atienden estos turnos
+puedan como tener la posibilidad de</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/617-4
+00:32:22.306 --> 00:32:23.677
+<v CYNTIA FERRARI>reagendar esa agenda.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/620-0
+00:32:24.797 --> 00:32:28.417
+<v CYNTIA FERRARI>Hacia otra,
+hacia otro otro tutor y una vez que</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/620-1
+00:32:28.417 --> 00:32:33.621
+<v CYNTIA FERRARI>aceptamos la videollamada,
+después me va a aparecer acá el banner de</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/620-2
+00:32:33.621 --> 00:32:37.317
+<v CYNTIA FERRARI>cuál es mi videollamada siguiente
+pendiente, sí.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/622-0
+00:32:39.677 --> 00:32:45.437
+<v CYNTIA FERRARI>No sé si dudas, consultas o fui muy clara,
+sí.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/621-0
+00:32:41.997 --> 00:32:42.677
+<v Mariana Minutella>Sí, te amo.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/625-0
+00:32:41.997 --> 00:32:47.285
+<v liliana picinotti>Yo ahí le hago un complemento a Sin,
+hasta hoy las videollamadas eran</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/625-1
+00:32:47.285 --> 00:32:51.213
+<v liliana picinotti>ilimitadas,
+con el plan esencial de OZD pasan a ser</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/625-2
+00:32:51.213 --> 00:32:56.652
+<v liliana picinotti>limitadas, donde hay dos por año.
+En el próximo sprint vamos a tomar el</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/625-3
+00:32:56.652 --> 00:33:01.637
+<v liliana picinotti>diseño tanto visual como técnico de cómo
+resolver eso y de poder.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/628-0
+00:33:01.837 --> 00:33:06.752
+<v liliana picinotti>Independientemente, hoy esos decapitados,
+pero el día de mañana puede ser otro</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/628-1
+00:33:06.752 --> 00:33:11.044
+<v liliana picinotti>producto de cómo podemos hacer de poder
+jugar con las videollamadas.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/628-2
+00:33:11.044 --> 00:33:14.217
+<v liliana picinotti>En algunos casos hoy son 2,
+en otros podrán ser 5,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/628-3
+00:33:14.217 --> 00:33:18.323
+<v liliana picinotti>en otros van a ser ilimitados.
+Entonces tenemos que jugar con esa</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/628-4
+00:33:18.323 --> 00:33:21.558
+<v liliana picinotti>parametrización.
+A hoy están ilimitados para todos,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/627-0
+00:33:19.677 --> 00:33:20.477
+<v CYNTIA FERRARI>Exacto.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/628-5
+00:33:21.558 --> 00:33:23.797
+<v liliana picinotti>a futurísimo corto lo vamos a estar.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/629-0
+00:33:25.117 --> 00:33:25.877
+<v liliana picinotti>Recortando.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/630-0
+00:33:26.637 --> 00:33:27.317
+<v CYNTIA FERRARI>Exacto.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/631-0
+00:33:26.797 --> 00:33:28.637
+<v liliana picinotti>Castumizando, no recortando.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/632-0
+00:33:27.997 --> 00:33:30.477
+<v Mariana Minutella>Gracias, Lili, te lo súper, agradecemos.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/634-0
+00:33:30.237 --> 00:33:35.667
+<v CYNTIA FERRARI>Y también es por eso el aviso de cuánto
+tiempo tienen para cancelar la</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/633-0
+00:33:35.597 --> 00:33:36.517
+<v Mariana Minutella>Perfecto.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/634-1
+00:33:35.667 --> 00:33:39.950
+<v CYNTIA FERRARI>videollamada,
+para que sepan que si ese tiempo no es el</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/634-2
+00:33:39.950 --> 00:33:42.397
+<v CYNTIA FERRARI>correcto, se le consume un tope.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/636-0
+00:33:42.797 --> 00:33:46.504
+<v Mariana Minutella>Total, chicas, les hago chicos,
+en realidad les hago una consulta,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/636-1
+00:33:46.504 --> 00:33:49.603
+<v Mariana Minutella>no sé si me la van a poder responder y si
+no pasa nada,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/636-2
+00:33:49.603 --> 00:33:52.037
+<v Mariana Minutella>pero por ahí lo es algo que pueden
+revisar.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/635-0
+00:33:52.397 --> 00:33:52.677
+<v CYNTIA FERRARI>Mhm.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/638-0
+00:33:53.757 --> 00:33:59.908
+<v Mariana Minutella>¿Tenemos alguna forma de medir el tiempo
+promedio de la duración de las</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/638-1
+00:33:59.908 --> 00:34:03.837
+<v Mariana Minutella>videollamadas actuales que hoy estamos
+dando?</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/641-0
+00:34:08.957 --> 00:34:11.313
+<v CYNTIA FERRARI>Oski,
+eso no sé si a eso aparece en el</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/642-0
+00:34:09.197 --> 00:34:13.117
+<v liliana picinotti>No, yo ese eso en el radar, claro,
+no sé si eso aparece.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/641-1
+00:34:11.313 --> 00:34:11.917
+<v CYNTIA FERRARI>monitoreo.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/645-0
+00:34:11.437 --> 00:34:17.333
+<v Mariana Minutella>Oski tiene 3 horas, digo, por eso digo,
+no me la no me lo tenés que responder</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/643-0
+00:34:14.877 --> 00:34:15.917
+<v Oscar Alejandro Tello>No, pero lo.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/645-1
+00:34:17.333 --> 00:34:21.037
+<v Mariana Minutella>ahora,
+pero te te puedo transmitir la inquietud.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/644-0
+00:34:18.157 --> 00:34:20.397
+<v Oscar Alejandro Tello>Lo llevamos para balear, sí.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/648-0
+00:34:20.957 --> 00:34:23.949
+<v CYNTIA FERRARI>Sí,
+sé que en el monitoreo no recuerdo que</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/645-2
+00:34:21.037 --> 00:34:22.397
+<v Mariana Minutella>Eso, ahí está, OK.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/648-1
+00:34:23.949 --> 00:34:28.819
+<v CYNTIA FERRARI>creo que aparece la duración.
+No sé si tenemos forma de exportar eso,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/648-2
+00:34:28.819 --> 00:34:32.437
+<v CYNTIA FERRARI>pero bueno, Oski,
+Oski es nuestro superhéroe, está.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/646-0
+00:34:30.397 --> 00:34:30.917
+<v Mariana Minutella>Okay.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/652-0
+00:34:32.797 --> 00:34:39.000
+<v Mariana Minutella>Sí, Oski,
+yo te voy a hacer varias preguntas si el</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/647-0
+00:34:32.957 --> 00:34:33.277
+<v Oscar Alejandro Tello>Yep.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/649-0
+00:34:34.957 --> 00:34:36.117
+<v CYNTIA FERRARI>Aquí todo lo puede.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/650-0
+00:34:37.437 --> 00:34:37.917
+<v CYNTIA FERRARI>Sí.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/651-0
+00:34:37.757 --> 00:34:38.277
+<v Oscar Alejandro Tello>Sí.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/652-1
+00:34:39.000 --> 00:34:47.878
+<v Mariana Minutella>monitoreo nos permite obtener la
+distribución que hoy tenemos de cómo se</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/652-2
+00:34:47.878 --> 00:34:50.797
+<v Mariana Minutella>están distribuyendo los.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/653-0
+00:34:50.957 --> 00:34:52.757
+<v Mariana Minutella>Turnos para videollamadas.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/654-0
+00:34:53.757 --> 00:34:57.259
+<v Mariana Minutella>Si lo podemos ver por hora por día,
+¿por qué les digo esto?</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/654-1
+00:34:57.259 --> 00:35:02.045
+<v Mariana Minutella>Son cuestiones relacionadas también con
+costos y decisiones que tenemos que tomar</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/654-2
+00:35:02.045 --> 00:35:06.597
+<v Mariana Minutella>para empezar a entender cómo dimensionar.
+Hoy decimos que son media hora, sí.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/656-0
+00:35:04.557 --> 00:35:08.882
+<v CYNTIA FERRARI>Igual, pera María,
+en el archivo de siniestralidad,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/656-1
+00:35:08.882 --> 00:35:15.037
+<v CYNTIA FERRARI>cuando vos filtras por su motivo,
+te aparece el campo, si no me equivoco.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/655-0
+00:35:15.277 --> 00:35:16.197
+<v Mariana Minutella>Duración.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/657-0
+00:35:16.637 --> 00:35:19.679
+<v CYNTIA FERRARI>Del horario, no sé,
+del horario estoy pensando,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/657-1
+00:35:19.679 --> 00:35:21.517
+<v CYNTIA FERRARI>estoy pensando en el horario.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/659-0
+00:35:21.437 --> 00:35:24.530
+<v Mariana Minutella>Sí,
+yo en realidad quiero ir a más que el</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/659-1
+00:35:24.530 --> 00:35:30.643
+<v Mariana Minutella>horario. Bueno, OK, pero quiero entender,
+en realidad quiero días, horarios, digo,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/658-0
+00:35:26.477 --> 00:35:27.597
+<v CYNTIA FERRARI>¿Vos querés la duración?</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/659-2
+00:35:30.643 --> 00:35:34.546
+<v Mariana Minutella>y cuando hablo de días también
+estacionalidad. Digo,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/659-3
+00:35:34.546 --> 00:35:38.301
+<v Mariana Minutella>sucede más a principio de mes,
+a fin de mes. Digo,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/659-4
+00:35:38.301 --> 00:35:40.437
+<v Mariana Minutella>como para empezar a entender.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/661-0
+00:35:40.517 --> 00:35:44.769
+<v Mariana Minutella>¿Cuál es el scheduling que necesitamos
+para atender la demanda actual,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/661-1
+00:35:44.769 --> 00:35:49.201
+<v Mariana Minutella>empezar a hacer entendimientos de
+comportamiento para estar preparados si</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/661-2
+00:35:49.201 --> 00:35:52.614
+<v Mariana Minutella>tenemos que en un futuro escalar esto?
+¿Sí? Porque digo,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/660-0
+00:35:52.077 --> 00:35:52.637
+<v CYNTIA FERRARI>Okay.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/661-3
+00:35:52.614 --> 00:35:56.148
+<v Mariana Minutella>hoy decimos son ilimitadas.
+No son tan ilimitadas tampoco,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/661-4
+00:35:56.148 --> 00:35:59.442
+<v Mariana Minutella>porque la realidad es que tenemos un
+abono fijo. Digo,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/661-5
+00:35:59.442 --> 00:36:01.837
+<v Mariana Minutella>son cosas que tenemos que empezar a ver.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/662-0
+00:36:02.357 --> 00:36:05.705
+<v Mariana Minutella>Porque no es lo mismo con una cartera
+chiquita. Ahora,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/662-1
+00:36:05.705 --> 00:36:09.723
+<v Mariana Minutella>cuando lo queremos escalar,
+tenemos que ir viendo cómo lo cómo lo</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/662-2
+00:36:09.723 --> 00:36:12.828
+<v Mariana Minutella>monitoreamos y también empezar a tomar
+decisiones,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/662-3
+00:36:12.828 --> 00:36:17.515
+<v Mariana Minutella>porque a lo mejor le estamos poniendo
+media hora y por ahí duran 13 minutos.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/662-4
+00:36:17.515 --> 00:36:20.376
+<v Mariana Minutella>Tiempo promedio de conversación.
+¿Se entiende?</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/662-5
+00:36:20.376 --> 00:36:23.237
+<v Mariana Minutella>Nada como para empezar a monitorear y
+también.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/664-0
+00:36:23.517 --> 00:36:26.528
+<v Mariana Minutella>Entender del otro lado qué nivel de
+servicio tenemos,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/664-1
+00:36:26.528 --> 00:36:30.932
+<v Mariana Minutella>lo que nos lo que nos puedas decir Oski
+que hoy el monitoreo tiene fantástico.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/663-0
+00:36:26.717 --> 00:36:27.037
+<v CYNTIA FERRARI>O K.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/664-2
+00:36:30.932 --> 00:36:35.114
+<v Mariana Minutella>Es un mapeo de situación actual.
+Después veremos que tendremos que, si no,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/664-3
+00:36:35.114 --> 00:36:36.117
+<v Mariana Minutella>salir a construir.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/665-0
+00:36:36.677 --> 00:36:38.277
+<v Oscar Alejandro Tello>Está perfecto, está clarísimo.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/666-0
+00:36:38.397 --> 00:36:39.397
+<v Mariana Minutella>Bueno, gracias.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/667-0
+00:36:41.917 --> 00:36:46.648
+<v CYNTIA FERRARI>Bueno,
+eso fue la nueva versión de videollamadas.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/667-1
+00:36:46.648 --> 00:36:51.946
+<v CYNTIA FERRARI>Ya que estamos,
+si quieren les comento los KPIs del mes</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/667-2
+00:36:51.946 --> 00:36:58.379
+<v CYNTIA FERRARI>de julio que, por ejemplo, el NPS,
+si bien nosotros ya lo teníamos,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/667-3
+00:36:58.379 --> 00:37:03.677
+<v CYNTIA FERRARI>ayer se formalizó a nivel compañía que
+terminó en un 75</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/668-0
+00:37:03.837 --> 00:37:10.677
+<v CYNTIA FERRARI>En un 75 en el mes de julio y el CSAT fue
+de un 100 * 100%.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/669-0
+00:37:12.557 --> 00:37:18.679
+<v CYNTIA FERRARI>con base a 33 encuestas realizadas.
+Para que no me preguntes Marian sobre la</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/669-1
+00:37:18.679 --> 00:37:22.813
+<v CYNTIA FERRARI>muestra. Ya te veía,
+ya te veía con la intención de</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/670-0
+00:37:20.557 --> 00:37:27.637
+<v Mariana Minutella>Gracias, sí, me gusta que ya, ajá,
+gracias.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/669-2
+00:37:22.813 --> 00:37:25.437
+<v CYNTIA FERRARI>preguntarme. ¿Cuál es la muestra?</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/672-0
+00:37:27.197 --> 00:37:32.037
+<v CYNTIA FERRARI>¿Cuál es la muestra?
+Son 33 personas en encuestadas. Esas son,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/671-0
+00:37:30.077 --> 00:37:30.757
+<v Mariana Minutella>Okey.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/672-1
+00:37:32.037 --> 00:37:35.724
+<v CYNTIA FERRARI>digamos,
+lo que se mide por fuera de del squad,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/672-2
+00:37:35.724 --> 00:37:41.024
+<v CYNTIA FERRARI>después por dentro del squad.
+Esperen que igual les voy a compartir.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/672-3
+00:37:41.024 --> 00:37:42.637
+<v CYNTIA FERRARI>Quiero que sepan que.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/673-0
+00:37:41.597 --> 00:37:44.322
+<v liliana picinotti>Nosotros,
+cada cosa que estamos haciendo nueva o</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/673-1
+00:37:44.322 --> 00:37:48.492
+<v liliana picinotti>que le estamos cambiando la cara,
+lo que estamos incluyendo es la medición</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/673-2
+00:37:48.492 --> 00:37:51.273
+<v liliana picinotti>del CES.
+Esto básicamente lo que hace es medir el</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/673-3
+00:37:51.273 --> 00:37:54.943
+<v liliana picinotti>esfuerzo que tiene el cliente para
+entender lo que está haciendo.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/673-4
+00:37:54.943 --> 00:37:58.557
+<v liliana picinotti>Si bien nosotros hacemos todo,
+obviamente con un diseño de UX UI</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/673-5
+00:37:58.557 --> 00:38:00.837
+<v liliana picinotti>amigable y con la experiencia de cliente.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/674-0
+00:38:00.957 --> 00:38:07.041
+<v liliana picinotti>que se espera para este tipo de producto
+y hacemos testeos, digamos, direccionados.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/674-1
+00:38:07.041 --> 00:38:12.112
+<v liliana picinotti>Cuando esto sale a la calle,
+igualmente lo estamos midiendo porque lo</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/674-2
+00:38:12.112 --> 00:38:16.675
+<v liliana picinotti>que queremos entender es que si para
+nuestros usuarios reales,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/674-3
+00:38:16.675 --> 00:38:19.717
+<v liliana picinotti>cuál es el esfuerzo que tienen y entonces.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/677-0
+00:38:19.837 --> 00:38:26.096
+<v liliana picinotti>Todo lo nuevo que fuimos agregando o
+modificando grande lo estamos midiendo.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/677-1
+00:38:26.096 --> 00:38:30.078
+<v liliana picinotti>Sería,
+obviamente la compra que ya está desde el</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/677-2
+00:38:30.078 --> 00:38:35.118
+<v liliana picinotti>día uno es la videollamada que también
+está desde el día uno,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/675-0
+00:38:34.477 --> 00:38:36.557
+<v PAULA SCALZO>La credencial.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/677-3
+00:38:35.118 --> 00:38:40.157
+<v liliana picinotti>reintegros y la credencial. Gracias.
+Así que ahí sin te cedo.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/678-0
+00:38:40.237 --> 00:38:43.037
+<v liliana picinotti>Para que cuentes los números a hoy.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/676-0
+00:38:40.637 --> 00:38:41.477
+<v CYNTIA FERRARI>Sí.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/686-0
+00:38:43.677 --> 00:38:48.528
+<v CYNTIA FERRARI>Sí, les voy a compartir mi Excel pedorro,
+pero porque yo hice... No,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/679-0
+00:38:47.997 --> 00:38:50.477
+<v liliana picinotti>Bueno, después se va a poner lindo,
+pero bueno.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/686-1
+00:38:48.528 --> 00:38:54.012
+<v CYNTIA FERRARI>lo que pasa es que yo hice un Power Bi
+para presentar esto de una forma mucho</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/686-2
+00:38:54.012 --> 00:38:57.457
+<v CYNTIA FERRARI>más linda,
+pero nos quedó en un ambiente de Leo.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/686-3
+00:38:57.457 --> 00:39:03.082
+<v CYNTIA FERRARI>Entonces estamos con temitas de acceso,
+pero ya se solucionará. Mientras tanto,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/686-4
+00:39:03.082 --> 00:39:06.597
+<v CYNTIA FERRARI>por lo menos para tenerlos acá,
+el CES de compra.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/690-0
+00:39:06.717 --> 00:39:10.220
+<v CYNTIA FERRARI>del mes de julio fue de 6,5.
+La verdad que el... Sí,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/690-1
+00:39:10.220 --> 00:39:14.912
+<v CYNTIA FERRARI>el del CES es del uno al siete.
+El e-commerce siempre fue algo que nos</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/687-0
+00:39:10.317 --> 00:39:12.357
+<v liliana picinotti>Es del uno al 7, el CES me olvidé decir.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/690-2
+00:39:14.912 --> 00:39:18.151
+<v CYNTIA FERRARI>dio bien. Y si igualmente,
+si bien nos dio bien,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/690-3
+00:39:18.151 --> 00:39:23.570
+<v CYNTIA FERRARI>nos han entrado comentarios de mejoras
+que fueron trabajados por el equipo. Digo,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/690-4
+00:39:23.570 --> 00:39:28.065
+<v CYNTIA FERRARI>el proceso es el siguiente.
+Si nos entra un comentario sobre alguna</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/690-5
+00:39:28.065 --> 00:39:31.237
+<v CYNTIA FERRARI>mejora,
+cambio o algo que esté funcionando mal,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/692-0
+00:39:31.357 --> 00:39:36.018
+<v CYNTIA FERRARI>Eso automáticamente se convierte en
+tarjeta para nuestro sprint,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/692-1
+00:39:36.018 --> 00:39:40.034
+<v CYNTIA FERRARI>tanto en curso,
+si es un incidente o algún problema que</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/692-2
+00:39:40.034 --> 00:39:44.265
+<v CYNTIA FERRARI>estamos teniendo,
+o para el backlog de mejoras dependiendo</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/692-3
+00:39:44.265 --> 00:39:45.197
+<v CYNTIA FERRARI>la prioridad.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/691-0
+00:39:45.677 --> 00:39:45.757
+<v Juan C. Triventi>O.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/698-0
+00:39:47.277 --> 00:39:51.579
+<v CYNTIA FERRARI>Como les decía,
+el del e-commerce nos dio en julio un 6,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/693-0
+00:39:47.837 --> 00:39:48.157
+<v Juan C. Triventi>Hola.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/698-1
+00:39:51.579 --> 00:39:56.560
+<v CYNTIA FERRARI>5 el de videollamadas.
+En este archivo van a ver que tenemos dos.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/698-2
+00:39:56.560 --> 00:40:01.163
+<v CYNTIA FERRARI>Es porque en su momento,
+cuando se implementó videollamadas,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/698-3
+00:40:01.163 --> 00:40:06.597
+<v CYNTIA FERRARI>lo que se quería o lo que se buscaba
+medir fue el CSAT del veterinario.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/701-0
+00:40:07.117 --> 00:40:11.747
+<v CYNTIA FERRARI>Estábamos teniendo tantos problemas en la
+herramienta que nunca llegábamos como a</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/701-1
+00:40:11.747 --> 00:40:16.321
+<v CYNTIA FERRARI>medir el CSAT del veterinario y lo que
+nos estaba arrojando era como un CSAT del</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/701-2
+00:40:16.321 --> 00:40:21.063
+<v CYNTIA FERRARI>veterinario que en realidad representaba
+los problemas de la herramienta. Entonces,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/701-3
+00:40:21.063 --> 00:40:23.717
+<v CYNTIA FERRARI>en ese momento se migró a la medición del
+CES.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/706-0
+00:40:26.397 --> 00:40:29.791
+<v CYNTIA FERRARI>Fuimos mejorando.
+En julio cerramos con un cuatro,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/706-1
+00:40:29.791 --> 00:40:33.185
+<v CYNTIA FERRARI>si bien no es el objetivo,
+obviamente de la squad,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/706-2
+00:40:33.185 --> 00:40:36.579
+<v CYNTIA FERRARI>el objetivo es un es mínimo tener un 6,
+pero digo,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/706-3
+00:40:36.579 --> 00:40:41.105
+<v CYNTIA FERRARI>veníamos como de meses en donde hubo
+mucho ruido con videollamadas,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/706-4
+00:40:41.105 --> 00:40:44.698
+<v CYNTIA FERRARI>así que en julio pudimos repuntar un poco
+ese número.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/706-5
+00:40:44.698 --> 00:40:49.157
+<v CYNTIA FERRARI>Credenciales ni bien cerró Julio,
+ya cerró con un muy buen número.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/709-0
+00:40:49.237 --> 00:40:53.315
+<v CYNTIA FERRARI>y reintegros.
+Actualmente no tenemos métrica para ese</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/709-1
+00:40:53.315 --> 00:40:58.223
+<v CYNTIA FERRARI>mes porque obviamente no está
+implementado. Sí, en credenciales,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/709-2
+00:40:58.223 --> 00:41:03.283
+<v CYNTIA FERRARI>si bien como decía antes,
+nos da un muy buen KPI sobre el esfuerzo</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/709-3
+00:41:03.283 --> 00:41:07.361
+<v CYNTIA FERRARI>de los clientes,
+también detectamos ciertas mejoras o</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/709-4
+00:41:07.361 --> 00:41:13.402
+<v CYNTIA FERRARI>ciertas áreas de confusión que también
+están en tarjetas transformadas en el en</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/709-5
+00:41:13.402 --> 00:41:14.157
+<v CYNTIA FERRARI>el sprint.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/710-0
+00:41:14.677 --> 00:41:16.557
+<v CYNTIA FERRARI>Activo y próximo.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/712-0
+00:41:17.717 --> 00:41:20.934
+<v CYNTIA FERRARI>Pero bueno,
+más que nada para que todos conozcamos un</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/712-1
+00:41:20.934 --> 00:41:24.567
+<v CYNTIA FERRARI>poquito de los números.
+Cuando tenga solucionado el tema del</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/712-2
+00:41:24.567 --> 00:41:27.605
+<v CYNTIA FERRARI>tablero de Power BI,
+que también hay un tablero de</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/712-3
+00:41:27.605 --> 00:41:31.477
+<v CYNTIA FERRARI>siniestralidad que había armado para el
+squad, lo compartiremos.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/714-0
+00:41:34.357 --> 00:41:38.139
+<v liliana picinotti>Gracias Sin. Bueno,
+hasta acá es lo que hicimos. Ahora,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/714-1
+00:41:38.139 --> 00:41:41.516
+<v liliana picinotti>en qué nos quedó para el próximo sprint
+pegadito?</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/714-2
+00:41:41.516 --> 00:41:45.703
+<v liliana picinotti>Tenemos lo que es la landing de
+performance, ya está codeada.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/714-3
+00:41:45.703 --> 00:41:49.620
+<v liliana picinotti>Ayer a las 16:30 vimos con Millie el tema
+de los cupones,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/714-4
+00:41:49.620 --> 00:41:55.158
+<v liliana picinotti>de cómo tiene que ser el funcionamiento,
+entendiendo de que no es que va a ser un</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/714-5
+00:41:55.158 --> 00:41:58.737
+<v liliana picinotti>cupón único,
+sino que va a ir rotando dependiendo la</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/714-6
+00:41:58.737 --> 00:41:59.277
+<v liliana picinotti>campaña.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/716-0
+00:41:59.397 --> 00:42:04.294
+<v liliana picinotti>Así que con ese ajuste que va a estar
+trabajando los Juanchi,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/716-1
+00:42:04.294 --> 00:42:08.165
+<v liliana picinotti>que es la cara hoy de la landing de
+performance,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/716-2
+00:42:08.165 --> 00:42:14.010
+<v liliana picinotti>vamos a estar pasándolo al entorno de
+Cuba para que pueda ser probado por</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/716-3
+00:42:14.010 --> 00:42:18.117
+<v liliana picinotti>marketing, negocio y diseño por Juli,
+más que nada.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/717-0
+00:42:18.517 --> 00:42:19.437
+<v liliana picinotti>Em.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/718-0
+00:42:20.317 --> 00:42:23.762
+<v liliana picinotti>La parte de si,
+la parte de diseño y en cuanto esté el ok,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/718-1
+00:42:23.762 --> 00:42:26.623
+<v liliana picinotti>si es que hay feedback se corregirá,
+si está ok,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/718-2
+00:42:26.623 --> 00:42:29.776
+<v liliana picinotti>eso se pasa a producción para que pueda
+ser prendido.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/718-3
+00:42:29.776 --> 00:42:34.564
+<v liliana picinotti>Así que en el transcurso de hoy y parte
+del lunes vamos a estar trabajando en eso</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/718-4
+00:42:34.564 --> 00:42:37.718
+<v liliana picinotti>de los cupones.
+Por eso no hicimos la Demon Kua de la</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/718-5
+00:42:37.718 --> 00:42:40.637
+<v liliana picinotti>landing de performance,
+pero es algo que ya está.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/719-0
+00:42:40.717 --> 00:42:45.486
+<v liliana picinotti>caliente para salir y en el próximo primo
+estar trabajando en dos aristas</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/719-1
+00:42:45.486 --> 00:42:50.449
+<v liliana picinotti>principales en verdad son como cuatro
+Pero bueno les digo las que más quizás</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/719-2
+00:42:50.449 --> 00:42:55.734
+<v liliana picinotti>más más le resuenan a todo el auditorio
+que está acá es primero en trabajar en el</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/719-3
+00:42:55.734 --> 00:43:01.019
+<v liliana picinotti>banner para Cooper para aquellos clientes
+que se suman los que ya son clientes de</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/719-4
+00:43:01.019 --> 00:43:04.757
+<v liliana picinotti>Bettify y por ahora acá informalmente
+hablamos con Marian</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/720-0
+00:43:05.797 --> 00:43:10.427
+<v liliana picinotti>de que primero arranque para vos de que
+ya ellos no tienen nada de Betify Plus</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/720-1
+00:43:10.427 --> 00:43:14.940
+<v liliana picinotti>porque para los clientes de de Betify
+como un sí en preguntas frecuentes hay</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/720-2
+00:43:14.940 --> 00:43:19.687
+<v liliana picinotti>algo de Betify Plus hay que ver cómo lo
+sacamos como para que quede todo prolijo</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/720-3
+00:43:19.687 --> 00:43:24.551
+<v liliana picinotti>pero eso es lo primero que se va a estar
+tomando que es Banner Cooper para cumplir</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/720-4
+00:43:24.551 --> 00:43:26.837
+<v liliana picinotti>con el acuerdo que hay con el prestador</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/721-0
+00:43:27.317 --> 00:43:32.650
+<v liliana picinotti>obviamente la puesta en producción de la
+landing de performance y vamos a estar</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/721-1
+00:43:32.650 --> 00:43:37.117
+<v liliana picinotti>ajustando tanto el diseño para traer al
+frente lo que es la deuda,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/721-2
+00:43:37.117 --> 00:43:41.784
+<v liliana picinotti>el estado de cuenta del cliente para que
+en casos que tenga deuda que</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/721-3
+00:43:41.784 --> 00:43:44.784
+<v liliana picinotti>proactivamente,
+si entra la web a vi lo ve y</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/721-4
+00:43:44.784 --> 00:43:46.517
+<v liliana picinotti>proactivamente le da ganas</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/722-0
+00:43:46.597 --> 00:43:51.290
+<v liliana picinotti>De poder cancelar esa deuda,
+poderse contactar hoy, digamos,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/722-1
+00:43:51.290 --> 00:43:55.522
+<v liliana picinotti>desde su lado.
+El objetivo de esto apunta a colaborar,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/722-2
+00:43:55.522 --> 00:44:00.676
+<v liliana picinotti>a no llegar a las consecutivas rechazadas,
+a esas bajas y segundo,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/722-3
+00:44:00.676 --> 00:44:05.677
+<v liliana picinotti>a tratar de motivar a la persona que si
+está en deuda nos abone.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/723-0
+00:44:05.797 --> 00:44:08.908
+<v liliana picinotti>Así que eso es lo que vamos a estar
+diseñando.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/723-1
+00:44:08.908 --> 00:44:13.871
+<v liliana picinotti>Así que seguramente en el próximo,
+la próxima review van a ver ya el figma</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/723-2
+00:44:13.871 --> 00:44:18.636
+<v liliana picinotti>de cómo lo va a ver el cliente.
+Es aportar el granito de arena para que</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/723-3
+00:44:18.636 --> 00:44:20.357
+<v liliana picinotti>la cobrabilidad empiece a.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/724-0
+00:44:22.197 --> 00:44:22.997
+<v liliana picinotti>A mejorar.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/726-0
+00:44:24.437 --> 00:44:27.612
+<v liliana picinotti>No encontraba otra palabra a mejorar.
+Así que bueno,</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/726-1
+00:44:27.612 --> 00:44:32.645
+<v liliana picinotti>eso es en lo que vamos a estar trabajando
+fuertemente y que más les va a resonar al</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/725-0
+00:44:30.997 --> 00:44:31.237
+<v Juan C. Triventi>Y.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/726-2
+00:44:32.645 --> 00:44:35.700
+<v liliana picinotti>auditorio.
+Hasta acá fue lo que hicimos y el hacia</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/726-3
+00:44:35.700 --> 00:44:37.797
+<v liliana picinotti>dónde vamos. ¿Alguna duda consulta?</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/727-0
+00:44:42.037 --> 00:44:42.277
+<v Juan C. Triventi>No.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/728-0
+00:44:45.557 --> 00:44:46.717
+<v liliana picinotti>Fuimos muy claros.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/730-0
+00:44:46.917 --> 00:44:48.717
+<v CYNTIA FERRARI>My Thomas un 10.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/729-0
+00:44:47.957 --> 00:44:48.957
+<v Hernan Casabella>O en parte ya.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/732-0
+00:44:48.077 --> 00:44:52.314
+<v Mariana Minutella>Fuimos, fuimos preguntando,
+no sé si querían dejar preguntas para el</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/731-0
+00:44:50.197 --> 00:44:50.637
+<v CYNTIA FERRARI>Sí.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/732-1
+00:44:52.314 --> 00:44:56.797
+<v Mariana Minutella>final, pero yo me guía en el medio.
+Perdón si les cambié, les cambié la.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/735-0
+00:44:55.077 --> 00:44:57.416
+<v liliana picinotti>No está bueno porque así se hila todo
+junto.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/735-1
+00:44:57.416 --> 00:45:00.483
+<v liliana picinotti>No está bueno porque así se abre un tema
+y se cierra otro.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/735-2
+00:45:00.483 --> 00:45:04.070
+<v liliana picinotti>Así que eso está buenísimo.
+Imagínate preguntar algo de reintegro de</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/735-3
+00:45:04.070 --> 00:45:05.837
+<v liliana picinotti>lo que mostró Maria. Ya me olvidé.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/736-0
+00:45:04.677 --> 00:45:07.637
+<v Mariana Minutella>No me olvidé eso también, tal cual, bueno.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/733-0
+00:45:06.277 --> 00:45:06.517
+<v Juan C. Triventi>No.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/734-0
+00:45:06.837 --> 00:45:07.317
+<v Mariana Navarro (EXT)>A sure.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/738-0
+00:45:06.997 --> 00:45:08.997
+<v liliana picinotti>Yo ya me olvidé que es un reintegro.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/737-0
+00:45:09.077 --> 00:45:09.357
+<v Hernan Casabella>No.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/739-0
+00:45:09.797 --> 00:45:10.157
+<v Mariana Navarro (EXT)>Sí.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/740-0
+00:45:10.077 --> 00:45:11.877
+<v Mariana Minutella>Bueno, 1000 gracias, chicos.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/756-0
+00:45:11.277 --> 00:45:16.757
+<v liliana picinotti>Bueno, chicos, gracias, buena jornada.
+Saludos, chao.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/753-0
+00:45:11.637 --> 00:45:16.477
+<v Gadia Trenes>Buenísima, 1000 gracias, muchas gracias,
+buen día, chao chicos, nos vemos.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/751-0
+00:45:12.117 --> 00:45:15.637
+<v Mariana Navarro (EXT)>Bueno, gracias, chiquis, felicidades,
+que estén bien.</v>
+
+1e302b75-b2d0-412a-9f23-4956f7682ba1/755-0
+00:45:12.917 --> 00:45:17.197
+<v Juan C. Triventi>Muy buen laburo, gracias, un beso,
+nos vemos.</v>

@@ -18,10 +18,12 @@ export class VetifyWebappViewPetPage extends VetifyWebappLoggedBasePage {
         this.petId = petId;
 
         this.avatarImg = this.page.locator('img[data-scope="avatar"]');
-        this.petNameLbl = this.page.locator('span[data-scope="pet-name"]'); // TODO: Fix this locator
-        this.petBreedLbl = this.page.locator('span[data-scope="pet-breed"]'); // TODO: Fix this locator
-        this.petAgeLbl = this.page.locator('span[data-scope="pet-age"]'); // TODO: Fix this locator
-        this.planNameLbl = this.page.locator('span[data-scope="plan-name"]'); // TODO: Fix this locator
+        // Confirmado en vivo 2026-08-30: el nombre es el <p> hermano del wrapper del avatar
+        // (data-part="root", no el <img> en si); Raza/Edad/Plan son pares <p>etiqueta</p><p>valor</p>.
+        this.petNameLbl = this.page.locator('[data-scope="avatar"][data-part="root"]').locator('xpath=following-sibling::p[1]');
+        this.petBreedLbl = this.page.locator('p:text-is("Raza") + p');
+        this.petAgeLbl = this.page.locator('p:text-is("Edad") + p');
+        this.planNameLbl = this.page.locator('p:text-is("Plan") + p');
         this.backButton = this.page.locator('button[data-cy="backButton"]');
         this.downloadCredentialBtn = this.page.getByRole('button', { name: 'Bajar credencial' });
     }

@@ -22,4 +22,8 @@ export class VetifyWebappMyPetsPage extends VetifyWebappLoggedBasePage {
             this.page.waitForResponse((response) => response.url().includes('/api/services/pets/my-products') && response.status() === 200),
         ]);
     }
+
+    async openFirstPet(): Promise<void> {
+        await this.petCards.first().click();
+    }
 }

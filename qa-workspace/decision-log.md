@@ -1548,3 +1548,42 @@ Resumen de dónde quedó cada cosa:
 **Dashboard recalculado y verificado**: 273→302 CP totales, 77%→69% automatizado (baja porque el denominador ahora es honesto, no porque se perdió trabajo), críticos 146→166. Tabla completa de deltas en `casos-de-prueba-trazabilidad.md`.
 
 **Pendiente real para Alan/PO, no resuelto acá**: decidir qué hacer con los 10 gaps de backend/Salesforce excluidos (¿corresponden a este tracker o a otro tipo de testing?).
+
+### 2026-08-29/30 — Automatización real de los 17 gaps confirmados, en 3 tandas
+
+Con el OK de Alan ("adelante" repetido), se pasó de "validar" a implementar los 17 CPs confirmados como factibles. Resultado final: **15 de 17 automatizados y verificados pasando** (Desktop + Android donde aplica), 2 (Condicionado del plan) documentados como bloqueo técnico real tras 7 rondas de intentos.
+
+**Archivos nuevos**: `tests/projects/vetify-webapp/{session,navigation,pets,plans,reintegros}.spec.ts`; POMs nuevos `VeterinariasSearchModal.ts`, `ReintegrosPage.ts`; extendidos `HomePage.ts` (tour), `SideMenuSection.ts` (15 items de menú), `MyPetsPage.ts`, `MyPlansPage.ts`, `LoggedBasePage.ts`; `UserProvider.clearUserStorageState()` nuevo.
+
+**Tanda 1 (Sesión y Cuenta, 7 CPs)** — `session.spec.ts`: Logout, acceso post-logout, ruta protegida, persistencia de sesión, refresh, tour onboarding (1ra vez + no reaparece). Todos verificados en verde.
+
+**Tanda 2 (el resto, 10 CPs)** — `navigation.spec.ts` + `pets.spec.ts` + `plans.spec.ts` + `reintegros.spec.ts`. De estos, **8 quedaron verificados pasando** (Navegación principal, Acceso a mapa de veterinarias, Búsqueda de veterinarias, Detalle de mascota, Acceso a Reintegros, Consulta de estado de reintegro, Compatibilidad de permisos por plan) y **2 no se lograron** (Consulta y Descarga de condicionado del plan).
+
+**Bugs reales encontrados y arreglados en el camino** (no solo tests nuevos):
+1. `LoggedBasePage.openSideMenu()` tenía `isMobile` hardcodeado en `false` — nunca fallaba en Desktop pero colgaba 60s en el proyecto Android. Corregido a chequeo de visibilidad real, después reforzado con `Promise.race` esperando a que cualquiera de los 2 triggers esté listo (una navegación reciente podía dejar a los 2 temporalmente no-visibles).
+2. `ViewPetPage.ts` tenía 4 locators con comentario `// TODO: Fix this locator` — nunca verificados contra el DOM real. Corregidos con la estructura real confirmada en vivo (pares `<p>etiqueta</p><p>valor</p>`).
+3. **Hallazgo de arquitectura real**: solo Home tiene el trigger del menú lateral en su propio header — las subpantallas (Mascotas, Perfil, Reintegros, Planes y coberturas) usan un header "Volver" sin acceso al menú. `navigation.spec.ts` TS-01 se rediseñó para volver a Home entre cada click de menú en vez de asumir que se puede reabrir desde cualquier lado.
+4. **Diálogo intermitente "Algo salió mal"** (mismo patrón de backend flaky ya documentado en IMP-012/IMP-014): mientras está abierto, pone `aria-hidden` en el resto de la página y rompe cualquier `getByRole()`, aunque el elemento siga visible en el DOM. Se agregó `LoggedBasePage.dismissErrorDialogIfPresent()`, reusable en cualquier pantalla.
+5. **Cuenta del pool degradada confirmada de nuevo**: `user_1786584481760_8aea8baa` (0 mascotas visibles, "Planes y coberturas" vacío pese a tags `WITH_PET`/`NO_EMPTY_PLAN`) causaba fallos en cascada en varios specs nuevos. Excluida a propósito con `numberOfPlans:1` en los `userRequest` (es la única cuenta ACTIVE+WITH_PET del pool con 2 planes).
+6. **Autocompletado de Google Places** necesita `pressSequentially()` (tecla por tecla) en vez de `.fill()` para disparar sus listeners de forma confiable.
+7. Elementos duplicados por resumen responsive (mismo patrón ya visto en `CheckoutPage`) en el botón del tour y en textos de la pantalla Ayuda — el índice visible **no es estable** (a veces 0, a veces 1); se resolvió con el pseudo-selector `:visible` en vez de asumir un índice fijo.
+
+**Lo que no se logró — Condicionado del plan (2 CPs)**: abrir "Condiciones del Servicio" navega a un PDF en una pestaña nueva. Se probaron 4 estrategias distintas en 7 rondas (`waitForLoadState()`, `waitForURL()` con `load` y con `commit`, `expect.poll` sobre `url()`) — todas cuelgan o devuelven valores inconsistentes (`newPage.url()` devolvió literalmente `":"` en un intento), pese a que la misma interacción funciona sin problema en exploración manual con Playwright MCP. Se documenta como bloqueo técnico real del entorno de test con este patrón específico (popup + visor de PDF de Chromium), no como falta de esfuerzo — queda en `Automatizado=No` con el detalle completo en la Observación de `Casos de Prueba.xlsx`.
+
+**Excel final**: 302 CP totales, **222 automatizados (74%)**, subiendo desde el 69% de la ronda anterior. Todo verificado con el mismo método de siempre (delta calculado a mano antes de tocar el archivo, confirmado exacto después).
+
+### 2026-08-29/30 — Validación en vivo de los 29 gaps antes de automatizar
+
+Alan pidió validar cuáles de los 29 gaps recién trackeados se pueden automatizar "de una", antes de escribir ningún test. Exploración en vivo vía Playwright MCP contra `vetify-qa.ikeapp.com`, con 3 cuentas reales del pool (Vetify Adquirente `user_1785886357504_7fce46f5`, OSDE Capitado `user_1783951005615` — cuenta "Popi" con historial real de reintegros — y la cuenta de 2 planes `user_1786584481760_8aea8baa`, que resultó tener datos degradados).
+
+**17 de 29 confirmados 100% listos**, con Precondiciones/Pasos/Resultado reales ya cargados en `Casos de Prueba.xlsx` (reemplazando los `DBD`): Logout, acceso post-logout, ruta protegida, persistencia de sesión, refresh, tour onboarding (ambos casos), acceso al mapa de veterinarias, búsqueda de veterinarias, canales de contacto, navegación principal, consulta y descarga de condicionado, detalle de mascota, acceso a reintegros, consulta de estado de reintegro, y **compatibilidad de permisos por plan** (confirmado: el ítem "Vetify Plus" del menú aparece en cuentas Adquirente y no en OSDE Capitado — coincide con la regla de negocio ya documentada).
+
+**Hallazgos que NO son "falta automatizar todavía"**:
+- **Cambio de contraseña logueado (2 filas)**: confirmado en vivo que la funcionalidad no existe en el producto — "Editar datos" en Perfil solo tiene Teléfono/Dirección. Gap de producto, no de QA.
+- **Contratar otro plan / Plan no elegible (2 filas)**: no se encontró ningún punto de entrada en toda la exploración. Podría no existir como feature todavía.
+- **Detalle de veterinaria / Mapa sin resultados (2 filas)**: los resultados solo se renderizan como pines dentro de un iframe de Google Maps de terceros (cross-origin) — limitación técnica real de Playwright con iframes externos, marcadas `Automatizable=Parcial`.
+- **Solicitud de reintegro (bloquea 3 filas más: carga de documentación, validación, datos inválidos)**: probado con 2 cuentas distintas (incluida "Popi", con reintegros pagados reales) — **ambas fallan en el selector de "Mascota"** del wizard "Nuevo reintegro", con síntomas distintos cada vez (error genérico vs. "No hay mascotas registradas para tu documento" pese a tener historial real). Posible bug real del ambiente/backend, no confirmado si es de datos de las cuentas o de la funcionalidad — **queda pendiente de que Alan lo revise directamente**, no se sigue investigando por cuenta propia.
+
+**Sin revisar** (quedaron fuera de esta ronda, no urgente): Encuesta CE post-carga de credencial (necesita completar el flujo entero de subida), "Atención de Red" (nunca se identificó a qué corresponde en la app real), "Plan sin condicionado disponible" (necesita un plan/producto específico sin PDF mapeado).
+
+**Excel actualizado**: `Casos de Prueba.xlsx` — 21 filas de "Funcionalidades Pendientes" + 5 de Reintegros + 2 de Perfil con contenido real, columna `Automatizable?` agregada a las 2 hojas que no la tenían. Dashboard reverificado sin cambios en los totales (302 CP, 209 automatizados) — esta ronda fue solo de validación de factibilidad, ningún `Automatizado?` se movió de "No" todavía.

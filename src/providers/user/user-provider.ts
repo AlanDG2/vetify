@@ -38,6 +38,13 @@ export class UserProvider {
         // Return the filepath where the storage state is saved
         return filePath;
     }
+
+    // Un test que ejecuta logout real invalida la sesión cacheada — sin esto, el próximo test que
+    // reuse este usuario aplicaría cookies muertas y aterrizaría en login sin explicación.
+    static clearUserStorageState(user: TestUser): void {
+        const filePath = getUserStorageStateFilePath(user);
+        fs.rmSync(filePath, { force: true });
+    }
 }
 
 export { UserSource };

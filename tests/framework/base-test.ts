@@ -16,10 +16,12 @@ import { VetifyWebappMyPlansPage } from '@pages/vetify/webapp/MyPlansPage';
 import { VetifyWebappMyProfilePage } from '@pages/vetify/webapp/MyProfilePage';
 import { VetifyWebappPolicyValidationPage } from '@pages/vetify/webapp/PolicyValidationPage';
 import { VetifyWebappRegistrationPage } from '@pages/vetify/webapp/RegistrationPage';
+import { VetifyWebappReintegrosPage } from '@pages/vetify/webapp/ReintegrosPage';
 import { VetifyWebappResetPasswordPage } from '@pages/vetify/webapp/ResetPasswordPage';
 import { VetifyWebappServicesPage } from '@pages/vetify/webapp/ServicesPage';
 import { VetifyWebappSideMenuSection } from '@pages/vetify/webapp/SideMenuSection';
 import { VetifyWebappSystemUnavailableComponent } from '@pages/vetify/webapp/SystemUnavailableComponent';
+import { VetifyWebappVeterinariasSearchModal } from '@pages/vetify/webapp/VeterinariasSearchModal';
 import { VetifyWebappAddPetFormPage } from '@pages/vetify/webapp/credentials/AddPetFormPage';
 import { VetifyWebappViewPetPage } from '@pages/vetify/webapp/credentials/ViewPetPage';
 import {
@@ -53,8 +55,10 @@ type VetifyWebappContainer = {
     viewPetPage: VetifyWebappViewPetPage;
     myAppointmentsPage: VetifyWebappMyAppointmentsPage;
     myPlansPage: VetifyWebappMyPlansPage;
+    reintegrosPage: VetifyWebappReintegrosPage;
     systemUnavailableComponent: VetifyWebappSystemUnavailableComponent;
     featureUnavailableModal: VetifyWebappFeatureUnavailableModal;
+    veterinariasSearchModal: VetifyWebappVeterinariasSearchModal;
 };
 
 export type TestContainer = {
@@ -112,8 +116,10 @@ const test = base.extend<{
             viewPetPage: new VetifyWebappViewPetPage(page),
             myAppointmentsPage: new VetifyWebappMyAppointmentsPage(page),
             myPlansPage: new VetifyWebappMyPlansPage(page),
+            reintegrosPage: new VetifyWebappReintegrosPage(page),
             systemUnavailableComponent: new VetifyWebappSystemUnavailableComponent(page),
             featureUnavailableModal: new VetifyWebappFeatureUnavailableModal(page),
+            veterinariasSearchModal: new VetifyWebappVeterinariasSearchModal(page),
         };
 
         await use({

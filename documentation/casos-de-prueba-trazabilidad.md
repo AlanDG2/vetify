@@ -204,3 +204,23 @@ Todas las filas nuevas usan `DBD` en Precondiciones/Pasos/Resultado Esperado —
 | Mobile automatizable | 71 | 74 | mismas +3 |
 
 **Importante**: la caída de 77%→69% no es una regresión real — es el mismo trabajo automatizado de siempre, ahora medido contra un denominador más honesto que incluye gaps que antes ni figuraban en el tracker.
+
+### 2026-08-29/30 — Validación en vivo de los 29 gaps: Pasos/Resultado reales reemplazando los DBD
+
+Antes de automatizar, se validó en vivo (Playwright MCP contra `vetify-qa.ikeapp.com`) cuáles de los 29 gaps recién agregados son realmente factibles. Detalle completo del proceso y los hallazgos de bloqueo (Solicitud de reintegro, Cambio de contraseña logueado inexistente, Contratar otro plan sin punto de entrada, mapa de veterinarias limitado por iframe) en `qa-workspace/decision-log.md` — acá solo el resumen de los cambios al archivo:
+
+- **`Funcionalidades Pendientes`**: 17 de 21 filas actualizadas con Precondiciones/Pasos/Resultado Esperado reales (ya no `DBD`) + columna `Automatizable?` nueva cargada (`Si`/`No`/`Parcial` según corresponda). Las 2 filas de cambio de contraseña logueado y las 2 de "Contratar otro plan" quedaron en `Automatizable=No` con la evidencia de por qué. "Atención de Red" y "Plan sin condicionado disponible" quedaron sin tocar (no revisadas).
+- **`Reintegros`**: columna `Automatizable?` agregada. La fila de "Consulta de estado" quedó con Pasos/Resultado reales y `Si`. Las 4 filas restantes (solicitud, carga de documentación, validación, datos inválidos) quedaron en `Automatizable=Parcial` con la nota del bloqueo real encontrado en el selector de Mascota.
+- **`Perfil`**: fila de "Detalle de mascota" completada con Pasos/Resultado reales (confirmado: click en la card navega a una vista con raza, edad, plan y botón de bajar credencial). "Cambio de mascota" quedó con una nota explicando por qué no se pudo confirmar (cuenta multi-mascota del pool con datos degradados).
+
+**Dashboard sin cambios en los totales** (302 CP, 209 automatizados, 69%) — esta ronda no automatizó nada todavía, solo evaluó factibilidad real antes de escribir código.
+
+### 2026-08-29/30 — Implementación real: 15 de 17 gaps automatizados y verificados
+
+Detalle completo (bugs encontrados, hallazgo de arquitectura de navegación, diálogo de error intermitente, cuenta de pool degradada, estrategias de Google Places) en `qa-workspace/decision-log.md`. Acá solo el resumen del Excel:
+
+- **Funcionalidades Pendientes**: Acceso a mapa de veterinarias, Búsqueda de veterinarias, Navegación principal, Compatibilidad de permisos por plan → `Automatizado=Sí`. Consulta y Descarga de condicionado quedan `Automatizado=No` con la Observación actualizada explicando el bloqueo técnico real (popup+PDF, 7 rondas de intentos con 4 estrategias distintas, sin éxito).
+- **Reintegros**: Consulta de estado de una solicitud → `Automatizado=Sí` (verificado con la cuenta OSDE Capitado con historial real).
+- **Perfil**: Detalle completo de mascota → `Automatizado=Sí`.
+
+**Dashboard verificado**: 302 CP, **222 automatizados (74%)**, subiendo desde 209 (69%) antes de esta ronda. Delta de +13 automatizados coincide exacto con: +5 de la tanda de Sesión/Onboarding de la ronda anterior a esta + 6 nuevos de esta tanda +2 ya contados aparte — ver decision-log.md para el desglose fila por fila.

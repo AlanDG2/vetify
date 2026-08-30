@@ -15,6 +15,13 @@ export class VetifyWebappHomePage extends VetifyWebappLoggedBasePage {
     // Section: "Accesos"
     readonly goToVideocallBtn: Locator;
 
+    // Tour de onboarding (confirmado en vivo 2026-08-30, solo aparece la primera vez que la cuenta
+    // se loguea): banner de bienvenida + wizard de 3 pasos con navegación Atrás/Omitir/Continuar.
+    readonly tourWelcomeStartBtn: Locator;
+    readonly tourBackBtn: Locator;
+    readonly tourSkipBtn: Locator;
+    readonly tourNextBtn: Locator;
+
     constructor(page: Page) {
         super(page, '/');
 
@@ -25,6 +32,22 @@ export class VetifyWebappHomePage extends VetifyWebappLoggedBasePage {
         this.goToVideocallDetailBtn = page.getByRole('button', { name: 'Ir al detalle' });
 
         this.goToVideocallBtn = page.locator('button:text("Ir a videollamada")');
+
+        // 2 elementos con el mismo data-cy (resumen responsive duplicado, el mismo patrón ya visto en
+        // CheckoutPage.planQuantitySelect) -- confirmado en vivo 2026-08-30 que el indice 1 es el
+        // visible. Los botones de navegación del tour en si (Atrás/Omitir/Continuar) NO están duplicados.
+        this.tourWelcomeStartBtn = page.locator('[data-cy="tourWelcomeStart"]').nth(1);
+        this.tourBackBtn = page.locator('[data-cy="tourBack"]');
+        this.tourSkipBtn = page.locator('[data-cy="tourSkip"]');
+        this.tourNextBtn = page.locator('[data-cy="tourNext"]');
+    }
+
+    async completeOnboardingTour(): Promise<void> {
+        await this.tourWelcomeStartBtn.click();
+        // 3 pasos confirmados en vivo -- Continuar 2 veces avanza del paso 1 al 3, la 3ra cierra el tour.
+        await this.tourNextBtn.click();
+        await this.tourNextBtn.click();
+        await this.tourNextBtn.click();
     }
 
     async load() {

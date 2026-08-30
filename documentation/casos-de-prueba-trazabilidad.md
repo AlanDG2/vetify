@@ -178,3 +178,29 @@ Se agregó `CheckoutPage.selectPlanQuantity(n)` (nuevo método, un `<select aria
 **Excel actualizado**: filas 4 y 8 (Vetify B2C) — `Automatizado` de No a Sí. Dashboard verificado: `K5` 207→209 (+2 exacto).
 
 **Estado final de las 8 combinaciones de Vetify B2C TS-01**: 4 de 8 automatizadas (todas las "sin cupón": individual/familiar × débito/crédito). Las 4 restantes ("con cupón") siguen bloqueadas de raíz — no existe un cupón de prueba real, confirmado desde el 14/08, no es algo que el código pueda resolver.
+
+### 2026-08-29, mismo día — Reconciliación completa con el roadmap de la PO: 29 gaps nuevos trackeados en Casos de Prueba.xlsx
+
+Contexto: Liliana (PO) dio un borrador Excel separado ("Automation Vetify.xlsx", roadmap ejecutivo por flujo) para refinar. Al reconciliarlo fila por fila contra este Excel (ver `qa-workspace/decision-log.md` para el detalle completo de esa reconciliación), aparecieron **39 flujos de su roadmap sin ningún CP correspondiente acá**. De esos, 29 son gaps de UI/E2E claros que sí corresponden a este tracker; los otros 10 (validaciones de backend Salesforce/Engage) se dejaron fuera a propósito — no hay evidencia suficiente para escribir Precondiciones/Pasos reales, y podría no ser responsabilidad de este tracker (nivel API/backend, no UI).
+
+**Cambios aplicados**:
+- **`Reintegros`** (+5 filas, `CP-02` a `CP-06`): solicitud completa, carga de documentación, validación de campos, datos inválidos, consulta de estado. Hallazgo aparte, ya reportado a Alan: esta hoja tenía **un solo CP en total** antes de este cambio (un smoke test mobile) — todo el trabajo de QA real en Reintegros (BUG-015, IMAS-4101/4104/4124/4152) fue manual, nunca se automatizó como test de Playwright.
+- **`Perfil`** (+2 filas): detalle completo de mascota, cambio de mascota activa.
+- **`Credenciales`** (+1 fila): disparo de la encuesta CE post-carga.
+- **Hoja nueva `Funcionalidades Pendientes`** (21 filas, 5 grupos `TS-01` a `TS-05`): Sesión y Cuenta (7 — logout, refresh, cambio de contraseña logueado, onboarding), Prestadores y Red (5 — mapa de veterinarias completo), Cobertura y Condicionados (3 — PDF de condicionado), Vetify Plus (2 — contratar otro plan, plan no elegible), Regresión Transversal (4 — persistencia de sesión, navegación, rutas protegidas, permisos por plan).
+
+Todas las filas nuevas usan `DBD` en Precondiciones/Pasos/Resultado Esperado — **convención ya existente en este mismo archivo** (vista primero en la hoja `Perfil`, filas de "Cambiar DNI"), no una invención de esta sesión: significa "el caso está identificado pero el diseño detallado todavía no se hizo", distinto de escribir pasos falsos que nadie verificó.
+
+**Dashboard `Metricas de Casos de Prueba` actualizado** (4 fórmulas extendidas para incluir `Funcionalidades Pendientes`: `C5`, `K5`, `C25`, `K25` — las fórmulas de Desktop/Mobile automatizable, `H64`/`H71`, NO se tocaron a propósito, mismo criterio que `Reintegros`/`Misceláneas`/`Control de Acceso`/`Sistema Caído`, que tampoco tienen columnas de mobile). Verificado con delta calculado a mano antes de tocar el archivo:
+
+| Métrica | Antes | Después | Motivo del cambio |
+|---|---|---|---|
+| Total CP | 273 | 302 | +29 filas nuevas, todas `Automatizado=No` |
+| % automatizado total | 77% | 69% | mismo numerador (209), denominador +29 |
+| Críticos | 146 | 166 | +20 de las 29 son Crítico=Sí (mapeado desde Criticidad Alta del roadmap PO) |
+| % críticos automatizado | 82% | 72% | mismo numerador (120), denominador +20 |
+| % de críticos del total | 53% | 55% | recalculado |
+| Desktop automatizable | 250 | 253 | +3 (Perfil+2, Credenciales+1, marcadas Automatizable=Sí) |
+| Mobile automatizable | 71 | 74 | mismas +3 |
+
+**Importante**: la caída de 77%→69% no es una regresión real — es el mismo trabajo automatizado de siempre, ahora medido contra un denominador más honesto que incluye gaps que antes ni figuraban en el tracker.

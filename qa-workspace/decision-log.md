@@ -1459,3 +1459,92 @@ Alan pidió explícitamente seguir hasta topar con algo que dependa de los devs 
 **Estado de las 8 combinaciones de Flujo de Compra**: 4 de 8 hechas (todas las "sin cupón"). Las 4 "con cupón" siguen bloqueadas de raíz — no hay cupón de prueba real, es un tema de datos/negocio, no de código.
 
 **Techo real alcanzado**: no queda ningún ítem de la lista de candidatos que no dependa de (a) un cupón real que no existe, o (b) el emulador Android recuperándose. Ambos son temas para el lunes.
+
+## 2026-08-29 — Auditoría de bugs sin reportar
+
+Alan preguntó si quedaba algún bug sin reportar. Se cruzaron los 24 `docs/bugs/*.md` contra `jira/sync-log.ndjson` (buscando `createDefect` con `result:ok`) y se releyó `impedimentos-bloqueos.md` completo + `known-issues.md`. 22 de 24 tienen Jira key confirmado o están correctamente retractados (BUG-002, BUG-011 — falsos positivos ya documentados); BUG-015 ya tenía Jira propio pre-existente (creado por Mariana antes que nosotros). Quedaron 2 genuinamente sin reportar:
+
+1. **BUG-021** (OSDE Adquirente, compra falla en pago con error de backend crudo) — encontrado 2026-08-26/27, quedó con nota "pendiente validar mañana" que nadie retomó. Re-testeado hoy: **3/3 compras exitosas**, misma ruta y misma tarjeta Visa exacta del repro original — no reprodujo. No se fileó (no hay forma de confirmar que esté arreglado vs. simplemente no estar reproduciendo hoy, mismo patrón intermitente que IMP-012/IMP-014) — queda como watch item, documentado en el propio archivo.
+2. **"Planes y coberturas" no renderiza plan real en OSDE Adquirente** (`/section/myplans`) — confirmado 2/2 el 2026-08-28 investigando `IMAS-4356`: `GET /api/services/plans/engage/{dni}` devuelve `200` con un plan `ACTIVO` real, la UI igual muestra "No hay planes por el momento". Nunca tuvo archivo propio (solo mencionado inline en 3 docs). Con el OK de Alan, se formalizó como `docs/bugs/BUG-025-osde-adquirente-planes-coberturas-no-renderiza-plan-real.md` — sin filear en Jira todavía, queda para el lunes junto con el resto.
+
+Ningún otro impedimento de `known-issues.md` calificó como bug de producto sin reportar — todos son limitaciones de ambiente/tooling ya correctamente clasificadas como no-reportables.
+
+## 2026-08-29 — Nuevo entregable: refinar el roadmap de la PO (`Automation Vetify.xlsx`)
+
+Liliana (PO) le dio a Alan un borrador Excel (`documentation/Automation Vetify.xlsx`, nunca trackeado) para usar como roadmap ejecutivo de automatización QA — 77 filas a nivel de flujo (no CP), con dashboard de fórmulas reales, pero **100% en 0%** porque es un snapshot de memoria de la PO, desconectado del estado real (`Casos de Prueba.xlsx`: 273 CPs, 77% automatizado). Quiere además flujos E2E (creación de usuario→compra→reseteo), status + roadmap con vista por sprint, y todo listo para una futura migración a GitHub (sin fecha).
+
+Se armó un plan formal (plan mode) acotado explícitamente a lo que Alan pidió priorizar primero: "refinar el borrador" — no la vista de sprint ni la migración, que quedan como fase siguiente. Enfoque: 2 documentos con roles distintos (Casos de Prueba = detalle táctico, Automation Vetify = capa estratégica nutrida con la verdad de la primera), sin crear un tercero.
+
+**Ejecutado hasta ahora**:
+1. Commit de seguridad del borrador original sin editar (`397bee1`).
+2. Bugs estructurales arreglados: 3 etiquetas de "Etapa" del Dashboard no matcheaban el texto real de los datos (`COUNTIF` exacto daba 0 en silencio para "02. Backend...", "06. Servicios", "11. Vetify Plus...") — corregido a un match por prefijo numérico (`LEFT(B,3)&"*"`) en las 13 filas del Dashboard, más robusto a variaciones de texto futuras. 4 filas sueltas sin ID completadas (`QA-AUTO-080` a `083`). Total escenarios pasó de 73 (contaba mal) a 77 (real).
+3. Primera hoja reconciliada (`01. Compra`, mapeada contra `Flujo de Compra` de `Casos de Prueba.xlsx`): B2C 50% (19/31), OSDE Adquirente 50% (16/31), OSDE Capitado 100% (5/5), Flux Capitado 100% (5/5, con nota de que la cuenta de pool "Flux" es en realidad OSDE). Dashboard verificado: `01. Compra` recalculó a 75% automático, buckets 0%=73/50%=2/100%=2, total 77 sin cambios.
+
+**Hallazgo que requiere decisión de Alan, no resuelto unilateralmente**: `Casos de Prueba.xlsx` marca las 8 variantes de TS-01 (compra exitosa) de OSDE Adquirente como `No` automatizadas, pero hoy (29/08) existe y pasa un test real de compra exitosa para OSDE Adquirente (el mismo usado para retestear BUG-021 más arriba) — posible desactualización del tracker táctico. Se documentó la discrepancia en la fila del roadmap sin corregir `Casos de Prueba.xlsx` por cuenta propia (está fuera del alcance de este plan, que usa ese archivo como fuente de verdad tal cual está).
+
+**Pendiente**: reconciliar las 7 hojas restantes de `Casos de Prueba.xlsx` (Gestión de Usuario, Perfil, Credenciales, Videollamadas, Reintegros, Control de Acceso, Sistema Caído, Misceláneas) contra el resto de las 77 filas del roadmap, una por una con checkpoint — más agregar las filas nuevas (E2E journeys, y lo nuestro que ella no tiene mapeado todavía).
+
+### Segunda hoja reconciliada: "03. Usuario / Acceso" (19 filas, contra `Gestión de Usuario`)
+
+Nota técnica: escribir `Observaciones` (texto largo) vía una función PowerShell intermedia (`function Set-Row(...)`) rompía el marshaling COM (`InvalidCastException` en las 19 filas) — la asignación directa `$cell.Value2 = "texto literal"` sin pasar por una función funciona sin problema. Si se vuelve a escribir texto en lote a este archivo, no envolver en una función.
+
+**Resultado**: 11 filas en 100%, 1 en 50%, 7 en 0% (gaps reales, no bloqueos externos). Dashboard: `03. Usuario / Acceso` recalculó a 61% automático (19 escenarios), buckets 0%=61/50%=3/100%=13, total 77 sin cambios.
+
+**Hallazgo de valor para la PO** (justo lo que pidió — "asegurar que lo crítico esté cubierto"): de las 7 filas en 0%, **5 son Criticidad Alta según su propio borrador**: `QA-AUTO-028` (cambio de contraseña logueado), `030`/`031`/`032` (Logout, acceso post-logout, refresh de sesión) y `080` (Tour onboarding 1ra vez). Ninguna tiene CP en `Casos de Prueba.xlsx` todavía — no es que fallen, es que nunca se diseñaron como caso de prueba. Candidatos naturales para priorizar en el roadmap hacia adelante.
+
+### Tercer y cuarto lote: "04. WebApp - Perfil y mascotas" + "05. Credencial" (10 filas, contra `Perfil` + `Credenciales`)
+
+Se revisaron ambas hojas juntas porque "Visualización/Detalle/Cambio de mascota" (`QA-AUTO-035/036/037`) no tiene CP dedicado en `Perfil` (que es 100% sobre el perfil del USUARIO, no sus mascotas) — se buscó evidencia cruzada en `Credenciales` antes de concluir.
+
+**Resultado**: `04. WebApp - Perfil y mascotas` → 30% (033=100%, 034=25%, 035=25%, 036=0%, 037=0%). `05. Credencial` → 70% (038=100%, 039=100%, 040=100%, 041=50%, 043=0%). Dashboard verificado exacto: buckets 0%=54/25%=2/50%=4/75%=0/100%=17, total 77 sin cambios.
+
+**Hallazgos a nota**:
+- `034` Edición de perfil (25%): el cambio de foto/teléfono está automatizado, pero cambiar DNI es el punto débil real — 2 de 4 CPs de esa sub-funcionalidad ni siquiera están escritos todavía (`DBD` en el Excel táctico), no es solo falta de automatización.
+- `035` Visualización de mascotas (25%): **posible gap de tracking, no de cobertura real** — el código sí usa `myPetsPage` en otros specs, pero no hay un CP dedicado a "ver mis mascotas" en `Casos de Prueba.xlsx`. Pendiente de confirmar con Alan si esto amerita agregar el CP al tracker táctico.
+- `043` Encuesta CE post carga de credencial (0%): gap real, sin CP en ninguna hoja.
+- Error propio corregido en el momento: había atribuido el "Sí" de desktop de CP-22 (imagen grande, Credenciales) al trabajo mobile de este mismo día — son cosas distintas (desktop ya estaba automatizado antes; el test mobile de hoy sigue sin verificar). Corregido antes de que quedara mal en el roadmap.
+
+### Cierre de la Fase 3: "Videollamada" + las 7 etapas restantes (Backend/Salesforce, Servicios, Prestadores, Cobertura, Reintegros, Vetify Plus, Regresión)
+
+`07. Videollamada` (contra hoja `Videollamadas`, organizada por HU de Jira en vez de TS-XX): 43% (048=100%, 049=0%, 050=0%, 051=100%, 052=0%, 053=0%, 083=100%). Nota de valor: 049/050 (ingreso/salida de la videoconsulta) están en 0% pero **por decisión ya tomada de excluirlas de alcance** (`[Fuera de alcance]`/`[Brecha de cobertura]` en el Excel táctico), no por backlog pendiente — distinción importante para no priorizarlas por error.
+
+Antes de dar por gaps totales las etapas sin hoja propia, se revisaron `Reintegros` (1 solo CP en toda la hoja) y `Misceláneas` (9 CPs, smoke tests mobile sin equivalente desktop) — esto cambió varios resultados que iban a salir en 0% por error:
+- **`06. Servicios` → 100%** (las 4 filas): cubierto por Miscelaneas CP-04 (Emergencias+Asistencia presencial), CP-08 (Asistencia a domicilio via marcador), CP-06 (Historial de atención).
+- **`11. Vetify Plus` → 50%**: CP-07 (abre vetifyplus.com) cubre visualización+acceso (069/070=100%); contratar otro plan y plan no elegible (071/072) siguen en 0%, gap real.
+- **`QA-AUTO-035` revisado de 25%→75%**: Miscelaneas CP-01 ("ve al menos una mascota") es evidencia directa que no se había visto todavía — ya no es un gap de tracking, solo queda como smoke test (no detalle completo).
+- **`09. Cobertura y condicionados` → 6%**: Miscelaneas CP-02 (ve al menos un plan) da crédito parcial a "Consulta de cobertura" (25%); condicionado/PDF sigue en 0%, gap real.
+- **`10. Reintegros` → 4%, hallazgo más importante de esta ronda**: la hoja `Reintegros` de `Casos de Prueba.xlsx` tiene **un solo CP en total** (smoke test mobile de acceso a cuentas de acreditación). Todo el trabajo real de QA en Reintegros (BUG-015, IMAS-4101/4104/4124/4152, extensivo) fue **manual contra `reintegros-backoffice.ike.qa`**, nunca se automatizó como test de Playwright — brecha real y grande entre esfuerzo de QA manual y cobertura automatizada, en una de las features más críticas del roadmap.
+- **`02. Backend/Salesforce/Engage`, `08. Prestadores/Red`, `13. Regresión transversal` → 0% confirmado real**: sin hoja ni CP dedicado en ningún lado. Para `02.` se dejó nota de que el código de Flujo de Compra sí valida parte del payload de Salesforce dentro del test de compra, pero no está trackeado como CP propio — posible cobertura parcial no reflejada, pendiente de revisión dedicada si se quiere un número más preciso que 0%.
+
+**Fase 3 completa**: las 13 etapas del dashboard reconciliadas con evidencia real (0 filas con ID sin Observación). Total 77 escenarios sin cambios. Por criticidad: Alta 38%, Media 46%, Baja 0% — **dato para la PO**: lo Alta-crítico está automatizado en menor proporción que lo Media, señal a tener en cuenta al priorizar. Buckets finales: 0%=43, 25%=3, 50%=4, 75%=1, 100%=26.
+
+### Fase 4: filas nuevas en ambas direcciones — plan completo
+
+Se agregaron 9 filas nuevas (`QA-AUTO-084` a `092`) y 3 etapas nuevas al Dashboard (usando las filas 27-29, que ya estaban en blanco — sin insertar ni desplazar nada):
+
+- **`14. Control de Acceso`** (IMAS-3742, 3 filas, 0% las 3): bloqueo sin plan, matriz de acceso por tipo de plan, regresión de otros usuarios. Bloqueado por `IMP-005` (sin usuarios de prueba con cuenta en el sistema de identidad de Ike) — no es falta de esfuerzo de QA, es un bloqueo externo ya conocido.
+- **`15. Disponibilidad del Sistema`** (IMAS-3860, 2 filas, 100% las 2): aviso general y aviso de funcionalidad puntual caída — ambos completamente automatizados.
+- **2 huérfanos de Miscelaneas** sin fila propia: "Canales de contacto (Ayuda)" plegado en `06. Servicios` (100%) y "Facturas - estado vacío" plegado en `10. Reintegros` (100%, sube esa etapa de 4% a 18%).
+- **`16. Flujos End-to-End`** (2 filas, **0% las 2 — a propósito**): los 2 journeys que pidió Liliana explícitamente. `091` Creación de usuario → Compra → Reseteo de contraseña; `092` Compra → Carga de credencial → Solicitud de videollamada. Usan la columna `Dependencias` (antes vacía) para listar los `QA-AUTO-XXX` atómicos que los componen. **Decisión importante**: el 0% refleja que ningún test encadena las etapas en una sola corrida continua — aunque las partes individuales ya están bien cubiertas (ej. `092` tiene sus 3 partes en 50-100% cada una), eso NO es lo mismo que un test end-to-end real, que es específicamente lo que la PO pidió ("no solo pantallas sueltas"). Documentado así de manera explícita en Observaciones para no inflar el estado.
+
+**Bug adicional del borrador original encontrado y corregido** (invisible hasta ahora porque el valor real era 0): la celda "Escenarios 100%" del resumen ejecutivo tenía formato de porcentaje en vez de número entero — con 0 casos al 100% mostraba "0%" (parecía correcto por coincidencia), pero al llegar a 30 casos reales mostró "3000%". Corregido el formato de la celda. De paso, la celda "% automatizado total" mostraba "##" (columna angosta, celda combinada E8:F8 que `AutoFit` no manejaba bien) — ensanchada manualmente, ahora muestra "39%" correctamente.
+
+**Estado final del roadmap**: 86 escenarios (77 originales + 9 nuevos). Total automatizado 39%. Por criticidad: Alta 38% (63 escenarios), Media 46% (19), Baja 25% (4). Todo verificado, 0 filas con ID sin Observación.
+
+**Pendiente, explícitamente NO ejecutado en esta ronda** (según el plan aprobado, es la fase siguiente): vista por sprint, reporte de status formal para la PO, y cualquier preparación para la migración a GitHub.
+
+### 2026-08-29, mismo día — Dirección inversa: 29 gaps del roadmap PO agregados a `Casos de Prueba.xlsx`
+
+Alan preguntó primero por qué hay menos filas en el Excel de la PO que en el nuestro (respondido: granularidad distinta, flujo vs. CP — 86 filas del roadmap cubren los 273 CP nuestros, aprox. 1 a 3). Después preguntó lo inverso: si había algún flujo en el roadmap de la PO que nosotros no tuviéramos mapeado. Respuesta: sí, **39 de las 77 filas originales** no tenían ningún CP correspondiente en `Casos de Prueba.xlsx` (ya identificados uno por uno durante la reconciliación de Fase 3, con nota "Gap real" en cada Observación).
+
+Con el OK de Alan, se llevaron **29 de esos 39** a `Casos de Prueba.xlsx` como CPs trackeados (detalle técnico completo, con la tabla de deltas del dashboard verificada, en `documentation/casos-de-prueba-trazabilidad.md`). Los otros **10 quedaron afuera a propósito** (validaciones de backend Salesforce/Engage — sin evidencia suficiente para escribir pasos reales, posiblemente fuera del alcance de este tracker UI/E2E).
+
+Resumen de dónde quedó cada cosa:
+- `Reintegros` +5 CPs (solicitud, documentación, validación, datos inválidos, estado).
+- `Perfil` +2 CPs (detalle de mascota, cambio de mascota).
+- `Credenciales` +1 CP (encuesta CE).
+- Hoja nueva **`Funcionalidades Pendientes`** +21 CPs en 5 grupos (Sesión y Cuenta, Prestadores y Red, Cobertura y Condicionados, Vetify Plus, Regresión Transversal) — se creó una sola hoja nueva en vez de 4-5 temáticas para minimizar el riesgo de tocar las fórmulas del dashboard (que requieren extender manualmente cada hoja nueva, ya documentado como punto frágil en sesiones anteriores).
+
+**Dashboard recalculado y verificado**: 273→302 CP totales, 77%→69% automatizado (baja porque el denominador ahora es honesto, no porque se perdió trabajo), críticos 146→166. Tabla completa de deltas en `casos-de-prueba-trazabilidad.md`.
+
+**Pendiente real para Alan/PO, no resuelto acá**: decidir qué hacer con los 10 gaps de backend/Salesforce excluidos (¿corresponden a este tracker o a otro tipo de testing?).

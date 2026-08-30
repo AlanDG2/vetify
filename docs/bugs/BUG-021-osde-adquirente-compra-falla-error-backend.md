@@ -35,3 +35,9 @@ Pantalla "¡Ups! No se pudo concretar el pago". Reproducido 2/2, con `POST .../p
 - No confirmado si el mismo problema afecta Vetify B2C (no se reprobó ahí en el momento de este hallazgo — `purchase-flow.spec.ts` había corrido 29/29 el 2026-08-25, pero eso fue antes de este hallazgo puntual en OSDE).
 - Bloquea de forma transversal cualquier necesidad de generar una cuenta OSDE Adquirente fresh (vía compra real) para testing — incluida la investigación de `IMAS-4356` (no se pudo aislar si el banner de Cooper depende del segmento OSDE o de tener el perfil completo, por no poder generar una cuenta Adquirente con mascota).
 - Ver `docs/user-stories/IMAS-4356-banner-cooper-webapp-osde.md` para el contexto completo de cómo se encontró esto.
+
+## 🔎 Retest 2026-08-29 — NO reprodujo (3/3 exitosas), el "mañana" de arriba nunca se retomó hasta hoy
+
+Auditoría general de bugs sin reportar (a pedido del usuario). Se re-ejecutó `tests/projects/osde-adquirente/purchase-flow.spec.ts` TC-01 (Compra exitosa) 3 veces, misma ruta (`/mas-osde-beneficios`), plan elegido al azar cada vez (`contractRandomPlan()`), tarjeta Visa **exactamente la misma** (`4509 9535 6623 3704`) que la usada en el intento 1 de la reproducción manual original. **Las 3 corridas pasaron limpio** — `pagar-mp` respondió `200`, `statusMP.status: 'approved'`.
+
+**No se puede confirmar que el bug esté arreglado** (nunca se filó un Defect, dev nunca lo tocó a propósito) — es más consistente con el mismo patrón ya visto en este ambiente QA para este endpoint compartido (`IMP-012`, `IMP-014`: 500/400 intermitentes que aparecen y desaparecen solos, sin fix identificable). **Decisión**: no filear todavía — si vuelve a aparecer, sí amerita Defect nuevo (severidad Alto si reproduce de forma sostenida). Dejar como watch item.

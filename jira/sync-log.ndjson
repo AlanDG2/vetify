@@ -88,3 +88,5 @@
 {"timestamp":"2026-08-28T17:52:44.570Z","action":"transition","key":"IMAS-4454","fromStatus":"Backlog","toStatus":"Done","summary":"Pruebas en QA - retest completo de reseteo de contrasena","result":"ok"}
 {"timestamp":"2026-08-31T20:52:17.414Z","action":"comment","key":"IMAS-4358","summary":"Casos de prueba (banner Cooper 3 segmentos + menu Beneficios segmentado por producto real) posteados a pedido de Alan","result":"ok"}
 {"timestamp":"2026-08-31T20:52:17.414Z","action":"comment","key":"IMAS-4356","summary":"Comentario de cierre de QA (bugs vinculados resueltos, lista para Pending Validation) posteado a pedido de Alan","result":"ok"}
+{"timestamp":"2026-08-31T22:10:15.382Z","action":"comment","key":"IMAS-4437","summary":"Casos de prueba (10 AC cruzados, Desktop+Mobile) posteados a pedido de Alan","result":"ok"}
+{"timestamp":"2026-08-31T22:10:15.382Z","action":"comment","key":"IMAS-4435","summary":"Comentario de cierre de QA posteado a pedido de Alan","result":"ok"}

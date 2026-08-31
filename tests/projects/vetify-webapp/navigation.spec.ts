@@ -222,6 +222,122 @@ test.describe('Navegación Test Suite', () => {
                     await expect(container.vetify.webapp.sideMenuSection.vetifyPlusEntry).toBeHidden();
                 });
             });
+
+            test('TC-03 - Vetify - Cuenta OSDE Capitado ve el ítem "Cooper" en el menú', { tag: ['@critical'] }, async ({ container }) => {
+                await setAllureDetails({
+                    preconditions: ['Usuario OSDE Capitado logueado.'],
+                    steps: ['Abrir el menú lateral.'],
+                    expectedResult: ['El ítem "Cooper" es visible dentro de la sección "Beneficios" (regla de negocio confirmada por el dev 2026-08-31: OSDE ve Cooper en el menú).'],
+                });
+
+                await step('1. Cargar Home y abrir el menú.', async () => {
+                    await container.vetify.webapp.homePage.load();
+                    await container.vetify.webapp.homePage.openSideMenu();
+                });
+                await step('El ítem "Cooper" es visible.', async () => {
+                    await expect(container.vetify.webapp.sideMenuSection.cooperEntry).toBeVisible();
+                });
+            });
         });
     });
+
+    // =========================================================================
+    // CATEGORY: TS-05 Banner Cooper en Home (IMAS-4356/IMAS-4435)
+    // =========================================================================
+    test.describe('TS-05 Banner Cooper en Home', () => {
+        // Regla de negocio confirmada en vivo 2026-08-31: el banner "Ir a Cooper" en Home aparece
+        // para los 3 segmentos por igual (Vetify B2C, OSDE Capitado, OSDE Adquirente) -- a diferencia
+        // del menu lateral (TS-04), donde Cooper/Vetify PLUS SI varian por segmento. No confundir
+        // ambas reglas -- son 2 superficies de UI con criterios de visibilidad distintos.
+        test.describe(() => {
+            test.use({
+                userRequest: {
+                    source: UserSource.Pooled,
+                    siteId: SiteId.VETIFY_ADQUIRENTE,
+                    tags: [UserTag.ACTIVE, UserTag.WITH_PET],
+                    reserve: false,
+                    ignoreReserved: true,
+                },
+            });
+
+            test('TC-01 - Vetify - Cuenta B2C ve el banner de Cooper en Home', { tag: ['@critical'] }, async ({ container }) => {
+                await setAllureDetails({
+                    preconditions: ['Usuario Vetify B2C logueado.'],
+                    steps: ['Cargar Home.'],
+                    expectedResult: ['El banner "Ir a Cooper" es visible (aplica a todos los segmentos).'],
+                });
+
+                await step('1. Cargar Home.', async () => {
+                    await container.vetify.webapp.homePage.load();
+                });
+                await step('El banner de Cooper es visible.', async () => {
+                    await expect(container.vetify.webapp.homePage.goToCooperBtn).toBeVisible();
+                });
+            });
+        });
+
+        test.describe(() => {
+            test.use({
+                userRequest: {
+                    source: UserSource.Pooled,
+                    siteId: SiteId.OSDE_CAPITADO,
+                    tags: [UserTag.ACTIVE, UserTag.WITH_PET],
+                    reserve: false,
+                    ignoreReserved: true,
+                },
+            });
+
+            test('TC-02 - Vetify - Cuenta OSDE Capitado ve el banner de Cooper en Home', { tag: ['@critical'] }, async ({ container }) => {
+                await setAllureDetails({
+                    preconditions: ['Usuario OSDE Capitado logueado.'],
+                    steps: ['Cargar Home.'],
+                    expectedResult: ['El banner "Ir a Cooper" es visible.'],
+                });
+
+                await step('1. Cargar Home.', async () => {
+                    await container.vetify.webapp.homePage.load();
+                });
+                await step('El banner de Cooper es visible.', async () => {
+                    await expect(container.vetify.webapp.homePage.goToCooperBtn).toBeVisible();
+                });
+            });
+        });
+
+        test.describe(() => {
+            test.use({
+                userRequest: {
+                    source: UserSource.Pooled,
+                    siteId: SiteId.OSDE_ADQUIRENTE,
+                    tags: [UserTag.ACTIVE],
+                    reserve: false,
+                    ignoreReserved: true,
+                },
+            });
+
+            test('TC-03 - Vetify - Cuenta OSDE Adquirente ve el banner de Cooper en Home', { tag: ['@critical'] }, async ({ container }) => {
+                await setAllureDetails({
+                    preconditions: ['Usuario OSDE Adquirente logueado.'],
+                    steps: ['Cargar Home.'],
+                    expectedResult: ['El banner "Ir a Cooper" es visible (IMAS-4465 -- confirmado corregido en vivo 2026-08-31, pendiente de que se cierre en Jira).'],
+                });
+
+                await step('1. Cargar Home.', async () => {
+                    await container.vetify.webapp.homePage.load();
+                });
+                await step('El banner de Cooper es visible.', async () => {
+                    await expect(container.vetify.webapp.homePage.goToCooperBtn).toBeVisible();
+                });
+            });
+        });
+    });
+
+    // =========================================================================
+    // NOTA: Menú "Beneficios" para OSDE Adquirente -- NO automatizado todavía.
+    // Confirmado en vivo 2026-08-31 (2 cuentas, incluida una con producto de catálogo validado
+    // 2349) que el menú muestra "Cooper" Y "Vetify PLUS" juntos, igual que B2C -- pero no está
+    // confirmado si esa es la regla de negocio correcta para Adquirente o si debería comportarse
+    // como Capitado (solo Cooper). Pendiente de que el dev/PO aclare el alcance exacto de "OSDE"
+    // en la regla del menú antes de escribir una aserción -- ver qa-workspace/decision-log.md
+    // 2026-08-31 y docs/user-stories/IMAS-4356-banner-cooper-webapp-osde.md.
+    // =========================================================================
 });

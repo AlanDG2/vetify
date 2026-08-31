@@ -15,6 +15,10 @@ export class VetifyWebappHomePage extends VetifyWebappLoggedBasePage {
     // Section: "Accesos"
     readonly goToVideocallBtn: Locator;
 
+    // Banner Cooper (IMAS-4356/IMAS-4435, confirmado en vivo 2026-08-31): visible para los 3
+    // segmentos (Vetify B2C, OSDE Capitado, OSDE Adquirente), no solo OSDE como en el diseño original.
+    readonly goToCooperBtn: Locator;
+
     // Tour de onboarding (confirmado en vivo 2026-08-30, solo aparece la primera vez que la cuenta
     // se loguea): banner de bienvenida + wizard de 3 pasos con navegación Atrás/Omitir/Continuar.
     readonly tourWelcomeStartBtn: Locator;
@@ -32,6 +36,8 @@ export class VetifyWebappHomePage extends VetifyWebappLoggedBasePage {
         this.goToVideocallDetailBtn = page.getByRole('button', { name: 'Ir al detalle' });
 
         this.goToVideocallBtn = page.locator('button:text("Ir a videollamada")');
+
+        this.goToCooperBtn = page.getByRole('button', { name: 'Ir a Cooper' });
 
         // 2 elementos con el mismo data-cy (resumen responsive duplicado, el mismo patrón ya visto en
         // CheckoutPage.planQuantitySelect) -- confirmado en vivo 2026-08-30 que el indice 1 es el

@@ -224,3 +224,15 @@ Detalle completo (bugs encontrados, hallazgo de arquitectura de navegación, di�
 - **Perfil**: Detalle completo de mascota → `Automatizado=Sí`.
 
 **Dashboard verificado**: 302 CP, **222 automatizados (74%)**, subiendo desde 209 (69%) antes de esta ronda. Delta de +13 automatizados coincide exacto con: +5 de la tanda de Sesión/Onboarding de la ronda anterior a esta + 6 nuevos de esta tanda +2 ya contados aparte — ver decision-log.md para el desglose fila por fila.
+
+### 2026-08-31 — Cooper/Beneficios (IMAS-4356 + IMAS-4435): 6 CPs nuevos automatizados
+
+`Casos de Prueba.xlsx` → **Funcionalidades Pendientes** +6 filas nuevas (`TS-06 Beneficios`, CP-01 a CP-06): banner Cooper en Home (3 segmentos) + menú "Beneficios" (Vetify PLUS visible en B2C, oculto en OSDE Capitado, Cooper visible en OSDE Capitado). Todas `Automatizado=Sí`, verificadas pasando en Desktop **y** Mobile (Android) — primera vez que este tracker registra explícitamente la verificación mobile en el texto del CP, no solo en una columna aparte. El menú de OSDE Adquirente queda deliberadamente sin fila de aserción automatizada (depende del `policyId` real de la cuenta, no del segmento — ver `docs/conocimiento-sistema.md`).
+
+`Automation Vetify.xlsx` (roadmap PO) → **Roadmap QA Automation** +2 filas (`QA-AUTO-093`/`094`, etapa "11. Vetify Plus", 100% cada una): banner Cooper y segmentación del menú Beneficios.
+
+**Dashboards recalculados y verificados (fórmulas reales, sin tocar celdas de resultado)**:
+- `Casos de Prueba.xlsx` → Metricas: 302→**308** CP totales, 222→**228** automatizados, sigue en **74%** (228/308 = 0.740259..., coincide exacto con el cálculo a mano).
+- `Automation Vetify.xlsx` → Dashboard Ejecutivo: 86→**88** escenarios, etapa "11. Vetify Plus / Planes" pasó de 4 a 6 escenarios (66.67% automatizado — 4 de los 6 al 100%, 2 preexistentes en 0%, coincide exacto).
+
+Docs de HU: `docs/user-stories/IMAS-4356-banner-cooper-webapp-osde.md` recibió una sección de cierre; `IMAS-4435-banner-cooper-mayor-protagonismo.md` + `.tests.md` nuevos, con el contrato real completo (Objetivo + 10 criterios de aceptación) que Alan pegó directo de Jira — su campo real es `customfield_11549`, un 3er campo distinto (ni el estándar `description` ni `customfield_11620` de las Tareas). Detalle completo del hallazgo de causa raíz (policyId, no clCuenta/segmento) y del arreglo de la herramienta Jira en `qa-workspace/decision-log.md` 2026-08-31.

@@ -149,3 +149,13 @@ Probado contra `https://vetify-qa.ikeapp.com` con 3 tipos de usuario reales del 
 **Sin tocar, no evaluado en esta ronda**:
 5. Decidir si corresponde reportar el bug de compra de OSDE Adquirente (`BUG-021`) — pendiente de que el usuario confirme si ya lo había reportado antes.
 6. Alcance mobile/app nativa: esta HU dice "WebApp" — no se investigó si la app nativa (que sí tiene su propio `vetify-plus.spec.ts`) está dentro de alcance o es una card aparte.
+
+## ✅ CIERRE — 2026-08-31
+
+**HU cerrada, pasada a Pending Validation por Alan.** El punto 4 (qué determina Cooper vs. Vetify PLUS) quedó resuelto: no era un feature flag ni un experimento A/B — el causante real es el campo `policyId` de `/api/users/me` (el producto/plan real de la cuenta), no el segmento comercial ni ningún estado inconsistente. Una cuenta con un producto OSDE real siempre muestra el comportamiento OSDE; una cuenta sin uno, no — sin importar si el pool la tiene tageada Capitado o Adquirente. La "inconsistencia entre cargas" de los días 26-27/08 se explica en retrospectiva por estar comparando, sin saberlo, cuentas/productos distintos en cada intento (y, por un tramo, por el bug de backend IMP-014 ya resuelto).
+
+**Los 3 bugs vinculados**: `IMAS-4463` (menú) Hecho, `IMAS-4464` (servicios 500) Cancelado, `IMAS-4465` (banner Adquirente) retesteado y confirmado arreglado.
+
+**Automatizado**: `tests/projects/vetify-webapp/navigation.spec.ts` TS-04 (menú, 3 casos) + TS-05 (banner, 3 casos), verificado pasando en Desktop y Mobile (Android).
+
+Casos de prueba posteados en `IMAS-4358`, comentario de cierre en `IMAS-4356`. Detalle completo de la causa raíz del policyId y de la trampa de cache entre cuentas: `qa-workspace/decision-log.md` 2026-08-31.

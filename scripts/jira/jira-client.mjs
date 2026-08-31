@@ -235,6 +235,65 @@ export function extractText(node) {
   return '';
 }
 
+// Encontrado 2026-08-31 (IMAS-4435): este proyecto Jira tiene MUCHOS customfield_* con forma de
+// plantilla ADF ("Objetivo", "Criterios de Aceptación", etc.), y el campo real usado varía por
+// tipo de issue (Historia usa uno, Tarea usa otro -- ver jira/lecciones-campos-custom.md) -- además,
+// una misma HU puede tener su spec repartido en VARIOS customfields a la vez (uno para Objetivo,
+// otro para Criterios de Aceptación). Nunca asumir un solo nombre de campo fijo: escanear todos los
+// customfield_* con forma de doc ADF y quedarse con los que tengan contenido real.
+//
+// Señal usada para distinguir "plantilla vacía" de "contenido real": el texto instructivo de las
+// plantillas de este proyecto siempre está en cursiva (mark "em", ej. "¿Qué trabajo debe
+// realizarse?"); un párrafo con texto no-cursiva de más de 10 caracteres es contenido real. Los
+// headings (ej. "Objetivo") se ignoran-en sí mismos, son solo etiquetas de sección.
+function extractNonItalicText(node) {
+  if (!node) return '';
+  if (node.type === 'text') {
+    const isItalic = (node.marks || []).some((m) => m.type === 'em');
+    return isItalic ? '' : (node.text ?? '');
+  }
+  if (Array.isArray(node.content)) {
+    return node.content.map(extractNonItalicText).join('');
+  }
+  return '';
+}
+
+// Frases de plantilla que NO están en cursiva en algunos de los custom fields de este proyecto
+// (a diferencia de otros que sí marcan el placeholder con "em") -- confirmado en vivo 2026-08-31
+// contra IMAS-4435 (customfield_10665/11507/10093 colaban como "reales" antes de este chequeo).
+const PLACEHOLDER_PATTERNS = [/^\[.+\]$/, /^Título del escenario$/i, /^Describí /i, /^Indicá /i, /^Completá /i];
+// Placeholders con corchetes que aparecen DENTRO de una oración (ej. la plantilla de User Story
+// "Como [Rol] Quiero [Acción] Para [Valor]", sin marca "em" ni párrafo propio por línea).
+const PLACEHOLDER_SUBSTRINGS = ['[Rol]', '[Acción]', '[Valor]', 'Título del escenario', 'Describí el contexto', 'Describí la acción que realiza', 'Describí el resultado esperado'];
+
+function isPlaceholderText(text) {
+  const trimmed = text.trim();
+  if (PLACEHOLDER_PATTERNS.some((re) => re.test(trimmed))) return true;
+  return PLACEHOLDER_SUBSTRINGS.some((s) => trimmed.includes(s));
+}
+
+function paragraphHasRealContent(node) {
+  if (!node) return false;
+  if (node.type === 'paragraph') {
+    const text = extractNonItalicText(node).trim();
+    return text.length > 10 && !isPlaceholderText(text);
+  }
+  if (Array.isArray(node.content)) {
+    return node.content.some(paragraphHasRealContent);
+  }
+  return false;
+}
+
+// Devuelve, para un issue ya traído con getIssue(), todos los customfield_* con forma de doc ADF
+// que tengan contenido real (no plantilla vacía) -- incluye el campo estándar `description` también.
+export function findFilledDescriptionFields(issue) {
+  const f = issue.fields;
+  const candidates = [['description', f.description], ...Object.entries(f).filter(([k]) => k.startsWith('customfield_'))];
+  return candidates
+    .filter(([, value]) => value && typeof value === 'object' && value.type === 'doc' && paragraphHasRealContent(value))
+    .map(([fieldId, value]) => ({ fieldId, text: extractText(value) }));
+}
+
 export { BASE };
 
 // ── CLI (only when run directly) ──────────────────────────────────────────────
@@ -281,8 +340,10 @@ Jira client — commands:
       `  Parent:   ${f.parent?.key ?? '-'}`,
       `  URL:      ${BASE}/browse/${issue.key}`,
     ];
-    const desc = extractText(f.description);
-    if (desc) lines.push(`\n  Description:\n  ${desc.slice(0, 500)}`);
+    const filledFields = findFilledDescriptionFields(issue);
+    for (const { fieldId, text } of filledFields) {
+      lines.push(`\n  Description [${fieldId}]:\n  ${text.slice(0, 1500)}`);
+    }
     if (f.subtasks?.length) {
       lines.push(`\n  Subtasks (${f.subtasks.length}):`);
       for (const s of f.subtasks) {

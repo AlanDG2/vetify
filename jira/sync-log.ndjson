@@ -90,3 +90,5 @@
 {"timestamp":"2026-08-31T20:52:17.414Z","action":"comment","key":"IMAS-4356","summary":"Comentario de cierre de QA (bugs vinculados resueltos, lista para Pending Validation) posteado a pedido de Alan","result":"ok"}
 {"timestamp":"2026-08-31T22:10:15.382Z","action":"comment","key":"IMAS-4437","summary":"Casos de prueba (10 AC cruzados, Desktop+Mobile) posteados a pedido de Alan","result":"ok"}
 {"timestamp":"2026-08-31T22:10:15.382Z","action":"comment","key":"IMAS-4435","summary":"Comentario de cierre de QA posteado a pedido de Alan","result":"ok"}
+{"timestamp":"2026-08-31T22:28:45.594Z","action":"editComment","key":"IMAS-4437","summary":"Correccion: el comentario original se habia truncado a 92 caracteres (bug de paso de texto multi-parrafo por CLI/shell), editado con el contenido completo (1012 caracteres)","result":"ok"}
+{"timestamp":"2026-08-31T22:28:45.594Z","action":"editComment","key":"IMAS-4435","summary":"Correccion: el comentario original habia perdido su ultimo parrafo por el mismo bug, editado completo","result":"ok"}

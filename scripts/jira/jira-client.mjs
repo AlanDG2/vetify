@@ -96,6 +96,7 @@ export function extractMediaIds(node, out = []) {
 export async function getComments(key) {
   const data = await jira('GET', `/issue/${key}/comment`);
   return (data?.comments ?? []).map((c) => ({
+    id: c.id,
     author: c.author?.displayName ?? '?',
     created: c.created,
     body: extractText(c.body),
@@ -417,9 +418,21 @@ Jira client — commands:
     },
 
     async comment([key, ...textParts]) {
-      if (!key || !textParts.length) throw new Error('Usage: comment <KEY> <text>');
-      await addComment(key, textParts.join(' '));
-      console.log(`\nComment added to ${key}`);
+      if (!key || !textParts.length) throw new Error('Usage: comment <KEY> <text> | comment <KEY> --file <path>');
+      // Encontrado 2026-08-31: pasar un comentario multi-parrafo como argumento de shell inline
+      // se corta silenciosamente en algun punto de la cadena Bash-tool -> npm -> node (confirmado
+      // releyendo el comentario ya posteado en Jira -- solo el primer parrafo llegaba completo).
+      // --file evita el problema por completo: lee el body real del disco, sin pasar por argv.
+      let text;
+      if (textParts[0] === '--file') {
+        const filePath = textParts[1];
+        if (!filePath) throw new Error('Usage: comment <KEY> --file <path>');
+        text = readFileSync(filePath, 'utf-8');
+      } else {
+        text = textParts.join(' ');
+      }
+      await addComment(key, text);
+      console.log(`\nComment added to ${key} (${text.length} chars)`);
     },
 
     async transitions([key]) {

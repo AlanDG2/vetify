@@ -15,6 +15,11 @@ export class VetifyWebappHomePage extends VetifyWebappLoggedBasePage {
     // Section: "Accesos"
     readonly goToVideocallBtn: Locator;
 
+    // Tarjeta de credencial en Home -- mismo data-cy que MyPetsPage.petCards. Con un array vacio de
+    // /pets/my-products (cuenta sin ningun plan operable), esta seccion no muestra ninguna tarjeta
+    // ni el prompt generico "Completar credencial" -- queda directamente vacia (IMAS-4408).
+    readonly petCredentialCards: Locator;
+
     // Banner Cooper (IMAS-4356/IMAS-4435, confirmado en vivo 2026-08-31): visible para los 3
     // segmentos (Vetify B2C, OSDE Capitado, OSDE Adquirente), no solo OSDE como en el diseño original.
     readonly goToCooperBtn: Locator;
@@ -36,6 +41,8 @@ export class VetifyWebappHomePage extends VetifyWebappLoggedBasePage {
         this.goToVideocallDetailBtn = page.getByRole('button', { name: 'Ir al detalle' });
 
         this.goToVideocallBtn = page.locator('button:text("Ir a videollamada")');
+
+        this.petCredentialCards = page.locator('button[data-cy="petCredentialCard"]');
 
         this.goToCooperBtn = page.getByRole('button', { name: 'Ir a Cooper' });
 

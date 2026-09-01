@@ -70,22 +70,36 @@
 ## TS-03 Escenario 2 — usuario cuyo ÚNICO plan está Inactivo (por falta de pago) — AC-9
 **Riesgo: ALTO** (caso de borde explícito de la HU, con comportamiento distinto al Escenario 1 — acá NO queda ningún plan Activo de respaldo).
 
-**CP09 - Verificar acceso y ausencia total de credenciales/planes operables** 🔴 **BLOQUEADO — `IMP-015`, sin proceso para conseguir esta condición**
+**CP09 - Verificar acceso y ausencia total de credenciales/planes operables** ✅ **verificado en vivo 2026-08-31, vía simulación de red — ver nota de resolución abajo**
 - Dado: usuario cuyo único plan pasó a Inactivo (falta de pago 3 meses)
 - Cuando: ingresa a la WebApp
 - Entonces: puede autenticarse e ingresar, pero no ve ninguna credencial ni plan disponible en ninguna pantalla, y no puede operar en Videollamadas ni Reintegros
 - Trazabilidad: AC-9
-- Bloqueo: la cuenta conseguida hoy (`pauscalzo@hotmail.com`) tiene un plan Activo de respaldo (Mishi) — no sirve para aislar este escenario. Hace falta una cuenta cuyo ÚNICO plan esté Inactivo — confirmado con Paula (dev) que esto **no tiene ningún proceso**: Alexis edita la base de datos directamente a mano, no hay panel ni self-service. Ver `IMP-015` en `docs/impedimentos-bloqueos.md`.
+- Automatizado: `tests/projects/vetify-webapp/plan-state.spec.ts` TS-01 TC-01, verificado pasando en Desktop y Mobile (Android)
 
 ## TS-04 Escenario 3 — usuario cuyo ÚNICO plan fue Dado de baja — AC-9 (equivalente)
-**Riesgo: ALTO** (mismo motivo que TS-03; la HU dice explícitamente que el tratamiento debe ser equivalente a Inactivo, pero no se confirmó en vivo que efectivamente lo sea).
+**Riesgo: ALTO** (mismo motivo que TS-03; la HU dice explícitamente que el tratamiento debe ser equivalente a Inactivo).
 
-**CP10 - Verificar acceso y ausencia total de credenciales/planes operables** 🔴 **BLOQUEADO — `IMP-015`, mismo motivo que CP09**
+**CP10 - Verificar acceso y ausencia total de credenciales/planes operables** ✅ **verificado en vivo 2026-08-31 — mismo mecanismo y mismo test que CP09**
 - Dado: usuario cuyo único plan fue Dado de baja definitivamente
 - Cuando: ingresa a la WebApp
 - Entonces: mismo comportamiento que CP09
 - Trazabilidad: AC-9
-- Bloqueo: mismo que CP09 — hace falta una cuenta con un único plan, dado de baja. Ver `IMP-015`.
+- Nota importante: la simulación de red no puede distinguir "Inactivo" de "Dado de baja" como estados de backend distintos — ambos producen el mismo resultado observable en el frontend (ningún plan operable devuelto). Por eso CP09 y CP10 quedan cubiertos por el mismo test automatizado — la HU misma dice que el tratamiento debe ser equivalente entre los dos estados.
+
+## ✅ Resolución de `IMP-015` — 2026-08-31, sin necesitar la cuenta real
+
+**Lo que se intentó primero**: Alan le escribió a Oscar pidiendo una cuenta por producto (Vetify B2C, OSDE Adquirente, OSDE Capitado, Flux Capitado) con un único plan Inactivo/Dado de baja, para no asumir que el comportamiento es igual en todos. Respuesta (por llamada): no se puede hacer esa prueba por ahora, limitarse al resultado con la cuenta ya entregada (`pauscalzo@hotmail.com`) — se va a tener en cuenta más adelante.
+
+**Antes de aceptar esa limitación, se re-verificó `pauscalzo@hotmail.com` en vivo y se encontró que había cambiado de estado** desde el 2026-08-28: ya no muestra el mismo par Mishi(Activo)/mascota-oculta(Baja) documentado hace 3 días — ahora aparecen datos distintos (mascota "Popi" en Home, "Mishi" en Mascotas, 3 planes en la API con estados inconsistentes) y "Planes y coberturas" renderiza de forma no determinística (a veces 0 planes, a veces 4 con duplicados). La cuenta ya no sirve como evidencia limpia — deriva/degrada con el tiempo, mismo patrón ya visto en otras cuentas de pool a lo largo de este proyecto.
+
+**Solución real, propuesta por Alan**: en vez de depender de una cuenta real (imposible de conseguir hoy, y la que había se degradó), simular a nivel de red la respuesta que un backend con un plan no-operable devolvería. Confirmado en vivo que `page.route()` + `route.fulfill()` **sí funciona de forma confiable en este sitio** para reemplazar el contenido de una respuesta puntual (a diferencia del bloqueo ya documentado en `NetworkOutageSimulator`, que es sobre *bloquear/abortar* una request para simular una caída — mecanismo distinto). Se mapearon las 5 pantallas de la HU contra los endpoints reales que cada una lee:
+- Home, Mascotas, Planes y coberturas y Videollamada: todas leen `GET /api/services/pets/my-products` — ninguna filtra por `estado` del lado del cliente, todas confían en que el array ya venga filtrado por el backend. Un array vacío (`[]`) simula fielmente "no me queda ningún plan operable".
+- Reintegros: usa un endpoint separado, `GET /api/bff/reintegros/mascotas` — necesita su propio mock.
+
+Helper nuevo: `src/helpers/mockPlanState.ts` → `mockAccountWithNoOperablePlan(page)`. Test nuevo: `tests/projects/vetify-webapp/plan-state.spec.ts`. **Ventaja real sobre depender de una cuenta**: cero riesgo de degradación/drift, no consume ninguna cuenta real del pool, y sirve para los 4 productos por igual sin necesitar 4 cuentas distintas (la simulación de red es independiente de qué cuenta real esté logueada).
+
+**Pendiente, no resuelto por esto**: si el equipo alguna vez provee una cuenta real con este estado (a través del proceso que "van a tener en cuenta más adelante"), valdría la pena una verificación puntual contra datos 100% reales para confirmar que el mock no se desvía de ningún detalle fino del comportamiento real — hoy esa confirmación independiente no existe, el mock está validado contra la lógica del frontend que se pudo observar (qué endpoint lee cada pantalla), no contra un caso real de "Inactivo"/"Dado de baja" de punta a punta.
 
 ## TS-05 Alcance mobile / app nativa
 **Riesgo: sin clasificar — falta confirmar si está en alcance.**
@@ -107,16 +121,15 @@
 | AC-6 (no seleccionable en Videollamadas) | CP05 | ✅ Verificado en vivo |
 | AC-7 (no seleccionable en Reintegros) | CP06 | ✅ Verificado en vivo |
 | AC-8 (multi-plan: solo ve los Activos) | CP02-CP08 | ✅ Verificado en vivo |
-| AC-9 (único plan Inactivo/Dado de baja: entra pero no ve nada) | CP09, CP10 | 🔴 Bloqueado — sin cuenta de este tipo |
+| AC-9 (único plan Inactivo/Dado de baja: entra pero no ve nada) | CP09, CP10 | ✅ Verificado en vivo (vía simulación de red, ver resolución de IMP-015 arriba) |
 | AC-10 (no disponible en ningún selector/flujo) | CP05, CP06 | ✅ Verificado en vivo (Videollamadas + Reintegros, los 2 flujos que menciona la HU) |
 | AC-11 (filtrado por estado real de SISE) | Implícito en todo lo de arriba | ✅ Consistente — el plan dado de baja en SISE es justamente el que desapareció |
 | AC-12 (no afecta otros planes Activos) | CP07 | ✅ Verificado en vivo |
 
-**11 casos diseñados. 9 verificados en vivo hoy (CP01-CP08), 2 bloqueados (CP09/CP10, escenario de único plan) y 1 sin fuente (CP11, alcance mobile).**
+**11 casos diseñados. 10 verificados (CP01-CP10) y 1 sin fuente (CP11, alcance mobile).**
 
-**Lo más importante que se puede afirmar hoy**: el Escenario 1 (el más común en producción — un usuario con varios planes donde uno se cae) está **completamente confirmado, en las 5 pantallas que pide la HU, con una cuenta real cuyo plan fue dado de baja de verdad en el backend** (no simulado). Los únicos 2 casos genuinamente pendientes (CP09/CP10) necesitan una cuenta cuyo ÚNICO plan esté Inactivo o Dado de baja — no se puede aislar ese escenario con la cuenta de hoy porque tiene un plan Activo de respaldo (Mishi).
+**Lo más importante que se puede afirmar hoy**: el Escenario 1 (el más común en producción) está confirmado con una cuenta real cuyo plan fue dado de baja de verdad en el backend. Los Escenarios 2/3 (único plan Inactivo/Dado de baja) están confirmados vía simulación de red (`page.route()`), automatizados y verificados pasando en Desktop y Mobile — no fue posible conseguir una cuenta real con este estado (`IMP-015`, escalado a Oscar 2026-08-31, respuesta "no por ahora"), pero la simulación cubre las 5 pantallas de la HU sin ese requisito.
 
 **Pendiente de decisión del usuario**:
-1. Si vale la pena conseguir una segunda cuenta (único plan) para cerrar CP09/CP10 — confirmado que no hay ningún proceso ni self-service para esto (`IMP-015`): Alexis edita la base de datos a mano cada vez. Paula sugirió escalarlo a Oscar o directamente a Alexis, porque QA "tendría que poder evaluar esos escenarios" — reconoce que es un gap real, no solo una curiosidad.
-2. Si corresponde comentar en Jira / transicionar `IMAS-4411` ("Pruebas QA") reflejando este avance (9 de 11 casos verificados).
-3. Confirmar alcance mobile (CP11) con el equipo.
+1. Confirmar alcance mobile nativo (CP11) con el equipo — sigue sin fuente.
+2. Si en algún momento el equipo provee una cuenta real con este estado, valdría la pena una verificación puntual contra datos 100% reales para confirmar que la simulación no se desvía de ningún detalle fino.

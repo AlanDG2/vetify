@@ -14,6 +14,7 @@ import { VetifyWebappMyAppointmentsPage } from '@pages/vetify/webapp/MyAppointme
 import { VetifyWebappMyPetsPage } from '@pages/vetify/webapp/MyPetsPage';
 import { VetifyWebappMyPlansPage } from '@pages/vetify/webapp/MyPlansPage';
 import { VetifyWebappMyProfilePage } from '@pages/vetify/webapp/MyProfilePage';
+import { VetifyWebappNuevoReintegroPage } from '@pages/vetify/webapp/NuevoReintegroPage';
 import { VetifyWebappPolicyValidationPage } from '@pages/vetify/webapp/PolicyValidationPage';
 import { VetifyWebappRegistrationPage } from '@pages/vetify/webapp/RegistrationPage';
 import { VetifyWebappReintegrosPage } from '@pages/vetify/webapp/ReintegrosPage';
@@ -56,6 +57,7 @@ type VetifyWebappContainer = {
     myAppointmentsPage: VetifyWebappMyAppointmentsPage;
     myPlansPage: VetifyWebappMyPlansPage;
     reintegrosPage: VetifyWebappReintegrosPage;
+    nuevoReintegroPage: VetifyWebappNuevoReintegroPage;
     systemUnavailableComponent: VetifyWebappSystemUnavailableComponent;
     featureUnavailableModal: VetifyWebappFeatureUnavailableModal;
     veterinariasSearchModal: VetifyWebappVeterinariasSearchModal;
@@ -117,6 +119,7 @@ const test = base.extend<{
             myAppointmentsPage: new VetifyWebappMyAppointmentsPage(page),
             myPlansPage: new VetifyWebappMyPlansPage(page),
             reintegrosPage: new VetifyWebappReintegrosPage(page),
+            nuevoReintegroPage: new VetifyWebappNuevoReintegroPage(page),
             systemUnavailableComponent: new VetifyWebappSystemUnavailableComponent(page),
             featureUnavailableModal: new VetifyWebappFeatureUnavailableModal(page),
             veterinariasSearchModal: new VetifyWebappVeterinariasSearchModal(page),

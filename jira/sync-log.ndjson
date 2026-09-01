@@ -97,3 +97,5 @@
 {"timestamp":"2026-08-31T22:58:20.390Z","action":"editComment","key":"IMAS-4356","summary":"Correccion: comentario truncado a 255 caracteres, editado completo (447 caracteres)","result":"ok"}
 {"timestamp":"2026-09-01T01:36:22.797Z","action":"comment","key":"IMAS-4411","summary":"Casos de prueba (10/11, incl. resolucion via mock de IMP-015) posteados via --file, a pedido de Alan","result":"ok"}
 {"timestamp":"2026-09-01T01:36:22.797Z","action":"comment","key":"IMAS-4408","summary":"Comentario de cierre posteado via --file, a pedido de Alan","result":"ok"}
+{"timestamp":"2026-09-01T01:55:43.160Z","action":"editComment","key":"IMAS-4411","summary":"Correccion de conteo: 10 de 11 -> 10 de 10 (CP11/mobile nunca fue parte del contrato real, era pregunta especulativa de QA, corregido tras observacion de Alan)","result":"ok"}
+{"timestamp":"2026-09-01T01:55:43.160Z","action":"editComment","key":"IMAS-4408","summary":"Correccion de conteo: 10 de 11 -> 10 de 10, misma razon","result":"ok"}

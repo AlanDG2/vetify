@@ -101,14 +101,11 @@ Helper nuevo: `src/helpers/mockPlanState.ts` → `mockAccountWithNoOperablePlan(
 
 **Pendiente, no resuelto por esto**: si el equipo alguna vez provee una cuenta real con este estado (a través del proceso que "van a tener en cuenta más adelante"), valdría la pena una verificación puntual contra datos 100% reales para confirmar que el mock no se desvía de ningún detalle fino del comportamiento real — hoy esa confirmación independiente no existe, el mock está validado contra la lógica del frontend que se pudo observar (qué endpoint lee cada pantalla), no contra un caso real de "Inactivo"/"Dado de baja" de punta a punta.
 
-## TS-05 Alcance mobile / app nativa
-**Riesgo: sin clasificar — falta confirmar si está en alcance.**
+## ⚠️ Pregunta de alcance abierta (NO es un caso de la HU — no cuenta en el total) — app nativa / mobile
 
-**CP11 - Verificar si la app nativa (mobile) también oculta credenciales de planes Inactivos/Dados de baja** 🔴 **BLOQUEADO — intentado 2026-08-31, no se puede aplicar la misma simulación**
-- La app nativa (confirmado con Alan) es un WEBVIEW embebiendo la misma WebApp, no una UI nativa aparte — mismo contrato de API que el lado Playwright.
-- Se intentó extender la misma técnica de mock de red (`page.route()`/`fulfill()`, la que resolvió CP09/CP10) al stack mobile (WebdriverIO + Appium, `mobile/`). **Confirmado en vivo (spike descartable, `mobile/specs/vetify/.tmp-spike-cdp.spec.ts`, corrido contra el emulador Pixel_6_QA)**: `browser.getPuppeteer()` falla con `"Using DevTools capabilities is not supported for this session. This feature is only supported for local testing on Chrome, Firefox and Chromium Edge."` — WebdriverIO explícitamente no expone CDP para sesiones Appium (mobile), aunque el WEBVIEW sea Chromium por dentro. No hay una forma equivalente de mockear la respuesta de red en este stack.
-- Para cerrar este caso de verdad hace falta lo mismo que ya se pidió y se denegó para CP09/CP10: una cuenta real cuyo único plan esté Inactivo/Dado de baja (`IMP-015`). No hay atajo de simulación disponible acá.
-- Trazabilidad: sin fuente sobre si está en alcance + bloqueado técnicamente incluso si lo estuviera
+Los 12 criterios de aceptación reales de la HU (`customfield_11620`) no mencionan la app nativa en ningún lado — todos hablan de la WebApp (Home, Mascotas, Planes, Videollamadas, Reintegros). Esto se había agregado como "CP11" en una ronda anterior como pregunta de QA por las dudas, no porque el contrato lo pida — corregido 2026-08-31 (Alan): si el alcance nunca se confirmó, no es un caso de la HU que cuente en el total, es una pregunta aparte para el equipo.
+
+**Si el equipo confirma que sí aplica a la app nativa**, hay que saber esto antes de diseñarlo como caso real: la app nativa (confirmado con Alan) es un WEBVIEW embebiendo la misma WebApp, mismo contrato de API. Se intentó extender la técnica de mock de red que resolvió CP09/CP10 (`page.route()`/`fulfill()`) al stack mobile (WebdriverIO + Appium, `mobile/`) — spike descartable corrido contra el emulador Pixel_6_QA (`mobile/specs/vetify/.tmp-spike-cdp.spec.ts`, borrado después): `browser.getPuppeteer()` falla con `"Using DevTools capabilities is not supported for this session. This feature is only supported for local testing on Chrome, Firefox and Chromium Edge."` — WebdriverIO no expone CDP para sesiones Appium/mobile, aunque el WEBVIEW sea Chromium por dentro. Si algún día se confirma que está en alcance, va a estar bloqueado por lo mismo que CP09/CP10 (`IMP-015`, sin cuenta real) pero sin el atajo de simulación que salvó a esos dos.
 
 ---
 
@@ -128,10 +125,10 @@ Helper nuevo: `src/helpers/mockPlanState.ts` → `mockAccountWithNoOperablePlan(
 | AC-11 (filtrado por estado real de SISE) | Implícito en todo lo de arriba | ✅ Consistente — el plan dado de baja en SISE es justamente el que desapareció |
 | AC-12 (no afecta otros planes Activos) | CP07 | ✅ Verificado en vivo |
 
-**11 casos diseñados. 10 verificados (CP01-CP10) y 1 bloqueado (CP11, app nativa/webview — mismo motivo de fondo que CP09/CP10, IMP-015, sin atajo de simulación disponible en el stack mobile).**
+**10 casos, derivados de los 12 criterios de aceptación reales de la HU — los 10/10 verificados.** (La app nativa/mobile nunca fue parte del contrato real — ver la pregunta de alcance aparte más arriba, no cuenta en este total.)
 
-**Lo más importante que se puede afirmar hoy**: el Escenario 1 (el más común en producción) está confirmado con una cuenta real cuyo plan fue dado de baja de verdad en el backend. Los Escenarios 2/3 (único plan Inactivo/Dado de baja) están confirmados vía simulación de red (`page.route()`) en la WebApp (Desktop y Mobile-viewport), automatizados y verificados — no fue posible conseguir una cuenta real con este estado (`IMP-015`, escalado a Oscar 2026-08-31, respuesta "no por ahora"), pero la simulación cubre las 5 pantallas de la HU sin ese requisito. Esa misma simulación **no se puede extender a la app nativa** (WebdriverIO/Appium no expone CDP para sesiones mobile) — para cerrar CP11 de verdad hace falta la cuenta real que ya se pidió y se denegó.
+**Lo más importante que se puede afirmar hoy**: el Escenario 1 (el más común en producción) está confirmado con una cuenta real cuyo plan fue dado de baja de verdad en el backend. Los Escenarios 2/3 (único plan Inactivo/Dado de baja) están confirmados vía simulación de red (`page.route()`) en la WebApp (Desktop y Mobile-viewport), automatizados y verificados — no fue posible conseguir una cuenta real con este estado (`IMP-015`, escalado a Oscar 2026-08-31, respuesta "no por ahora"), pero la simulación cubre las 5 pantallas de la HU sin ese requisito. Los 12 AC reales quedan cubiertos al 100%.
 
 **Pendiente de decisión del usuario**:
-1. Confirmar si CP11 (app nativa) está realmente en alcance de esta HU — si lo está, queda bloqueado por `IMP-015` sin atajo posible hoy.
-2. Si en algún momento el equipo provee una cuenta real con este estado, valdría la pena una verificación puntual contra datos 100% reales (Web y nativa) para confirmar que la simulación no se desvía de ningún detalle fino, y para cerrar CP11.
+1. Preguntarle al equipo si esta HU también debería aplicar a la app nativa (mobile) — hoy el contrato no lo pide, así que no bloquea el cierre. Si en el futuro se confirma que sí aplica, ya se investigó que quedaría bloqueado por `IMP-015` sin el atajo de simulación que sí funcionó en la WebApp (WebdriverIO/Appium no expone CDP para sesiones mobile).
+2. Si en algún momento el equipo provee una cuenta real con el estado Inactivo/Dado de baja, valdría la pena una verificación puntual contra datos 100% reales para confirmar que la simulación no se desvía de ningún detalle fino.

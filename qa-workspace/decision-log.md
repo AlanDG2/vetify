@@ -1654,6 +1654,16 @@ Se mapeó qué endpoint lee cada una de las 5 pantallas de la HU: Home/Mascotas/
 
 **Construido y verificado**: `src/helpers/mockPlanState.ts` (`mockAccountWithNoOperablePlan`), `tests/projects/vetify-webapp/plan-state.spec.ts` (un solo test consolidado — el mock no distingue Inactivo de Dado-de-baja como estados de backend distintos, y la HU dice que el tratamiento debe ser equivalente entre ambos). POM nuevo mínimo `NuevoReintegroPage.ts` (el wizard de reintegro nunca había tenido POM propio, bloqueado históricamente por el bug VAL-002/IMAS-4279) + locator `petCredentialCards` en `HomePage.ts`. Verificado pasando en Desktop y Android, primer intento en los dos.
 
-`CP09`/`CP10` (antes 🔴 bloqueados) pasan a ✅ en `IMAS-4408-*.tests.md`. +1 fila en `Casos de Prueba.xlsx` → Credenciales (309 total, 229 automatizados, 74%). Pendiente: postear en Jira (casos de prueba + la resolución vía mock) y verificar si `IMAS-4451` (Deploy a Prod) puede avanzar.
+`CP09`/`CP10` (antes 🔴 bloqueados) pasan a ✅ en `IMAS-4408-*.tests.md`. +1 fila en `Casos de Prueba.xlsx` → Credenciales (309 total, 229 automatizados, 74%). Comentarios posteados en `IMAS-4411`/`IMAS-4408`.
+
+### 2026-08-31 (continuación) — CP11 (app nativa/webview): mismo mock, pared distinta
+
+Alan pidió intentar también en mobile "para dejarlo al 100". Confirmado con él que "app nativa" acá es el WEBVIEW que embebe la misma WebApp (no una UI nativa aparte), matching `mobile/config/wdio.shared.conf.ts`.
+
+El emulador (`Pixel_6_QA`) estaba trabado "offline" en `adb devices` pese a que el proceso seguía vivo — `adb reconnect` y reiniciar el server de adb no lo destrabaron. Con el OK explícito de Alan, se mató `emulator.exe`/`qemu-system-x86_64.exe` y se relanzó con `npm run emulator:start` — volvió sano.
+
+Spike descartable (`mobile/specs/vetify/.tmp-spike-cdp.spec.ts`, borrado después de usarlo): login, cambiar al contexto WEBVIEW, e intentar `browser.getPuppeteer()` (la API de WebdriverIO que daría intercepción de red al estilo Puppeteer). **Falló de forma clara y definitiva**: `"Using DevTools capabilities is not supported for this session. This feature is only supported for local testing on Chrome, Firefox and Chromium Edge."` — WebdriverIO no expone CDP para sesiones Appium/mobile, sin importar que el WEBVIEW sea Chromium por dentro. No es un error de flakiness, es una limitación estructural de la herramienta.
+
+**Conclusión honesta**: `IMAS-4408` NO queda en 100% real — `CP11` sigue 🔴 bloqueado, mismo motivo de fondo que `CP09`/`CP10` (`IMP-015`, sin cuenta real, ya pedida y denegada), pero sin el atajo de mock que salvó a esos dos. Cerrarlo de verdad necesita la cuenta real (que sigue sin estar disponible) o un mecanismo de intercepción de red completamente distinto para mobile (ej. proxy MITM a nivel de SO/emulador) que nadie construyó en este proyecto y no se intentó acá dado el costo frente al pedido ya denegado. `IMAS-4408-*.tests.md` y el memory quedaron actualizados con el detalle completo, sin inflar el estado.
 
 **Excel y docs actualizados** (detalle de deltas en `documentation/casos-de-prueba-trazabilidad.md` 2026-08-31): `Casos de Prueba.xlsx` +6 CP (`Funcionalidades Pendientes`, TS-06 Beneficios) → 308 total/228 automatizados (74%). `Automation Vetify.xlsx` +2 filas (`QA-AUTO-093/094`) → 88 escenarios. `docs/user-stories/IMAS-4356-*.md` cerrado con sección de resolución; `IMAS-4435-banner-cooper-mayor-protagonismo.md`+`.tests.md` nuevos, con el contrato real completo y el cruce contra los 10 AC.

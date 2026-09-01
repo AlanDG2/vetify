@@ -104,9 +104,11 @@ Helper nuevo: `src/helpers/mockPlanState.ts` → `mockAccountWithNoOperablePlan(
 ## TS-05 Alcance mobile / app nativa
 **Riesgo: sin clasificar — falta confirmar si está en alcance.**
 
-**CP11 - Verificar si la app nativa (mobile) también oculta credenciales de planes Inactivos/Dados de baja** `[SIN FUENTE]`
-- La HU no aclara si aplica solo a la WebApp (navegador) o también a la app nativa — no se diseña el caso hasta confirmar con el equipo
-- Trazabilidad: sin fuente
+**CP11 - Verificar si la app nativa (mobile) también oculta credenciales de planes Inactivos/Dados de baja** 🔴 **BLOQUEADO — intentado 2026-08-31, no se puede aplicar la misma simulación**
+- La app nativa (confirmado con Alan) es un WEBVIEW embebiendo la misma WebApp, no una UI nativa aparte — mismo contrato de API que el lado Playwright.
+- Se intentó extender la misma técnica de mock de red (`page.route()`/`fulfill()`, la que resolvió CP09/CP10) al stack mobile (WebdriverIO + Appium, `mobile/`). **Confirmado en vivo (spike descartable, `mobile/specs/vetify/.tmp-spike-cdp.spec.ts`, corrido contra el emulador Pixel_6_QA)**: `browser.getPuppeteer()` falla con `"Using DevTools capabilities is not supported for this session. This feature is only supported for local testing on Chrome, Firefox and Chromium Edge."` — WebdriverIO explícitamente no expone CDP para sesiones Appium (mobile), aunque el WEBVIEW sea Chromium por dentro. No hay una forma equivalente de mockear la respuesta de red en este stack.
+- Para cerrar este caso de verdad hace falta lo mismo que ya se pidió y se denegó para CP09/CP10: una cuenta real cuyo único plan esté Inactivo/Dado de baja (`IMP-015`). No hay atajo de simulación disponible acá.
+- Trazabilidad: sin fuente sobre si está en alcance + bloqueado técnicamente incluso si lo estuviera
 
 ---
 
@@ -126,10 +128,10 @@ Helper nuevo: `src/helpers/mockPlanState.ts` → `mockAccountWithNoOperablePlan(
 | AC-11 (filtrado por estado real de SISE) | Implícito en todo lo de arriba | ✅ Consistente — el plan dado de baja en SISE es justamente el que desapareció |
 | AC-12 (no afecta otros planes Activos) | CP07 | ✅ Verificado en vivo |
 
-**11 casos diseñados. 10 verificados (CP01-CP10) y 1 sin fuente (CP11, alcance mobile).**
+**11 casos diseñados. 10 verificados (CP01-CP10) y 1 bloqueado (CP11, app nativa/webview — mismo motivo de fondo que CP09/CP10, IMP-015, sin atajo de simulación disponible en el stack mobile).**
 
-**Lo más importante que se puede afirmar hoy**: el Escenario 1 (el más común en producción) está confirmado con una cuenta real cuyo plan fue dado de baja de verdad en el backend. Los Escenarios 2/3 (único plan Inactivo/Dado de baja) están confirmados vía simulación de red (`page.route()`), automatizados y verificados pasando en Desktop y Mobile — no fue posible conseguir una cuenta real con este estado (`IMP-015`, escalado a Oscar 2026-08-31, respuesta "no por ahora"), pero la simulación cubre las 5 pantallas de la HU sin ese requisito.
+**Lo más importante que se puede afirmar hoy**: el Escenario 1 (el más común en producción) está confirmado con una cuenta real cuyo plan fue dado de baja de verdad en el backend. Los Escenarios 2/3 (único plan Inactivo/Dado de baja) están confirmados vía simulación de red (`page.route()`) en la WebApp (Desktop y Mobile-viewport), automatizados y verificados — no fue posible conseguir una cuenta real con este estado (`IMP-015`, escalado a Oscar 2026-08-31, respuesta "no por ahora"), pero la simulación cubre las 5 pantallas de la HU sin ese requisito. Esa misma simulación **no se puede extender a la app nativa** (WebdriverIO/Appium no expone CDP para sesiones mobile) — para cerrar CP11 de verdad hace falta la cuenta real que ya se pidió y se denegó.
 
 **Pendiente de decisión del usuario**:
-1. Confirmar alcance mobile nativo (CP11) con el equipo — sigue sin fuente.
-2. Si en algún momento el equipo provee una cuenta real con este estado, valdría la pena una verificación puntual contra datos 100% reales para confirmar que la simulación no se desvía de ningún detalle fino.
+1. Confirmar si CP11 (app nativa) está realmente en alcance de esta HU — si lo está, queda bloqueado por `IMP-015` sin atajo posible hoy.
+2. Si en algún momento el equipo provee una cuenta real con este estado, valdría la pena una verificación puntual contra datos 100% reales (Web y nativa) para confirmar que la simulación no se desvía de ningún detalle fino, y para cerrar CP11.

@@ -3,6 +3,7 @@ import { environment } from '@config/environment';
 import type { MercadoPagoCreateCardTokenResponse, PaymentTokenPayload } from '@models/mercadoPago';
 import { Identification } from '@models/shared';
 import type { CheckoutPayload, PlanList } from '@models/vetify/institutional';
+import { CuponAlreadyUsedError } from '@providers/cupon';
 import { APIRequestContext } from 'playwright-core';
 
 const CAMPAIGN_ID = '701O200000lHMtlIAG';
@@ -65,7 +66,10 @@ export class VetifyInstitutionalApiClient extends BaseApiClient {
 
         const token = await this.getAuthToken();
 
-        const response = await this.get('/api/quantum/jengage/catalog/products?cuenta=MA_VETIFY', {
+        // Confirmado en vivo 2026-09-14: este endpoint se mudó a un dominio separado con prefijo
+        // /api/v1/ -- `this.get()` acepta una URL absoluta y la usa tal cual (ver BaseApiClient.url()),
+        // ignorando `this.baseURL`.
+        const response = await this.get(`${environment.VETIFY_QUANTUM_BASE_URL}/api/v1/jengage/catalog/products?cuenta=MA_VETIFY`, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
@@ -90,6 +94,9 @@ export class VetifyInstitutionalApiClient extends BaseApiClient {
         });
     }
 
+    // No usado en ningún flujo actual (sin callers) -- NO se corrigió la URL como en getPlans()/
+    // createPurchase() porque no se pudo verificar en vivo (nada lo ejercita hoy). Si se llega a usar,
+    // probablemente tenga el mismo problema de dominio/path -- ver IMP-017 en impedimentos-bloqueos.md.
     async createCreditCardToken(paymentTokenPayload: PaymentTokenPayload): Promise<MercadoPagoCreateCardTokenResponse> {
         const token = await this.getAuthToken();
 
@@ -258,7 +265,9 @@ export class VetifyInstitutionalApiClient extends BaseApiClient {
     async createPurchase(checkoutData: CheckoutPayload): Promise<any> {
         const token = await this.getAuthToken();
 
-        const response = await this.post('/api/quantum/jengage/payment/pagar-mp?cuenta=MA_VETIFY', {
+        // Confirmado en vivo 2026-09-14 (compra real aprobada, póliza 20359411): este endpoint se
+        // mudó al mismo dominio nuevo que getPlans() -- ver esa nota más arriba.
+        const response = await this.post(`${environment.VETIFY_QUANTUM_BASE_URL}/api/v1/jengage/payment/pagar-mp?cuenta=MA_VETIFY`, {
             headers: {
                 Authorization: `Bearer ${token}`,
                 'Content-Type': 'application/json',
@@ -298,7 +307,16 @@ export class VetifyInstitutionalApiClient extends BaseApiClient {
         });
 
         if (!response.ok()) {
-            throw new Error(`Failed to register user: ${response.status()} ${response.statusText()}`);
+            const body = await response.text().catch(() => '');
+            // Hallazgo real 2026-09-14: el pool local de cupones puede tener códigos marcados
+            // "disponibles" que el backend real ya consumió antes (409 "El Token ya existe (registro
+            // duplicado)") -- distinguir esto de cualquier otra falla es lo que le permite al llamador
+            // decidir si conviene devolver el cupón al pool (ver CuponFactory.releaseRegistrationCupon)
+            // o darlo por perdido para siempre.
+            if (response.status() === 409 && /token.*existe|duplicad/i.test(body)) {
+                throw new CuponAlreadyUsedError(`Cupón ya usado (409): ${body}`);
+            }
+            throw new Error(`Failed to register user: ${response.status()} ${response.statusText()} | ${body}`);
         }
 
         return response.json();

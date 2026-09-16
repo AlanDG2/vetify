@@ -1,0 +1,677 @@
+{
+  "info": {
+    "_postman_id": "dc87c75c-8ca5-4d23-b4c0-5edfb0be779b",
+    "name": "Vetify",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "55013326",
+    "_collection_link": "https://go.postman.co/collection/55013326-dc87c75c-8ca5-4d23-b4c0-5edfb0be779b?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Auth - Get Token",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var jsondata = pm.response.json();\r",
+                  "pm.environment.set(\"QUANTUM_AUTH_TOKEN\", jsondata.accessToken);\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "password",
+                  "value": "ikeasistencia",
+                  "type": "string"
+                },
+                {
+                  "key": "username",
+                  "value": "pmendoza",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/api/quantum/jauth/token",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "api",
+                "quantum",
+                "jauth",
+                "token"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "auth": {
+        "type": "bearer",
+        "bearer": [
+          {
+            "key": "token",
+            "value": "{{QUANTUM_AUTH_TOKEN}}",
+            "type": "string"
+          }
+        ]
+      },
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {},
+            "exec": [
+              ""
+            ]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {},
+            "exec": [
+              ""
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Payments",
+      "item": [
+        {
+          "name": "Calculate Payment",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{TOKEN}}",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"idTarjeta\": 1,\r\n  \"esCredito\": 1,\r\n  \"esDebito\": 0,\r\n  \"cupon\": \" \",\r\n  \"listInvoicedProducts\": [{ \"id\": 2249, \"qty\": 2 }]\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://dev-quantum.ike.ar/api/v1/jengage/payment/calculate?cuenta=MA_VETIFY ",
+              "protocol": "https",
+              "host": [
+                "dev-quantum",
+                "ike",
+                "ar"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "jengage",
+                "payment",
+                "calculate"
+              ],
+              "query": [
+                {
+                  "key": "cuenta",
+                  "value": "MA_VETIFY "
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Mercado Pago",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{QUANTUM_AUTH_TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"calculateParam\":{\r\n        \"idTarjeta\":0,\r\n        \"esCredito\":0,\r\n        \"esDebito\":0,\r\n        \"cupon\":\"\",\r\n        \"listInvoicedProducts\":[{\"id\":2245,\"qty\":2}],\r\n        \"subtotalWODiscount\": 2065.0,\r\n        \"discounts\": 0.0,\r\n        \"subtotalWDiscount\": 2065.0,\r\n        \"total\": 2065.0,\r\n        \"idPayType\": null\r\n        },\r\n    \"payer\": {\r\n      \"firstName\": \"PABLO\",\r\n      \"lastName\": \"MENDOZA\",\r\n      \"email\": \"cacho@gmail.com\",\r\n      \"areaCode\": \"11\",\r\n      \"telephoneNumber\": \"54752269\",\r\n      \"streetName\": \"MALVINAS ARGENTINAS\",\r\n      \"streetNumber\": \"1230\",\r\n      \"zipCode\": \"1875\",\r\n      \"city\":1,\r\n      \"province\":1,\r\n       \"vip\": \"N\",\r\n       \"sex\": \"M\",\r\n       \"piso\":\"01\",\r\n       \"depto\":\"A\",\r\n       \"dateBirth\": \"08-10-1965\",\r\n       \"payerIdentification\": {\r\n          \"type\":\"\",\r\n          \"number\":\"17531663\",\r\n          \"typeDocument\":\"96\"\r\n      }\r\n    },\r\n    \"tokenVentaMercadoPago\": {\r\n        \"cardNumber\":\"5031755734530604\",\r\n        \"email\":\"cacho@gmail.com\",\r\n        \"cardholder\":{\r\n            \"name\":\"master\",\r\n            \"paymentTypeId\":1,\r\n            \"brandCardId\":1,\r\n            \"identification\": {\r\n                \"number\":\"17531663\",\r\n                \"type\":\"\"\r\n            }\r\n        },\r\n        \"expirationYear\":\"2030\",\r\n        \"expirationMonth\":\"11\",\r\n        \"securityCode\":\"123\"\r\n    },\r\n    \"paymentMethodId\":\"\",\r\n    \"transactionAmount\":2065.0,\r\n    \"idVenta\":null,\r\n    \"tokenSale\":null,\r\n    \"externalReference\":null,\r\n     \"payId\":null,\r\n    \"campania\": \"HOT-SALE-DIA-MADRE\",\r\n    \"urlImagenProducto\":\"https://planes.ikeargentina.com.ar/mascotasonline/assets/perro2-50-off.png\",\r\n    \"deviceId\":\"armor.4b15afa634060b1e3a4ec3fd592efa1ca2d91bd2fbd17e93ee7a401f21092c539cf66388cbe8c83bafa6cea5d700bdba906681ac01ad58152aa92db1800e10b9195c16f30728fa42225f4ac2cf24fa14c3306255c6e4626000bf7dcfc0920465.aed9941be317400d85a4577e1ee894ae\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{QUANTUM_BASE_URL}}/api/v1/jengage/payment/pagar-mp?cuenta=LN_MASC_CD",
+              "host": [
+                "{{QUANTUM_BASE_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "jengage",
+                "payment",
+                "pagar-mp"
+              ],
+              "query": [
+                {
+                  "key": "cuenta",
+                  "value": "LN_MASC_CD"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Mercado Pago Vetify Visa",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"calculateParam\": {\r\n    \"idTarjeta\": 0,\r\n    \"esCredito\": 1,\r\n    \"esDebito\": 0,\r\n    \"cupon\": \"VETIFY20\",\r\n    \"listInvoicedProducts\": [\r\n      {\r\n        \"id\": 2243,\r\n        \"qty\": 1\r\n      }\r\n    ],\r\n    \"subtotalWODiscount\": 83040,\r\n    \"discounts\": 16700,\r\n    \"subtotalWDiscount\": 66340,\r\n    \"total\": 66340,\r\n    \"idPayType\": 1\r\n  },\r\n  \"payer\": {\r\n    \"firstName\": \"APRO\",\r\n    \"lastName\": \"APRO\",\r\n    \"email\": \"pauscalzo@gmail.com\",\r\n    \"areaCode\": \"54\",\r\n    \"telephoneNumber\": \"61898707\",\r\n    \"streetName\": \"verdi\",\r\n    \"streetNumber\": \"789\",\r\n    \"zipCode\": \"1686\",\r\n    \"city\": 213,\r\n    \"province\": 20,\r\n    \"vip\": \"N\",\r\n    \"sex\": \"M\",\r\n    \"piso\": \"\",\r\n    \"depto\": \"\",\r\n    \"dateBirth\": \"01-01-1990\",\r\n    \"payerIdentification\": {\r\n      \"type\": \"\",\r\n      \"number\": \"30907808\",\r\n      \"typeDocument\": \"96\"\r\n    }\r\n  },\r\n  \"tokenVentaMercadoPago\": {\r\n    \"cardNumber\": \"4509953566233704\",\r\n    \"email\": \"jcaballero.ext@ikeasistencia.com.ar\",\r\n    \"cardholder\": {\r\n      \"name\": \"APRO\",\r\n      \"paymentTypeId\": 1,\r\n      \"brandCardId\": 1,\r\n      \"identification\": {\r\n        \"number\": \"30907808\",\r\n        \"type\": \"\"\r\n      }\r\n    },\r\n    \"expirationYear\": \"2026\",\r\n    \"expirationMonth\": \"12\",\r\n    \"securityCode\": \"123\"\r\n  },\r\n  \"paymentMethodId\": \"credit_card\",\r\n  \"transactionAmount\": 66340,\r\n  \"idVenta\": null,\r\n  \"tokenSale\": null,\r\n  \"externalReference\": null,\r\n  \"payId\": null,\r\n  \"campania\": \"VETIFY-CHECKOUT-2025\",\r\n  \"urlImagenProducto\": \"https://plans.ikeargentina.com.ar/vetify/assets/plan-image.png\",\r\n  \"deviceId\": \"armor.15634c3ac8c8d1085a9befbc1824bd5635de96b328e75c79959d76212d515183adeb7ab64238eee5d68c9eedec29d7291338e537a1914351c4f87f500f9dd9e534238f033ca294e2492213585669a07cc65bbaffe6f064a83a22f6ba9da1e36a.10aa01e5f4bffe0d959948adc7e1059d\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{QUANTUM_BASE_URL}}/api/v1/jengage/payment/pagar-mp?cuenta=MA_VETIFY",
+              "host": [
+                "{{QUANTUM_BASE_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "jengage",
+                "payment",
+                "pagar-mp"
+              ],
+              "query": [
+                {
+                  "key": "cuenta",
+                  "value": "MA_VETIFY"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Mercado Pago Vetify Master",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"calculateParam\": {\r\n    \"idTarjeta\": 4,\r\n    \"esCredito\": 1,\r\n    \"esDebito\": 0,\r\n    \"cupon\": \"VETIFY20\",\r\n    \"listInvoicedProducts\": [{ \"id\": 2245, \"qty\": 2 }],\r\n    \"subtotalWODiscount\": 83040,\r\n    \"discounts\": 16700,\r\n    \"subtotalWDiscount\": 66340,\r\n    \"total\": 66340,\r\n    \"idPayType\": 1\r\n  },\r\n  \"payer\": {\r\n    \"firstName\": \"paula\",\r\n    \"lastName\": \"scalzo\",\r\n    \"email\": \"pauscalzo@gmail.com\",\r\n    \"areaCode\": \"54\",\r\n    \"telephoneNumber\": \"61898707\",\r\n    \"streetName\": \"verdi\",\r\n    \"streetNumber\": \"789\",\r\n    \"zipCode\": \"1686\",\r\n    \"city\": 213,\r\n    \"province\": 20,\r\n    \"vip\": \"N\",\r\n    \"sex\": \"M\",\r\n    \"piso\": \"\",\r\n    \"depto\": \"\",\r\n    \"dateBirth\": \"01-01-1990\",\r\n    \"payerIdentification\": { \"type\": \"\", \"number\": \"35007800\", \"typeDocument\": \"96\" }\r\n  },\r\n  \"tokenVentaMercadoPago\": {\r\n    \"cardNumber\": \"5031433215406351\",\r\n    \"email\": \"pauscalzo@gmail.com\",\r\n    \"cardholder\": {\r\n      \"name\": \"APRO\",\r\n      \"paymentTypeId\": 1,\r\n      \"brandCardId\": 4,\r\n      \"identification\": { \"number\": \"35003800\", \"type\": \"\" }\r\n    },\r\n    \"expirationYear\": \"2027\",\r\n    \"expirationMonth\": \"12\",\r\n    \"securityCode\": \"123\"\r\n  },\r\n  \"paymentMethodId\": \"credit_card\",\r\n  \"transactionAmount\": 66340,\r\n  \"idVenta\": null,\r\n  \"tokenSale\": null,\r\n  \"externalReference\": null,\r\n  \"payId\": null,\r\n  \"campania\": \"VETIFY-CHECKOUT-2025\",\r\n  \"urlImagenProducto\": \"https://plans.ikeargentina.com.ar/vetify/assets/plan-image.png\",\r\n  \"deviceId\": \"armor.15634c3ac8c8d1085a9befbc1824bd5635de96b328e75c79959d76212d515183adeb7ab64238eee5d68c9eedec29d7291338e537a1914351c4f87f500f9dd9e534238f033ca294e2492213585669a07cc65bbaffe6f064a83a22f6ba9da1e36a.10aa01e5f4bffe0d959948adc7e1059d\"\r\n}\r\n\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{QUANTUM_BASE_URL}}/api/v1/jengage/payment/pagar-mp?cuenta=MA_VETIFY",
+              "host": [
+                "{{QUANTUM_BASE_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "jengage",
+                "payment",
+                "pagar-mp"
+              ],
+              "query": [
+                {
+                  "key": "cuenta",
+                  "value": "MA_VETIFY"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "https://qa-quantum.ike.ar/api/v1/jengage/payment/pagar-pas",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjZ3aEVDeEFjY0l6ZDc0alk4dmlWTiJ9.eyJpc3MiOiJodHRwczovL2Rldi1lY29tbWVyY2UtYXJnLnVzLmF1dGgwLmNvbS8iLCJzdWIiOiJKU2tsTzhnU3ZYRzk1UTBBNnRFMzV6UXJ6QmR2NkV0c0BjbGllbnRzIiwiYXVkIjoiaHR0cHM6Ly9kZXYtZWNvbW1lcmNlLWFyZy51cy5hdXRoMC5jb20vYXBpL3YyLyIsImlhdCI6MTc3OTE0NDg3MiwiZXhwIjoxNzc5MjMxMjcyLCJndHkiOiJjbGllbnQtY3JlZGVudGlhbHMiLCJhenAiOiJKU2tsTzhnU3ZYRzk1UTBBNnRFMzV6UXJ6QmR2NkV0cyJ9.tGKwlwg9c9jwG_pz9Eb5IP-xaTgzv_ClAPMXkMbkZWFL3LoRIHsHSyuxTYrVtxe-IOjkxezDQs15pSjSMcXH4NAhLATUxQN_CA8uB_46XHkfD1P_IMetnr2VwAMuP07RGko9hpF8VhfyXrcj2GkP9IDO8v6E_KBtwyrKGMw2vVe7stol4wnJU-QrIE-3r_zgrqW0Qvnl8tLNpA-bskQg5TEplUgYDuj3frg_ZzSJlpTMa_YzOGoBUtDQbupwZiLj38eiOWA4sf39Mob0lfMwW1PnnAG39HO8SA7R8PnULmZvOlWOS95doQ_t078b97N0naKOp7IlBUptt0w3PzLCyg"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"calculateParam\": {\n        \"cupon\": \" \",\n        \"idTarjeta\": 0,\n        \"esCredito\": 1,\n        \"esDebito\": 0,\n        \"listInvoicedProducts\": [\n            {\n                \"id\": 2152,\n                \"qty\": 1,\n                \"originPrice\": 25900.0,\n                \"newPrice\": 25900.0,\n                \"percDiscount\": 0.0,\n                \"amountDiscount\": 0.0,\n                \"patente\": \"EBB827\"\n            }\n        ],\n        \"subtotalWODiscount\": 25900.0,\n        \"discounts\": 0.0,\n        \"subtotalWDiscount\": 25900.0,\n        \"total\": 25900.0,\n        \"realInvoicedProducts\": [\n            {\n                \"idProducto\": 2152,\n                \"description\": \"VIAL 1000KM - PAS\",\n                \"qtyInformado\": 1,\n                \"targetAmount\": 25900.0,\n                \"idProductoOriginal\": 2152,\n                \"patente\": \"EBB827\"\n            }\n        ],\n        \"listDiscountOverTotal\": []\n    },\n    \"payer\": {\n        \"firstName\": \"Javier\",\n        \"lastName\": \"Caballero\",\n        \"email\": \"caballerojavier13@gmail.com\",\n        \"areaCode\": \"11\",\n        \"telephoneNumber\": \"66334123\",\n        \"streetName\": \"Dr. Saveedra Lamas\",\n        \"streetNumber\": \"2913\",\n        \"zipCode\": \"1856\",\n        \"sex\": \"M\",\n        \"vip\": \"N\",\n        \"dateBirth\": \"19621229\",\n        \"city\": 1928,\n        \"province\": 1,\n        \"depto\": \"\",\n        \"payerIdentification\": {\n            \"type\": \"DNI\",\n            \"number\": \"13000102\",\n            \"typeDocument\": \"96\"\n        }\n    },\n    \"tokenVentaMercadoPago\": {\n        \"cardNumber\": \"4509953566233704\",\n        \"email\": \"caballerojavier13@gmail.com\",\n        \"expirationYear\": \"2030\",\n        \"expirationMonth\": \"01\",\n        \"securityCode\": \"\",\n        \"cardholder\": {\n            \"name\": \"APRO\",\n            \"paymentTypeId\": 1,\n            \"brandCardId\": 1,\n            \"identification\": {\n                \"number\": \"13000102\",\n                \"type\": \"DNI\"\n            }\n        },\n        \"installments\": 1\n    },\n    \"paymentMethodId\": \"visa\",\n    \"transactionAmount\": 25900.0,\n    \"externalReference\": \"LN_AAPAS\",\n    \"idVenta\": 34184,\n    \"tokenSale\": \"m-ATJnku--x-imr8A(A1m607H-8KmnkG-G1H-D8*1eGy___y6m\",\n    \"campania\": \"\",\n    \"urlImagenProducto\": \"http://planes.ikeargentina.com.ar/mascotasonlineapiv2/assets/logo-ike.svg\",\n    \"deviceId\": \"armor.a81c9813d0cfd5149de09a06c0a74aecd10d7091cd6c1a9231a3f21c15fea10c1f73ef81e98c740abcf11bf672e027268f849aa72dbdc4d343f09f5bff2798567195e6965ece8c7c0fc4f95cbde32046afc76a7a681f5d7fb3179826d783aaf2.85542ea4cad2c3dabee86afb8a0d4317\",\n    \"seller\": {\n        \"seller_name\": \"3074|0|0\",\n        \"enrollment\": \"Productor\",\n        \"bank_id\": \"\",\n        \"bank_campaign\": \"\",\n        \"sale_branch_code\": \"\",\n        \"validator_name\": \"Monica Alejandra Gauto\",\n        \"validator_enrollment\": \"\",\n        \"campaign_code\": \"\",\n        \"campaign_discount\": \"\"\n    }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://qa-quantum.ike.ar/api/v1/jengage/payment/pagar-pas?cuenta=LN_AAPAS",
+              "protocol": "https",
+              "host": [
+                "qa-quantum",
+                "ike",
+                "ar"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "jengage",
+                "payment",
+                "pagar-pas"
+              ],
+              "query": [
+                {
+                  "key": "cuenta",
+                  "value": "LN_AAPAS"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "Create Portal's User",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var jsondata = pm.response.json();\r",
+                  "pm.environment.set(\"TOKEN\", jsondata.accessToken);\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{TOKEN}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"username\":\"pscalzo\",\r\n    \"firstName\":\"paula\",\r\n    \"lastName\":\"scalzo\",\r\n    \"password\":\"ikeasistencia\",\r\n    \"roles\":[\"VETIFY\"]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/api/v1/jauth/portal-ventas/user",
+              "host": [
+                "{{BASE_URL}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "jauth",
+                "portal-ventas",
+                "user"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Get Products",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{QUANTUM_BASE_URL}}/api/v1/jengage/catalog/products?cuenta=MA_VETIFY ",
+          "host": [
+            "{{QUANTUM_BASE_URL}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "jengage",
+            "catalog",
+            "products"
+          ],
+          "query": [
+            {
+              "key": "cuenta",
+              "value": "MA_VETIFY "
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Mercado Pago datos tarjeta",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"tokenVentaMercadoPago\": {\r\n        \"cardNumber\": \"4002768694395619\",\r\n        \"email\": \"pmendoza@ikeasistencia.com.ar\",\r\n        \"cardholder\": {\r\n            \"name\": \"APRO\",\r\n            \"identification\": {\r\n                \"number\": \"17535668\",\r\n                \"type\": \"DNI\"\r\n            }\r\n        },\r\n        \"expirationYear\": \"2026\",\r\n        \"expirationMonth\": \"12\",\r\n        \"securityCode\": \"123\"\r\n    },\r\n    \"paymentMethodId\": \"visa\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{QUANTUM_BASE_URL}}/api/v1/jengage/payment/crear-token-tarjeta/",
+          "host": [
+            "{{QUANTUM_BASE_URL}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "jengage",
+            "payment",
+            "crear-token-tarjeta",
+            ""
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Prestadores",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{QUANTUM_BASE_URL}}/api/v1/modulo-vial/listado-prestadores/mascotas",
+          "host": [
+            "{{QUANTUM_BASE_URL}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "modulo-vial",
+            "listado-prestadores",
+            "mascotas"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Payment Types",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{QUANTUM_AUTH_TOKEN}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{QUANTUM_BASE_URL}}/api/v1/jengage/catalog/payment-types?cuenta=MA_VETIFY",
+          "host": [
+            "{{QUANTUM_BASE_URL}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "jengage",
+            "catalog",
+            "payment-types"
+          ],
+          "query": [
+            {
+              "key": "cuenta",
+              "value": "MA_VETIFY"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Card's Brands",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{QUANTUM_BASE_URL}}/api/v1/jengage/catalog/brand-cards?cuenta=MA_VETIFY",
+          "host": [
+            "{{QUANTUM_BASE_URL}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "jengage",
+            "catalog",
+            "brand-cards"
+          ],
+          "query": [
+            {
+              "key": "cuenta",
+              "value": "MA_VETIFY"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Cities",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{QUANTUM_AUTH_TOKEN}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{QUANTUM_BASE_URL}}/api/v1/jengage/catalog/cities",
+          "host": [
+            "{{QUANTUM_BASE_URL}}"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "jengage",
+            "catalog",
+            "cities"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Discounts",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{BASE_URL}}/api/quantum/jengage/catalog/discounts?cuenta=MA_VETIFY",
+          "host": [
+            "{{BASE_URL}}"
+          ],
+          "path": [
+            "api",
+            "quantum",
+            "jengage",
+            "catalog",
+            "discounts"
+          ],
+          "query": [
+            {
+              "key": "cuenta",
+              "value": "MA_VETIFY"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Client",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Api-Key XyFN6A7wk6zv1Ca9TojaJeGgvh4yHKKfpCXuBfUWaZRa3Pk40jOLaBkpSD964gREN6apptDgWTYaZRbjDhaCTZHlH9J8mGeZzuqVguIeNvxnQe50n7EWTQySa569WULR"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "[\n    {\n        \"clGrupoCuenta\": 158,\n        \"clCuenta\": 2132,\n        \"tipoIdentificacion\": \"DNI\",\n        \"identificacion\": \"671162365\"\n    }\n]",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{IKE_API_BASE_URL}}/cliente",
+          "host": [
+            "{{IKE_API_BASE_URL}}"
+          ],
+          "path": [
+            "cliente"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{QUANTUM_AUTH_TOKEN}}",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ]
+}

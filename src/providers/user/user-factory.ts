@@ -7,7 +7,7 @@ import { MERCADOPAGO_PAYMENT_STATUSES } from '@integrations/mercadopago/mercadoP
 import type { Identification } from '@models/shared';
 import type { PlanItem, PlanList } from '@models/vetify';
 import { expect, request } from '@playwright/test';
-import { Cupon, CuponFactory } from '@providers/cupon';
+import { Cupon, CuponAlreadyUsedError, CuponFactory } from '@providers/cupon';
 import { v4 as uuidv4 } from 'uuid';
 import { UserTag } from './tags';
 import { UserPool } from './user-pool';
@@ -21,6 +21,12 @@ export interface GetTestUserOptions {
     siteId: SiteId;
     registration?: boolean;
     configLabel?: string;
+    // 2026-09-14 (IMAS-4490): permite pedir un plan puntual por clCuenta en vez de uno random del
+    // catálogo -- necesario para condicionados, donde cada plan (Esencial/Classic/Cachorros/
+    // Premium/Emergencias) tiene su propio PDF a verificar. Si no se pasa, se mantiene el
+    // comportamiento de siempre (plan random). Solo tiene efecto para `VETIFY_ADQUIRENTE`/
+    // `OSDE_ADQUIRENTE` (Capitado no pasa por catálogo).
+    planId?: string;
 }
 
 export interface GetTestUserResponse {
@@ -107,7 +113,7 @@ export class UserFactory {
     }
 
     private static async generateVetifyTestUser(vetifyInstitutionalApiClient: VetifyInstitutionalApiClient, options: GetTestUserOptions): Promise<GetTestUserResponse | undefined> {
-        const { email = getRandomEmail(), password = getRandomPassword(), numberOfPlans = 1, siteId, registration = false } = options;
+        const { email = getRandomEmail(), password = getRandomPassword(), numberOfPlans = 1, siteId, registration = false, planId } = options;
 
         const leadIds = [];
 
@@ -130,14 +136,33 @@ export class UserFactory {
             vip: 'N',
         };
 
+        // Bug real encontrado y corregido 2026-09-14: esto nunca pasaba `brand`, así que
+        // `getPlans()` siempre filtraba con el default 'vetify' -- incluso para OSDE_ADQUIRENTE,
+        // donde el catálogo real (`cuenta=MA_VETIFY`) hoy solo tiene un plan con "OSDE" en el
+        // nombre, que ese mismo filtro excluye. Sin este fix, OSDE_ADQUIRENTE fallaba con
+        // "Cannot read properties of undefined (reading 'id')" (0 planes tras el filtro) pese a que
+        // el catálogo sí tenía un plan disponible para esa marca. Ver IMP-017 en
+        // docs/impedimentos-bloqueos.md.
+        const brand = siteId === SiteId.OSDE_ADQUIRENTE ? 'osde' : 'vetify';
+
         try {
             for (let i = 0; i < numberOfPlans; i++) {
-                // Get a random plan to use in the purchase flow
+                // includeFamilyPlans:true cuando se pide un planId puntual -- los planes "+1" (family)
+                // quedarían excluidos por el filtro default si el caller pidió justo uno de esos.
                 const plans: PlanList = await vetifyInstitutionalApiClient.getPlans({
-                    includeFamilyPlans: false,
+                    includeFamilyPlans: !!planId,
+                    brand,
                 });
 
-                const randomPlan: PlanItem = plans[Math.floor(Math.random() * plans.length)];
+                let randomPlan: PlanItem | undefined;
+                if (planId) {
+                    randomPlan = plans.find((p) => p.id.toString() === planId);
+                    if (!randomPlan) {
+                        throw new Error(`Plan ${planId} no está disponible en el catálogo real hoy (cuenta=MA_VETIFY, brand=${brand}) -- ver IMP-017 en docs/impedimentos-bloqueos.md.`);
+                    }
+                } else {
+                    randomPlan = plans[Math.floor(Math.random() * plans.length)];
+                }
 
                 const paymentCard = MercadoPagoCardsHelper.buildCheckoutPaymentData(MERCADOPAGO_PAYMENT_STATUSES.APPROVED, MERCADOPAGO_CARD_PROVIDER.VISA);
 
@@ -284,6 +309,10 @@ export class UserFactory {
             return undefined;
         }
 
+        // Trazabilidad: hallazgo real 2026-09-14, ningún log anterior decía qué código de cupón se
+        // había usado en un intento fallido -- imposible investigar cuál token específico estaba mal.
+        console.log(`Using registration cupon ${cupon.code} for ${siteId} (${email})`);
+
         try {
             await vetifyInstitutionalApiClient.registerUserCapitado({
                 firstName: 'Test',
@@ -306,6 +335,16 @@ export class UserFactory {
             };
         } catch (e) {
             console.error(`⚠️ Failed to generate Capitado test user for email ${email}:`, e);
+            // Si el cupón ya estaba usado en el backend (drift real vs. pool local), está muerto de
+            // verdad -- no tiene sentido devolverlo, va a volver a fallar igual. Cualquier OTRA falla
+            // (red, 5xx, timeout) sí amerita devolverlo al pool para que otra corrida lo reintente en
+            // vez de perderlo para siempre. Ver IMP-001 en docs/impedimentos-bloqueos.md.
+            if (e instanceof CuponAlreadyUsedError) {
+                console.error(`   Cupón ${cupon.code} ya estaba usado en el backend -- se descarta definitivamente (no se devuelve al pool).`);
+            } else {
+                CuponFactory.releaseRegistrationCupon(cupon);
+                console.error(`   Cupón ${cupon.code} devuelto al pool (falla no relacionada al cupón en sí).`);
+            }
             return undefined;
         }
     }

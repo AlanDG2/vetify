@@ -1,0 +1,494 @@
+{
+  "info": {
+    "name": "Vetify QA - Flujos Automatizados",
+    "_postman_id": "vetify-qa-automatizado-2026-09-14",
+    "description": "# Vetify QA -- Flujos de alta de cuenta automatizados\n\nColección armada 2026-09-14 a partir de los flujos reales YA VERIFICADOS EN VIVO en `scripts/qa/create-test-account.mjs` y `src/api/vetify/institutional/vetify-institutional-api.ts` (repo `vetify-automation/automation`). Cada request replica exactamente el payload que usa la automatización real -- no son ejemplos genéricos.\n\n## Contexto (IMP-017, resuelto 2026-09-14)\nHasta hoy el catálogo/pago vivían (según el código viejo) en `{{institutional_base_url}}/api/quantum/jengage/...`, que daba 404. La causa real: catálogo y pago se migraron a un **dominio separado** (`{{quantum_base_url}}`, prefijo `/api/v1/`). El login (`jauth/token`) y el lead (Salesforce, `/api/sf/...`) siguen en el dominio viejo. El mismo `access_token` sirve para los 2 dominios.\n\n## Cómo usar esta colección\n1. Correr **1. Auth - Obtener Token** primero (siempre) -- guarda `access_token` solo.\n2. Para **OSDE/Vetify Adquirente**: correr la carpeta en orden (Catálogo → Lead Paso 1 → Lead Paso 2 → Pago → Confirmación). Cada request encadena datos de la anterior vía variables de colección (`lead_id`, `plan_id`, `plan_price`, `email`, `dni`).\n3. Para **OSDE/Flux Capitado**: solo hace falta **Auth** + **Registro con cupón** -- pero **hay que completar `cupon_code` a mano** con un código real y NUNCA usado del pool (`src/fixtures/cupons/one-time-cupons.json` en el repo). Correr esta request **consume el cupón para siempre** en el backend real, sea cual sea el resultado -- el pool es finito (IMP-001), no correr sin necesidad real.\n\n## Qué NO está acá (a propósito, no es un olvido)\n- **VETIFY_ADQUIRENTE (Vetify B2C) end-to-end**: el request de Catálogo funciona, pero hoy (2026-09-14) el catálogo QA real solo tiene 1 plan cargado y es de OSDE -- pedir un plan \"vetify\" puro devuelve 0 resultados. No es un bug de esta colección, es un problema de datos de catálogo en QA (ver IMP-017 en `docs/impedimentos-bloqueos.md` del repo). Los mismos requests de Adquirente funcionan igual para Vetify B2C una vez que el catálogo tenga un plan real -- solo cambiaría `plan_id`.\n- **IKE_WEBAPP**: no tiene ningún flujo de alta propio, ni por API ni autoservicio (confirmado, IMP-005) -- no hay nada que replicar acá.\n- **\"Flux Adquirente\"**: no existe como producto separado -- Flux solo tiene Capitado.\n- **Cupón/token de alta Capitado on-demand**: no existe ese endpoint (confirmado, nunca existió) -- los cupones son un pool fijo pre-cargado, se cargan a mano (ver `cupon-factory.ts` en el repo, comentario IMAS-3970).\n\n## Hallazgos importantes si algo falla\n- **Pago con `400 Cannot deserialize value of type int from String`**: `paymentTypeId`/`brandCardId` tienen que ser ENTEROS reales (1/1 para VISA crédito), no strings tipo `\"credit_card\"`/`\"visa\"`.\n- **Pago con NullPointerException en CardholderParam.getIdentification()**: `identification` va DENTRO de `cardholder`, no como campo hermano.\n- **Registro Capitado con `409 \"El Token ya existe (registro duplicado)\"`**: el cupón que usaste ya fue consumido en el backend real antes (drift real vs. el pool local) -- no es recuperable, hay que usar otro código.\n",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "institutional_base_url",
+      "value": "https://qa.vetify.com.ar",
+      "type": "string"
+    },
+    {
+      "key": "quantum_base_url",
+      "value": "https://qa-quantum.ike.ar",
+      "type": "string"
+    },
+    {
+      "key": "campaign_id",
+      "value": "701O200000lHMtlIAG",
+      "type": "string"
+    },
+    {
+      "key": "access_token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "lead_id",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "plan_id",
+      "value": "2358",
+      "type": "string"
+    },
+    {
+      "key": "plan_price",
+      "value": "60111.0",
+      "type": "string"
+    },
+    {
+      "key": "email",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "dni",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "exp_year",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "exp_month",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "device_id",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "cupon_code",
+      "value": "PEGAR_UN_CODIGO_REAL_SIN_USAR_ACA",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "1. Auth - Obtener Token",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{institutional_base_url}}/api/quantum/jauth/token",
+          "host": [
+            "{{institutional_base_url}}"
+          ],
+          "path": [
+            "api",
+            "quantum",
+            "jauth",
+            "token"
+          ]
+        },
+        "description": "Token único, sirve para institutional_base_url Y quantum_base_url. Correr siempre primero."
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status 200', function () { pm.response.to.have.status(200); });",
+              "const data = pm.response.json();",
+              "pm.test('accessToken presente', function () { pm.expect(data).to.have.property('accessToken'); });",
+              "pm.collectionVariables.set('access_token', data.accessToken);",
+              "console.log('access_token guardado (primeros 20 chars):', data.accessToken.slice(0, 20) + '...');"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "2. OSDE/Vetify Adquirente - Alta de cuenta (compra con tarjeta)",
+      "item": [
+        {
+          "name": "2.1 Catálogo de planes",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{quantum_base_url}}/api/v1/jengage/catalog/products?cuenta=MA_VETIFY",
+              "host": [
+                "{{quantum_base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "jengage",
+                "catalog",
+                "products"
+              ],
+              "query": [
+                {
+                  "key": "cuenta",
+                  "value": "MA_VETIFY"
+                }
+              ]
+            },
+            "description": "Dominio NUEVO (post fix IMP-017). El query param `brand` NO filtra nada en el backend real -- si necesitás un plan Vetify puro (no-OSDE) el filtro tiene que ser manual sobre esta respuesta."
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const products = pm.response.json();",
+                  "console.log('Planes reales en catalogo (cuenta=MA_VETIFY):', JSON.stringify(products, null, 2));",
+                  "pm.test('Status 200', function () { pm.response.to.have.status(200); });",
+                  "pm.test('Al menos 1 plan disponible -- si esto falla, ver IMP-017/IMP-020 en docs/impedimentos-bloqueos.md del repo', function () {",
+                  "    pm.expect(products.length).to.be.greaterThan(0);",
+                  "});",
+                  "const currentPlanId = pm.collectionVariables.get('plan_id');",
+                  "const match = products.find(function (p) { return p.id.toString() === currentPlanId; }) || products[0];",
+                  "if (match) {",
+                  "    pm.collectionVariables.set('plan_id', match.id.toString());",
+                  "    pm.collectionVariables.set('plan_price', match.price.toString());",
+                  "    console.log('Plan seleccionado automaticamente:', match.name, '| id:', match.id, '| price:', match.price);",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "2.2 Lead - Paso 1 (Salesforce)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{institutional_base_url}}/api/sf/first-step",
+              "host": [
+                "{{institutional_base_url}}"
+              ],
+              "path": [
+                "api",
+                "sf",
+                "first-step"
+              ]
+            },
+            "description": "Dominio VIEJO (institucional) -- el lead SIEMPRE vivió en Salesforce, nunca en Quantum. `lead/create` contra Quantum no existe.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"leadId\": \"\",\n  \"PASO_ALCANZADO\": 1,\n  \"PAGADO\": false,\n  \"MOTIVO_RECHAZO\": \"\",\n  \"LINK\": \"\",\n  \"NOMBRE\": \"Test\",\n  \"APELLIDO\": \"Automation\",\n  \"CODIGO_AREA\": \"11\",\n  \"TELEFONO\": \"50511958\",\n  \"email\": \"{{email}}\",\n  \"TIPO_DOCUMENTO\": \"96\",\n  \"TIPO_DOCUMENTO_SELECCIONADO\": \"DNI\",\n  \"NUMERO_DOCUMENTO\": \"{{dni}}\",\n  \"LANDING\": \"Mascotas\",\n  \"CampaignId\": \"{{campaign_id}}\",\n  \"Products\": [\n    {\n      \"id\": \"{{plan_id}}\",\n      \"cantidad\": 1\n    }\n  ],\n  \"JSON_VERIFICACION_EMAIL\": \"\",\n  \"JSON_VERIFICACION_TELEFONO\": \"\",\n  \"CUPON\": \"\",\n  \"CUPON_DETALLE\": \"\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Genera email y DNI de prueba nuevos si todavia no se seteo ninguno a mano.",
+                  "if (!pm.collectionVariables.get('email')) {",
+                  "    pm.collectionVariables.set('email', 'test-' + Date.now() + '@automation.com');",
+                  "}",
+                  "if (!pm.collectionVariables.get('dni')) {",
+                  "    pm.collectionVariables.set('dni', String(10000000 + Math.floor(Math.random() * 80000000)));",
+                  "}",
+                  "console.log('email:', pm.collectionVariables.get('email'), '| dni:', pm.collectionVariables.get('dni'));"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 200', function () { pm.response.to.have.status(200); });",
+                  "const data = pm.response.json();",
+                  "pm.test('leadId presente', function () { pm.expect(data).to.have.property('leadId'); });",
+                  "pm.collectionVariables.set('lead_id', data.leadId);",
+                  "console.log('lead_id guardado:', data.leadId);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "2.3 Lead - Paso 2 (Salesforce)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{institutional_base_url}}/api/sf/second-step",
+              "host": [
+                "{{institutional_base_url}}"
+              ],
+              "path": [
+                "api",
+                "sf",
+                "second-step"
+              ]
+            },
+            "description": "",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"PASO_ALCANZADO\": 2,\n  \"PAGADO\": false,\n  \"MOTIVO_RECHAZO\": \"\",\n  \"LINK\": \"\",\n  \"NOMBRE\": \"Test\",\n  \"APELLIDO\": \"Automation\",\n  \"CODIGO_AREA\": \"11\",\n  \"TELEFONO\": \"50511958\",\n  \"email\": \"{{email}}\",\n  \"TIPO_DOCUMENTO\": \"96\",\n  \"TIPO_DOCUMENTO_SELECCIONADO\": \"DNI\",\n  \"NUMERO_DOCUMENTO\": \"{{dni}}\",\n  \"LANDING\": \"Mascotas\",\n  \"PROVINCIA\": \"1\",\n  \"LOCALIDAD\": \"1\",\n  \"CALLE\": \"Av Corrientes\",\n  \"NUMERO_CALLE\": \"123\",\n  \"PISO\": null,\n  \"DEPTO\": \"\",\n  \"CODIGO_POSTAL\": \"1234\",\n  \"JSON_VERIFICACION_EMAIL\": \"\",\n  \"JSON_VERIFICACION_TELEFONO\": \"\",\n  \"CUPON_DETALLE\": \"\",\n  \"CUPON\": \"\",\n  \"Products\": [\n    {\n      \"id\": \"{{plan_id}}\",\n      \"cantidad\": 1\n    }\n  ],\n  \"CampaignId\": \"{{campaign_id}}\",\n  \"leadId\": \"{{lead_id}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 200', function () { pm.response.to.have.status(200); });",
+                  "console.log('Respuesta:', pm.response.text());"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "2.4 Pago (MercadoPago test-card)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{quantum_base_url}}/api/v1/jengage/payment/pagar-mp?cuenta=MA_VETIFY",
+              "host": [
+                "{{quantum_base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "jengage",
+                "payment",
+                "pagar-mp"
+              ],
+              "query": [
+                {
+                  "key": "cuenta",
+                  "value": "MA_VETIFY"
+                }
+              ]
+            },
+            "description": "Dominio NUEVO (post fix IMP-017). Tarjeta VISA de prueba aprobada (`4509953566233704`). OJO: `paymentTypeId`/`brandCardId` deben ser ENTEROS (1/1), no strings -- e `identification` va DENTRO de `cardholder`. Los campos numéricos usan variables de colección como texto; si Postman los manda entre comillas, reemplazalos por el valor literal antes de correr (o activá \"Automatically convert\" en el body).",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"calculateParam\": {\n    \"idTarjeta\": 1,\n    \"esCredito\": 1,\n    \"esDebito\": 0,\n    \"cupon\": \"\",\n    \"couponDescription\": \"\",\n    \"listInvoicedProducts\": [\n      {\n        \"id\": \"{{plan_id}}\",\n        \"qty\": 1\n      }\n    ],\n    \"subtotalWODiscount\": \"{{plan_price}}\",\n    \"discounts\": 0,\n    \"subtotalWDiscount\": \"{{plan_price}}\",\n    \"total\": \"{{plan_price}}\",\n    \"idPayType\": 1\n  },\n  \"payer\": {\n    \"firstName\": \"Test\",\n    \"lastName\": \"AUTOMATION\",\n    \"email\": \"{{email}}\",\n    \"areaCode\": \"11\",\n    \"telephoneNumber\": \"50511958\",\n    \"streetName\": \"Av Corrientes\",\n    \"streetNumber\": \"123\",\n    \"zipCode\": \"1234\",\n    \"city\": 1,\n    \"province\": 1,\n    \"vip\": \"N\",\n    \"sex\": \"M\",\n    \"piso\": \"\",\n    \"depto\": \"\",\n    \"dateBirth\": \"01-01-1990\",\n    \"payerIdentification\": {\n      \"type\": \"96\",\n      \"number\": \"{{dni}}\",\n      \"typeDocument\": \"96\"\n    }\n  },\n  \"tokenVentaMercadoPago\": {\n    \"cardNumber\": \"4509953566233704\",\n    \"email\": \"{{email}}\",\n    \"cardholder\": {\n      \"name\": \"TEST AUTOMATION\",\n      \"paymentTypeId\": 1,\n      \"brandCardId\": 1,\n      \"identification\": {\n        \"number\": \"{{dni}}\",\n        \"type\": \"DNI\"\n      }\n    },\n    \"expirationYear\": \"{{exp_year}}\",\n    \"expirationMonth\": \"{{exp_month}}\",\n    \"securityCode\": \"123\"\n  },\n  \"paymentMethodId\": \"credit_card\",\n  \"transactionAmount\": \"{{plan_price}}\",\n  \"idVenta\": null,\n  \"tokenSale\": null,\n  \"externalReference\": null,\n  \"payId\": null,\n  \"campania\": \"VETIFY-CHECKOUT-2025\",\n  \"urlImagenProducto\": \"https://plans.ikeargentina.com.ar/vetify/assets/plan-image.png\",\n  \"deviceId\": \"{{device_id}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const now = new Date();",
+                  "pm.collectionVariables.set('exp_year', String(now.getFullYear() + 3));",
+                  "pm.collectionVariables.set('exp_month', String(now.getMonth() + 1).padStart(2, '0'));",
+                  "pm.collectionVariables.set('device_id', 'test-device-id-' + Date.now());"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 200', function () { pm.response.to.have.status(200); });",
+                  "const data = pm.response.json();",
+                  "pm.test('Pago aprobado', function () {",
+                  "    pm.expect(data.statusMP).to.have.property('status', 'approved');",
+                  "    pm.expect(data.statusMP).to.have.property('statusDetail', 'accredited');",
+                  "});",
+                  "console.log('Compra realizada:', JSON.stringify(data, null, 2));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "2.5 Confirmación de pago (Salesforce)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{institutional_base_url}}/api/sf/ecommerce",
+              "host": [
+                "{{institutional_base_url}}"
+              ],
+              "path": [
+                "api",
+                "sf",
+                "ecommerce"
+              ]
+            },
+            "description": "Dominio VIEJO (institucional, Salesforce) -- NO es `/api/quantum/jengage/payment/confirm` (ese endpoint nunca existió).",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"PASO_ALCANZADO\": 3,\n  \"PAGADO\": true,\n  \"MOTIVO_RECHAZO\": \"\",\n  \"LINK\": \"\",\n  \"NOMBRE\": \"Test\",\n  \"APELLIDO\": \"Automation\",\n  \"CODIGO_AREA\": \"11\",\n  \"TELEFONO\": \"50511958\",\n  \"email\": \"{{email}}\",\n  \"TIPO_DOCUMENTO\": \"96\",\n  \"TIPO_DOCUMENTO_SELECCIONADO\": \"DNI\",\n  \"NUMERO_DOCUMENTO\": \"{{dni}}\",\n  \"LANDING\": \"Mascotas\",\n  \"PROVINCIA\": \"1\",\n  \"LOCALIDAD\": \"1\",\n  \"CALLE\": \"Av Corrientes\",\n  \"NUMERO_CALLE\": \"123\",\n  \"PISO\": null,\n  \"DEPTO\": \"\",\n  \"CODIGO_POSTAL\": \"1234\",\n  \"JSON_VERIFICACION_EMAIL\": \"\",\n  \"JSON_VERIFICACION_TELEFONO\": \"\",\n  \"CUPON_DETALLE\": \"\",\n  \"CUPON\": \"\",\n  \"Products\": [\n    {\n      \"id\": \"{{plan_id}}\",\n      \"cantidad\": 1\n    }\n  ],\n  \"CampaignId\": \"{{campaign_id}}\",\n  \"leadId\": \"{{lead_id}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 200', function () { pm.response.to.have.status(200); });",
+                  "console.log('Respuesta:', pm.response.text());"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "3. OSDE/Flux Capitado - Alta de cuenta (con cupón)",
+      "item": [
+        {
+          "name": "3.1 Registro con cupón",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{institutional_base_url}}/api/registro",
+              "host": [
+                "{{institutional_base_url}}"
+              ],
+              "path": [
+                "api",
+                "registro"
+              ]
+            },
+            "description": "⚠️ ANTES DE CORRER: completá la variable de colección `cupon_code` con un código REAL y NUNCA usado del pool (`src/fixtures/cupons/one-time-cupons.json` en el repo, campo `code` de una entrada con `type:\"one-time\"` y `projects` incluyendo `OSDE_CAPITADO` o `FLUX_CAPITADO`). Este request CONSUME el cupón para siempre en el backend real, sea cual sea el resultado -- no hay forma de \"probar\" sin gastarlo (ver IMP-001). Si da `409 \"El Token ya existe\"`, el código ya estaba usado (drift), no reintentes con el mismo.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Test\",\n  \"apellido\": \"Automation\",\n  \"telefono\": \"+541112345678\",\n  \"tipoDocumento\": \"DNI\",\n  \"documento\": \"{{dni}}\",\n  \"mail\": \"{{email}}\",\n  \"token\": \"{{cupon_code}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Genera email y DNI de prueba nuevos si todavia no se seteo ninguno a mano.",
+                  "if (!pm.collectionVariables.get('email')) {",
+                  "    pm.collectionVariables.set('email', 'test-' + Date.now() + '@automation.com');",
+                  "}",
+                  "if (!pm.collectionVariables.get('dni')) {",
+                  "    pm.collectionVariables.set('dni', String(10000000 + Math.floor(Math.random() * 80000000)));",
+                  "}",
+                  "console.log('email:', pm.collectionVariables.get('email'), '| dni:', pm.collectionVariables.get('dni'));"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "if (pm.response.code === 409) {",
+                  "    console.error('Cupon ya usado o invalido (ver body):', pm.response.text());",
+                  "} else if (pm.response.code === 200) {",
+                  "    console.log('Registro Capitado OK:', pm.response.text());",
+                  "}",
+                  "pm.test('No es 409 \"token ya existe\" (cupon con drift, ver IMP-001)', function () {",
+                  "    pm.response.to.not.have.status(409);",
+                  "});"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

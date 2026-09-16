@@ -5,3 +5,6 @@ test-results/
 .env-example
 package-lock.json
 package.json
+# Repo espejo personal para CI de iOS (IMP-027, ver docs/impedimentos-bloqueos.md) -- no es
+# código de este proyecto, vive en el working directory pero no debería lintearse acá.
+mobile-ios-ci-mirror/

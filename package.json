@@ -34,6 +34,8 @@
         "test:mobile:stable": "node mobile/config/run-mobile.mjs --spec mobile/specs/example/app-launch.spec.ts --spec mobile/specs/vetify/ayuda.spec.ts --spec mobile/specs/vetify/facturas.spec.ts --spec mobile/specs/vetify/login.spec.ts --spec mobile/specs/vetify/navigation.spec.ts --spec mobile/specs/vetify/profile.spec.ts --spec mobile/specs/vetify/reintegros.spec.ts --spec mobile/specs/vetify/services.spec.ts",
         "test:android": "wdio run ./mobile/config/wdio.android.conf.ts",
         "test:ios": "wdio run ./mobile/config/wdio.ios.conf.ts",
+        "test:ios:bs": "wdio run ./mobile/config/wdio.browserstack-ios.conf.ts",
+        "test:ios:bs:stable": "wdio run ./mobile/config/wdio.browserstack-ios.conf.ts --spec mobile/specs/example/app-launch.spec.ts --spec mobile/specs/vetify/ayuda.spec.ts --spec mobile/specs/vetify/facturas.spec.ts --spec mobile/specs/vetify/login.spec.ts --spec mobile/specs/vetify/navigation.spec.ts --spec mobile/specs/vetify/profile.spec.ts --spec mobile/specs/vetify/reintegros.spec.ts --spec mobile/specs/vetify/services.spec.ts",
         "emulator:start": "emulator -avd Pixel_6_QA -no-snapshot"
     },
     "dependencies": {
@@ -73,6 +75,7 @@
         "@wdio/types": "^9.0.0",
         "appium": "^3.0.0",
         "appium-uiautomator2-driver": "^8.2.2",
+        "appium-xcuitest-driver": "^12.12.4",
         "husky": "^9.1.7",
         "prettier-plugin-organize-imports": "^4.3.0",
         "puppeteer-core": "^25.6.0"

@@ -19,6 +19,11 @@ export const config: WebdriverIO.Config = {
     ...sharedConfig,
     port: 4723,
     services: [['appium', { command: 'appium' }]],
+    // Overrides de timeout específicos de iOS (ver IMP-027 en docs/impedimentos-bloqueos.md):
+    // el default de 120s heredado de Android (wdio.shared.conf.ts) no alcanza para la primera
+    // sesión XCUITest en una máquina nueva, que compila WebDriverAgent desde cero (varios minutos).
+    connectionRetryTimeout: 600_000,
+    connectionRetryCount: 1,
     capabilities: [
         {
             platformName: 'iOS',
@@ -29,6 +34,13 @@ export const config: WebdriverIO.Config = {
             'appium:bundleId': BUNDLE_ID,
             'appium:autoAcceptAlerts': true,
             'appium:newCommandTimeout': 240,
+            'appium:wdaLaunchTimeout': 300_000,
+            'appium:wdaConnectionTimeout': 300_000,
+            // Causa raíz real de IMP-027 (encontrada 2026-09-16 con logs verbose de RemoteDebugger):
+            // el proceso del WebView se reporta como "process-vetify-qa" (nombre del scheme/ejecutable
+            // de Xcode), no como "process-<BUNDLE_ID>" ni el bundleId mismo — Appium solo matchea contra
+            // BUNDLE_ID y un puñado de bundle IDs de Apple por default, así que nunca lo encontraba.
+            'appium:additionalWebviewBundleIds': ['process-vetify-qa'],
         },
     ],
 };

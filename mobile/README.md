@@ -26,6 +26,17 @@ npm run test:android
 npm run test:ios
 ```
 
+### iOS desde Windows vía BrowserStack
+
+Si no tenés una Mac a mano pero querés validar los specs de iOS, podés correrlos contra la nube de [BrowserStack App Automate](https://www.browserstack.com/app-automate) — el `xcuitest` driver se ejecuta en un Mac remoto, vos te conectás desde Windows y ves los videos/logs de la corrida en el dashboard.
+
+```bash
+npm run test:ios:bs          # suite completa
+npm run test:ios:bs:stable   # solo el set curado estable (recomendado para empezar)
+```
+
+Setup único: ver [`mobile/config/browserstack.example.env`](config/browserstack.example.env) — necesitás una cuenta (hay plan gratuito), subir el `.app` a la plataforma (te devuelve un hash `bs://...`) y poner las 3 variables (`BROWSERSTACK_USER`, `BROWSERSTACK_KEY`, `BROWSERSTACK_IOS_APP`) en tu `.env` local. Mismos specs/POMs que la corrida en Mac local — la config nueva (`wdio.browserstack-ios.conf.ts`) solo cambia el endpoint y deshabilita el Appium local.
+
 ## Set curado "confirmado estable"
 
 ```bash

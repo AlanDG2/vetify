@@ -24,3 +24,19 @@ allure-report-mobile/
 wdio-logs/
 appium.log
 .cache/
+
+# Debris/temporales que no aportan valor al repo -- se ignoran, NO se borran del disco
+# (pedido explícito de Alan 2026-09-16: "skipealos del commit, no me los borres solo skipealos")
+.tmp-*
+*scratchpad*.txt
+allure-results-archive*/
+documentation/documentacion/
+mobile-ios-ci-mirror/
+mobile/apps/*.zip
+/footer-snapshot.md
+/b2c-qa-coverage-*.png
+/osde-*.png
+/pas-*.png
+/performance-qa-coverage-*.png
+/no-condicionado*.png
+/mobile-performance-check.png

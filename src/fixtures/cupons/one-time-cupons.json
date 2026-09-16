@@ -1,3 +1,84 @@
 {
-  "cupons": []
+  "cupons": [
+    {
+      "code": "TESTOSDE840557",
+      "type": "one-time",
+      "universal": false,
+      "projects": [
+        "OSDE_CAPITADO"
+      ]
+    },
+    {
+      "code": "TESTOSDE325330",
+      "type": "one-time",
+      "universal": false,
+      "projects": [
+        "OSDE_CAPITADO"
+      ]
+    },
+    {
+      "code": "TESTOSDE117009",
+      "type": "one-time",
+      "universal": false,
+      "projects": [
+        "OSDE_CAPITADO"
+      ]
+    },
+    {
+      "code": "TESTOSDE776021",
+      "type": "one-time",
+      "universal": false,
+      "projects": [
+        "OSDE_CAPITADO"
+      ]
+    },
+    {
+      "code": "TESTFLUX626415",
+      "type": "one-time",
+      "universal": false,
+      "projects": [
+        "FLUX_CAPITADO"
+      ]
+    },
+    {
+      "code": "TESTFLUX929671",
+      "type": "one-time",
+      "universal": false,
+      "projects": [
+        "FLUX_CAPITADO"
+      ]
+    },
+    {
+      "code": "TESTFLUX672194",
+      "type": "one-time",
+      "universal": false,
+      "projects": [
+        "FLUX_CAPITADO"
+      ]
+    },
+    {
+      "code": "TESTFLUX627310",
+      "type": "one-time",
+      "universal": false,
+      "projects": [
+        "FLUX_CAPITADO"
+      ]
+    },
+    {
+      "code": "TESTFLUX394678",
+      "type": "one-time",
+      "universal": false,
+      "projects": [
+        "FLUX_CAPITADO"
+      ]
+    },
+    {
+      "code": "TESTFLUX877223",
+      "type": "one-time",
+      "universal": false,
+      "projects": [
+        "FLUX_CAPITADO"
+      ]
+    }
+  ]
 }

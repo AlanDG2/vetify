@@ -115,4 +115,19 @@ export class CuponPool {
             releaseLock(ONE_TIME_CUPONS_LOCK_FILE);
         }
     }
+
+    // Devuelve un cupón one-time al pool -- para cuando se lo consumió (splice) pero el registro
+    // real terminó fallando por un motivo TRANSITORIO (no porque el token ya estuviera usado, ver
+    // CuponAlreadyUsedError). Sin esto, cualquier falla de red/backend después de sacar el cupón del
+    // pool lo pierde para siempre aunque nunca se haya usado de verdad. Hallazgo real 2026-09-14.
+    releaseOneTimeCupon(cupon: Cupon): void {
+        acquireLock(ONE_TIME_CUPONS_LOCK_FILE);
+        try {
+            const state = readState(ONE_TIME_CUPONS_STATE_FILE);
+            state.cupons.push(cupon);
+            writeState(ONE_TIME_CUPONS_STATE_FILE, state);
+        } finally {
+            releaseLock(ONE_TIME_CUPONS_LOCK_FILE);
+        }
+    }
 }

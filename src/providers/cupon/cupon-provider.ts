@@ -12,6 +12,14 @@ export class CuponProvider {
 
         return pool.consumeOneTimeCupon(request.project);
     }
+
+    // Solo aplica a cupones one-time -- los reusable nunca se "consumen" del pool, no hace falta
+    // devolverlos.
+    static releaseCupon(cupon: Cupon): void {
+        if (cupon.type === CuponType.OneTime) {
+            pool.releaseOneTimeCupon(cupon);
+        }
+    }
 }
 
 export { CuponType };

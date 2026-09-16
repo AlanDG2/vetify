@@ -65,11 +65,12 @@ Comentario de Paula Scalzo (dev), 2026-08-26, con 5 capturas adjuntas: *"Se pudo
 - **Por qué importa**: contradice directamente el "funciona OK" de dev de hace 2 días, para el mismo tipo de operación (alta nueva) sobre la MISMA cuenta. Los reintegros ya existentes se siguen viendo bien (CP01) porque probablemente quedaron con los datos de la mascota "congelados" al momento de crearse — el problema está específicamente en la resolución EN VIVO de la identidad de la mascota para una alta nueva.
 - Trazabilidad: `IMAS-4092` AC1/AC2 — no se cumple hoy para esta cuenta, aunque sí se cumplió el 2026-08-26.
 
-**CP03 - Verificar que un Adquirente (control) sí puede iniciar un reintegro nuevo sin este problema** ✅✅ **CONFIRMADO — evidencia ya recogida hoy en la sesión de `IMAS-4052`**
+**CP03 - Verificar que un Adquirente (control) sí puede iniciar un reintegro nuevo sin este problema** ✅✅ **CONFIRMADO — evidencia ya recogida hoy en la sesión de `IMAS-4052` + RE-CONFIRMADO 2026-09-01 con `alan.gonzalez@ingenia.la`**
 - Dado: cuenta `pauscalzo@hotmail.com` (Paula Scalzo — la persona, no la dev homónima —, mascota Mishi, plan "VETIFY 100 SENIOR x1", no-OSDE, Adquirente).
 - Cuando: Reintegros → Nuevo reintegro.
 - Entonces: `GET /mascotas` → `200` con Mishi correctamente identificada (`nombre`, foto, especie completos) y preseleccionada en el wizard.
 - Trazabilidad: `IMAS-4092` AC1/AC2 — cumplido para Adquirente. El contraste con CP02 sugiere que el problema de datos incompletos es específico de (al menos esta) cuenta Capitado, no un problema general del endpoint.
+- **2026-09-01 (re-test con `alan.gonzalez@ingenia.la`, VETIFY_ADQUIRENTE)**: misma cuenta que usé para retestear BUG-027 hoy. Confirmó que el bug no es general del endpoint: `/section/myreintegros` carga OK, "Nuevo reintegro" navega a `/section/nuevo-reintegro`, wizard de 3 pasos (Información → Cargar documentos → Confirmación) muestra mascota **Ian** preseleccionada, paso de "tipo de gasto" carga correctamente. `GET /api/bff/reintegros/expedientes?page=0&size=5&sort=-createdAt` → `200` con `[]` (historial vacío, no es bloqueante). `GET /api/bff/reintegros/tipos-gasto` → `200` con 6 tipos (Crash Detection, Estudios bioquímicos, Estudios cardio e imagenes, Intervención Quirúrgica, Traslado de mascotas, Videollamada Veterinaria). Resultado: **CP03 (Adquirente Alta nueva) PASA 100%** ✅ — funciona en Adquirente tanto con cuenta de Paula como con cuenta de Alan.
 
 ## TS-02 Multi-mascota (AC — "limitante documentado/acordado")
 
@@ -98,7 +99,7 @@ Comentario de Paula Scalzo (dev), 2026-08-26, con 5 capturas adjuntas: *"Se pudo
 | AC del ticket | Cubierto por | Estado |
 |---|---|---|
 | Listar tipos de gasto vía `claimsHistory` (capitados) | CP01 (histórico), CP02 (hoy) | 🟡 Funcionó antes, **no funciona hoy** para la misma cuenta |
-| Listar tipos de gasto (adquirientes) | CP03 | ✅ Cumplido |
+| Listar tipos de gasto (adquirientes) | CP03 | ✅ Cumplido (re-confirmado 2026-09-01 con alan.gonzalez) |
 | Confirmación abre expediente Nexus correcto | CP01 (histórico) | 🟡 Solo evidencia pasada, no un ciclo nuevo hoy |
 | Ciclo Calidad/Finanzas cierra con `refund/exp` | CP01 (histórico, vía backoffice cruzado) | 🟡 Solo evidencia pasada |
 | Limitante multi-mascota documentada/acordada | CP04 | 🟠 No ejecutado, sin cuenta disponible |
@@ -112,3 +113,12 @@ Comentario de Paula Scalzo (dev), 2026-08-26, con 5 capturas adjuntas: *"Se pudo
 2. Corregir el DNI de `user_1786584481760_8aea8baa@automation.com` (10 dígitos → 7-8) o generar una cuenta nueva con 2 mascotas y DNI válido, para poder ejecutar CP04.
 3. Aclarar con el equipo qué cuenta exactamente como "atención" para el límite de 2/año de capitados, antes de poder diseñar CP05 de forma ejecutable.
 4. Repetir CP02 con las otras 2 cuentas `OSDE_CAPITADO` del pool una vez que tengan DNI válido (hoy bloqueadas por `BUG-007`/`IMAS-4279`) para saber si el problema de datos-null es específico de Popi o generalizado.
+
+## 🔴 2026-09-01 — CP02 reconfirmado, síntoma empeoró (no es el mismo estado del 28/08)
+
+Reejecutado CP02 con la misma cuenta Popi (cache limpiada, login fresco). El síntoma ya **no** es el registro con campos `null` del 28/08 — ahora `GET /api/bff/reintegros/mascotas` devuelve directamente `[]` (array vacío), igual que el hallazgo más amplio documentado en `docs/user-stories/IMAS-4101-migracion-reintegros-nexus.md` ("mascotas vacías", encontrado 2026-09-01 con 4 cuentas de otros productos). Confirma que Popi es la **5ta cuenta** con este síntoma, y que el problema empeoró con el tiempo (de "registro incompleto" a "sin registro") en vez de resolverse.
+
+`GET /api/services/pets/my-products` para la misma cuenta, mismo momento: **no** está vacío (1 producto, "Vetify Esencial OSDE", `cuenta: 2349`), pero el campo `mascota` del producto viene `null` — un dato más para el equipo de dev: el producto/plan se resuelve bien, específicamente la identidad de la mascota es lo que no llega.
+
+**CP02 sigue 🔴 NO PASA** — ya no aplica la duda de "puede ser específico de esta cuenta": el mismo síntoma (array vacío en `reintegros/mascotas`) ya se confirmó en 5 cuentas de 3 segmentos distintos (Vetify B2C ×2, OSDE Adquirente, OSDE Capitado). Esto bloquea también una validación fresca de "Alta" (`IMAS-4103`) vía la app real — la única evidencia de Alta sigue siendo el curl directo a Nexus/Quantum del 2026-08-28.
+IMAS-4092 — Fase B (Historial/Alta Capitado). Casos diseñados: CP01-CP05. Estado: CP01 histórico (Popi 26/08) ✅, CP02 Alta HOY 🔴 IMP-016, CP03 Adquirente ✅ (Mishi), CP04 multi-mascota 🟠 sin cuenta, CP05 límite 2/año 🟠 pendiente aclaración. Progreso hoy: CP01 retest con alan.gonzalez@ingenia.la confirmado, CP03 con mismo, CP02 bloqueado por BUG-027/IMAS-4531 (2/3 cuentas rotas, 1/3 OK).

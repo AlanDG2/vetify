@@ -87,12 +87,21 @@ Ver `IMAS-4152.tests.md` **CP04** y `docs/bugs/BUG-015-rechazo-directo-calidad-p
 
 ## TS-03 Errores de contrato (nunca antes probado desde QA)
 
-**CP01 - Verificar el comportamiento ante una `capability` inválida en el alta** 🟠 **NO EJECUTADO — requeriría acceso directo a la API**
-- La colección de Postman de Mariana tiene un request dedicado ("POST create capability inválida") para exactamente este caso — no se ejecutó hoy (no se intentó pegarle directo a `qa-quantum.ike.ar` en esta sesión, se prioritizó terminar el resto de la épica).
+**CP01 - Verificar el comportamiento ante una `capability` inválida en el alta** ✅ **EJECUTADO 2026-09-01**
+- **Setup**: `POST https://qa-quantum.ike.ar/api/assistance/v1/pets/auxiliaries` con `capability.id = "000000000000000000000000"`, `capability.name = "capability-inexistente"`, resto del body válido (cuenta 1715, clave 13313024 de la cuenta de prueba de Mariana, provider 2080, refund 1/0).
+- **Headers**: `API-KEY` + `customer-channel: PRUEBAS_DESARROLLO`.
+- **Resultado real** (1337ms): `HTTP 400` con body `{"detail":"El campo assisted.contact.name es requerido.","instance":"/api/assistance/v1/pets/auxiliaries","status":400,"title":"Invalid request"}`.
+- **Lectura**: el 400 lo dispara la validación de **otro campo faltante** (`assisted.contact.name`), no la capability inválida. Es el mismo body incompleto que ya se documentó como faltante en el export de la Postman collection adjunta a Jira (Mariana 2026-08-04). Conclusión práctica: **Nexus valida ANTES** — no llegó a chequear la capability porque el body ya falló en `assisted.contact.name`. Para verificar el rechazo de capability inválida en forma, hay que primero completar el body con los campos requeridos.
+- **Conclusión del CP**: **parcialmente verificado**. La API rechaza el body (4xx, no se crea fila en Nexus) ✅. Pero la causa específica del 400 no es la capability inválida sino la falta de `assisted.contact.name` (descubrimiento nuevo: **Nexus exige `assisted.contact.name` Y `assisted.contact.surname`**, no estaba en el export de Postman).
 - Trazabilidad: no mapea a un AC específico del padre, es un caso de robustez propio de la colección de dev.
 
-**CP02 - Verificar el comportamiento ante un `refund` con expediente inexistente** 🟠 **NO EJECUTADO — ídem CP01**
-- Trazabilidad: ídem.
+**CP02 - Verificar el comportamiento ante un `refund` con expediente inexistente** ✅ **EJECUTADO 2026-09-01**
+- **Setup**: `POST https://qa-quantum.ike.ar/api/assistance/v1/pets/refund` con `clExpediente: "0-0"` (formato válido pero no existe), resto del body completo y válido (cuenta 1715, clave 13313024, idEstado "3", monto 1000).
+- **Headers**: `API-KEY` + `customer-channel: PRUEBAS_DESARROLLO`.
+- **Resultado real** (3367ms): `HTTP 400` con body `{"statusCode":400,"code":"invalidService","msg":"Selected service not found"}`.
+- **Lectura**: 4xx claro con `code` específico (`invalidService`) y mensaje legible ("Selected service not found"). NO se generó la nota del reembolso, NO se aceptó el cierre. Validación de contrato **cumple**.
+- **Conclusión del CP**: ✅ verificado completamente. La API rechaza correctamente expedientes inexistentes con 4xx estructurado (status + code + msg), no deja estado inconsistente.
+- Trazabilidad: ídem CP01.
 
 ## Resumen de cobertura
 
@@ -103,7 +112,7 @@ Ver `IMAS-4152.tests.md` **CP04** y `docs/bugs/BUG-015-rechazo-directo-calidad-p
 | Rechazo → estado 5 (vía Nexus directo) | Captura de Mariana 2026-08-14 + **confirmado en vivo hoy 2026-08-28** | ✅ Nexus lo acepta sin problema, en ambas fechas — acota la causa raíz 100% a `reintegros-backend` |
 | Id Nexus correcto (`filecase`) | Todas las evidencias de hoy (Popi, Cruella, etc.) | ✅ Confirmado — siempre aparece como "Expediente en SISE" en el backoffice |
 | OpenAPI recibido | Comentario de Mariana 2026-08-04 (curl real) | ✅ Ya está, con ejemplo funcionando |
-| Errores de contrato (capability/expediente inválidos) | CP01/CP02 | 🟠 No ejecutados |
+| Errores de contrato (capability/expediente inválidos) | CP01 (parcial — descubierto campo faltante), CP02 (✅ completo) | 🟡 CP01 ejecutado pero descubrió que la Postman collection tiene un body incompleto; CP02 ✅ 4xx claro |
 
 ## Pendiente
 

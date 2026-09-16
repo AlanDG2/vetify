@@ -1,6 +1,8 @@
 # IMAS-4101 — Épica: Migración Reintegros a Nexus
 
 > Intake completo desde cero, 2026-08-28 (a pedido explícito del usuario: "analiza todo, todos los campos, comentarios, tareas, bugs"). Reemplaza/corrige lo que había en `docs/conocimiento-sistema.md` § Reintegros — última vez que se leyó esta épica en profundidad fue 2026-08-21/22, esta pasada encontró cambios reales de estado y al menos 1 hallazgo nuevo no documentado.
+>
+> **Retomado 2026-09-01**: `IMAS-4354`/BUG-015 reencuadrado (los 3 retests "sigue roto" usaron expedientes pre-migración, que fallan por diseño — status real es "no probado válidamente") + hallazgo nuevo potencialmente grave (mascotas vacías en 4 cuentas, posiblemente más amplio que Reintegros) — validación con dev pospuesta a mañana por decisión de Alan.
 
 **Tipo:** Epic · **Estado:** Backlog (el rollup de la épica en sí — sus 7 hijos están mucho más avanzados, ver abajo) · **Reporter:** Liliana Picinotti · **Prioridad:** Medium
 **Creado:** 2026-08-04 · **Actualizado:** 2026-08-26
@@ -101,6 +103,10 @@ Ya documentado extensamente en `docs/bugs/BUG-015-rechazo-directo-calidad-pendie
 
 **❌ Retest en vivo el mismo día (2026-08-28) — NO se sostuvo.** Reproducidos los pasos exactos (click directo en "Rechazar" de Calidad desde `PENDIENTE`) en 2 expedientes distintos (`3131739` Duko/Scalzo Paula factura OCR completa, `3131793` Nala/Castellano Alexis factura OCR incompleta) — **ambos fallaron con el mismo `404 BUS-005 "Nexus pets/refund requires clCuenta"` de siempre**, mismo endpoint, sin cambios. Contradice directamente la captura "204 exitosa" de 2 días antes. Detalle completo, incluyendo una hipótesis sin confirmar sobre por qué la captura de dev mostró éxito (¿`clCuenta` cacheado por mascota desde una aprobación previa? ¿deploy revertido entre el 26 y el 28?), en `docs/bugs/BUG-015-rechazo-directo-calidad-pendiente-requiere-clcuenta.md` § "Retest en vivo 2026-08-28". **`IMAS-4429` no debería cerrarse en este estado** — pendiente decidir con el usuario si se comenta esto en `IMAS-4354`.
 
+**🔑 2026-09-01 — la hipótesis de "sigue roto" no es válida como está planteada.** Retesteado el mismo expediente `3131739` con VPN reconectada — **falla exactamente igual** (mismo 404/BUS-005, mismo diálogo "Algo salió mal"). Pero apareció un comentario del **2026-08-31** en `IMAS-4354` (antes solo-imagen o no leído) que reencuadra todo: *"Está bien el error que lanza porque es un expediente cargado desde y contra SISE antes de efectuar la migración en QA. La migración impactó el 18 de agosto y el cambio para que deje de lanzar el error de 'requires clcuenta' es a partir del 26 de agosto. Se va a poder poner a prueba con casos posteriores a esas fechas o directamente nuevos."*
+
+**Esto significa que los 3 retests "sigue roto" (22/08, 28/08, 01/09) usaron todos expedientes de ANTES del 26/08** (`3131739`, `3188-1`, `3192-1`, `3131793`) — que por diseño nunca van a tener `clCuenta`, tengan o no el fix real. **La conclusión correcta hoy no es "confirmado roto" sino "no probado todavía de forma válida"** — hace falta un expediente genuinamente posterior al 26/08 (o creado hoy) para saber si el fix funciona. Intento de armar ese caso nuevo, bloqueado por el hallazgo de la sección siguiente. Alan decidió posponer la validación final a mañana, junto con el/la dev.
+
 ## 🆕 Hallazgo nuevo, no documentado en ningún ticket con texto — 502 "IKE Mascotas lookup failed"
 
 Encontrado en una captura de pantalla del último comentario de la épica `IMAS-4101` (Mariana Navarro, 2026-08-25, sin texto — la imagen es la única evidencia). Pantalla: `vetify-qa.ikeapp.com/section/nuevo-reintegro` (el formulario de **Nuevo reintegro del lado tutor**, no el backoffice de Calidad/Finanzas). Modal de error: "Algo salió mal / Probá de nuevo en un momento." Response real capturada en DevTools:
@@ -110,6 +116,22 @@ Encontrado en una captura de pantalla del último comentario de la épica `IMAS-
 **Esto es un hallazgo distinto de `IMAS-4354`** — pasa en un paso mucho más temprano (el tutor ni siquiera llega a elegir mascota/gasto, falla al listar las mascotas asociadas para armar el formulario). No hay ningún ticket, comentario con texto, ni mención en `docs/impedimentos-bloqueos.md` que documente este error puntual (`INT-005`/"IKE Mascotas lookup failed").
 
 **✅ Retest en vivo 2026-08-28: NO reprodujo.** Navegando a `vetify-qa.ikeapp.com/section/nuevo-reintegro` con la cuenta `pauscalzo@hotmail.com` (mascota Mishi), `GET /api/bff/reintegros/mascotas` devolvió `200` dos veces sin problema — el formulario cargó normal y Mishi quedó preseleccionada. El combo de "Cargando tipos de gasto…" quedó deshabilitado, pero por una razón distinta y ya conocida: `GET /api/bff/reintegros/tipos-gasto` respondió `200` con `{"items":[],...}` (sin tipos de gasto disponibles para esa mascota/cobertura — no es un error, ya documentado antes en esta misma sesión como bloqueo de esa cuenta puntual). **Con un solo intento/cuenta no se puede descartar del todo** (podría ser intermitente o específico de otra cuenta/estado), pero no se sostiene como impedimento activo hoy — queda como hallazgo histórico de baja prioridad, no como bloqueo confirmado.
+
+**🔴 2026-09-01 — reaparece, pero como síntoma distinto (no 502, sino vacío silencioso) y ahora en 4 cuentas.** Ver sección nueva justo abajo — probablemente la misma familia de problema (el mismo endpoint `/mascotas` fallando de alguna forma), pero esta vez el servicio responde `200 []` en vez de `502 INT-005`, y ya no es 1 cuenta aislada.
+
+## 🆕🔴 2026-09-01 — Hallazgo potencialmente grave y más amplio que esta épica: `pets/my-products` vacío en múltiples cuentas
+
+Al intentar armar un expediente de reintegro nuevo (para retestear `IMAS-4354` con un caso post-26/08, ver arriba), **4 cuentas de 2 productos distintos** mostraron "No hay mascotas registradas para tu documento" en `/section/nuevo-reintegro`, con `GET /api/bff/reintegros/mascotas` → `200 []`:
+- `user_1785886357504_7fce46f5@automation.com` (Vetify B2C, ACTIVE+WITH_PET)
+- `alan.gonzalez@ingenia.la` (Vetify B2C, la cuenta REAL_EMAIL usada todo el día para el trabajo de reseteo de contraseña)
+- `user_1783951005615@automation.com` / DNI `12540524` ("Popi", OSDE Capitado — la misma cuenta de referencia de `IMAS-4092`/`IMAS-4103`, confirmada con historial pagado real el 21/08, 26/08 y 28/08)
+- `user_1786584481760_8aea8baa@automation.com` (Vetify B2C, provisionada y verificada sana el 2026-08-12 con 2 planes + mascota completada)
+
+**Lo que hace esto potencialmente grave**: se revisó también `GET /api/services/pets/my-products` (el endpoint que alimenta Inicio, Mis Mascotas, Planes y coberturas, Credenciales, Videollamadas — no es específico de Reintegros) para la última cuenta, y **también devolvió `[]`**, confirmado además visualmente (Inicio sin ninguna tarjeta de mascota, "¡Hola, Test!" genérico). Esto sugiere que el problema puede no ser de Reintegros en absoluto, sino de la fuente de datos de mascotas/planes en general, para más de una cuenta que se sabe que estuvo sana en el pasado — no se confirmó todavía si es un incidente activo del ambiente de QA o algo específico de estas 4 cuentas puntuales.
+
+**Cache limpiada correctamente antes de cada cambio de cuenta** (cookies+localStorage+sessionStorage, confirmado por inspección de red) — no es el falso positivo de sesión pegada ya documentado en sesiones anteriores.
+
+**Estado**: Alan decidió posponer la validación a mañana junto con el equipo de dev — le pasé una cuenta (`user_1786584481760_8aea8baa@automation.com`) y el paso a paso para que lo confirme de forma independiente. No se filó ningún bug en Jira todavía. Detalle completo en `qa-workspace/decision-log.md` (2026-09-01) y memoria personal del proyecto.
 
 ## El workaround — `IMAS-4052` (OSDE Capitado, Hecho) — importante para el alcance de las pruebas
 
@@ -127,10 +149,30 @@ Mismo catálogo real ya usado en otras investigaciones esta sesión (`clCuenta`/
 
 Las descripciones ricas de las Fases B/D/E mencionan subtareas propias adicionales con nombres tipo `IMAS-4093`-`IMAS-4100` (fase B) que en la búsqueda live aparecen redundantes con lo ya listado arriba — no se investigó cada una individualmente más allá de lo que ya se muestra en la tabla de subtareas de cada fase (serían ~20+ issues más si se abriera cada una, la mayoría "Activa"/Hecho según el propio texto de la descripción — no se hizo intake individual de cada una en esta pasada, se prioit... [ver "Pendiente" abajo]).
 
+## ✅ 2026-09-01 (continuación) — Retomando las 6 "In Validation": BUG-015 confirmado arreglado, 2 más avanzadas
+
+Alan pidió retomar las 6 actividades en "In Validation" asignadas a él (`IMAS-4473`, `IMAS-4354`/BUG-015, `IMAS-4124`, `IMAS-4104`, `IMAS-4103`, `IMAS-4092`) para "probar e ir cerrando lo que se pueda". Verificado en vivo vía JQL que son exactamente esas 6 (las otras del epic — `IMAS-4476`/`4474`/`4472`/`4279` en "En Progreso", `4143`/`4052` ya "Hecho" — no son parte de este pedido).
+
+**Hallazgo clave que destrabó todo**: en vez de esperar a resolver "mascotas vacías" para crear un reintegro nuevo, la cola de "Pendientes" del backoffice (`acastellano@ikeasistencia.com.ar`, usuario de Calidad que Alan proveyó) ya tenía **3 expedientes reales posteriores al 26/08** sin procesar (`3302-1`, `3322-1`, `3324-1`, "Prueba credencial" de Paula Scalzo, 28/8-31/8) — no hacía falta un expediente nuevo, alcanzaba con usar uno existente.
+
+- **`IMAS-4354`/BUG-015 → ✅ CONFIRMADO ARREGLADO.** Rechazo directo sobre `3324-1` con motivo "Factura inconsistente" (repro exacto del bug original) → `204`, sin el `404 BUS-005`. Confirmado también a nivel de dato: el JSON del expediente muestra `verificaciones.SISE_COBERTURA.payloadSnapshot.clCuenta = "2349"` (no `null`) — el campo exacto que el bug señalaba como causa raíz. Detalle completo en `docs/bugs/BUG-015-...md`.
+- **`IMAS-4473` (label "Motivo" vs "Detalle y Descripción") → ✅ evidencia fuerte de arreglado.** El resultado del rechazo muestra correctamente "Motivo del rechazo" → "RECHAZO POR CALIDAD" / "Factura inconsistente" — cero rastro de "Detalle y Descripción".
+- **`IMAS-4104` (Cierre Nexus) → reforzado.** El rechazo exitoso de arriba pasa por el mismo camino de cierre Nexus que ya se había confirmado por curl directo el 28/08 — 2da confirmación independiente.
+- **`IMAS-4103` (Alta Nexus) → sin cambios, sigue con solo la evidencia del 28/08** (curl directo `createPetAuxiliary` → `200`). Hoy no se pudo re-probar vía la app real porque "mascotas vacías" sigue bloqueando la creación de una solicitud nueva (ver retest de Popi abajo) — el expediente usado para BUG-015 ya existía de antes, no se creó en esta sesión.
+- **`IMAS-4124` (Notas Nexus) → sin confirmación independiente nueva.** El mecanismo (`addAuxiliaryNote` automático tras un cierre exitoso) debería haber disparado con el rechazo de arriba, pero la nota vive en el panel interno de Nexus (no en `reintegros-backoffice`, confirmado revisando el JSON crudo del expediente — no tiene campo de notas), y no hay credenciales para ese panel en este repo. Sigue dependiendo de la evidencia del 28/08 (curl directo, `addAuxiliaryNote` → `200`).
+- **`IMAS-4092` (Historial Servicios Auxiliares) → CP02 reconfirmado roto, síntoma empeoró.** Reejecutado con la cuenta Popi (cache limpiada, login fresco): `GET reintegros/mascotas` ahora devuelve `[]` (antes, 28/08, era un registro con campos `null`) — es la 5ta cuenta con el síntoma de "mascotas vacías", ahora también en OSDE Capitado. `pets/my-products` no está vacío pero trae `mascota: null` en su único producto. Detalle en `docs/user-stories/IMAS-4092-...tests.md`.
+
+**Hallazgo aparte, no relacionado a BUG-015**: al intentar el primer rechazo sobre `3324-1` (antes de asignarle monto), la app devolvió `400 BUS-009 "Claim dossier must have a positive amount before SISE closure on quality rejection"` — una precondición distinta, resuelta usando "Distribuir factura". No evaluado si amerita ticket propio.
+
+**Balance de la ronda**: 2 de 6 confirmadas (`4354`, `4473`), 1 reforzada (`4104`), 3 sin cambio de estado (`4103`, `4124` sin nueva evidencia; `4092` con evidencia nueva pero igual de rota).
+
+**Escrito en Jira** (regla de Alan: bug confirmado → comentario + cerrar; tarea → comentario + resumen de casos, sin cerrar): `IMAS-4354` → comentario + **Done** (subtarea de QA `IMAS-4429` también Done). `IMAS-4473` → comentario + subtarea de QA `IMAS-4495` Done, pero el ticket en sí **no pudo cerrarse** — Jira lo bloqueó porque su subtarea "Deploy a Producción" (`IMAS-4496`) sigue en Backlog, queda correctamente en "In Validation". `IMAS-4104`/`IMAS-4103`/`IMAS-4124`/`IMAS-4092` → solo comentario (son tipo Tarea, no bug), sin transición, siguen "In Validation". Detalle completo de cada comentario en `qa-workspace/decision-log.md`.
+
 ## Pendiente / próximos pasos
 
-1. ~~Retestear en vivo `IMAS-4354`~~ — **hecho el 2026-08-28, mismo día: el bug SIGUE reproduciendo** (2 expedientes distintos, mismo `404 BUS-005`). La evidencia visual de "resuelto" no se sostuvo. Falta decidir con el usuario si se comenta en Jira antes de que se cierre `IMAS-4429` por error.
-2. ~~Confirmar si el 502 "IKE Mascotas lookup failed" (`INT-005`) sigue reproduciendo~~ — **hecho el 2026-08-28: no reprodujo** (1 cuenta, 2 intentos, ambos `200`). Queda como hallazgo histórico de baja prioridad, no bloqueo activo.
-3. **Retestear Fase D en general** (`IMAS-4107` "Pruebas en QA" sigue sin cerrar) y Fase E (`IMAS-4152`/`IMAS-4429` "Tareas Por Hacer", nunca se marcó "En Progreso" pese al avance ya documentado).
-4. Decidir si vale la pena abrir intake individual de las ~20 subtareas técnicas mencionadas dentro de las descripciones de B/D/E (`IMAS-4093`-`IMAS-4100`, etc.) o si alcanza con el nivel de detalle ya capturado acá.
-5. Diseñar casos de prueba formales (`.tests.md`) para esta épica, ahora con todo el contrato técnico real documentado — excluyendo explícitamente OSDE Capitado del alcance de "probar el formulario real" (ver hallazgo de `IMAS-4052` arriba).
+1. ~~Retestear en vivo `IMAS-4354`~~ — **✅ resuelto 2026-09-01**: confirmado arreglado usando un expediente real post-26/08 ya existente en la cola del backoffice (ver sección arriba). Ya no depende de crear un reintegro nuevo.
+2. **Mascotas vacías sigue sin resolverse** — ahora confirmado en 5 cuentas de 3 segmentos (Vetify B2C ×2, OSDE Adquirente, OSDE Capitado/Popi). Bloquea: validar `IMAS-4103` (Alta) con un caso propio, `IMAS-4092` CP02/CP04, y cualquier otro test que necesite un reintegro nuevo desde la app real. Pendiente validar con el equipo de dev (Alan tiene cuenta + pasos).
+3. **`IMAS-4124` sin confirmación independiente** — necesitaría acceso al panel interno de Nexus (Paula Scalzo lo tiene) para ver la nota generada, o repetir el curl directo del 28/08 con un filecase nuevo.
+4. **Retestear Fase D en general** (`IMAS-4107` "Pruebas en QA" sigue sin cerrar) y Fase E (`IMAS-4152`/`IMAS-4429` "Tareas Por Hacer", nunca se marcó "En Progreso" pese al avance ya documentado).
+5. Decidir si vale la pena abrir intake individual de las ~20 subtareas técnicas mencionadas dentro de las descripciones de B/D/E (`IMAS-4093`-`IMAS-4100`, etc.) o si alcanza con el nivel de detalle ya capturado acá.
+6. Diseñar casos de prueba formales (`.tests.md`) para esta épica, ahora con todo el contrato técnico real documentado — excluyendo explícitamente OSDE Capitado del alcance de "probar el formulario real" (ver hallazgo de `IMAS-4052` arriba). Sigue bloqueado en la práctica por "mascotas vacías" (punto 2) para cualquier caso que necesite un reintegro nuevo — pero ya no para revalidar `IMAS-4354` en sí, que se resolvió con un caso existente.

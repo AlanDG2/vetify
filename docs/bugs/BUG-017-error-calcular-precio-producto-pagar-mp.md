@@ -37,7 +37,11 @@ Este hallazgo empezó como una sospecha de bug de automatización (`UserFactory.
 [Notas adicionales]:
 - **Puede o no estar relacionado con IMAS-4347** (BUG-014, `docs/bugs/BUG-014-error-502-auth-carga-planes.md`, ya marcado "Hecho" el 2026-08-25) — mismo síntoma general (bloqueo total de compra) pero mensaje de error distinto y más específico ("calcular precio del producto" vs. el 502 genérico de Auth al cargar planes). Podría ser una regresión del mismo incidente de fondo, o un problema nuevo en la lógica de cálculo de precio — no confirmado cuál sin acceso a logs del backend.
 - `purchase-flow.spec.ts` (Vetify B2C y OSDE Adquirente) había corrido 29/29 en verde el 2026-08-25 (día anterior a esta confirmación) — no se volvió a correr la suite automatizada hoy todavía, solo la reproducción manual vía MCP documentada acá. Recomendado re-correr la suite automatizada para confirmar si también empezó a fallar ahí.
-- No se probó todavía en OSDE Adquirente (comparte el mismo endpoint `pagar-mp` según IMP-012/BUG-014) — pendiente si se quiere confirmar el mismo alcance cruzado que tuvo IMAS-4347.
+- **Alcance extendido (2026-09-02)**: verificado que falla con planes VET y OSDE por igual — NO es un problema específico de OSDE ni de un plan en particular. Probado y confirmado con 3 planes distintos:
+  - Plan 2313 (VET Classic, no-OSDE) → `500 {"error":"Error al calcular precio del producto"}`
+  - Plan 2349 (VET Esencial OSDE) → `500 {"error":"Error al calcular precio del producto"}`
+  - Plan 2358 (VET Classic OSDE) → `500 {"error":"Error al calcular precio del producto"}`
+  Todos llegan al paso de pago, completan los datos de tarjeta, pero fallan al presionar "Finalizar" con el mismo error. El checkout está roto para TODOS los productos en QA, no solo para OSDE.
 - Body de la request real capturada en el intento 1 (vía `browser_network_request`, Playwright MCP), para referencia de quien investigue del lado backend:
   ```json
   {"calculateParam":{"idTarjeta":1,"esCredito":1,"esDebito":0,"cupon":"","couponDescription":"","listInvoicedProducts":[{"id":2319,"qty":1}],"subtotalWODiscount":19990,"discounts":0,"subtotalWDiscount":19990,"total":19990,"idPayType":1}, ...}

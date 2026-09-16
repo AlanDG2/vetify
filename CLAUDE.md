@@ -66,6 +66,8 @@ test.describe('<Feature> Test Suite')
 
 `container.<producto>.<app>.loginPage.loginWithUserRequest(userRequest)` pide un usuario real del pool (`UserProvider.getUser()`), reusa `storageState` cacheado si existe, o hace login fresco y lo cachea. Nunca pedir un usuario "a mano" salvo que el caso sea justo sobre credenciales inválidas.
 
+**Regla dura — no confiar en los tags/`siteId` de `pooled-users.json`/`fresh-users.json` sin verificar en vivo**: confirmado repetidas veces (5+, ver `docs/lecciones-aprendidas.md` 2026-08-05/08-07/09-06 y `qa-workspace/known-issues.md`) que una cuenta puede tener tags desactualizados (`NO_PET` que en realidad ya tiene mascota, `WITH_PET` que ya no) o un `siteId` mal categorizado (una cuenta con producto real OSDE Adquirente tageada `VETIFY_ADQUIRENTE`) — porque varios "sites" de este framework (`VETIFY_ADQUIRENTE`, `OSDE_CAPITADO`, `OSDE_ADQUIRENTE`, `FLUX_CAPITADO`) comparten literalmente la misma webapp/backend (`VETIFY_WEBAPP_BASE_URL`); el `siteId` es solo bookkeeping del pool, no un sitio distinto. Antes de: (a) descartar una cuenta como inútil, (b) comparar 2 cuentas para aislar una variable de segmento/producto, o (c) reportar un bug basado en el comportamiento de una cuenta puntual — verificar el estado/producto real vía `apiClient.getUserPets()` (o el catálogo de productos), no confiar en el tag.
+
 ### POMs — jerarquía de 3 niveles, sin decorator
 
 ```

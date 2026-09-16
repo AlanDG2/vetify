@@ -1,0 +1,2466 @@
+WEBVTT
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/5-0
+00:00:04.148 --> 00:00:07.676
+<v Alan David Guzman (EXT)>O K, ya empezó,
+ya podría repetir eso y la respuesta,</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/5-1
+00:00:07.676 --> 00:00:08.068
+<v Alan David Guzman (EXT)>porfa.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/6-0
+00:00:08.788 --> 00:00:13.197
+<v Oscar Alejandro Tello>Claro, esto, a ver,
+mecanismo para cambiar DNI de una cuenta,</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/6-1
+00:00:13.197 --> 00:00:17.890
+<v Oscar Alejandro Tello>más allá de la llamada.
+Hoy no hay una API que te permita cambiar</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/6-2
+00:00:17.890 --> 00:00:22.157
+<v Oscar Alejandro Tello>o no la conocemos,
+si existe no la conocemos o no la usamos</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/6-3
+00:00:22.157 --> 00:00:25.428
+<v Oscar Alejandro Tello>desde Vertify,
+que te permita cambiar un DNI.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/7-0
+00:00:28.308 --> 00:00:28.828
+<v Alan David Guzman (EXT)>Okay.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/9-0
+00:00:29.748 --> 00:00:34.487
+<v Oscar Alejandro Tello>El DNI, si mal no recuerdo,
+toda la información del cliente está en</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/9-1
+00:00:34.487 --> 00:00:37.693
+<v Oscar Alejandro Tello>CISE.
+Seguramente debe haber en algún menú de</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/9-2
+00:00:37.693 --> 00:00:41.388
+<v Oscar Alejandro Tello>CISE la posibilidad de actualizar datos
+del cliente.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/10-0
+00:00:42.868 --> 00:00:49.148
+<v Oscar Alejandro Tello>Pero no hay un API que te permita
+modificar datos de cliente y en Betify no</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/10-1
+00:00:49.148 --> 00:00:53.197
+<v Oscar Alejandro Tello>tenemos la opción de modificar datos de
+cliente.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/10-2
+00:00:53.197 --> 00:00:57.908
+<v Oscar Alejandro Tello>No está eso dentro de las funcionalidades
+de la web app.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/11-0
+00:01:01.268 --> 00:01:01.748
+<v Alan David Guzman (EXT)>Ok.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/12-0
+00:01:01.668 --> 00:01:04.068
+<v Oscar Alejandro Tello>Igual me lo voy a llevar para chequear.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/13-0
+00:01:05.188 --> 00:01:09.093
+<v Oscar Alejandro Tello>Pero me parece que el DNI no es uno de
+los datos que nosotros permitimos</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/13-1
+00:01:09.093 --> 00:01:09.628
+<v Oscar Alejandro Tello>modificar.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/14-0
+00:01:10.148 --> 00:01:13.666
+<v Alan David Guzman (EXT)>Okey, oh,
+y aprovechando que estamos ahí en esto,</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/14-1
+00:01:13.666 --> 00:01:15.988
+<v Alan David Guzman (EXT)>otra pregunta con respecto a eso.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/15-0
+00:01:17.108 --> 00:01:18.948
+<v Alan David Guzman (EXT)>¿Es posible cambiar el correo?</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/16-0
+00:01:25.748 --> 00:01:30.250
+<v Oscar Alejandro Tello>Parece que no voy a hacer una prueba de
+onboarding,</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/16-1
+00:01:30.250 --> 00:01:35.533
+<v Oscar Alejandro Tello>pero el momento de onboarding vos expones
+tu correo, tu DNI,</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/16-2
+00:01:35.533 --> 00:01:41.508
+<v Oscar Alejandro Tello>estoy pensando en voz alta y ahí no te
+permite, no lo modificas más.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/17-0
+00:01:44.788 --> 00:01:46.388
+<v Alan David Guzman (EXT)>Sí, correcto, no lo modifico más.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/20-0
+00:01:49.428 --> 00:01:53.532
+<v Oscar Alejandro Tello>No me lo llevo para ver,
+pero me parece que hay una opción que te</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/20-1
+00:01:53.532 --> 00:01:57.822
+<v Oscar Alejandro Tello>muestra los tu perfil o tus datos.
+Creo que no te deja actualizarlo.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/20-2
+00:01:57.822 --> 00:02:02.921
+<v Oscar Alejandro Tello>Lo voy a probar, pero me parece que no.
+Igual me lo llevo para analizar y después</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/18-0
+00:02:01.988 --> 00:02:02.548
+<v Alan David Guzman (EXT)>Okay.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/20-3
+00:02:02.921 --> 00:02:03.668
+<v Oscar Alejandro Tello>te confirmo.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/19-0
+00:02:04.548 --> 00:02:05.068
+<v Alan David Guzman (EXT)>Okay.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/21-0
+00:02:07.428 --> 00:02:07.908
+<v Oscar Alejandro Tello>Yeah.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/22-0
+00:02:10.148 --> 00:02:11.828
+<v Oscar Alejandro Tello>Esto.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/23-0
+00:02:12.868 --> 00:02:15.108
+<v Oscar Alejandro Tello>¿Dónde se ocupa sin plantín o no?</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/24-0
+00:02:16.668 --> 00:02:18.628
+<v Oscar Alejandro Tello>Deja incondicionar un cargado.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/29-0
+00:02:22.468 --> 00:02:28.153
+<v Alan David Guzman (EXT)>Mira, cuando tú vas,
+eso lo tienen los de los clientes o los</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/29-1
+00:02:28.153 --> 00:02:32.347
+<v Alan David Guzman (EXT)>de OT.
+Cuando tú vas a planes y servicios en</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/29-2
+00:02:32.347 --> 00:02:37.007
+<v Alan David Guzman (EXT)>Betify,
+ahí te sale el plan y si lo despliegas te</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/26-0
+00:02:34.868 --> 00:02:35.268
+<v Oscar Alejandro Tello>Hmm.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/29-3
+00:02:37.007 --> 00:02:41.668
+<v Alan David Guzman (EXT)>sale condiciones de servicio y eso te
+lleva a un.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/27-0
+00:02:37.588 --> 00:02:38.068
+<v Oscar Alejandro Tello>Sí.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/28-0
+00:02:42.228 --> 00:02:43.108
+<v Oscar Alejandro Tello>Open.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/30-0
+00:02:43.228 --> 00:02:44.188
+<v Alan David Guzman (EXT)>A un PDF.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/31-0
+00:02:44.308 --> 00:02:44.908
+<v Oscar Alejandro Tello>Sí.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/33-0
+00:02:46.988 --> 00:02:51.705
+<v Alan David Guzman (EXT)>Entonces, para, digamos,
+no poner a buscar plan,</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/33-1
+00:02:51.705 --> 00:02:58.733
+<v Alan David Guzman (EXT)>plan todos los planes y verificar,
+pero si yo sé este cómo se configura,</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/32-0
+00:02:52.988 --> 00:02:53.268
+<v Oscar Alejandro Tello>Mhm.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/33-2
+00:02:58.733 --> 00:03:06.050
+<v Alan David Guzman (EXT)>quién se configura, qué planes tiene,
+yo podría validar también este si hay</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/33-3
+00:03:06.050 --> 00:03:06.628
+<v Alan David Guzman (EXT)>otros.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/34-0
+00:03:06.708 --> 00:03:10.815
+<v Alan David Guzman (EXT)>Planes que deberían tener y no lo tienen,
+pero como son tantos planes,</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/34-1
+00:03:10.815 --> 00:03:14.228
+<v Alan David Guzman (EXT)>yo tendría que tener todas las cuentas y
+hoy no las tengo.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/36-0
+00:03:17.588 --> 00:03:22.495
+<v Oscar Alejandro Tello>Sí, a ver,
+lo la configuración de los planes y la</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/36-1
+00:03:22.495 --> 00:03:26.028
+<v Oscar Alejandro Tello>cobertura de los planes hoy está en.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/37-0
+00:03:29.588 --> 00:03:32.988
+<v Oscar Alejandro Tello>Sí, está en SISE.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/38-0
+00:03:36.228 --> 00:03:37.748
+<v Oscar Alejandro Tello>Bueno, que podemos hacer.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/39-0
+00:03:39.988 --> 00:03:44.685
+<v Oscar Alejandro Tello>Yo estoy tratando,
+Yo estoy gestionando el alta de usuarios</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/39-1
+00:03:44.685 --> 00:03:48.992
+<v Oscar Alejandro Tello>en SISE en testing.
+Estaría muy bien que vos tengas un</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/39-2
+00:03:48.992 --> 00:03:54.864
+<v Oscar Alejandro Tello>usuario y lo que estoy tratando de
+gestionar es tener una capacitación con</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/39-3
+00:03:54.864 --> 00:03:59.640
+<v Oscar Alejandro Tello>alguien, ya sea del CDS,
+que es la gente del contact center,</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/39-4
+00:03:59.640 --> 00:04:02.068
+<v Oscar Alejandro Tello>sino alguno de los comerciales.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/40-0
+00:04:02.468 --> 00:04:06.881
+<v Oscar Alejandro Tello>Que nos hagan un pantallazo general de
+cómo funciona SICE y de las</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/40-1
+00:04:06.881 --> 00:04:12.348
+<v Oscar Alejandro Tello>configuraciones que están cargadas para
+Verify. Te puedo sumar a esa capacitación.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/41-0
+00:04:14.948 --> 00:04:15.988
+<v Alan David Guzman (EXT)>Nada perfecto.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/42-0
+00:04:16.788 --> 00:04:23.760
+<v Oscar Alejandro Tello>Y ahí, a ver, hoy todo,
+todas las coberturas, todas las carencias,</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/42-1
+00:04:23.760 --> 00:04:29.068
+<v Oscar Alejandro Tello>todo lo todo lo relacionado a Betify está
+en CISE.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/43-0
+00:04:34.228 --> 00:04:37.348
+<v Oscar Alejandro Tello>De Creo que hay un API que te devuelve.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/44-0
+00:04:38.148 --> 00:04:42.211
+<v Oscar Alejandro Tello>Producto plan,
+tendría que fijarme cuál es por si lo</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/44-1
+00:04:42.211 --> 00:04:47.654
+<v Oscar Alejandro Tello>quisieras verificar por API,
+pero no es por API que se hace el a BM de</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/44-2
+00:04:47.654 --> 00:04:52.868
+<v Oscar Alejandro Tello>eso, sino que se hace en SISE,
+el API para modo consultivo, no más.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/45-0
+00:05:00.388 --> 00:05:00.868
+<v Oscar Alejandro Tello>Okay.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/46-0
+00:05:03.268 --> 00:05:03.308
+<v Oscar Alejandro Tello>O.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/47-0
+00:05:05.108 --> 00:05:09.348
+<v Oscar Alejandro Tello>El tema del PDF.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/48-0
+00:05:13.028 --> 00:05:15.348
+<v Oscar Alejandro Tello>El PDF está precargado.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/49-0
+00:05:16.628 --> 00:05:23.028
+<v Oscar Alejandro Tello>Para que se pueda descargar de la página,
+esto no está en Size son.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/50-0
+00:05:26.348 --> 00:05:29.068
+<v Oscar Alejandro Tello>Si vos querés chequearse un plano,
+no tiene PDF.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/51-0
+00:05:33.988 --> 00:05:38.589
+<v Oscar Alejandro Tello>Ahí lo podemos ver,
+¿quién nos puede ayudar con esto?</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/51-1
+00:05:38.589 --> 00:05:45.235
+<v Oscar Alejandro Tello>Capaz que lo podemos ver con Juanchi o
+Pau para ver si ellos tienen manera de</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/51-2
+00:05:45.235 --> 00:05:52.308
+<v Oscar Alejandro Tello>identificar todos los PDF que hoy están
+disponibles para descargar, que no quitan.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/52-0
+00:05:53.108 --> 00:05:58.068
+<v Oscar Alejandro Tello>Que estén actualizados o no con los datos
+del plan y coberturas que estén en CISA.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/53-0
+00:06:01.028 --> 00:06:06.691
+<v Oscar Alejandro Tello>El PDF es estático, no es algo dinámico,
+es algo que se arma con los plan que vos</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/53-1
+00:06:06.691 --> 00:06:09.868
+<v Oscar Alejandro Tello>tengas cargado en SISE.
+Ya están precargados.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/54-0
+00:06:11.748 --> 00:06:14.825
+<v Oscar Alejandro Tello>Lo cual,
+si hay alguna modificación que ocurre a</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/54-1
+00:06:14.825 --> 00:06:17.588
+<v Oscar Alejandro Tello>nivel de core,
+el PDF no se actualiza solo.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/55-0
+00:06:20.228 --> 00:06:21.108
+<v Oscar Alejandro Tello>¿Se entiende eso?</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/56-0
+00:06:21.908 --> 00:06:22.388
+<v Alan David Guzman (EXT)>Speak.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/57-0
+00:06:25.988 --> 00:06:30.228
+<v Oscar Alejandro Tello>Eso es medio si vos querés chequear que
+los PDF estén o no.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/58-0
+00:06:31.468 --> 00:06:36.708
+<v Oscar Alejandro Tello>No creo que lo podemos ver con Juancho,
+no me acuerdo si él lo encantó eso.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/59-0
+00:06:35.988 --> 00:06:40.468
+<v Alan David Guzman (EXT)>No, lo peces para que para el cliente,
+eso es así se hizo.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/60-0
+00:06:41.268 --> 00:06:42.548
+<v Oscar Alejandro Tello>O K, ahora vos querés ver.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/61-0
+00:06:41.828 --> 00:06:46.188
+<v Alan David Guzman (EXT)>Esto hizo, pero como te digo,
+como yo no tengo cuentas de todo tipo.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/62-0
+00:06:47.028 --> 00:06:52.365
+<v Alan David Guzman (EXT)>Porque la idea es la idea es que me es un
+impedimento técnico en el cual yo me</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/62-1
+00:06:52.365 --> 00:06:55.068
+<v Alan David Guzman (EXT)>enseñen a tener todas las otras cuentas.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/63-0
+00:06:55.988 --> 00:06:56.388
+<v Oscar Alejandro Tello>Hey.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/66-0
+00:06:57.188 --> 00:07:01.860
+<v Alan David Guzman (EXT)>Validar, por ejemplo,
+qué puedo hacer yo tomar el link del PDF</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/66-1
+00:07:01.860 --> 00:07:05.791
+<v Alan David Guzman (EXT)>y del plan,
+que es cómo se está haciendo con cómo se</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/64-0
+00:07:02.708 --> 00:07:03.108
+<v Oscar Alejandro Tello>M.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/66-2
+00:07:05.791 --> 00:07:11.058
+<v Alan David Guzman (EXT)>hizo con adquirientes y armar todos los
+links y probarlos de que estén</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/66-3
+00:07:11.058 --> 00:07:11.948
+<v Alan David Guzman (EXT)>funcionando.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/65-0
+00:07:13.108 --> 00:07:13.748
+<v Oscar Alejandro Tello>Okay.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/67-0
+00:07:13.348 --> 00:07:16.650
+<v Alan David Guzman (EXT)>Ahora, Alan,
+esto es un esto es un bloqueo para los</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/67-1
+00:07:16.650 --> 00:07:20.270
+<v Alan David Guzman (EXT)>casos de prueba,
+no es simplemente yo para entender todo</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/67-2
+00:07:20.270 --> 00:07:20.588
+<v Alan David Guzman (EXT)>esto.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/69-0
+00:07:20.948 --> 00:07:24.992
+<v Oscar Alejandro Tello>Contemplar todos los escenarios,
+todos tenemos todos estos planes,</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/68-0
+00:07:23.988 --> 00:07:24.708
+<v Alan David Guzman (EXT)>Correcto.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/69-1
+00:07:24.992 --> 00:07:27.468
+<v Oscar Alejandro Tello>todos estos planes tienen cargado un PDF.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/70-0
+00:07:29.028 --> 00:07:29.908
+<v Oscar Alejandro Tello>¿Sería eso?</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/71-0
+00:07:30.708 --> 00:07:32.108
+<v Alan David Guzman (EXT)>Sí, básicamente.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/72-0
+00:07:32.308 --> 00:07:36.338
+<v Oscar Alejandro Tello>O K, bueno, sí,
+esto lo podemos llegar a ver con cuenta.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/72-1
+00:07:36.338 --> 00:07:40.228
+<v Oscar Alejandro Tello>Ahora me lo llevo para un espacio la
+semana que viene.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/73-0
+00:07:44.628 --> 00:07:47.468
+<v Oscar Alejandro Tello>Después, canal real para pedir.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/75-0
+00:07:56.548 --> 00:07:59.435
+<v Alan David Guzman (EXT)>Bueno,
+acá tenemos un problema con respecto a</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/75-1
+00:07:59.435 --> 00:08:00.188
+<v Alan David Guzman (EXT)>este porque.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/76-0
+00:08:01.268 --> 00:08:08.628
+<v Alan David Guzman (EXT)>Acá nada más tenía para descargar el
+repositorio de web de la web view.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/77-0
+00:08:09.108 --> 00:08:09.508
+<v Oscar Alejandro Tello>Mhm.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/78-0
+00:08:10.228 --> 00:08:18.988
+<v Alan David Guzman (EXT)>No el APK, no el pun el punto app,
+que sería lo equivalente al APK en iOS.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/79-0
+00:08:21.588 --> 00:08:26.504
+<v Alan David Guzman (EXT)>Y realmente,
+si no es porque casualmente Paula me lo</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/79-1
+00:08:26.504 --> 00:08:27.988
+<v Alan David Guzman (EXT)>pasó por correo.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/80-0
+00:08:29.268 --> 00:08:31.148
+<v Alan David Guzman (EXT)>Yo hoy no tendría cómo probar.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/81-0
+00:08:33.508 --> 00:08:34.708
+<v Alan David Guzman (EXT)>Y.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/82-0
+00:08:36.588 --> 00:08:40.268
+<v Alan David Guzman (EXT)>Digamos el las pruebas de.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/83-0
+00:08:41.748 --> 00:08:44.828
+<v Alan David Guzman (EXT)>De Bettify en Android.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/84-0
+00:08:47.028 --> 00:08:47.428
+<v Oscar Alejandro Tello>Mhm.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/85-0
+00:08:48.028 --> 00:08:51.099
+<v Alan David Guzman (EXT)>¿Entonces,
+qué me gustaría saber quién de pronto,</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/85-1
+00:08:51.099 --> 00:08:54.600
+<v Alan David Guzman (EXT)>qué equipo, canal,
+persona que tenga que ver con todo el</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/85-2
+00:08:54.600 --> 00:08:59.268
+<v Alan David Guzman (EXT)>desarrollo de esta parte de la web app de
+la aplicación de I o sy todo eso?</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/86-0
+00:09:00.628 --> 00:09:03.308
+<v Alan David Guzman (EXT)>Para, digamos,
+poder preguntarle directamente.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/87-0
+00:09:05.428 --> 00:09:08.588
+<v Oscar Alejandro Tello>Sí, está clarísimo, espérame.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/88-0
+00:09:10.548 --> 00:09:10.908
+<v Oscar Alejandro Tello>Uh.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/89-0
+00:09:13.188 --> 00:09:18.421
+<v Alan David Guzman (EXT)>¿Por qué? ¿Por qué es que esa APK? Mira,
+esa APK no me permite a mí como tal</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/89-1
+00:09:18.421 --> 00:09:20.188
+<v Alan David Guzman (EXT)>inspeccionar directamente.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/90-0
+00:09:21.188 --> 00:09:26.068
+<v Alan David Guzman (EXT)>Dentro de la web view y eso es como si es
+como si no tuviese un modo de bug.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/91-0
+00:09:27.268 --> 00:09:28.468
+<v Alan David Guzman (EXT)>¿Ya qué pasa, que?</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/92-0
+00:09:30.068 --> 00:09:31.188
+<v Alan David Guzman (EXT)>¿Que cuando?</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/94-0
+00:09:33.148 --> 00:09:40.458
+<v Alan David Guzman (EXT)>Que cuando tengo algo que no puedo mapear,
+yo tengo que conectar mi celular hacerlo</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/93-0
+00:09:39.908 --> 00:09:40.228
+<v Oscar Alejandro Tello>Mhm.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/94-1
+00:09:40.458 --> 00:09:41.068
+<v Alan David Guzman (EXT)>físico.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/95-0
+00:09:42.468 --> 00:09:49.918
+<v Alan David Guzman (EXT)>Y probar ya ye ir viendo qué pasa si ya
+tuviese el modo de bug en el cual hace</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/95-1
+00:09:49.918 --> 00:09:52.748
+<v Alan David Guzman (EXT)>guarda todos los logs de todo.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/96-0
+00:09:53.748 --> 00:09:58.708
+<v Alan David Guzman (EXT)>Yo puedo saber exactamente cuando algo no
+funciona, porque no está funcionando.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/97-0
+00:09:59.268 --> 00:10:06.348
+<v Oscar Alejandro Tello>Claro, sí, está clarísimo a ver esto.
+¿Quién nos puede orientar por esto?</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/98-0
+00:10:08.348 --> 00:10:12.508
+<v Oscar Alejandro Tello>Y vamos a hacer una un espacio.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/102-0
+00:10:24.348 --> 00:10:25.588
+<v Oscar Alejandro Tello>La 2.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/103-0
+00:10:32.188 --> 00:10:32.588
+<v Oscar Alejandro Tello>Y.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/104-0
+00:10:35.708 --> 00:10:41.235
+<v Oscar Alejandro Tello>Él no es quien lo sabe,
+pero él es uno de los teles que trabaja</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/104-1
+00:10:41.235 --> 00:10:46.330
+<v Oscar Alejandro Tello>del lado de Core,
+por lo menos que no sepa decir con quién</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/104-2
+00:10:46.330 --> 00:10:48.748
+<v Oscar Alejandro Tello>lo tenemos que ver entonces.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/105-0
+00:10:49.948 --> 00:10:50.308
+<v Oscar Alejandro Tello>Sí.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/106-0
+00:10:56.188 --> 00:10:56.668
+<v Oscar Alejandro Tello>Good.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/113-0
+00:11:32.828 --> 00:11:32.868
+<v Oscar Alejandro Tello>O.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/114-0
+00:11:34.588 --> 00:11:38.268
+<v Oscar Alejandro Tello>¿Esto vos lo necesitas de Android y adiós,
+no?</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/115-0
+00:11:41.108 --> 00:11:42.548
+<v Oscar Alejandro Tello>De las 2 sistemas.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/116-0
+00:11:46.588 --> 00:11:47.308
+<v Oscar Alejandro Tello>Time with you.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/117-0
+00:11:46.668 --> 00:11:48.868
+<v Alan David Guzman (EXT)>Me repite porfa.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/118-0
+00:11:49.708 --> 00:11:51.348
+<v Oscar Alejandro Tello>Esto, este tema.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/119-0
+00:11:54.508 --> 00:12:00.588
+<v Oscar Alejandro Tello>Para pedir los buildes para hacer un
+deploy Android solo Android destino.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/120-0
+00:12:08.028 --> 00:12:10.034
+<v Alan David Guzman (EXT)>No,
+pero si me puede solucionar enseguida</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/120-1
+00:12:10.034 --> 00:12:11.468
+<v Alan David Guzman (EXT)>para ellos sería espectacular.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/122-0
+00:12:12.668 --> 00:12:15.299
+<v Alan David Guzman (EXT)>Yo no lo contemplé porque como teníamos
+el bloqueo,</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/122-1
+00:12:15.299 --> 00:12:18.588
+<v Alan David Guzman (EXT)>pero si no puede solucionar enseguida a
+ellos matamos 2 pájaros.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/123-0
+00:12:21.628 --> 00:12:24.002
+<v Oscar Alejandro Tello>Listo,
+agendé una reunión para las 2:00 de la</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/123-1
+00:12:24.002 --> 00:12:24.828
+<v Oscar Alejandro Tello>tarde del lunes.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/124-0
+00:12:25.788 --> 00:12:26.388
+<v Alan David Guzman (EXT)>Pito.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/125-0
+00:12:25.948 --> 00:12:29.215
+<v Oscar Alejandro Tello>Sí, veo, él no nos va,
+no nos va a resolver el tema,</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/125-1
+00:12:29.215 --> 00:12:33.468
+<v Oscar Alejandro Tello>pero nos va a saber orientar con quién lo
+tenemos que empezar a ver.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/126-0
+00:12:34.428 --> 00:12:34.988
+<v Alan David Guzman (EXT)>Okay.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/127-0
+00:12:36.108 --> 00:12:36.668
+<v Oscar Alejandro Tello>Y.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/128-0
+00:12:38.428 --> 00:12:41.308
+<v Oscar Alejandro Tello>Proceso real,
+pues no se lo pone ya el del visitado.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/129-0
+00:12:43.948 --> 00:12:44.188
+<v Oscar Alejandro Tello>Oh.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/130-0
+00:12:50.148 --> 00:12:53.468
+<v Oscar Alejandro Tello>¿Cuál es la capital?</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/131-0
+00:12:54.388 --> 00:13:00.052
+<v Alan David Guzman (EXT)>Que para yo crear uso usuario escapitado
+de Ode o de Flux,</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/131-1
+00:13:00.052 --> 00:13:04.372
+<v Alan David Guzman (EXT)>yo necesito sí o sí unos cupones.
+¿Qué pasa?</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/131-2
+00:13:04.372 --> 00:13:08.788
+<v Alan David Guzman (EXT)>A mí se me hace se imposible automatizar
+eso.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/132-0
+00:13:09.708 --> 00:13:16.548
+<v Alan David Guzman (EXT)>Con cupones contados porque lo corro 5
+veces, ya me gasté los cupones.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/133-0
+00:13:15.548 --> 00:13:17.308
+<v Oscar Alejandro Tello>Y se te claro.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/137-0
+00:13:18.348 --> 00:13:22.442
+<v Alan David Guzman (EXT)>Entonces yo lo que necesito no es que me
+den, no que me den cupones,</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/134-0
+00:13:18.668 --> 00:13:19.388
+<v Oscar Alejandro Tello>Oh.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/137-1
+00:13:22.442 --> 00:13:26.358
+<v Alan David Guzman (EXT)>que me enseñen a crearlos,
+que me digan cómo es el flujo para yo.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/137-2
+00:13:26.358 --> 00:13:29.087
+<v Alan David Guzman (EXT)>Por ejemplo,
+si tengo que hacer los manuales,</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/137-3
+00:13:29.087 --> 00:13:33.775
+<v Alan David Guzman (EXT)>pues yo hago un script el cual me cree
+los cupones y luego para tenerlos listo</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/135-0
+00:13:33.708 --> 00:13:34.108
+<v Oscar Alejandro Tello>No.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/137-4
+00:13:33.775 --> 00:13:34.428
+<v Alan David Guzman (EXT)>en un JSON.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/139-0
+00:13:35.468 --> 00:13:38.949
+<v Alan David Guzman (EXT)>Un JSON para la prueba o si se pueden
+hacer de una,</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/136-0
+00:13:35.548 --> 00:13:36.228
+<v Oscar Alejandro Tello>Claro.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/138-0
+00:13:37.548 --> 00:13:37.908
+<v Oscar Alejandro Tello>Okay.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/139-1
+00:13:38.949 --> 00:13:43.903
+<v Alan David Guzman (EXT)>en la misma automatización los hago,
+pero sí es necesario poder tener esa</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/139-2
+00:13:43.903 --> 00:13:45.108
+<v Alan David Guzman (EXT)>prueba porque esa.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/141-0
+00:13:46.508 --> 00:13:51.919
+<v Alan David Guzman (EXT)>Ese conocimiento, porque de otra manera,
+eso sí me bloquea varias varias cosas,</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/141-1
+00:13:51.919 --> 00:13:54.896
+<v Alan David Guzman (EXT)>todo lo que tenga que ver con flujo,
+o sea,</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/141-2
+00:13:54.896 --> 00:14:00.308
+<v Alan David Guzman (EXT)>porque Lili quiere un flujo completo
+desde desde la creación del usuario hasta.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/140-0
+00:13:58.028 --> 00:13:58.308
+<v Oscar Alejandro Tello>Mhm.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/142-0
+00:14:02.828 --> 00:14:06.723
+<v Alan David Guzman (EXT)>Hasta flujo de compra, hasta reintegro,
+hasta revés, todo eso. O sea,</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/142-1
+00:14:06.723 --> 00:14:10.173
+<v Alan David Guzman (EXT)>quiere un flujo probando, o sea,
+así por módulos también, sí,</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/142-2
+00:14:10.173 --> 00:14:13.233
+<v Alan David Guzman (EXT)>tal vez también,
+pero quiere quiere con cada cuenta un</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/142-3
+00:14:13.233 --> 00:14:14.068
+<v Alan David Guzman (EXT)>flujo completo.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/143-0
+00:14:14.068 --> 00:14:17.308
+<v Oscar Alejandro Tello>¿A ver, y los cupones,
+quién te lo pasó Juanchi, no?</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/144-0
+00:14:17.708 --> 00:14:18.628
+<v Alan David Guzman (EXT)>Alexis.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/145-0
+00:14:21.548 --> 00:14:23.028
+<v Oscar Alejandro Tello>Alexis te pasó lo componer.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/146-0
+00:14:23.948 --> 00:14:28.288
+<v Alan David Guzman (EXT)>A ver si me lo dio, no se demoró mucho,
+así que me imagino que el proceso no debe</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/146-1
+00:14:28.288 --> 00:14:29.188
+<v Alan David Guzman (EXT)>ser muy complejo.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/147-0
+00:14:36.508 --> 00:14:37.548
+<v Oscar Alejandro Tello>I mean.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/148-0
+00:14:43.068 --> 00:14:46.748
+<v Oscar Alejandro Tello>Vamos a hacer una cosa,
+vamos a contar con Alexis.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/149-0
+00:14:49.868 --> 00:14:50.108
+<v Oscar Alejandro Tello>No.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/152-0
+00:15:03.788 --> 00:15:05.108
+<v Oscar Alejandro Tello>Ponle, pero.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/153-0
+00:15:07.868 --> 00:15:08.508
+<v Oscar Alejandro Tello>Hola.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/154-0
+00:15:11.948 --> 00:15:14.668
+<v Alan David Guzman (EXT)>¿Qué me gustaría también si es posible?</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/155-0
+00:15:15.868 --> 00:15:20.468
+<v Alan David Guzman (EXT)>Que me den la API de creación de usuarios
+en Cuba.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/156-0
+00:15:21.708 --> 00:15:28.076
+<v Alan David Guzman (EXT)>¿Para qué hay un problema muy constante
+que estamos teniendo? Pasa mucho,</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/156-1
+00:15:28.076 --> 00:15:30.228
+<v Alan David Guzman (EXT)>es que el checkout falla.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/157-0
+00:15:31.468 --> 00:15:32.388
+<v Alan David Guzman (EXT)>Haya mucho.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/158-0
+00:15:32.828 --> 00:15:33.468
+<v Oscar Alejandro Tello>Sí.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/159-0
+00:15:34.668 --> 00:15:38.782
+<v Alan David Guzman (EXT)>¿Qué pasa,
+que si yo tengo el servicio de cómo de</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/159-1
+00:15:38.782 --> 00:15:40.428
+<v Alan David Guzman (EXT)>creación de usuario?</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/160-0
+00:15:43.228 --> 00:15:46.475
+<v Alan David Guzman (EXT)>Si mercado pago tiene algún problema con
+una cosa no va a ser problema,</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/160-1
+00:15:46.475 --> 00:15:47.828
+<v Alan David Guzman (EXT)>eso por aquí me lo va a crear.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/161-0
+00:15:51.388 --> 00:15:53.228
+<v Oscar Alejandro Tello>El alta.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/162-0
+00:15:51.548 --> 00:15:55.237
+<v Alan David Guzman (EXT)>Ya, pero me está pasando mucho,
+me está pasando mucho de que si yo en la</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/162-1
+00:15:55.237 --> 00:15:59.028
+<v Alan David Guzman (EXT)>mañana intento crear un usuario,
+me funciona y en la tarde no me funciona.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/163-0
+00:16:01.988 --> 00:16:04.988
+<v Oscar Alejandro Tello>¿Y pero ahí qué falla el API o es otra
+cosa?</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/165-0
+00:16:07.788 --> 00:16:13.260
+<v Alan David Guzman (EXT)>no sé exactamente que falla porque me ha
+fallado por diferentes cosas me ha</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/165-1
+00:16:13.260 --> 00:16:18.588
+<v Alan David Guzman (EXT)>fallado y que por mercado pago me ha
+fallado y que porque no encuentra no</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/165-2
+00:16:18.588 --> 00:16:20.748
+<v Alan David Guzman (EXT)>encuentra el tipo de documento</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/166-0
+00:16:24.388 --> 00:16:25.148
+<v Oscar Alejandro Tello>Está bien.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/168-0
+00:16:34.188 --> 00:16:36.188
+<v Oscar Alejandro Tello>¿Estoy pensando por qué?</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/169-0
+00:16:37.388 --> 00:16:41.041
+<v Oscar Alejandro Tello>Claro,
+lo que vos necesitas chequear es algo en</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/169-1
+00:16:41.041 --> 00:16:47.129
+<v Oscar Alejandro Tello>el es el punta a punta del proceso de
+altas porque puede haber algo en el medio</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/169-2
+00:16:47.129 --> 00:16:49.108
+<v Oscar Alejandro Tello>cualquiera de todos estos.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/170-0
+00:16:50.508 --> 00:16:51.068
+<v Alan David Guzman (EXT)>Correcto.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/171-0
+00:16:51.548 --> 00:16:53.388
+<v Oscar Alejandro Tello>Todos estos actores que pueda fallar.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/172-0
+00:16:54.508 --> 00:16:55.948
+<v Oscar Alejandro Tello>Pero.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/173-0
+00:16:57.308 --> 00:16:59.708
+<v Oscar Alejandro Tello>¿Y vos ahí, qué vas a automatizar?</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/174-0
+00:17:00.748 --> 00:17:02.108
+<v Alan David Guzman (EXT)>O sea, ya yo teniendo.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/175-0
+00:17:03.868 --> 00:17:05.388
+<v Alan David Guzman (EXT)>El servicio de creación.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/176-0
+00:17:05.788 --> 00:17:06.428
+<v Oscar Alejandro Tello>Mhm.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/177-0
+00:17:07.308 --> 00:17:09.548
+<v Alan David Guzman (EXT)>Y no teniendo problema con cupones.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/178-0
+00:17:11.148 --> 00:17:11.428
+<v Oscar Alejandro Tello>Mhm.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/179-0
+00:17:11.228 --> 00:17:14.428
+<v Alan David Guzman (EXT)>¿Qué me pide Lyri? Okey,
+un flujo completo, ya cree el usuario,</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/179-1
+00:17:14.428 --> 00:17:17.028
+<v Alan David Guzman (EXT)>lo cree por aquí,
+entonces hago un flujo de compra.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/180-0
+00:17:18.108 --> 00:17:20.268
+<v Alan David Guzman (EXT)>Con ese usuario nuevo.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/181-0
+00:17:23.668 --> 00:17:28.906
+<v Alan David Guzman (EXT)>Le pongo mascotas,
+trato de hacer un reintegro, es decir,</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/181-1
+00:17:28.906 --> 00:17:29.268
+<v Alan David Guzman (EXT)>eso.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/183-0
+00:17:39.788 --> 00:17:40.468
+<v Oscar Alejandro Tello>Bones.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/187-0
+00:17:56.828 --> 00:17:57.308
+<v Oscar Alejandro Tello>Sure.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/195-0
+00:18:32.668 --> 00:18:34.148
+<v Oscar Alejandro Tello>No sé donde self for sexto.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/196-0
+00:18:37.468 --> 00:18:37.868
+<v Oscar Alejandro Tello>Bueno.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/203-0
+00:19:03.788 --> 00:19:06.323
+<v Oscar Alejandro Tello>Bueno,
+si la primera vez te lo resolvió ahora,</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/203-1
+00:19:06.323 --> 00:19:07.348
+<v Oscar Alejandro Tello>te lo vemos con él.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/204-0
+00:19:08.548 --> 00:19:12.748
+<v Oscar Alejandro Tello>Y pasamos de vuelta.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/205-0
+00:19:21.788 --> 00:19:23.548
+<v Oscar Alejandro Tello>¿Dar de alta usuario y qué?</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/206-0
+00:19:27.548 --> 00:19:30.908
+<v Oscar Alejandro Tello>No está relacionado con lo que vimos
+recién. o.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/207-0
+00:19:34.348 --> 00:19:37.705
+<v Alan David Guzman (EXT)>Esto es de que me refiero,
+esto es de Ike como tal,</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/207-1
+00:19:37.705 --> 00:19:38.868
+<v Alan David Guzman (EXT)>no de Betty Fight.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/209-0
+00:19:50.708 --> 00:19:53.388
+<v Oscar Alejandro Tello>Está bien porque son distintos.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/210-0
+00:19:54.348 --> 00:20:00.028
+<v Alan David Guzman (EXT)>Sí, pues es que mira, te explico,
+tú sabes el la.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/211-0
+00:20:14.748 --> 00:20:15.388
+<v Oscar Alejandro Tello>sí.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/212-0
+00:20:15.788 --> 00:20:16.388
+<v Oscar Alejandro Tello>Sí.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/213-0
+00:20:16.268 --> 00:20:18.985
+<v Alan David Guzman (EXT)>Okey, sí, está bien,
+eso puede solucionarme,</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/213-1
+00:20:18.985 --> 00:20:22.004
+<v Alan David Guzman (EXT)>pero es que yo no necesito simplemente la
+cuenta.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/213-2
+00:20:22.004 --> 00:20:26.895
+<v Alan David Guzman (EXT)>Yo necesito saber es cómo se crea para la
+mañana no tener este mismo bloqueo por</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/213-3
+00:20:26.895 --> 00:20:30.820
+<v Alan David Guzman (EXT)>otra cosa. Mira, okey,
+que esta cuenta que me diste no me sirve,</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/213-4
+00:20:30.820 --> 00:20:34.625
+<v Alan David Guzman (EXT)>necesito otra nueva.
+Entonces todo el proceso si ya yo sé cómo</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/213-5
+00:20:34.625 --> 00:20:35.108
+<v Alan David Guzman (EXT)>se crea.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/214-0
+00:20:37.308 --> 00:20:37.668
+<v Oscar Alejandro Tello>Beef.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/216-0
+00:20:37.668 --> 00:20:42.068
+<v Alan David Guzman (EXT)>¿Ya el la de Bebet, la de la de Ike,
+cómo pago?</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/217-0
+00:20:42.508 --> 00:20:45.588
+<v Oscar Alejandro Tello>Sí, espérame, Alan,
+espérame que me están tocando timbre.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/218-0
+00:20:46.068 --> 00:20:46.868
+<v Alan David Guzman (EXT)>Ok, dale.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/230-0
+00:21:30.748 --> 00:21:31.468
+<v Oscar Alejandro Tello>Estoy Alan.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/231-0
+00:21:34.908 --> 00:21:36.148
+<v Oscar Alejandro Tello>Perdón que te interrumpí.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/232-0
+00:21:41.508 --> 00:21:42.188
+<v Oscar Alejandro Tello>Está muteado.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/235-0
+00:21:47.028 --> 00:21:52.193
+<v Alan David Guzman (EXT)>Así, difícil me vas a escuchar. Okay,
+qué pasa de que si tú me das la cuenta,</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/233-0
+00:21:48.828 --> 00:21:49.628
+<v Oscar Alejandro Tello>sí.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/235-1
+00:21:52.193 --> 00:21:55.107
+<v Alan David Guzman (EXT)>yo puedo desparar de destrabar la
+historia,</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/235-2
+00:21:55.107 --> 00:22:00.073
+<v Alan David Guzman (EXT)>pero si mañana necesito otra cuenta,
+tengo que esperar otra vez. Entonces,</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/234-0
+00:21:58.268 --> 00:21:59.068
+<v Oscar Alejandro Tello>But, put, put.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/235-3
+00:22:00.073 --> 00:22:03.782
+<v Alan David Guzman (EXT)>si yo necesito,
+yo me gustaría aprender a cómo se asco,</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/235-4
+00:22:03.782 --> 00:22:04.908
+<v Alan David Guzman (EXT)>cómo es el flujo.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/236-0
+00:22:06.308 --> 00:22:06.788
+<v Alan David Guzman (EXT)>De ahí.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/237-0
+00:22:08.628 --> 00:22:11.691
+<v Alan David Guzman (EXT)>Para poder, digamos,
+tenerlo ahí y de automatizarlo en caso</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/237-1
+00:22:11.691 --> 00:22:12.508
+<v Alan David Guzman (EXT)>que lo necesite.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/238-0
+00:22:13.748 --> 00:22:14.028
+<v Oscar Alejandro Tello>Mhm.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/239-0
+00:22:14.308 --> 00:22:16.148
+<v Alan David Guzman (EXT)>Ya sea por Front, ya sea por servicio.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/240-0
+00:22:20.748 --> 00:22:21.228
+<v Oscar Alejandro Tello>Yeah.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/241-0
+00:22:22.428 --> 00:22:23.748
+<v Oscar Alejandro Tello>Y.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/242-0
+00:22:29.708 --> 00:22:32.908
+<v Oscar Alejandro Tello>Estoy pensando hoy la parte de qué
+mascotas,</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/242-1
+00:22:32.908 --> 00:22:38.597
+<v Oscar Alejandro Tello>quien tiene más conocimiento es Alex.
+Podemos aprovechar la reunión del lunes y</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/242-2
+00:22:38.597 --> 00:22:42.294
+<v Oscar Alejandro Tello>ver esto esto mismo,
+a ver si lo tiene documentado.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/242-3
+00:22:42.294 --> 00:22:47.912
+<v Oscar Alejandro Tello>Yo me fijé en la de Betify y no hay un
+flujo documentado de pantalla por dónde</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/242-4
+00:22:47.912 --> 00:22:48.908
+<v Oscar Alejandro Tello>ir y todo eso.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/243-0
+00:22:49.788 --> 00:22:53.788
+<v Oscar Alejandro Tello>Si no, si el lunes nos da el tiempo,
+nos vemos con él, ¿te parece?</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/245-0
+00:22:55.068 --> 00:22:57.308
+<v Oscar Alejandro Tello>Pero estaría bueno tenerlo documentado,
+sí.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/244-0
+00:22:55.668 --> 00:22:56.308
+<v Alan David Guzman (EXT)>Okey.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/246-0
+00:23:01.628 --> 00:23:06.108
+<v Oscar Alejandro Tello>Esto simula llamada real y confirma el
+envío de notificaciones.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/247-0
+00:23:08.908 --> 00:23:11.068
+<v Oscar Alejandro Tello>Videollamadas no tiene un sandbox.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/248-0
+00:23:09.188 --> 00:23:14.508
+<v Alan David Guzman (EXT)>Esto es esto es simplemente para saber si
+hay alguna manera de probar en Cuba.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/249-0
+00:23:16.228 --> 00:23:22.043
+<v Alan David Guzman (EXT)>Pero tipo sandbox, es decir, no, o sea,
+no llamar una a una a una veterinaria</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/249-1
+00:23:22.043 --> 00:23:27.039
+<v Alan David Guzman (EXT)>para probar algo de la videollamada. No,
+eso sí sé que sí se hace,</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/249-2
+00:23:27.039 --> 00:23:33.228
+<v Alan David Guzman (EXT)>pero lo que quiero saber es que si existe
+la posibilidad de hacerlo en un sandbox.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/250-0
+00:23:34.628 --> 00:23:34.668
+<v Alan David Guzman (EXT)>O.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/252-0
+00:23:37.348 --> 00:23:41.216
+<v Alan David Guzman (EXT)>O sea,
+como una manera de que fuese a nivel de</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/252-1
+00:23:41.216 --> 00:23:45.250
+<v Alan David Guzman (EXT)>API real,
+pero en un formato cubano en el que no</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/251-0
+00:23:42.348 --> 00:23:42.668
+<v Oscar Alejandro Tello>Mhm.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/252-2
+00:23:45.250 --> 00:23:47.308
+<v Alan David Guzman (EXT)>sea una veterinaria real.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/253-0
+00:23:48.588 --> 00:23:54.620
+<v Oscar Alejandro Tello>No, ahí lo que podemos llegar a armar es,
+estoy pensando desde la web de</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/253-1
+00:23:54.620 --> 00:24:00.488
+<v Oscar Alejandro Tello>prestadores podríamos llegar a generar,
+o capaz que ya lo tenés, una ,</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/253-2
+00:24:00.488 --> 00:24:04.868
+<v Oscar Alejandro Tello>un prestador, valga la redundancia,
+una veterinaria.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/254-0
+00:24:05.948 --> 00:24:09.242
+<v Oscar Alejandro Tello>Y nosotros con otro con un lado del
+cliente,</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/254-1
+00:24:09.242 --> 00:24:13.708
+<v Oscar Alejandro Tello>simular podemos simular la videollamada y
+ver cómo la ve el.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/255-0
+00:24:14.708 --> 00:24:16.988
+<v Oscar Alejandro Tello>El prestador sí,
+eso se puede llegar a hacer.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/256-0
+00:24:19.028 --> 00:24:20.308
+<v Oscar Alejandro Tello>El entorno de Kua.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/257-0
+00:24:23.948 --> 00:24:26.148
+<v Oscar Alejandro Tello>No sé si es eso lo que necesitas.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/258-0
+00:24:26.588 --> 00:24:26.828
+<v Alan David Guzman (EXT)>No.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/259-0
+00:24:27.708 --> 00:24:30.188
+<v Alan David Guzman (EXT)>Podríamos probarlo a ver así, a ver si.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/260-0
+00:24:31.868 --> 00:24:35.228
+<v Oscar Alejandro Tello>Yo el otro día le pedí.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/261-0
+00:24:36.988 --> 00:24:40.338
+<v Oscar Alejandro Tello>Le pedí a Alexis que me dé de alta un
+prestador. No,</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/261-1
+00:24:40.338 --> 00:24:44.826
+<v Oscar Alejandro Tello>un prestador no era de reintegro.
+El prestador no le pedí nada. Bueno,</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/261-2
+00:24:44.826 --> 00:24:46.028
+<v Oscar Alejandro Tello>ahí lo que podemos.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/265-0
+00:24:47.228 --> 00:24:52.385
+<v Oscar Alejandro Tello>Pasa de prestadores es medio un mundo,
+es huérfano. Nadie,</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/262-0
+00:24:50.628 --> 00:24:50.908
+<v Alan David Guzman (EXT)>Stop!</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/265-1
+00:24:52.385 --> 00:24:58.154
+<v Oscar Alejandro Tello>nadie tiene contexto y quien lo levantó
+en su momento fue Alexis,</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/263-0
+00:24:55.668 --> 00:24:55.908
+<v Alan David Guzman (EXT)>No.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/265-2
+00:24:58.154 --> 00:25:02.087
+<v Oscar Alejandro Tello>pero nadie sabe nada de prestadores.
+Es más,</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/265-3
+00:25:02.087 --> 00:25:06.108
+<v Oscar Alejandro Tello>deberíamos empezar a tener dominio sobre
+eso.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/264-0
+00:25:02.948 --> 00:25:03.348
+<v Alan David Guzman (EXT)>Sí.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/266-0
+00:25:06.868 --> 00:25:09.902
+<v Oscar Alejandro Tello>Bueno,
+le pido a Alexis y nos cuenta un poco</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/266-1
+00:25:09.902 --> 00:25:15.028
+<v Oscar Alejandro Tello>cómo funciona la web y vemos si podemos
+generar un prestador en el momento.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/267-0
+00:25:17.308 --> 00:25:20.951
+<v Oscar Alejandro Tello>Otra no se me ocurre,
+ahí tenemos que empezar a tener más</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/267-1
+00:25:20.951 --> 00:25:24.656
+<v Oscar Alejandro Tello>dominio nosotros.
+Yo también lo tengo que tener yo también</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/267-2
+00:25:24.656 --> 00:25:24.908
+<v Oscar Alejandro Tello>eso.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/268-0
+00:25:25.748 --> 00:25:26.628
+<v Alan David Guzman (EXT)>Okay, okay.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/269-0
+00:25:29.188 --> 00:25:32.828
+<v Oscar Alejandro Tello>¿Y esto, es que es una encuesta de ser?</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/270-0
+00:25:34.908 --> 00:25:38.268
+<v Oscar Alejandro Tello>esto me dijiste lo que tenía que ver con
+Lili.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/272-0
+00:25:35.188 --> 00:25:41.201
+<v Alan David Guzman (EXT)>Mientras que hablamos,
+y es que imagínense que hace rato también,</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/272-1
+00:25:41.201 --> 00:25:47.305
+<v Alan David Guzman (EXT)>de todo lo que hicieron,
+lo aprendió de ella y siento que de todas</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/272-2
+00:25:47.305 --> 00:25:53.228
+<v Alan David Guzman (EXT)>las ventas, como que están diciendo,
+pero había que también así.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/271-0
+00:25:52.508 --> 00:25:53.868
+<v Oscar Alejandro Tello>¿Qué necesitas con esto?</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/274-0
+00:25:56.468 --> 00:26:00.548
+<v Alan David Guzman (EXT)>Esa más bien se la hago a Lily porque ese
+es del de lo que me anotó ella.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/273-0
+00:25:59.548 --> 00:26:00.228
+<v Oscar Alejandro Tello>Okay.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/276-0
+00:26:01.868 --> 00:26:05.468
+<v Oscar Alejandro Tello>Bien, y esta cuatro también, okey, bueno.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/275-0
+00:26:03.428 --> 00:26:04.468
+<v Alan David Guzman (EXT)>Y esa también.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/277-0
+00:26:05.828 --> 00:26:11.020
+<v Alan David Guzman (EXT)>Ya queremos con ese ítem, todo.
+Vamos para el para la otra tu tarea.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/277-1
+00:26:11.020 --> 00:26:15.460
+<v Alan David Guzman (EXT)>La otra tu tarea es más bien para que
+tengas conocimiento,</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/277-2
+00:26:15.460 --> 00:26:18.771
+<v Alan David Guzman (EXT)>no creo que me pueda solucionar nada
+ahora,</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/277-3
+00:26:18.771 --> 00:26:23.588
+<v Alan David Guzman (EXT)>pero es para que sepa a nivel técnico que
+no me deja continuar.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/278-0
+00:26:26.588 --> 00:26:26.828
+<v Oscar Alejandro Tello>Hmm.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/279-0
+00:26:37.628 --> 00:26:39.308
+<v Oscar Alejandro Tello>404.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/285-0
+00:27:02.188 --> 00:27:04.359
+<v Oscar Alejandro Tello>Ok,
+acá el servicio parece que no está</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/285-1
+00:27:04.359 --> 00:27:05.028
+<v Oscar Alejandro Tello>funcionando.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/286-0
+00:27:07.868 --> 00:27:08.508
+<v Oscar Alejandro Tello>Okay.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/288-0
+00:27:17.788 --> 00:27:20.468
+<v Oscar Alejandro Tello>Bueno, acá le podemos hacer una pregunta.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/287-0
+00:27:20.708 --> 00:27:21.348
+<v Alan David Guzman (EXT)>Eso sí.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/289-0
+00:27:25.268 --> 00:27:28.707
+<v Oscar Alejandro Tello>Ya le podemos hacer una pregunta a la
+gente de cop.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/289-1
+00:27:28.707 --> 00:27:32.212
+<v Oscar Alejandro Tello>Todo lo que es engage lo administra la
+gente de cop.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/289-2
+00:27:32.212 --> 00:27:35.188
+<v Oscar Alejandro Tello>Nosotros no tenemos control sobre esas
+APIs.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/290-0
+00:27:36.428 --> 00:27:37.388
+<v Oscar Alejandro Tello>Y.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/291-0
+00:27:39.388 --> 00:27:42.500
+<v Oscar Alejandro Tello>¿Lo que podemos hacer,
+vos tenés un postman para hacer estas</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/291-1
+00:27:42.500 --> 00:27:42.908
+<v Oscar Alejandro Tello>pruebas?</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/292-0
+00:27:44.148 --> 00:27:44.588
+<v Alan David Guzman (EXT)>Y.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/293-0
+00:27:45.748 --> 00:27:48.024
+<v Alan David Guzman (EXT)>Sí,
+pero las trato de hacerlas directamente</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/293-1
+00:27:48.024 --> 00:27:50.508
+<v Alan David Guzman (EXT)>en play right en el proyecto de
+automatización.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/295-0
+00:27:51.148 --> 00:27:57.708
+<v Oscar Alejandro Tello>Okey, okey, lo que puedo hacer es bueno,
+armo, para, lo armo ahora.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/294-0
+00:27:56.468 --> 00:27:56.828
+<v Alan David Guzman (EXT)>Yeah.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/296-0
+00:27:59.948 --> 00:28:01.268
+<v Oscar Alejandro Tello>Eres tú.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/297-0
+00:28:11.788 --> 00:28:13.268
+<v Oscar Alejandro Tello>Y Juan Pablo.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/298-0
+00:28:16.748 --> 00:28:17.428
+<v Oscar Alejandro Tello>Sí.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/299-0
+00:28:17.908 --> 00:28:20.638
+<v Alan David Guzman (EXT)>Ok, una pregunta,
+el experiencia acaba hoy o el próximo</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/299-1
+00:28:20.638 --> 00:28:21.028
+<v Alan David Guzman (EXT)>viernes.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/300-0
+00:28:21.388 --> 00:28:22.108
+<v Oscar Alejandro Tello>¿Cuánto me viene?</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/301-0
+00:28:22.468 --> 00:28:22.948
+<v Alan David Guzman (EXT)>Okay.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/302-0
+00:28:25.108 --> 00:28:25.468
+<v Oscar Alejandro Tello>And.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/303-0
+00:28:30.708 --> 00:28:31.148
+<v Oscar Alejandro Tello>Rich.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/304-0
+00:28:40.548 --> 00:28:43.148
+<v Oscar Alejandro Tello>¿Qué es tu tío, este chico que era Pablo,
+Pablo?</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/305-0
+00:28:45.748 --> 00:28:46.468
+<v Oscar Alejandro Tello>In dos.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/317-0
+00:29:32.988 --> 00:29:33.468
+<v Oscar Alejandro Tello>In.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/318-0
+00:29:37.348 --> 00:29:39.228
+<v Oscar Alejandro Tello>No le puse en donde.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/319-0
+00:29:48.188 --> 00:29:48.668
+<v Oscar Alejandro Tello>Yeah.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/320-0
+00:30:02.188 --> 00:30:02.588
+<v Oscar Alejandro Tello>Okay.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/321-0
+00:30:08.668 --> 00:30:12.428
+<v Oscar Alejandro Tello>Para la reunión tenete por ahí preparado
+para hacer las pruebas con esos apis.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/322-0
+00:30:15.788 --> 00:30:19.148
+<v Oscar Alejandro Tello>Chicago, esto,
+pero esto es una incidencia.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/323-0
+00:30:21.548 --> 00:30:25.388
+<v Oscar Alejandro Tello>Esto es lo del tipo de documento,
+lo de checkout.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/324-0
+00:30:28.428 --> 00:30:29.228
+<v Oscar Alejandro Tello>Está puteado.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/325-0
+00:30:34.908 --> 00:30:39.428
+<v Alan David Guzman (EXT)>Perdón, sí, pero ese lo tengo,
+lo tengo en mente.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/326-0
+00:30:40.188 --> 00:30:41.108
+<v Alan David Guzman (EXT)>Reportado.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/327-0
+00:30:42.268 --> 00:30:49.748
+<v Oscar Alejandro Tello>O K, esto lo estamos siguiendo.
+Creo que hay una cadena de correo que no</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/327-1
+00:30:49.748 --> 00:30:51.388
+<v Oscar Alejandro Tello>sé si estás vos.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/328-0
+00:30:58.108 --> 00:31:02.668
+<v Oscar Alejandro Tello>Y hoy contesto mañana, mañana.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/329-0
+00:31:04.708 --> 00:31:05.308
+<v Oscar Alejandro Tello>Okay.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/331-0
+00:31:07.108 --> 00:31:12.095
+<v Oscar Alejandro Tello>Estamos a la espera que nos confirmen
+porque aparentemente hay distintas</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/331-1
+00:31:12.095 --> 00:31:15.990
+<v Oscar Alejandro Tello>versiones del API.
+Entonces nos pidieron cómo hacemos el</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/331-2
+00:31:15.990 --> 00:31:18.108
+<v Oscar Alejandro Tello>request para que después ellos.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/332-0
+00:31:19.388 --> 00:31:22.546
+<v Oscar Alejandro Tello>para ver si estamos usando la versión
+correcta de Zappi.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/332-1
+00:31:22.546 --> 00:31:25.150
+<v Oscar Alejandro Tello>Ahí le pasamos los datos.
+Estamos a la espera.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/332-2
+00:31:25.150 --> 00:31:28.308
+<v Oscar Alejandro Tello>Nos mandó Mariana hoy temprano.
+No nos contestamos nada.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/334-0
+00:31:30.108 --> 00:31:34.033
+<v Oscar Alejandro Tello>Cuando nos confirmen,
+ahí vemos si hay un error de la versión</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/334-1
+00:31:34.033 --> 00:31:38.148
+<v Oscar Alejandro Tello>que está muy implementado o hay o es un
+error del lado de ellos.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/333-0
+00:31:37.628 --> 00:31:37.868
+<v Alan David Guzman (EXT)>Y.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/335-0
+00:31:40.548 --> 00:31:41.508
+<v Oscar Alejandro Tello>Así que esto.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/336-0
+00:31:42.908 --> 00:31:45.348
+<v Oscar Alejandro Tello>Porque ahora lo estamos haciendo.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/337-0
+00:31:47.468 --> 00:31:50.268
+<v Oscar Alejandro Tello>Las varias compras seguidas de la misma
+sesión.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/338-0
+00:31:54.668 --> 00:32:00.567
+<v Alan David Guzman (EXT)>Esto capaz no es un, digamos,
+un buque en el sentido de que dar a mí me</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/338-1
+00:32:00.567 --> 00:32:04.499
+<v Alan David Guzman (EXT)>funciona,
+pero como me toqué en automatización,</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/338-2
+00:32:04.499 --> 00:32:09.415
+<v Alan David Guzman (EXT)>yo hago muchas pruebas y me estaba
+pasando de que funciona,</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/338-3
+00:32:09.415 --> 00:32:13.348
+<v Alan David Guzman (EXT)>dejó de funcionar, lo hacía manual,
+funcionaba.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/339-0
+00:32:14.028 --> 00:32:15.828
+<v Alan David Guzman (EXT)>Pero así enseguida pa allá va.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/340-0
+00:32:18.108 --> 00:32:19.388
+<v Oscar Alejandro Tello>En.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/341-0
+00:32:23.868 --> 00:32:25.988
+<v Oscar Alejandro Tello>Y acá puede ser que haya un firewall.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/342-0
+00:32:27.148 --> 00:32:32.194
+<v Oscar Alejandro Tello>Que esté frenando si tiene si tiene
+muchas peticiones de la estoy pensando en</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/342-1
+00:32:32.194 --> 00:32:34.588
+<v Oscar Alejandro Tello>voz alta, proveniente de la misma IP.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/343-0
+00:32:36.588 --> 00:32:37.348
+<v Oscar Alejandro Tello>Puede ser.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/344-0
+00:32:43.788 --> 00:32:45.508
+<v Oscar Alejandro Tello>No sé si eso está implementado.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/345-0
+00:32:49.908 --> 00:32:56.028
+<v Oscar Alejandro Tello>¿Pero vos acá no deberías hacer muchas
+pruebas para de volumen, o sí, no?</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/346-0
+00:32:56.988 --> 00:32:59.228
+<v Alan David Guzman (EXT)>No necesariamente.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/349-0
+00:33:01.428 --> 00:33:04.839
+<v Alan David Guzman (EXT)>O sea, no es que Edda,
+voy a hacer 10 compras,</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/349-1
+00:33:04.839 --> 00:33:10.864
+<v Alan David Guzman (EXT)>no lo he necesitado cuando, por ejemplo,
+digamos que tengo un tengo un impedimento</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/349-2
+00:33:10.864 --> 00:33:16.308
+<v Alan David Guzman (EXT)>y como ya no tengo automatiza esa parte y
+digo Edda, esto me pareció raro.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/348-0
+00:33:11.988 --> 00:33:12.268
+<v Oscar Alejandro Tello>Mhm.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/351-0
+00:33:17.548 --> 00:33:22.778
+<v Alan David Guzman (EXT)>Y lo que hago es crear varias cuentas
+nuevas para probar eso que estoy haciendo</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/350-0
+00:33:21.388 --> 00:33:21.948
+<v Oscar Alejandro Tello>Claro.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/351-1
+00:33:22.778 --> 00:33:27.289
+<v Alan David Guzman (EXT)>para ver si de pronto no tengo,
+no estoy teniendo nunca algún sesgo.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/351-2
+00:33:27.289 --> 00:33:30.428
+<v Alan David Guzman (EXT)>Y ahí fue donde encontré este tipo de
+problema.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/352-0
+00:33:32.988 --> 00:33:38.207
+<v Oscar Alejandro Tello>Y yo creo que con el mismo usuario,
+capaz que lo está frenando por alguna</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/352-1
+00:33:38.207 --> 00:33:41.874
+<v Oscar Alejandro Tello>regla de negocio,
+capaz que si lo haces en momentos</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/352-2
+00:33:41.874 --> 00:33:46.388
+<v Oscar Alejandro Tello>espaciados te deja hacer más de una de
+una compra con el mismo.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/353-0
+00:33:47.868 --> 00:33:49.508
+<v Oscar Alejandro Tello>Con el mismo cliente.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/354-0
+00:33:52.108 --> 00:33:52.908
+<v Oscar Alejandro Tello>Y.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/355-0
+00:33:56.988 --> 00:34:01.003
+<v Oscar Alejandro Tello>Claro,
+desde el mismo navegador y puede ser, sí,</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/355-1
+00:34:01.003 --> 00:34:05.428
+<v Oscar Alejandro Tello>capaz que son escenarios que hay que
+considerar para.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/356-0
+00:34:07.148 --> 00:34:09.148
+<v Oscar Alejandro Tello>Para poder automatizar esta prueba.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/357-0
+00:34:10.588 --> 00:34:17.908
+<v Oscar Alejandro Tello>Tener 345 clientes y no puedes hacer más
+de 2 compras o interacciones.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/358-0
+00:34:23.068 --> 00:34:26.028
+<v Oscar Alejandro Tello>Creo que esos son casos que vas a tener
+que considerar.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/359-0
+00:34:28.908 --> 00:34:34.137
+<v Oscar Alejandro Tello>Porque si ponele que hubiera una regla de
+WAF que le diga a nivel seguridad que la</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/359-1
+00:34:34.137 --> 00:34:36.028
+<v Oscar Alejandro Tello>cambie, me van a decir que no.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/360-0
+00:34:40.348 --> 00:34:40.748
+<v Alan David Guzman (EXT)>Okay.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/361-0
+00:34:42.268 --> 00:34:44.708
+<v Oscar Alejandro Tello>O hacer las corridas más espaciadas.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/362-0
+00:34:45.868 --> 00:34:46.948
+<v Oscar Alejandro Tello>No sé cómo lo ves.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/363-0
+00:34:48.588 --> 00:34:52.937
+<v Alan David Guzman (EXT)>O sea, si me dicen no Alan,
+es que simplemente hay que hay que</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/363-1
+00:34:52.937 --> 00:34:57.702
+<v Alan David Guzman (EXT)>esperar unos puntos. Bueno,
+que ya yo me parametrizo de que necesito</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/363-2
+00:34:57.702 --> 00:34:59.428
+<v Alan David Guzman (EXT)>hacer una espera sí o sí.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/364-0
+00:35:01.948 --> 00:35:07.920
+<v Oscar Alejandro Tello>Sí, yo lo yo no vería de ese lado,
+hoy yo estoy seguro que hay controles de</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/364-1
+00:35:07.920 --> 00:35:10.828
+<v Oscar Alejandro Tello>WAF por estos temas de impedir. este.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/365-0
+00:35:11.548 --> 00:35:11.708
+<v Alan David Guzman (EXT)>Y.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/366-0
+00:35:13.468 --> 00:35:16.908
+<v Oscar Alejandro Tello>Y pedir nada que lo ataques al robot.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/367-0
+00:35:18.668 --> 00:35:22.308
+<v Oscar Alejandro Tello>En definitiva,
+es lo mismo que automatizar las pruebas.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/368-0
+00:35:23.308 --> 00:35:25.788
+<v Oscar Alejandro Tello>A veces de fuerza brutal no me salía el
+nombre.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/369-0
+00:35:27.148 --> 00:35:30.228
+<v Oscar Alejandro Tello>Capaz que por algo de eso te lo estás
+frenando.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/370-0
+00:35:36.148 --> 00:35:38.588
+<v Oscar Alejandro Tello>Seguro, esto ya te confirmo que es seguro.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/371-0
+00:35:40.188 --> 00:35:43.642
+<v Oscar Alejandro Tello>Nada considerarlo en hacerlo más
+espaciado,</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/371-1
+00:35:43.642 --> 00:35:46.468
+<v Oscar Alejandro Tello>dependiendo qué más es un check out.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/372-0
+00:35:48.908 --> 00:35:55.068
+<v Oscar Alejandro Tello>Y que se puede hacer algún con el Google
+este nada, algún tipo de fraude.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/373-0
+00:36:00.068 --> 00:36:04.908
+<v Oscar Alejandro Tello>Probar el pago del apple con el patrón,
+bueno, esto.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/374-0
+00:36:03.468 --> 00:36:06.068
+<v Alan David Guzman (EXT)>Bueno, esto es lo de iOS.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/375-0
+00:36:10.108 --> 00:36:15.108
+<v Oscar Alejandro Tello>Esto se lo voy a agregar la reunión que
+pusimos el lunes con Andrés.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/376-0
+00:36:14.748 --> 00:36:15.308
+<v Alan David Guzman (EXT)>El.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/377-0
+00:36:16.108 --> 00:36:16.708
+<v Oscar Alejandro Tello>Okay.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/378-0
+00:36:23.308 --> 00:36:24.268
+<v Oscar Alejandro Tello>No.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/379-0
+00:36:35.788 --> 00:36:36.108
+<v Oscar Alejandro Tello>Yes.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/380-0
+00:36:38.588 --> 00:36:40.628
+<v Oscar Alejandro Tello>Él nos va a decir si eso es posible o no.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/381-0
+00:36:49.428 --> 00:36:50.188
+<v Alan David Guzman (EXT)>Stop speaking.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/385-0
+00:37:08.428 --> 00:37:12.108
+<v Oscar Alejandro Tello>Y acá te van a decir una porque no saben
+cómo funciona Apple.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/386-0
+00:37:14.348 --> 00:37:17.391
+<v Oscar Alejandro Tello>Esto,
+el desarrollador no te lo va a poder</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/386-1
+00:37:17.391 --> 00:37:18.028
+<v Oscar Alejandro Tello>explicar.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/387-0
+00:37:21.148 --> 00:37:22.668
+<v Alan David Guzman (EXT)>¿Cómo tú desarrollas o qué?</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/388-0
+00:37:24.668 --> 00:37:27.668
+<v Oscar Alejandro Tello>Puedes ir corriendo a contra el simulador
+de iOS.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/389-0
+00:37:30.028 --> 00:37:32.948
+<v Oscar Alejandro Tello>La web de la app nunca aparece.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/390-0
+00:37:43.028 --> 00:37:49.395
+<v Oscar Alejandro Tello>Es muy probable que lo que te hagan una
+repregunta porque no saben cómo funciona</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/390-1
+00:37:49.395 --> 00:37:49.788
+<v Oscar Alejandro Tello>Apiu.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/391-0
+00:37:51.428 --> 00:37:53.028
+<v Oscar Alejandro Tello>Dentro del simulador de ellos.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/392-0
+00:38:07.228 --> 00:38:08.668
+<v Oscar Alejandro Tello>Indirectamente simula.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/393-0
+00:38:10.668 --> 00:38:11.468
+<v Oscar Alejandro Tello>Y.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/394-0
+00:38:16.748 --> 00:38:18.668
+<v Oscar Alejandro Tello>A que sea una limitación técnica.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/398-0
+00:38:38.748 --> 00:38:41.388
+<v Oscar Alejandro Tello>Es que Guapio no es, no es,
+no es compatible con API.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/407-0
+00:39:18.188 --> 00:39:22.060
+<v Oscar Alejandro Tello>Hasta me parece,
+me parecería que esté bien que el no se</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/407-1
+00:39:22.060 --> 00:39:22.468
+<v Oscar Alejandro Tello>ponga.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/408-0
+00:39:23.948 --> 00:39:28.805
+<v Oscar Alejandro Tello>Si yo estoy pensando en un tema de
+vulnerabilidad de la aplicación,</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/408-1
+00:39:28.805 --> 00:39:32.948
+<v Oscar Alejandro Tello>vos no deberías poder ver o manipularlo
+de alguna manera.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/409-0
+00:39:36.588 --> 00:39:39.068
+<v Oscar Alejandro Tello>Yo entiendo que lo necesitas para las
+pruebas, pero.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/410-0
+00:39:42.988 --> 00:39:43.748
+<v Alan David Guzman (EXT)>Correcto.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/411-0
+00:39:45.548 --> 00:39:50.601
+<v Oscar Alejandro Tello>Si el wavio yo lo puedo manipular,
+me parece que no estaría bien,</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/411-1
+00:39:50.601 --> 00:39:52.668
+<v Oscar Alejandro Tello>no estaría bien la app. Uy.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/413-0
+00:39:55.468 --> 00:39:58.957
+<v Alan David Guzman (EXT)>Okey,
+plan plantear tener este una versión,</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/412-0
+00:39:57.588 --> 00:39:59.708
+<v Oscar Alejandro Tello>¿Estoy pensando, no?</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/413-1
+00:39:58.957 --> 00:40:03.320
+<v Alan David Guzman (EXT)>una versión de,
+digamos que en la que yo pueda. O sea,</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/413-2
+00:40:03.320 --> 00:40:08.396
+<v Alan David Guzman (EXT)>sí tenemos la versión Q A,
+pero digamos que probablemente es un</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/413-3
+00:40:08.396 --> 00:40:13.948
+<v Alan David Guzman (EXT)>borrador de lo que del de lo que es pro,
+pero si de pronto la de Q A.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/414-0
+00:40:14.148 --> 00:40:18.807
+<v Alan David Guzman (EXT)>Le pueden poner para que sea esté en modo
+de voz que se pueda ver todo,</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/414-1
+00:40:18.807 --> 00:40:19.908
+<v Alan David Guzman (EXT)>sería fantástico.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/415-0
+00:40:22.028 --> 00:40:22.428
+<v Oscar Alejandro Tello>Bueno.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/416-0
+00:40:25.548 --> 00:40:30.980
+<v Oscar Alejandro Tello>Bueno, esto se lo podemos plantear.
+No sé si Andrés no va a saber contestar,</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/416-1
+00:40:30.980 --> 00:40:36.836
+<v Oscar Alejandro Tello>pero cuando nos derive con el con alguien
+del equipo Mobile se lo podríamos llegar</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/416-2
+00:40:36.836 --> 00:40:39.588
+<v Oscar Alejandro Tello>a preguntar. Yo ahí, yo ahí desconozco.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/418-0
+00:40:42.148 --> 00:40:47.609
+<v Oscar Alejandro Tello>Si existe, debe existir algún report,
+alguna solución de report para</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/418-1
+00:40:47.609 --> 00:40:49.588
+<v Oscar Alejandro Tello>descargarse la app de QA.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/419-0
+00:40:50.948 --> 00:40:52.308
+<v Oscar Alejandro Tello>Y.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/420-0
+00:40:54.548 --> 00:40:58.788
+<v Oscar Alejandro Tello>No sé si lo van a querer dejar en modo de,
+pero se lo proponemos, sí.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/421-0
+00:41:00.108 --> 00:41:00.588
+<v Oscar Alejandro Tello>Sí.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/422-0
+00:41:04.068 --> 00:41:04.628
+<v Oscar Alejandro Tello>Okay.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/423-0
+00:41:04.748 --> 00:41:05.428
+<v Alan David Guzman (EXT)>Okay.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/424-0
+00:41:06.628 --> 00:41:08.308
+<v Oscar Alejandro Tello>Para que justo toqué y había.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/425-0
+00:41:09.988 --> 00:41:13.068
+<v Oscar Alejandro Tello>Y no hay más, ¿no? El 5 es el último, sí.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/426-0
+00:41:13.428 --> 00:41:15.388
+<v Alan David Guzman (EXT)>Sigue bajando a ver,
+me parece que es el último.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/428-0
+00:41:15.588 --> 00:41:16.788
+<v Oscar Alejandro Tello>Sí, sí, no llamas.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/427-0
+00:41:16.668 --> 00:41:16.988
+<v Alan David Guzman (EXT)>It.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/430-0
+00:41:18.348 --> 00:41:20.148
+<v Alan David Guzman (EXT)>Esto que esto sería todo.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/429-0
+00:41:18.468 --> 00:41:18.868
+<v Oscar Alejandro Tello>Okay.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/431-0
+00:41:21.428 --> 00:41:22.068
+<v Oscar Alejandro Tello>Alien.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/434-0
+00:41:21.948 --> 00:41:26.113
+<v Alan David Guzman (EXT)>Cabe decir una cosa, Alan,
+si hoy te soluciono todo esto,</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/434-1
+00:41:26.113 --> 00:41:31.284
+<v Alan David Guzman (EXT)>vamos a tener la automación en ciento,
+tendría luz verde para empezar a</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/434-2
+00:41:31.284 --> 00:41:36.024
+<v Alan David Guzman (EXT)>automatizar y probablemente salgan más
+impedimentos más adelante,</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/434-3
+00:41:36.024 --> 00:41:40.908
+<v Alan David Guzman (EXT)>pero estos son los que digamos los que
+más me bloquean actualmente.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/433-0
+00:41:40.228 --> 00:41:41.988
+<v Oscar Alejandro Tello>Lo que tenés hoy, sí.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/435-0
+00:41:41.468 --> 00:41:43.308
+<v Alan David Guzman (EXT)>Exacto, que tengo hoy.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/437-0
+00:41:44.308 --> 00:41:49.396
+<v Oscar Alejandro Tello>Está bien, igual. Bueno, está bien. Bueno,
+ahí disparé las preguntas.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/437-1
+00:41:49.396 --> 00:41:53.758
+<v Oscar Alejandro Tello>Entiendo que en base a las respuestas que
+nos den el lunes,</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/436-0
+00:41:52.428 --> 00:41:52.748
+<v Alan David Guzman (EXT)>Yeah.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/437-2
+00:41:53.758 --> 00:41:59.501
+<v Oscar Alejandro Tello>en las reuniones vemos cómo avanzamos.
+Hay algunas que van a ser más sencillas</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/437-3
+00:41:59.501 --> 00:42:00.228
+<v Oscar Alejandro Tello>que otras.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/438-0
+00:42:02.468 --> 00:42:04.108
+<v Oscar Alejandro Tello>Pero bueno, nos vamos viendo.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/439-0
+00:42:05.108 --> 00:42:05.468
+<v Oscar Alejandro Tello>Sí.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/440-0
+00:42:05.628 --> 00:42:06.028
+<v Alan David Guzman (EXT)>Hello.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/441-0
+00:42:07.188 --> 00:42:12.229
+<v Oscar Alejandro Tello>Si tenete a mano algunas pruebas de esto
+para ejecutar el API en el momento y ver</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/441-1
+00:42:12.229 --> 00:42:13.828
+<v Oscar Alejandro Tello>que nos que esté fallando.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/442-0
+00:42:15.748 --> 00:42:18.228
+<v Oscar Alejandro Tello>Hoy te está fallando esto todavía.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/443-0
+00:42:21.308 --> 00:42:23.748
+<v Alan David Guzman (EXT)>Me disculpas, okey,
+que no te escuché lo último.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/444-0
+00:42:25.508 --> 00:42:27.548
+<v Oscar Alejandro Tello>Si estas APIs hoy te están fallando.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/445-0
+00:42:30.828 --> 00:42:33.993
+<v Alan David Guzman (EXT)>Sí, claro,
+cabe aclarar que esto no es</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/445-1
+00:42:33.993 --> 00:42:39.025
+<v Alan David Guzman (EXT)>necesariamente de la página.
+Esto es un script que dejó Javi,</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/445-2
+00:42:39.025 --> 00:42:42.028
+<v Alan David Guzman (EXT)>que era para crear crear ese usuario.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/446-0
+00:42:43.708 --> 00:42:47.188
+<v Alan David Guzman (EXT)>Pero a donde estaban apuntando no están
+funcionando.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/447-0
+00:42:48.268 --> 00:42:53.106
+<v Alan David Guzman (EXT)>Muy probablemente se actualizaron,
+pero como el escrito tengo esos,</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/447-1
+00:42:53.106 --> 00:42:55.028
+<v Alan David Guzman (EXT)>no te sabría responder eso.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/448-0
+00:42:56.628 --> 00:42:58.948
+<v Oscar Alejandro Tello>O capaz que el no es el correcto.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/450-0
+00:42:59.388 --> 00:43:03.928
+<v Alan David Guzman (EXT)>Correcto, probablemente que me digan no,
+Alan, mira, ya no es quantum,</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/450-1
+00:43:03.928 --> 00:43:08.340
+<v Alan David Guzman (EXT)>sino quantum B 2, por ejemplo,
+y ya todo y todo se y todo se arregla</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/449-0
+00:43:06.148 --> 00:43:06.828
+<v Oscar Alejandro Tello>Okay.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/450-2
+00:43:08.340 --> 00:43:09.108
+<v Alan David Guzman (EXT)>mágicamente.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/451-0
+00:43:09.588 --> 00:43:14.064
+<v Oscar Alejandro Tello>Ok, listo, listo, bueno,
+tenete a mano cuáles son los inputs y los</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/451-1
+00:43:14.064 --> 00:43:15.868
+<v Oscar Alejandro Tello>pads que tenés para ver si.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/452-0
+00:43:17.588 --> 00:43:19.428
+<v Oscar Alejandro Tello>Sí, son los que los correctos.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/453-0
+00:43:19.788 --> 00:43:23.568
+<v Alan David Guzman (EXT)>O K, bueno,
+aquí muchísimas gracias por tu ayuda,</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/453-1
+00:43:23.568 --> 00:43:25.308
+<v Alan David Guzman (EXT)>gracias por el espacio.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/454-0
+00:43:23.988 --> 00:43:29.249
+<v Oscar Alejandro Tello>No, por favor, no hice nada,
+no te puedo ayudar en nada.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/454-1
+00:43:29.249 --> 00:43:31.188
+<v Oscar Alejandro Tello>Te estoy haciendo de.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/456-0
+00:43:29.628 --> 00:43:33.824
+<v Alan David Guzman (EXT)>No,
+pero que te lo lleves y de pronto tengas</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/456-1
+00:43:33.824 --> 00:43:41.470
+<v Alan David Guzman (EXT)>contexto y esté mapeado de en qué punto
+estoy parado y por qué no puedo continuar</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/455-0
+00:43:41.268 --> 00:43:41.508
+<v Oscar Alejandro Tello>Hmm.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/456-2
+00:43:41.470 --> 00:43:43.428
+<v Alan David Guzman (EXT)>más. Ya es un avance.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/457-0
+00:43:44.228 --> 00:43:45.468
+<v Oscar Alejandro Tello>Seguro, seguro.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/459-0
+00:43:46.308 --> 00:43:51.188
+<v Oscar Alejandro Tello>Bueno, Alan, vamos charlando.
+Espero que te ayude a destrabar todo esto.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/458-0
+00:43:49.468 --> 00:43:49.708
+<v Alan David Guzman (EXT)>What?</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/460-0
+00:43:51.708 --> 00:43:53.148
+<v Alan David Guzman (EXT)>Listo, okey, muchas gracias.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/461-0
+00:43:53.268 --> 00:43:56.828
+<v Oscar Alejandro Tello>No a vos, sí, buen finde, abrazo grande.</v>
+
+eacbec41-c5bb-4d6b-82cf-49ac6789b74e/462-0
+00:43:55.308 --> 00:43:58.188
+<v Alan David Guzman (EXT)>Oye, igualmente, dale, igualmente.</v>

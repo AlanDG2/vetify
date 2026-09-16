@@ -1,4 +1,6 @@
-Jira: sin crear todavía — hallazgo encontrado investigando `IMAS-4356`, nunca tuvo archivo propio hasta esta auditoría (2026-08-29). Pendiente de decisión del usuario.
+**ESTADO: RETESTEADO 2026-09-10 — INCONCLUSO, no se pudo reproducir la mecánica exacta.** Con la misma cuenta (`adquirenteosde@gmail.com`), "Planes y coberturas" sigue mostrando "No hay planes por el momento." — pero esta vez `GET /api/services/plans/engage/{dni}` devolvió `500` (2/2 veces), no `200` con datos reales como decía el hallazgo original. No se puede confirmar si el bug de render en sí sigue existiendo porque el endpoint no llegó a responder bien para probarlo — es el mismo síntoma de fondo que otros impedimentos de ambiente ya documentados (500 intermitente). No se crea Defect nuevo; retestear cuando el endpoint responda 200 de forma estable.
+
+Jira: sin crear — inconcluso, ver retest de arriba.
 
 [Título]: BUG | OSDE Adquirente: "Planes y coberturas" muestra "No hay planes por el momento" pese a que el backend devuelve un plan real y activo
 [Severidad]: Medio-Alto — no bloquea la compra ni el acceso, pero el titular no puede ver el detalle de su propio plan contratado (cobertura, facturación) en una pantalla dedicada a exactamente eso.
@@ -36,3 +38,17 @@ La pantalla muestra "No hay planes por el momento", pese a que `GET /api/service
 - No confirmado si afecta solo al segmento OSDE Adquirente o también a OSDE Capitado/Flux — no se probó la misma pantalla en esos segmentos durante esta investigación.
 - No hay CP (caso de prueba) formal escrito para este hallazgo todavía — es una observación encontrada en el camino, no parte del diseño de casos original de `IMAS-4356`.
 - Ver `docs/user-stories/IMAS-4356-banner-cooper-webapp-osde.tests.md` (fila "Planes y coberturas (Adquirente)") y `qa-workspace/decision-log.md` (2026-08-28) para el contexto completo de la investigación que lo encontró.
+
+## 🔎 Retest 2026-09-02 — NO reproduce con cuenta OSDE real (pool)
+
+Cuarta verificación en QA. Esta vez con una cuenta **OSDE Adquirente real del pool** (`user_1788192447095_142c8da5@automation.com`, DNI `1668472081`, plan Cachorros, creada el 2026-08-31 vía compra real OSDE para validar BUG-017/IMAS-4431). Login en `vetify-qa.ikeapp.com` → ir a "Planes y coberturas" (`/section/myplans`).
+
+Resultado:
+- **UI: la tarjeta del plan se ve** ("Vetify Cachorro x1" como acordeón expandible). Al expandir: muestra Grupo 0158, Código Producto 2360, botón "Condiciones del Servicio". **NO** se ve "No hay planes por el momento".
+- Backend `GET /api/services/plans/engage/1668472081?brand=vetify` → `200 OK` con `elements[]` de 1 ítem: `desCuenta: "Vetify Cachorro x1 OSDE"`, `estado: "ACTIVO"`, `nroCuenta: "2360"`, `codigoGrupoCuenta: "0158"`.
+- **Diferencia importante vs. el caso original**: este plan es OSDE (el nombre dice "OSDE") pero está en `codigoGrupoCuenta: "0158"` (VETIFY MASCOTAS), no en `0163` (el grupo "OSDE Adquirente" original del bug). El plan Cachorros OSDE se vendió con descuento del 30% (es la promoción que el `from=osde` aplica al checkout), pero la catalogación interna del producto no está en el segmento "OSDE Adquirente" puro.
+- A pesar de tener `priceAmount`, `priceLabel`, `billingPeriodLabel`, `coverageTarget`, `nextBillingDate`, `nextBillingAmount` todos `null` (mismo síntoma que la cuenta original del bug), la UI **sí renderiza la tarjeta**. Esto sugiere que el render de la tarjeta no exige esos campos como bloqueantes — son opcionales.
+
+**Conclusión**: BUG-025, tal como está documentado, **no se reproduce en QA con cuentas OSDE reales del pool**. La cuenta `adquirenteosde@gmail.com` (sobre la que se reportó originalmente) sigue siendo la única con el síntoma "No hay planes por el momento" pese a que el backend responde 200 con datos. El perfil de esa cuenta podría ser excepcional (cuenta migrada/legada de producción, no creada en QA limpia) — pero ya no puedo verificar esa cuenta aquí porque no tengo credenciales a mano en este retest.
+
+**Decisión actualizada (2026-09-02)**: no filear todavía. Si vuelve a aparecer el síntoma con cualquier cuenta nueva, sí amerita Defect nuevo. Mantener el doc como referencia histórica + watch item.

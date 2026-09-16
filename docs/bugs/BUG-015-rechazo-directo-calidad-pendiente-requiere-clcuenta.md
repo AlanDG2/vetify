@@ -100,3 +100,38 @@ Usando la colección de Postman de Mariana (adaptada — el export tenía un cam
 4. `POST /api/assistance/v1/auxiliaries/notes` (nota shared) → **200**.
 
 **Los 3 pasos del rechazo directo funcionan perfecto, hoy mismo, llamando a Nexus sin intermediarios.** Esto confirma de forma independiente y con datos frescos (no una captura de hace 2 semanas) que el problema de `BUG-015` está **100% aislado en `reintegros-backend`** — Nexus/Core nunca tuvo ni tiene ningún problema real para procesar un rechazo directo. El fix, cuando se haga, no requiere ningún cambio de Core — es enteramente responsabilidad del equipo de `reintegros-backend` (probablemente relajar o completar la validación de `clCuenta` antes de llamar a Nexus, en vez de exigirla incondicionalmente).
+
+## 🔑 2026-09-01 — Reencuadre importante: los retests "sigue roto" no son válidos como prueba del fix
+
+Retesteado en vivo el mismo expediente `3131739` (VPN reconectada) — **falla exactamente igual**: mismo `404`, `{"code":"BUS-005","message":"Nexus pets/refund requires clCuenta."}`, mismo diálogo en pantalla "Algo salió mal / Probá de nuevo en un momento".
+
+Pero al revisar los comentarios de `IMAS-4354` apareció uno del **2026-08-31** (antes solo-imagen, o no leído en las pasadas anteriores) que cambia la interpretación completa de todo lo documentado arriba:
+
+> *"Está bien el error que lanza porque es un expediente cargado desde y contra SISE antes de efectuar la migración en QA. La migración impactó el 18 de agosto y el cambio para que deje de lanzar el error de 'requires clcuenta' es a partir del 26 de agosto. Se va a poder poner a prueba con casos posteriores a esas fechas o directamente nuevos."*
+
+**Esto significa que los 3 retests "sigue roto" documentados arriba (22/08, 28/08, 01/09) usaron TODOS expedientes anteriores al 26/08** (`3131739`, `3188-1`, `3192-1`, `3131793`) — que, según este comentario, van a fallar con `BUS-005` **por diseño**, sin importar si el fix real de `reintegros-backend` funciona o no (nunca tuvieron `clCuenta` persistido, porque se crearon contra el sistema viejo antes de la migración). La causa raíz aislada a `reintegros-backend` (sección de arriba) sigue siendo válida — lo que deja de ser válido es la conclusión de que el FIX específicamente no funciona.
+
+**Estado correcto ahora: NO probado todavía de forma válida** — ni confirmado roto, ni confirmado arreglado. Para saber cuál de las dos es cierta hace falta un expediente genuinamente posterior al 26/08 (o creado hoy).
+
+**Intento de armar ese caso nuevo, bloqueado por un hallazgo aparte**: al tratar de crear una solicitud de reintegro nueva desde `/section/nuevo-reintegro` (necesaria para generar un expediente post-26/08), 4 cuentas distintas de 2 productos (2 Vetify B2C Adquirente + la cuenta Popi de OSDE Capitado) mostraron "No hay mascotas registradas para tu documento" — `GET /api/bff/reintegros/mascotas` devuelve `200` con array vacío `[]`. Ver `docs/user-stories/IMAS-4101-migracion-reintegros-nexus.md` (sección "Hallazgo potencialmente grave") para el detalle completo — parece ser un problema más amplio que este bug puntual, posiblemente ni siquiera específico de Reintegros. Alan decidió posponer la validación a mañana con el equipo de dev en vez de seguir probando cuentas al azar.
+
+**Pendiente real ahora**: (1) resolver o entender el hallazgo de mascotas vacías, (2) conseguir/crear un expediente post-26/08 con eso resuelto, (3) recién ahí repetir el rechazo directo de Calidad y ver si de verdad da `204` como mostró la captura de Mariana el 26/08.
+
+## ✅ CONFIRMADO ARREGLADO — 2026-09-01 (continuación), expediente `3324-1`
+
+En vez de esperar a que se resuelva el hallazgo de mascotas vacías (bloquea crear un reintegro nuevo desde la app de cliente), se encontró un camino alternativo: la bandeja de "Pendientes" del backoffice (`reintegros-backoffice.ike.qa`) ya tenía **3 expedientes reales posteriores al 26/08** sentados sin procesar — `3302-1` (28/8), `3322-1` (31/8), `3324-1` (31/8), los 3 "Prueba credencial" de la cuenta de Paula Scalzo. No hacía falta crear uno nuevo: alcanzaba con usar uno ya existente.
+
+**Repro exacto del bug original, sobre `3324-1`** (login con `acastellano@ikeasistencia.com.ar`, cuenta de Calidad):
+1. Click "Rechazar" → seleccionar motivo "Factura inconsistente" (el mismo motivo del reporte original) → "Enviar".
+2. Primer intento: `POST decision-calidad` → `400 BUS-009 "Claim dossier must have a positive amount before SISE closure on quality rejection."` — un precondición DISTINTA a `BUG-015` (el expediente no tenía monto asignado, la lista lo mostraba con "—"). Resuelto usando "Distribuir factura" (asignar el monto total de la factura, $320.787,50, a la única línea del expediente).
+3. Segundo intento, mismo motivo: `POST decision-calidad` → **`204 No Content`**. Diálogo de la app: *"¡Envío exitoso! Registramos el rechazo del expediente... fue rechazado correctamente."* Sin rastro del `404 BUS-005` original.
+
+**Evidencia a nivel de dato, no solo de comportamiento**: el JSON crudo del expediente (`GET .../expedientes/3324-1`) muestra la verificación que el bug original señalaba como causa raíz, ahora con el campo real poblado:
+```json
+"verificaciones":[{"tipo":"SISE_COBERTURA","resultado":"PENDIENTE","motivo":"clCuenta persistido al confirmar","payloadSnapshot":{"clCuenta":"2349","nroDocumentoTitular":"29905780"}}]
+```
+`clCuenta` viene con un valor real (`"2349"`), no `null` — exactamente el campo que la descripción original del bug decía que faltaba para expedientes viejos. Confirmado también en el listado: el expediente pasó de la pestaña "Pendiente" a "Rechazado" correctamente.
+
+**Conclusión**: el fix de `reintegros-backend` funciona. La causa raíz (clCuenta no persistido en expedientes pre-migración) sigue siendo la correcta — simplemente no se podía demostrar el fix sin un expediente genuinamente posterior al 26/08, y ya no hace falta esperar a que se resuelva el hallazgo de mascotas vacías para conseguir uno: alcanza con usar los que ya existen en la cola del backoffice.
+
+**Hallazgo aparte, no es este bug**: el `400 BUS-009` (monto en cero) del paso 2 — ver si amerita un ticket propio o es comportamiento esperado para expedientes sin factura distribuida todavía.

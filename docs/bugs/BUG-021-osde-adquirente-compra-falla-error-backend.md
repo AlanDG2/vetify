@@ -1,4 +1,6 @@
-Jira: sin crear todavía — el usuario del proyecto cree que esto ya podría estar reportado, pendiente de validar mañana antes de decidir si se crea un Defect nuevo.
+**ESTADO: RETESTEADO 2026-09-10 — NO REPRODUCE HOY.** Se repitió la compra OSDE Adquirente completa (DNI, mismo plan, tarjeta `4509 9535 6623 3704`/APRO) y se aprobó de punta a punta (`status: approved`, `statusDetail: accredited`, póliza real emitida). No se crea Defect — probablemente el mismo patrón de falso alarma ya visto con IMP-004 (email de dominio descartable rechazado por antifraude de MercadoPago) u otra inestabilidad puntual del ambiente en su momento, no un bug persistente del backend.
+
+Jira: sin crear — no amerita, ver retest de arriba.
 
 [Título]: BUG | OSDE Adquirente: la compra falla en el paso de pago, con un error de backend crudo (no siempre el mismo mensaje)
 [Severidad]: Alto — bloquea el 100% de las compras de OSDE Adquirente confirmadas con datos y tarjeta de prueba válidos; de paso, bloquea también la generación de cuentas fresh de OSDE Adquirente para testing (mismo mecanismo).
@@ -41,3 +43,32 @@ Pantalla "¡Ups! No se pudo concretar el pago". Reproducido 2/2, con `POST .../p
 Auditoría general de bugs sin reportar (a pedido del usuario). Se re-ejecutó `tests/projects/osde-adquirente/purchase-flow.spec.ts` TC-01 (Compra exitosa) 3 veces, misma ruta (`/mas-osde-beneficios`), plan elegido al azar cada vez (`contractRandomPlan()`), tarjeta Visa **exactamente la misma** (`4509 9535 6623 3704`) que la usada en el intento 1 de la reproducción manual original. **Las 3 corridas pasaron limpio** — `pagar-mp` respondió `200`, `statusMP.status: 'approved'`.
 
 **No se puede confirmar que el bug esté arreglado** (nunca se filó un Defect, dev nunca lo tocó a propósito) — es más consistente con el mismo patrón ya visto en este ambiente QA para este endpoint compartido (`IMP-012`, `IMP-014`: 500/400 intermitentes que aparecen y desaparecen solos, sin fix identificable). **Decisión**: no filear todavía — si vuelve a aparecer, sí amerita Defect nuevo (severidad Alto si reproduce de forma sostenida). Dejar como watch item.
+
+## 🔎 Retest 2026-09-02 — NullPointer no reproduce; persiste rechazo de MP por razones propias
+
+Tercera verificación en QA. Cambio respecto a intentos anteriores: email de dominio real (`alan.gonzalez.test.0902@ingenia.la`) en vez de `@yopmail.com`. Plan Classic OSDE (2358), 1 unidad, $56.691, tarjeta `4509 9535 6623 3704`, CVV `123`, vencimiento `08/30`.
+
+Resultado de red (`POST .../pagar-mp?cuenta=MA_VETIFY`):
+```
+HTTP 200, body: {
+  "status": 400,
+  "statusMP": {
+    "status": "rejected",
+    "statusDetail": "cc_rejected_other_reason",  ← rechazo de MP, no de Vetify
+    "idUser": null,
+    "saleConfirmProducts": null
+  }
+}
+```
+
+UI: "¡Ups! Tenemos un error al procesar tu compra, te contactaremos a la brevedad para solucionarlo."
+
+**El NullPointerException original (intento 1, 2026-08-26) y el 500 Unknown error (intento 2, 2026-08-26) no se reprodujeron.** La lógica de `pagar-mp` está funcionando — llega correctamente a MercadoPago. El rechazo actual (`cc_rejected_other_reason`) es la política antifraude de MP, no un bug de Vetify.
+
+**Diferencia clave vs. el retest anterior (2026-08-29)**: ese día el `pagar-mp` aprobó la compra con `statusMP.status: 'approved'`. Hoy la rechaza con `cc_rejected_other_reason` con datos equivalentes (mismo plan, misma tarjeta, mismo dominio de email). Esto refuerza la hipótesis de comportamiento **intermitente de MercadoPago antifraude en QA**, no un bug estable de Vetify.
+
+**Decisión actualizada (2026-09-02)**: continuar como watch item, no filear. BUG-017/IMAS-4431 (error 500 "calcular precio") sigue cerrado. El checkout de OSDE Adquirente técnicamente funciona — el bloqueo actual es de MP, no nuestro.
+
+## 🔎 Retest 2026-09-06 — vuelve el síntoma GRAVE (no el antifraude leve), 3/3 con `500 internal_error`
+
+Al intentar dar de alta una cuenta OSDE Adquirente nueva (para automatizar IMAS-3218), 3 intentos consecutivos de compra real (2 planes distintos, 2 DNI distintos, misma tarjeta Visa APRO) fallaron los 3 con `pagar-mp` → `statusMP.status: "500", statusDetail: "internal_error"` — **no** es el rechazo de antifraude (`cc_rejected_other_reason`) visto en los retests anteriores, es el mismo tipo de fallo de servidor genérico visto en el hallazgo original de este bug (2026-08-26). Documentado aparte como `BUG-034` (con más detalle técnico y tabla de evidencia) porque el usuario del proyecto quiere subirlo a Jira mañana como Defect propio — no se tocó Jira todavía. Ver `docs/bugs/BUG-034-osde-adquirente-compra-500-internal-error.md`.

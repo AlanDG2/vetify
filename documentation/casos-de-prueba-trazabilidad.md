@@ -236,3 +236,85 @@ Detalle completo (bugs encontrados, hallazgo de arquitectura de navegación, di�
 - `Automation Vetify.xlsx` → Dashboard Ejecutivo: 86→**88** escenarios, etapa "11. Vetify Plus / Planes" pasó de 4 a 6 escenarios (66.67% automatizado — 4 de los 6 al 100%, 2 preexistentes en 0%, coincide exacto).
 
 Docs de HU: `docs/user-stories/IMAS-4356-banner-cooper-webapp-osde.md` recibió una sección de cierre; `IMAS-4435-banner-cooper-mayor-protagonismo.md` + `.tests.md` nuevos, con el contrato real completo (Objetivo + 10 criterios de aceptación) que Alan pegó directo de Jira — su campo real es `customfield_11549`, un 3er campo distinto (ni el estándar `description` ni `customfield_11620` de las Tareas). Detalle completo del hallazgo de causa raíz (policyId, no clCuenta/segmento) y del arreglo de la herramienta Jira en `qa-workspace/decision-log.md` 2026-08-31.
+
+### 2026-08-31 (continuación) — IMAS-4408 (mock de plan sin operar) + IMAS-4198/IMAS-4199 (fix confirmado, sin CPs nuevos)
+
+**Nota de reconciliación**: entre la entrada anterior y esta, `Casos de Prueba.xlsx` recibió +1 fila más en `Credenciales` (IMAS-4408, mock-based, ver `qa-workspace/decision-log.md` 2026-08-31 "escalación a Oscar denegada") que no había quedado registrada acá — Metricas ya estaba en **309 CP / 229 automatizados (74%)** al empezar esta ronda (verificado en vivo antes de tocar nada, no asumido).
+
+**Esta ronda no agrega ni quita CPs** — `Gestión de Usuario`, filas `CP-04`/`CP-05` de los 4 bloques `TS-04 Olvidé contraseña` (Vetify B2C fila 23-24, OSDE Adquirente 52-53, OSDE Capitado 81-82, Flux Capitado 110-111): ya estaban `Automatizado=Sí` desde el 2026-08-07 (probaban el bug a propósito). Se reescribió solo `Título` (ya no dice "[Bug conocido]") y `Resultado Esperado` (ahora describe el comportamiento corregido) en los 8 CPs, para que el Excel refleje el fix confirmado en vivo de `IMAS-4198`/`IMAS-4199` — mismo cambio aplicado en paralelo al código real (`tests/projects/{vetify-b2c,osde-capitado,osde-adquirente,flux-capitado}/user-management.spec.ts`).
+
+**Dashboard sin cambios en los totales** (309 CP, 229 automatizados, 74% — confirmado igual antes y después).
+
+**Hallazgo aparte, no corregido acá a propósito**: `TS-05 Cambio de Contraseña` (filas 26-30 del bloque Vetify B2C) sigue con `Automatizado=No` en las 5 filas, pese a que existen 4 tests reales en el spec desde el 2026-08-29 (ver entrada de esa fecha en `qa-workspace/decision-log.md`). No se re-corrió hoy (consume la única cuenta `UserTag.REAL_EMAIL` del pool y tiene una flakiness de rate-limit conocida, sin causa raíz confirmada) — se deja pendiente de que Alan decida si vale la pena re-verificar y sincronizar el Excel ahora o más adelante.
+
+### 2026-09-01 (continuación, mismo día) — Alan resuelve el bloqueo: 2 cuentas Gmail reales nuevas + causa raíz real de `EmailClient` encontrada y arreglada
+
+Se re-verificó `TS-05` (el hallazgo de arriba) en vez de asumir que seguía igual — buena decisión: reveló un bug real en el propio `EmailClient.ts` (no un rate-limit del backend como se sospechaba): `client.mailbox.uidNext` nunca se refrescaba entre polls (propiedad cacheada del cliente IMAP, no se actualiza sola). Arreglado usando `client.status('INBOX', {uidNext: true})`, que sí pide el valor fresco al servidor cada vez. Confirmado en vivo: la misma suite de Vetify B2C que fallaba 3/3 ayer pasó su TC-01 al primer intento tras el arreglo.
+
+Con el bug real resuelto, se construyeron 2 cuentas Gmail nuevas y separadas (`alandgg972@gmail.com`, `alandgg973@gmail.com` — no alias, cuentas genuinas con su propia contraseña de aplicación IMAP) para destrabar de raíz `IMAS-3480`/`IMAS-3476` (sin cuenta `REAL_EMAIL` en OSDE Capitado/Flux Capitado). `environment.ts`/`EmailClient.ts`/`passwordResetFlow.ts` generalizados para soportar múltiples casillas reales (antes solo soportaba una global).
+
+`tests/projects/{osde-capitado,flux-capitado}/user-management.spec.ts` ganan su propio `TS-05` (4 tests cada uno, mismo diseño que B2C). En el camino se encontraron y separaron 2 bugs de TEST pre-existentes y compartidos entre los 3 productos (no nuevos, no de las cuentas nuevas): el checklist de política de contraseña no aparece a tiempo en un fill+submit rápido (CP-02), y el link ya usado no muestra "Enlace caducado" al reintentarlo (parte de CP-05) — ambos confirmados también en Vetify B2C, documentados como hallazgo separado, no bloquean nada del producto real. Se corrigió además un assert real que asumía que el login lleva a Home — para estas 2 cuentas nuevas (sin póliza validada) va a la pantalla de cobertura en cambio; ahora se verifica la respuesta 200 de `/oauth/token` directamente.
+
+**Dashboard verificado con fórmulas reales**: `Casos de Prueba.xlsx` → Metricas: 309 CP totales (sin cambio), **229→241 automatizados**, **74%→78%**. El delta de +12 coincide exacto con 4 CPs (CP-01/03/04/05, de 5) × 3 bloques (Vetify B2C, OSDE Capitado, Flux Capitado) pasando de `No` a `Sí` — CP-02 se deja en `No` en los 3, con la explicación del bug de test compartido en la columna de Resultado Esperado.
+
+### 2026-09-06 — Auditoría tras sesión larga de estabilización (vetify-webapp, user-management ×4, ike-webapp, checkout-footer-cupon)
+
+**Contexto**: entre 2026-09-04 y 2026-09-06 se corrió y estabilizó una porción grande del proyecto (ver `docs/lecciones-aprendidas.md` de esas fechas para el detalle técnico completo). Se audita acá específicamente qué cambia en `Casos de Prueba.xlsx`.
+
+**Hallazgo clave — el bug del checklist de contraseña YA estaba documentado, sin resolver, desde 2026-09-01**: la hoja `Gestión de Usuario` ya tenía, para Vetify B2C (fila 27), OSDE Capitado (fila 85) y Flux Capitado (fila 114), el mismo CP-02 "Contraseña débil" marcado `Automatizado=No` con la nota *"causa raíz no confirmada, pendiente de investigar aparte"*. La investigación de hoy encontró y confirmó la causa raíz real: el símbolo ✓/• del checklist es un pseudo-elemento CSS `::before`, nunca texto del DOM — `getByText()` no podía matchearlo nunca, sin importar timing. Corregido el método del POM (`ResetPasswordPage.isPolicyCriterionChecked()`) para leer `getComputedStyle(li, '::before').content`. Verificado en vivo en los 3 productos.
+
+**Cambios aplicados al Excel** (hoja `Gestión de Usuario`, vía COM `.Value2`, sin `Copy()`/`PasteSpecial()`):
+- Filas 27, 85, 114 (CP-02 "Contraseña débil", los 3 productos): `Automatizado` No→Sí, nota actualizada con la causa raíz real y la fecha de verificación.
+- Fila 49 (OSDE Adquirente, título de TS-04): corregido el mislabel `IMAS-3215`→`IMAS-3218` (IMAS-3215 es el ticket de Vetify B2C; OSDE Adquirente tiene su propio ticket, IMAS-3218, todavía en Backlog para el próximo sprint).
+- Filas 55-59 (OSDE Adquirente, TS-05 completo): estaban vacías (solo placeholders `CP-01`...`CP-05` sin Precondiciones/Pasos/Resultado). Se escribió el contenido completo de las 4 pruebas (mismo patrón que los otros 3 productos) — pero **NO se marcó `Automatizado=Sí`**: el código está escrito y pasa typecheck/lint, pero nunca se verificó en vivo porque la compra real de OSDE Adquirente falla con `500 internal_error` (`docs/bugs/BUG-034`), bloqueando la creación de la cuenta `REAL_EMAIL` necesaria. Nota agregada en cada fila explicando el bloqueo exacto. Queda `Automatizado=No, Automatable=Sí` hasta que se resuelva BUG-034 y se pueda correr en vivo.
+
+**Dashboard**: `K5` (Total Automatizados) es una fórmula `COUNTIF` en vivo, no un valor estático — se recalculó sola a **244** tras los 3 cambios de No→Sí (las 3 filas son `Crítico=No`, así que `K25` — Críticos Automatizados — no cambió, quedó en 145). No hizo falta ningún cálculo manual de delta.
+
+**Pendiente, no resuelto en esta ronda** (fuera de alcance de una corrección de Excel, depende de un ambiente externo): BUG-034 (compra OSDE Adquirente) y BUG-035 (MercadoPago errático en Vetify B2C) siguen bloqueando, respectivamente, la verificación en vivo de OSDE Adquirente TS-05 y la re-auditoría de la hoja `Flujo de Compra` en los 4 productos — no se tocó esa hoja en esta ronda porque correr `purchase-flow.spec.ts` hoy solo hubiera reproducido el mismo bloqueo ya documentado, sin señal nueva.
+
+### 2026-09-01 (continuación 2) — Fix estructural del Dashboard: excluir del cálculo lo que NUNCA se puede automatizar
+
+**Motivo (planteado por Alan)**: el documento existe para dar trazabilidad de automatización. Un caso "automatizable pero no automatizado todavía" es backlog legítimo — pertenece al cálculo. Un caso marcado `Automatizable=No` (bloqueo real y permanente: feature que no existe en el producto, requiere infraestructura de video/email real, etc. — ver nota ~fila 75 de la hoja Metricas) **nunca** va a poder cerrarse, así que dejarlo en el denominador de "% automatizado" le pone un techo artificial al indicador para siempre, sin importar cuánto se automatice en los hechos.
+
+Este criterio ya existía y estaba bien aplicado en las secciones "Casos Automatizables (Desktop/Mobile)" (filas 61-70 de Metricas, que sí filtran por `Automatizable`) — pero **no** en las 2 métricas principales de más arriba del dashboard: "Total de Casos de Prueba" (`C5`/`K5`/`S5`) y "Casos de Prueba Críticos" (`C25`/`K25`/`S25`), que sumaban TODAS las filas de las 10 hojas de contenido sin filtrar.
+
+**9 filas confirmadas como permanentemente no-automatizables** (`Automatizable=No` en su columna correspondiente, verificado título por título, no por ID — los IDs tipo `CP-01` se repiten entre grupos `TS-XX` de una misma hoja):
+- `Funcionalidades Pendientes` (5): "Cambio de contraseña desde un usuario ya autenticado" (Crítico=Sí), "...con la contraseña actual incorrecta" (depende de la anterior), "Plan sin condicionado disponible", "Contratar otro plan adicional desde la WebApp" (Crítico=Sí), "Plan no elegible para el usuario" (Crítico=Sí, depende de la anterior).
+- `Credenciales` (1): "Disparo de encuesta de experiencia posterior a carga de credencial" (sin trigger real encontrado en el bundle de la app).
+- `Videollamadas` (3): ventana de 5 min para "Ingresar" (brecha de cobertura), sala de espera/videoconsulta y comunicaciones post-cancelación (ambas fuera de alcance, requieren infra real de video/notificaciones).
+
+De estas 9, **3 son Crítico=Sí** (las 3 de "Funcionalidades Pendientes" marcadas arriba) — así que la sección de Críticos también necesitaba el mismo ajuste.
+
+**Cambio aplicado**: `C5` y `C25` pasan de sumar todas las filas a restar, por cada fórmula, el `COUNTIF`/`COUNTIFS` de filas `Automatizable=No` (u, en las hojas con columnas separadas Desktop/Mobile — Perfil/Credenciales/Videollamadas —, filas donde AMBAS son `No`). `K5`/`K25` (numeradores) no se tocaron: se confirmó antes de escribir que ninguna de las 9 filas está marcada `Automatizado=Sí` (verificación de consistencia — sería contradictorio que algo "no automatizable" figure como ya automatizado). Edición vía `.Formula` (no `Copy()`/`PasteSpecial()`, ver `feedback_excel_com_merge_corruption`), verificado releyendo `.Value2` tras guardar.
+
+| Métrica | Antes | Después |
+|---|---|---|
+| Total de Casos de Prueba (C5) | 309 | **300** |
+| Automatizados (K5) | 241 | 241 (sin cambio) |
+| % Automatizado (S5) | 78% | **80,3%** |
+| Total Casos Críticos (C25) | 173 | **170** |
+| Críticos Automatizados (K25) | 145 | 145 (sin cambio) |
+| % Críticos Automatizado (S25) | 84% | **85,3%** |
+
+La nota explicativa ~fila 75 (que ya definía el criterio Automatizable/No-automatizable desde el 2026-08-14) sigue vigente sin cambios de texto — ahora también describe correctamente el comportamiento del Total principal, no solo el de las secciones Desktop/Mobile.
+
+**Mismo día, seguimiento inmediato — Alan detectó el efecto secundario del fix**: al excluir las filas `Automatizable=No`, algunos subgrupos `TS-XX` de `Funcionalidades Pendientes` quedan en 100% (o sin filas automatizables) al mirarlos aislados, lo cual puede leerse como "ya está todo hecho" cuando no necesariamente es así. Se dumpeó la hoja completa (32 filas de `UsedRange`, 27 con datos reales) para auditar caso por caso, incluyendo el texto completo de Precondiciones/Pasos/Resultado Esperado de cada fila ambigua:
+
+- **Fix real aplicado — fila 18 "Plan sin condicionado disponible"**: estaba en `Automatizable=No`, pero su propio texto de Resultado Esperado dice explícitamente *"el escenario es técnicamente posible... bloqueado por no encontrar una cuenta con ese dato faltante"* — coincide exacto con el criterio ya escrito en la nota de Metricas para `Automatizable=Sí` (bloqueo de dato de prueba puntual, mismo patrón que un cupón real inexistente). Estaba mal clasificada contra la propia regla del proyecto. Corregida a `Sí` (vía `.Value2`, celda de dato — no fórmula). Efecto: Total 300→**301** (K5 sin cambio, 241; la fila no es Crítico así que Críticos no se mueve).
+- **Confirmado sin cambios, decisión explícita de Alan** (vía pregunta directa con el impacto numérico de ambas opciones): las 4 filas "Cambio de contraseña logueado" (5/6) y "Contratar otro plan adicional" (20/21) — aunque su texto dice "no es un gap de automatización, es una funcionalidad no construida todavía" (no un límite técnico real de test) — Alan decidió mantenerlas en `Automatizable=No`: si Producto nunca construye la funcionalidad, QA nunca va a poder automatizarla, mismo efecto práctico que un bloqueo técnico permanente. TS-01 Sesión y Cuenta queda en 100% (5/5) y TS-04 Vetify Plus en 0 filas automatizables — **leído y aceptado como correcto**, no como bug.
+- **Pendiente sin resolver, a propósito**: fila 14 "Atención de Red" (TS-02) está 100% sin clasificar (Precondiciones/Pasos/Resultado/Automatable todos vacíos, nunca revisada). No causa una lectura de 100% falsa (al estar vacía ya cuenta como pendiente en el cálculo), pero es un dato roto conocido. Alan decidió dejarla pendiente por ahora, sin invertir tiempo en investigarla hoy.
+
+**Valores finales verificados tras el fix de fila 18** (releídos en vivo, no calculados a mano):
+
+| Métrica | Valor |
+|---|---|
+| Total de Casos de Prueba (C5) | 301 |
+| Automatizados (K5) | 241 |
+| % Automatizado (S5) | 80,1% |
+| Total Casos Críticos (C25) | 170 |
+| Críticos Automatizados (K25) | 145 |
+| % Críticos Automatizado (S25) | 85,3% |
+
+### 2026-09-14 — chequeo puntual: ¿IMAS-4490 (Condicionados OSDE Adquirente) pertenece a alguna hoja de este Excel?
+
+Se automatizó IMAS-4490 (`tests/projects/osde-adquirente/condicionados.spec.ts`, 3/11 CPs en verde, ver `docs/coverage-register.md` y `docs/user-stories/IMAS-4490-prueba-qa-condicionados-osde.tests.md`). Antes de tocar este Excel se verificaron las 11 hojas reales (`Metricas de Casos de Prueba`, `Flujo de Compra`, `Gestión de Usuario`, `Perfil`, `Credenciales`, `Videollamadas`, `Reintegros`, `Misceláneas`, `Control de Acceso`, `Sistema Caído`, `Funcionalidades Pendientes`) — **ninguna cubre "Planes y coberturas"/condicionados** (ni siquiera el CP existente de `plans.spec.ts` de VETIFY_ADQUIRENTE vive acá). No se agregó ninguna fila a este Excel por ese motivo — sería forzarlo en una hoja que no le corresponde (se evaluó `Funcionalidades Pendientes`, pero es para gaps de otras features, no encaja). El tracking real de IMAS-4490 vive en `Automation Vetify.xlsx` (roadmap, fila nueva `QA-AUTO-095`) + `docs/coverage-register.md` + el doc de HU dedicado. Dejar esta nota para no re-preguntarse esto en la próxima auditoría.

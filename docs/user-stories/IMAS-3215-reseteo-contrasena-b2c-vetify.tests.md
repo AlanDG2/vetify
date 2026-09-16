@@ -30,17 +30,17 @@
 - Entonces: **idéntico a CP02** — `POST /api/passrecovery` responde 200 con el mismo mensaje genérico, la UI muestra el mismo mensaje de éxito. **Confirmado: el sistema no revela si el email existe o no** (buen patrón de seguridad, evita user enumeration). No es un gap, es comportamiento esperado — se retira la nota `[CONFIRMAR]` anterior.
 - Trazabilidad: AC-2 (comportamiento de seguridad confirmado)
 
-**CP04 - Verificar campo email obligatorio** ✅ AUTOMATIZADO 2026-08-07 (TS-04 CP04) — 🐛 HALLAZGO, ver más abajo
+**CP04 - Verificar campo email obligatorio** ✅ AUTOMATIZADO 2026-08-07, actualizado 2026-08-31 tras fix de IMAS-4198 (TS-04 CP04)
 - Dado: usuario con el sub-formulario de reseteo expandido
 - Cuando: presiona "Enviar" sin ingresar email
-- Entonces (comportamiento REAL observado): `POST /api/passrecovery` responde **400** con body `{"message":"email es requerido"}` (correcto en el backend) — pero el **frontend no muestra ese mensaje**. En su lugar muestra: **"En este momento estamos con problemas técnicos, te pedimos disculpas, si puedes contactanos al 0800-122-6238"** — un mensaje de error genérico de "sistema caído" que es engañoso para un simple campo vacío. No hay validación client-side previa al submit tampoco (el botón no está deshabilitado).
-- Trazabilidad: AC-2 (borde) — **candidato a bug report** (UX: mensaje de error incorrecto/engañoso ante un error de validación, no un error de sistema)
+- Entonces (comportamiento REAL observado, retest 2026-08-31): el campo se marca inválido con **"El correo electrónico no es válido"** (mismo texto que `RegistrationPage`) y **ya no se llama a `POST /api/passrecovery`** — validación 100% client-side. Ya no aparece el mensaje genérico de "problemas técnicos". Comportamiento previo (bug IMAS-4198, backend 400 correcto pero frontend mostraba error de sistema) **confirmado resuelto**.
+- Trazabilidad: AC-2 (borde) — bug corregido, ver sección de hallazgos abajo
 
-**CP05 - Verificar formato de email inválido** ✅ AUTOMATIZADO 2026-08-07 (TS-04 CP05) — 🐛 HALLAZGO, ver más abajo
+**CP05 - Verificar formato de email inválido** ✅ AUTOMATIZADO 2026-08-07, actualizado 2026-08-31 tras fix de IMAS-4199 (TS-04 CP05)
 - Dado: usuario con el sub-formulario de reseteo expandido
 - Cuando: ingresa `"noesunemail"` (sin `@`, formato inválido) y presiona "Enviar"
-- Entonces (comportamiento REAL observado): **no hay validación de formato**. `POST /api/passrecovery` responde **200** con el mismo mensaje genérico de éxito, la UI muestra "Te hemos enviado un correo...". Contrasta con `RegistrationPage` donde sí existe validación de formato ("El correo electrónico no es válido", ver `user-management.spec.ts` TC-05). El AC de la HU dice explícitamente "Ingreso de un correo electrónico **válido**" — este campo no lo exige.
-- Trazabilidad: AC-2 (borde) — **candidato a bug report** (falta validación de formato de email, inconsistente con el resto del sitio)
+- Entonces (comportamiento REAL observado, retest 2026-08-31): **ahora sí valida formato** — mismo mensaje inline "El correo electrónico no es válido", sin llamar al backend. Ya no muestra el mensaje de éxito genérico. Comportamiento previo (bug IMAS-4199, aceptaba cualquier string) **confirmado resuelto**.
+- Trazabilidad: AC-2 (borde) — bug corregido, ver sección de hallazgos abajo
 
 ## TS-03 Recepción y contenido del email (AC-2, AC-3, AC-4)
 
@@ -173,11 +173,15 @@ Confirmados en vivo contra QA real y automatizados en `tests/projects/vetify-b2c
 
 `UserTag.REAL_EMAIL` (nuevo) marca ahora `alan.gonzalez@ingenia.la` como la cuenta con casilla real — de paso se resincronizó su contraseña en el pool (estaba en `VetifyReset2026Bis!` desde la exploración del 28/08, nunca se había actualizado `pooled-users.json`; restaurada a `Hola123#`).
 
-## Hallazgos de la exploración MCP (2026-08-06) — pendientes de decisión del usuario
+## Hallazgos de la exploración MCP (2026-08-06) — ✅ ambos resueltos 2026-08-31
 
 **✅ Reportados en Jira 2026-08-07**, con OK explícito del usuario del proyecto, vinculados a IMAS-3215 con "Blocks" (aplica también a IMAS-3216/IMAS-3217 por ser la misma pantalla compartida). Ambos observados en `https://vetify-qa.ikeapp.com/auth/login`, endpoint `POST /api/passrecovery`:
 
 1. **CP04 — Mensaje de error engañoso ante campo vacío** → **IMAS-4198**: el backend devuelve correctamente 400 `"email es requerido"`, pero el frontend ignora ese mensaje y muestra un texto de "problemas técnicos" (sugiere caída de sistema) en vez de indicar que falta completar el campo.
 2. **CP05 — Falta validación de formato de email** → **IMAS-4199**: el campo de reseteo acepta cualquier string sin validar formato (`"noesunemail"` → 200 OK, mismo mensaje de éxito), a diferencia del formulario de registración que sí valida formato.
 
-Ninguno de los dos impide el flujo end-to-end (ambos casos igual muestran algún mensaje), pero ambos violan el AC-2 tal como está redactado ("envía... correo electrónico válido" / experiencia sin errores confusos).
+Ninguno de los dos impedía el flujo end-to-end (ambos casos igual mostraban algún mensaje), pero ambos violaban el AC-2 tal como está redactado ("envía... correo electrónico válido" / experiencia sin errores confusos).
+
+### ✅ Retest 2026-08-31 — ambos confirmados resueltos
+
+Los dos subtasks "Desarrollo de la solución" (IMAS-4460 para IMAS-4198, IMAS-4456 para IMAS-4199) estaban marcados Hecho. Retest en vivo contra `https://vetify-qa.ikeapp.com/auth/login` (Playwright MCP) confirmó **un único fix del lado del cliente que resuelve ambos bugs a la vez**: el campo de recuperación ahora valida el formato de email antes de tocar el backend (mismo validador/mensaje que `RegistrationPage`: "El correo electrónico no es válido"), tanto para campo vacío como para string sin formato válido — en ningún caso llega a llamarse `POST /api/passrecovery`. `CP04`/`CP05` se reescribieron en los 4 specs que comparten este `LoginPage` (`vetify-b2c`, `osde-capitado`, `osde-adquirente`, `flux-capitado`) para afirmar el comportamiento correcto en vez de documentar el bug; las 20 pruebas de `TS-04` (5 por producto) quedaron en verde. Nuevo locator `VetifyWebappLoginPage.recoveryInvalidEmailErrorLbl` (`[data-cy="textErrorMessage"]`).

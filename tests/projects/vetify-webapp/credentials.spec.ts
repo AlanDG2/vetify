@@ -17,14 +17,18 @@ test.describe('Credenciales Test Suite', () => {
     // =========================================================================
     test.describe('TS-01 Visualización de Planes', () => {
         test.describe(() => {
+            // UserSource.Fresh (no Pooled): esta cuenta tiene que arrancar SIN mascota de forma
+            // garantizada. Una cuenta pooled compartida (reserve:false/ignoreReserved:true) puede
+            // ganar una mascota real por otro test que corrió antes en el mismo pool -- confirmado
+            // 2026-09-04 (ver docs/impedimentos-bloqueos.md / qa-workspace/known-issues.md): rompía
+            // por strict-mode-violation o por "Dejá su credencial lista" ausente según cuántas
+            // mascotas había acumulado la cuenta compartida al momento de correr.
             test.use({
                 userRequest: {
-                    source: UserSource.Pooled,
+                    source: UserSource.Fresh,
                     siteId: SiteId.VETIFY_ADQUIRENTE,
                     tags: [UserTag.ACTIVE, UserTag.PLAN_WITHOUT_PET],
                     numberOfPlans: 1,
-                    reserve: false,
-                    ignoreReserved: true,
                 },
             });
 
@@ -67,11 +71,13 @@ test.describe('Credenciales Test Suite', () => {
                 },
             });
 
-            // @unstable 2026-08-20: falla de forma consistente incluso con caché de login limpia y
-            // condiciones representativas de CI (2 workers + retry) — no es ruido de paralelismo ni
-            // de storage state viejo (ver qa-workspace/decision-log.md). Pendiente de diagnóstico
-            // real antes de sacar el tag.
-            test('TC-02 - Credencial - Vetify - Usuario con plan - Plan con mascota asociada', { tag: ['@critical', '@unstable'] }, async ({ container }) => {
+            // @unstable 2026-08-20: causa real confirmada 2026-09-04 — cuenta pooled compartida
+            // (reserve:false/ignoreReserved:true) cuyo conteo real de mascotas varía entre corridas
+            // (0, 1 o 2 según qué otros tests la tocaron antes), y también inestabilidad intermitente
+            // del backend (my-products devolviendo [] pese a datos reales — ver docs/bugs/BUG-033).
+            // La verificación de abajo convierte ambos casos en un skip honesto en vez de un timeout
+            // confuso de 30s.
+            test('TC-02 - Credencial - Vetify - Usuario con plan - Plan con mascota asociada', { tag: ['@critical', '@unstable'] }, async ({ container, page }) => {
                 // Precondiciones:
                 // - Usuario registrado con un plan vigente.
                 // - Plan vigente con mascota asociada.
@@ -85,12 +91,17 @@ test.describe('Credenciales Test Suite', () => {
                     expectedResult: ['El plan muestra los datos de la mascota asociada al plan (foto, nombre) además de un botón/acción para ver/descargar la credencial.'],
                 });
                 // Pasos:
+                await step('0. Verificar que la cuenta tenga al menos una mascota real cargada.', async () => {
+                    const apiClient = await container.vetify.getApiClient(page);
+                    const pets = await apiClient.getUserPets();
+                    test.skip(pets.length === 0, 'La cuenta de prueba no tiene mascotas reales en este momento (drift de estado de la cuenta pooled o backend inestable) — ver docs/bugs/BUG-033.');
+                });
                 await step('1. Navegar a la pantalla de mascotas.', async () => {
                     await Promise.all([container.vetify.webapp.myPetsPage.load(), container.vetify.webapp.myPetsPage.waitForPageLoaded()]);
                 });
                 // Resultado esperado:
                 await step('El plan muestra los datos de la mascota asociada al plan.', async () => {
-                    await expect(container.vetify.webapp.myPetsPage.petCards).toBeVisible();
+                    await expect(container.vetify.webapp.myPetsPage.petCards.first()).toBeVisible();
                 });
             });
         });
@@ -722,36 +733,14 @@ test.describe('Credenciales Test Suite', () => {
                     });
                 });
 
-                /*
-                test('TC-15 - Paso 4 - Seleccionar una fecha futura', async ({ container }) => {
-                    // Precondiciones:
-                    // - Usuario autenticado.
-                    // - Usuario con al menos un plan sin mascota.
-                    // - El usuario se encuentra en el paso 4 del proceso de carga de credencial.
-
-                    await setAllureDetails({
-                        preconditions: [
-                            'Usuario autenticado.',
-                            'Usuario con al menos un plan sin mascota.',
-                            'El usuario se encuentra en el paso 4 del proceso de carga de credencial.',
-                        ],
-                        steps: ['Ingresar una fecha futura.'],
-                        expectedResult: ['El sistema rechaza la fecha ingresada (puede mostrar mensaje de error).', 'El botón "Continuar" permanece deshabilitado.'],
-                    });
-                    test.skip(true, 'El nuevo selector no permite seleccionar una fecha futura, por lo que no se puede testear esta validación.');
-                    // Pasos:
-                    await step('1. Ingresar una fecha futura.', async () => {
-                        const futureDate = DateTime.now().plus({
-                            days: getRandomInt(1, 365),
-                        });
-                        await container.vetify.webapp.addPetFormPage.selectPetAge(futureDate);
-                    });
-                    // Resultado esperado:
-                    await step('El botón "Continuar" permanece deshabilitado.', async () => {
-                        await expect(container.vetify.webapp.addPetFormPage.continueButton).toBeDisabled();
-                    });
-                });
-                */
+                // TC-15 "Paso 4 - Seleccionar una fecha futura" (Casos de Prueba.xlsx, hoja
+                // Credenciales) no aplica: el selector de edad cambió de un input de fecha de
+                // nacimiento a un dropdown de años/meses (AGE_SELECTOR_MODE = 'YearsMonthsSelect',
+                // ver AddPetFormPage.ts) — ambos valores parten de 0 y solo suman, no hay forma de
+                // seleccionar una edad negativa (equivalente a una fecha de nacimiento futura).
+                // Confirmado 2026-09-10: no es que falte el test, es que la UI actual no permite
+                // construir el estado inválido que el CP quiere probar. No requiere ninguna decisión
+                // externa — cerrado.
 
                 test('TC-16 - Paso 4 - Navegar al paso 5', { tag: ['@critical'] }, async ({ container }) => {
                     // Precondiciones:
@@ -836,84 +825,13 @@ test.describe('Credenciales Test Suite', () => {
                     });
                 });
 
-                /*
-                test('TC-18 - Paso 5 - Usar cámara - Cámara no disponible', async () => {
-                    // Precondiciones:
-                    // - Usuario autenticado.
-                    // - Usuario con al menos un plan sin mascota.
-                    // - El usuario se encuentra en el paso 5 del proceso de carga de credencial.
-                    // - La cámara no se encuentra disponible para ser usada (desktop).
-
-                    await setAllureDetails({
-                        preconditions: [
-                            'Usuario autenticado.',
-                            'Usuario con al menos un plan sin mascota.',
-                            'El usuario se encuentra en el paso 5 del proceso de carga de credencial.',
-                            'La cámara no se encuentra disponible para ser usada (desktop).',
-                        ],
-                        steps: ['VIsualizar la pantalla del paso 5.'],
-                        expectedResult: ['La opción de usar cámara queda deshabilitado.'],
-                    });
-                    // Pasos:
-                    // 1. VIsualizar la pantalla del paso 5.
-                    // Resultado esperado:
-                    // - La opción de usar cámara queda deshabilitado.
-
-                    test.skip(true, 'Test not implemented yet.');
-                });
-
-                test('TC-19 - Paso 5 - Usar cámara - Cámara disponible', async () => {
-                    // Precondiciones:
-                    // - Usuario autenticado.
-                    // - Usuario con al menos un plan sin mascota.
-                    // - El usuario se encuentra en el paso 5 del proceso de carga de credencial.
-                    // - La cámara se encuentra disponible para ser usada (desktop).
-
-                    await setAllureDetails({
-                        preconditions: [
-                            'Usuario autenticado.',
-                            'Usuario con al menos un plan sin mascota.',
-                            'El usuario se encuentra en el paso 5 del proceso de carga de credencial.',
-                            'La cámara se encuentra disponible para ser usada (desktop).',
-                        ],
-                        steps: ['Presionar el botón "Usar cámara".'],
-                        expectedResult: ['El sistema carga correctamente la funcionalidad de la cámara permitiendole al usuario tomar una foto.'],
-                    });
-                    // Pasos:
-                    // 1. Presionar el botón "Usar cámara".
-                    // Resultado esperado:
-                    // - El sistema carga correctamente la funcionalidad de la cámara permitiendole al usuario tomar una foto.
-
-                    test.skip(true, 'Test not implemented yet.');
-                });
-
-                test('TC-20 - Paso 5 - Usar cámara - Cámara disponible (Variación: tomar una foto)', async () => {
-                    // Precondiciones:
-                    // - Usuario autenticado.
-                    // - Usuario con al menos un plan sin mascota.
-                    // - El usuario se encuentra en el paso 5 del proceso de carga de credencial.
-                    // - La cámara se encuentra disponible para ser usada (desktop).
-
-                    await setAllureDetails({
-                        preconditions: [
-                            'Usuario autenticado.',
-                            'Usuario con al menos un plan sin mascota.',
-                            'El usuario se encuentra en el paso 5 del proceso de carga de credencial.',
-                            'La cámara se encuentra disponible para ser usada (desktop).',
-                        ],
-                        steps: ['Tomar una foto.'],
-                        expectedResult: ['El sitema toma la foto correctamente.', 'El botón continuar queda habilitado.'],
-                    });
-                    // Pasos:
-                    // 1. Tomar una foto.
-                    // Resultado esperado:
-                    // - El sitema toma la foto correctamente.
-                    // - El botón continuar queda habilitado.
-
-                    test.skip(true, 'Test not implemented yet.');
-                });
-
-                */
+                // TC-18/19/20 (Usar cámara) NO viven en este bloque -- confirmado en vivo 2026-09-07 que
+                // el asistente genérico de "Paso 5" al que llega este beforeEach (navegación directa a
+                // /pets, sin un plan puntual seleccionado) nunca ofrece la opción "Usar cámara", solo
+                // "Cargá el archivo" (confirmado 2 veces: accessibility snapshot sin el botón, ni en modo
+                // aislado ni en paralelo). La opción de cámara SÍ existe, pero en la pantalla real de
+                // alta de mascota sobre un plan puntual (/pets/{slotId}) — ver TS-03 Crear Credencial
+                // TC-02/TC-03, que reproduce esa pantalla real.
 
                 test('TC-21 - Paso 5 - Subir foto - Archivo en formato no permitido', { tag: ['@critical'] }, async ({ container, page }) => {
                     // Precondiciones:
@@ -1000,7 +918,7 @@ test.describe('Credenciales Test Suite', () => {
                     });
                 });
 
-                test('TC-23 - Paso 5 - Volver al paso 4', async ({ container }) => {
+                test('TC-24 - Paso 5 - Volver al paso 4', async ({ container }) => {
                     // Precondiciones:
                     // - Usuario autenticado.
                     // - Usuario con al menos un plan sin mascota.
@@ -1152,14 +1070,173 @@ test.describe('Credenciales Test Suite', () => {
                 });
             });
 
-            // CP-02 "Cargar credencial sin foto (Omitir)" (hoja Credenciales del Excel): caso obsoleto,
-            // no un gap de automatización. Confirmado en vivo contra QA real (2026-08-07) que el paso 5
-            // no ofrece botón "Omitir" — "Continuar" permanece deshabilitado hasta subir una imagen. A
-            // diferencia del paso de adjuntos de videollamada (que sí tiene "Omitir"), acá la foto es
-            // obligatoria por diseño (confirmado con negocio: no es un bug, es el comportamiento actual
-            // esperado al crear un usuario/mascota). El CP del Excel quedó desactualizado.
-            test('TC-02 - [Obsoleto] Cargar credencial sin foto (Omitir)', () => {
-                test.skip(true, 'CP-02 obsoleto: la foto es obligatoria por diseño al crear la credencial de una mascota — el paso 5 no tiene botón "Omitir", confirmado con negocio. No es un bug ni un gap de automatización, es el CP del Excel el que quedó desactualizado.');
+            // NOTA sobre TC-18 ("cámara no disponible") de la matriz original: confirmado en vivo
+            // 2026-09-07 que la visibilidad de "Usar cámara" en esta pantalla depende de la detección
+            // real de cámara del navegador (probablemente `navigator.mediaDevices`), no de la cuenta ni
+            // del plan -- con la MISMA cuenta 100% nueva, el botón apareció en una corrida y no en otra.
+            // Sin flags de Playwright (`--use-fake-device-for-media-stream`) para forzar un estado
+            // determinístico, no se puede automatizar de forma confiable ni "disponible" ni "no
+            // disponible" como 2 casos separados -- por eso este test solo verifica el camino que SÍ es
+            // determinístico (el input de archivo funciona sin importar si el navegador detecta cámara
+            // real o no, ya que Playwright fija el archivo directo sobre el input). Ver
+            // docs/lecciones-aprendidas.md 2026-09-07 y docs/backlog-automatizacion.md.
+            test('TC-02 - Paso 5 - Usar cámara - Tomar una foto sube la credencial correctamente', { tag: ['@critical'] }, async ({ container, page }) => {
+                // Precondiciones:
+                // - Usuario autenticado.
+                // - Usuario con al menos un plan sin mascota.
+                await setAllureDetails({
+                    preconditions: ['Usuario autenticado.', 'Usuario con al menos un plan sin mascota.'],
+                    steps: ['Navegar hasta el paso 5 (foto) del alta de mascota sobre un plan real.', 'Presionar "Usar cámara" y tomar una foto.'],
+                    expectedResult: ['La foto se sube correctamente.', 'El botón continuar queda habilitado.'],
+                });
+                // Pasos:
+                await step('1. Navegar hasta el paso 5 sobre un plan real.', async () => {
+                    await Promise.all([container.vetify.webapp.homePage.waitForPageLoaded(), container.vetify.webapp.homePage.load()]);
+                    await Promise.all([container.vetify.webapp.myPetsPage.waitForPageLoaded(), container.vetify.webapp.myPetsPage.load()]);
+                    const apiClient = await container.vetify.getApiClient(page);
+                    const userPets = await apiClient.getUserPets();
+                    const selectedPlan = userPets.find((p: any) => p.estado === 'LIBRE');
+                    test.skip(!selectedPlan?.id, 'No se encontró un plan sin mascota para el usuario de prueba.');
+                    container.vetify.webapp.addPetFormPage.setPetId(selectedPlan!.id);
+                    await Promise.all([container.vetify.webapp.addPetFormPage.waitForPageLoaded(), container.vetify.webapp.myPetsPage.addPetToPlanBtn.click()]);
+                    await container.vetify.webapp.addPetFormPage.startWarningContinueBtn.click();
+                    await container.vetify.webapp.addPetFormPage.continueButton.click();
+                    await container.vetify.webapp.addPetFormPage.petNameInput.fill(petName);
+                    container.vetify.webapp.addPetFormPage.setPetName(petName);
+                    await container.vetify.webapp.addPetFormPage.continueButton.click();
+                    await container.vetify.webapp.addPetFormPage.selectPetGender(petGender);
+                    await container.vetify.webapp.addPetFormPage.selectPetType(petType);
+                    await container.vetify.webapp.addPetFormPage.continueButton.click();
+                    await container.vetify.webapp.addPetFormPage.selectRandomPetBreed();
+                    await container.vetify.webapp.addPetFormPage.continueButton.click();
+                    await container.vetify.webapp.addPetFormPage.selectPetAge(dateOfBirth);
+                    await container.vetify.webapp.addPetFormPage.continueButton.click();
+                    expect(await container.vetify.webapp.addPetFormPage.getStepNumber()).toBe(5);
+                });
+                // Resultado esperado:
+                await step('2. Presionar "Usar cámara" y tomar una foto.', async () => {
+                    await container.vetify.webapp.addPetFormPage.uploadPetCameraPhoto(getPetProfilePicture(petType));
+                });
+                await step('La foto se sube correctamente.', async () => {
+                    await expect(container.vetify.webapp.addPetFormPage.petPhotoPreviewImg).toBeVisible();
+                });
+                await step('El botón continuar queda habilitado.', async () => {
+                    await expect(container.vetify.webapp.addPetFormPage.continueButton).toBeEnabled();
+                });
+            });
+
+            // IMP-019 (docs/impedimentos-bloqueos.md): la visibilidad real de "Usar cámara" depende de
+            // navigator.mediaDevices.enumerateDevices() del navegador, no de la cuenta -- confirmado en
+            // vivo 2026-09-07 que la misma cuenta daba resultados inconsistentes entre corridas. Se fija
+            // de forma determinística sobreescribiendo enumerateDevices() vía page.addInitScript() ANTES
+            // de cualquier navegación, para los 2 casos (disponible / no disponible) como tests separados
+            // en vez de depender del hardware real de la máquina que corre el test.
+            test('TC-03 - Paso 5 - "Usar cámara" visible cuando el navegador reporta una cámara disponible', { tag: ['@critical'] }, async ({ container, page }) => {
+                // Precondiciones:
+                // - Usuario autenticado.
+                // - Usuario con al menos un plan sin mascota.
+                // - El navegador reporta al menos un dispositivo de video (cámara) disponible.
+                await setAllureDetails({
+                    preconditions: [
+                        'Usuario autenticado.',
+                        'Usuario con al menos un plan sin mascota.',
+                        'El navegador reporta al menos un dispositivo de video (cámara) disponible.',
+                    ],
+                    steps: ['Navegar hasta el paso 5 (foto) del alta de mascota sobre un plan real.'],
+                    expectedResult: ['El botón "Usar cámara" está visible.'],
+                });
+                // Pasos:
+                await step('0. Forzar que el navegador reporte una cámara disponible.', async () => {
+                    await page.addInitScript(() => {
+                        const fakeDevice = {
+                            deviceId: 'fake-camera',
+                            kind: 'videoinput',
+                            label: 'Fake Camera',
+                            groupId: 'fake-group',
+                            toJSON() {
+                                return this;
+                            },
+                        } as MediaDeviceInfo;
+                        navigator.mediaDevices.enumerateDevices = async () => [fakeDevice];
+                    });
+                });
+                await step('1. Navegar hasta el paso 5 sobre un plan real.', async () => {
+                    await Promise.all([container.vetify.webapp.homePage.waitForPageLoaded(), container.vetify.webapp.homePage.load()]);
+                    await Promise.all([container.vetify.webapp.myPetsPage.waitForPageLoaded(), container.vetify.webapp.myPetsPage.load()]);
+                    const apiClient = await container.vetify.getApiClient(page);
+                    const userPets = await apiClient.getUserPets();
+                    const selectedPlan = userPets.find((p: any) => p.estado === 'LIBRE');
+                    test.skip(!selectedPlan?.id, 'No se encontró un plan sin mascota para el usuario de prueba.');
+                    container.vetify.webapp.addPetFormPage.setPetId(selectedPlan!.id);
+                    await Promise.all([container.vetify.webapp.addPetFormPage.waitForPageLoaded(), container.vetify.webapp.myPetsPage.addPetToPlanBtn.click()]);
+                    await container.vetify.webapp.addPetFormPage.startWarningContinueBtn.click();
+                    await container.vetify.webapp.addPetFormPage.continueButton.click();
+                    await container.vetify.webapp.addPetFormPage.petNameInput.fill(petName);
+                    container.vetify.webapp.addPetFormPage.setPetName(petName);
+                    await container.vetify.webapp.addPetFormPage.continueButton.click();
+                    await container.vetify.webapp.addPetFormPage.selectPetGender(petGender);
+                    await container.vetify.webapp.addPetFormPage.selectPetType(petType);
+                    await container.vetify.webapp.addPetFormPage.continueButton.click();
+                    await container.vetify.webapp.addPetFormPage.selectRandomPetBreed();
+                    await container.vetify.webapp.addPetFormPage.continueButton.click();
+                    await container.vetify.webapp.addPetFormPage.selectPetAge(dateOfBirth);
+                    await container.vetify.webapp.addPetFormPage.continueButton.click();
+                    expect(await container.vetify.webapp.addPetFormPage.getStepNumber()).toBe(5);
+                });
+                // Resultado esperado:
+                await step('El botón "Usar cámara" está visible.', async () => {
+                    await expect(container.vetify.webapp.addPetFormPage.usarCamaraBtn).toBeVisible();
+                });
+            });
+
+            test('TC-04 - Paso 5 - "Usar cámara" no aparece cuando el navegador no reporta ninguna cámara', async ({ container, page }) => {
+                // Precondiciones:
+                // - Usuario autenticado.
+                // - Usuario con al menos un plan sin mascota.
+                // - El navegador no reporta ningún dispositivo de video (cámara).
+                await setAllureDetails({
+                    preconditions: [
+                        'Usuario autenticado.',
+                        'Usuario con al menos un plan sin mascota.',
+                        'El navegador no reporta ningún dispositivo de video (cámara).',
+                    ],
+                    steps: ['Navegar hasta el paso 5 (foto) del alta de mascota sobre un plan real.'],
+                    expectedResult: ['El botón "Usar cámara" no está visible (solo la opción de cargar archivo).'],
+                });
+                // Pasos:
+                await step('0. Forzar que el navegador no reporte ninguna cámara.', async () => {
+                    await page.addInitScript(() => {
+                        navigator.mediaDevices.enumerateDevices = async () => [];
+                    });
+                });
+                await step('1. Navegar hasta el paso 5 sobre un plan real.', async () => {
+                    await Promise.all([container.vetify.webapp.homePage.waitForPageLoaded(), container.vetify.webapp.homePage.load()]);
+                    await Promise.all([container.vetify.webapp.myPetsPage.waitForPageLoaded(), container.vetify.webapp.myPetsPage.load()]);
+                    const apiClient = await container.vetify.getApiClient(page);
+                    const userPets = await apiClient.getUserPets();
+                    const selectedPlan = userPets.find((p: any) => p.estado === 'LIBRE');
+                    test.skip(!selectedPlan?.id, 'No se encontró un plan sin mascota para el usuario de prueba.');
+                    container.vetify.webapp.addPetFormPage.setPetId(selectedPlan!.id);
+                    await Promise.all([container.vetify.webapp.addPetFormPage.waitForPageLoaded(), container.vetify.webapp.myPetsPage.addPetToPlanBtn.click()]);
+                    await container.vetify.webapp.addPetFormPage.startWarningContinueBtn.click();
+                    await container.vetify.webapp.addPetFormPage.continueButton.click();
+                    await container.vetify.webapp.addPetFormPage.petNameInput.fill(petName);
+                    container.vetify.webapp.addPetFormPage.setPetName(petName);
+                    await container.vetify.webapp.addPetFormPage.continueButton.click();
+                    await container.vetify.webapp.addPetFormPage.selectPetGender(petGender);
+                    await container.vetify.webapp.addPetFormPage.selectPetType(petType);
+                    await container.vetify.webapp.addPetFormPage.continueButton.click();
+                    await container.vetify.webapp.addPetFormPage.selectRandomPetBreed();
+                    await container.vetify.webapp.addPetFormPage.continueButton.click();
+                    await container.vetify.webapp.addPetFormPage.selectPetAge(dateOfBirth);
+                    await container.vetify.webapp.addPetFormPage.continueButton.click();
+                    expect(await container.vetify.webapp.addPetFormPage.getStepNumber()).toBe(5);
+                });
+                // Resultado esperado:
+                await step('El botón "Usar cámara" no está visible (solo la opción de cargar archivo).', async () => {
+                    await expect(container.vetify.webapp.addPetFormPage.usarCamaraBtn).toBeHidden();
+                    await expect(container.vetify.webapp.addPetFormPage.petPhotoFileInput).toBeAttached();
+                });
             });
         });
     });

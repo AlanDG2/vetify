@@ -55,6 +55,7 @@ export class VetifyCheckoutPage extends BasePage {
     // 2+ aplica automáticamente "Bonificación por grupo familiar" (20% off, confirmado: 2x$62.990 =
     // $125.980, bonificación -$25.196, total $100.784).
     readonly planQuantitySelect: Locator;
+    readonly checkoutFooter: Locator;
 
     constructor(page: Page) {
         super(page);
@@ -82,6 +83,10 @@ export class VetifyCheckoutPage extends BasePage {
         // 2 elementos con el mismo aria-label en el DOM (resumen responsive duplicado, uno oculto
         // por CSS) — confirmado en vivo 2026-08-29 que el índice 1 (segundo) es el real/visible.
         this.planQuantitySelect = this.page.getByLabel('Cantidad de planes').nth(1);
+        // Footer genérico de Vetify del checkout. Por IMAS-4492 (2026-09-01) este footer
+        // debe ser el MISMO footer institucional de Vetify sin texto promocional del cupón
+        // ni fechas de vigencia, sin importar de qué landing venga la intención de compra.
+        this.checkoutFooter = this.page.locator('footer');
     }
 
     async selectPlanQuantity(quantity: number): Promise<void> {
@@ -134,6 +139,18 @@ export class VetifyCheckoutPage extends BasePage {
         const couponInput = applyButton.locator('..').getByRole('textbox');
         await couponInput.fill(code);
         await applyButton.click();
+    }
+
+    // Mismo panel que applyCoupon() -- confirmado en vivo 2026-09-10 que un cupón ya aplicado
+    // muestra su propio botón "Eliminar cupón" (no reutiliza el botón "APLICAR", que queda
+    // deshabilitado mientras haya un cupón activo -- no se pueden acumular).
+    async removeCoupon(): Promise<void> {
+        const editButton = this.page.getByRole('button', { name: /^editar$/i });
+        if (await editButton.isVisible().catch(() => false)) {
+            await editButton.click();
+        }
+
+        await this.page.getByRole('button', { name: 'Eliminar cupón' }).click();
     }
 
     async expectSelectedPlan(plan: Plan): Promise<void> {
@@ -223,5 +240,12 @@ export class VetifyCheckoutPage extends BasePage {
         if (!response.ok()) {
             throw new Error('Purchase request failed');
         }
+    }
+
+    // Devuelve el texto completo del footer del checkout. Útil para validar que el footer
+    // no contiene texto promocional del cupón (HU IMAS-4492).
+    async getFooterText(): Promise<string> {
+        await this.checkoutFooter.waitFor({ state: 'visible' });
+        return this.checkoutFooter.innerText();
     }
 }

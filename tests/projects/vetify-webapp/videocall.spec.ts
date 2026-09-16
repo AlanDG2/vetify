@@ -554,6 +554,13 @@ test.describe('Videollamada Test Suite', () => {
                 // usuario multi-mascota para que el límite de 2 turnos/mascota (IMAS-3909) no bloquee reruns.
                 const apiClient = await container.vetify.getApiClient(page);
                 await apiClient.cancelAllScheduledVideocalls();
+                // Verificación de estado real 2026-09-04: esta cuenta pooled compartida (numberOfPlans:2,
+                // reserve:false/ignoreReserved:true) puede tener menos de 2 mascotas reales en este momento
+                // si otro test la tocó antes, o el backend está intermitente (ver docs/bugs/BUG-033) — un
+                // skip honesto acá es mejor que dejar que TC-05/TC-06 timeouteen 35-80s buscando un selector
+                // de mascota que nunca va a aparecer con 0 o 1 mascota real.
+                const pets = await apiClient.getUserPets();
+                test.skip(pets.length < 2, `La cuenta de prueba tiene ${pets.length} mascota(s) reales ahora mismo, se necesitan 2+ para el selector multi-mascota.`);
             });
 
             // @unstable 2026-08-20: flaky bajo condiciones reales de CI (falla en el primer intento,
@@ -796,7 +803,12 @@ test.describe('Videollamada Test Suite', () => {
 
                 const apiClient = await container.vetify.getApiClient(page);
                 await apiClient.cancelAllScheduledVideocalls();
-                const [petA, petB] = await apiClient.getUserPets();
+                const pets = await apiClient.getUserPets();
+                // Verificación de estado real 2026-09-04: cuenta pooled compartida, puede tener menos de
+                // 2 mascotas reales ahora mismo (drift de estado u outage de backend, ver docs/bugs/BUG-033)
+                // — sin esto, petB queda undefined y el test rompe 180s después con un error confuso.
+                test.skip(pets.length < 2, `La cuenta de prueba tiene ${pets.length} mascota(s) reales ahora mismo, se necesitan 2 para este caso (CA07).`);
+                const [petA, petB] = pets;
 
                 await step('1. Agotar el límite de turnos de la primera mascota.', async () => {
                     // Reintento (toPass): ver nota en el beforeEach de TC-01 sobre el 422 intermitente.
@@ -1005,39 +1017,9 @@ test.describe('Videollamada Test Suite', () => {
             });
         });
 
-        test('TC-04 - [Brecha de cobertura] IMAS-3894 CA05 - Habilitación de "Ingresar" dentro de la ventana de 5 minutos', () => {
-            // El caso negativo (deshabilitado fuera de la ventana) queda cubierto en TC-01. El caso
-            // positivo requeriría un turno agendado dentro de los próximos 5 min, lo cual choca con la
-            // anticipación mínima de 30 min exigida por el propio wizard de agendamiento (§7 del mapeo
-            // Figma) — solo alcanzable esperando en tiempo real sobre un turno ya agendado, no viable en
-            // un test automatizado sin volverlo lento/flaky. Confirmado manualmente vía MCP contra QA
-            // real: con un turno dentro de la ventana, "Ingresar" se habilita correctamente.
-            test.skip(
-                true,
-                'IMAS-3894 CA05 (caso positivo): requiere esperar en tiempo real a que un turno entre en la ventana ' +
-                    'de 5 min, incompatible con la anticipación mínima de 30 min del wizard de agendamiento. Validado ' +
-                    'manualmente contra QA real (ver documentation/Videollamada-Nuevo-Flujo-Figma-Mapeo.md); el caso ' +
-                    'negativo (deshabilitado fuera de ventana) sí está automatizado en TC-01.',
-            );
-        });
-
-        test('TC-05 - [Fuera de alcance] IMAS-3894 CA06-CA08 - Sala de espera, ingreso y salida de la videoconsulta', () => {
-            // Requiere una sesión de videoconferencia real con un profesional del otro lado (infra de
-            // videollamada en vivo) — no reproducible desde QA automatizado, mismo criterio que otras
-            // brechas de infraestructura externa documentadas en este spec (ej. TS-04 CA08 analítica).
-            test.skip(
-                true,
-                'IMAS-3894 CA06-CA08 (pantalla de espera, entrar/salir de la sala, redirección automática al iniciar ' +
-                    'la atención): requieren una sesión de videoconferencia real con un profesional conectado del otro ' +
-                    'lado — no reproducible desde QA automatizado sin un simulador de proveedor.',
-            );
-        });
-
-        test('TC-06 - [Fuera de alcance] IMAS-3894 CA09 - Comunicaciones', () => {
-            // Mismo criterio que CP08 de IMAS-3174: no hay forma de verificar el envío real (email/push)
-            // en el pipeline automatizado.
-            test.skip(true, 'CA09 (comunicaciones tras cancelar/reprogramar): el proyecto no tiene forma de verificar el envío real de email/push en el pipeline automatizado.');
-        });
+        // IMAS-3894 CA05/CA06-CA08/CA09 (habilitación "Ingresar" en ventana de 5 min, sala de espera,
+        // comunicaciones) — descartados permanentemente 2026-09-08, no automatizables. Detalle completo
+        // en docs/backlog-automatizacion.md ("Descartado permanentemente").
 
         test.describe(() => {
             test.use({

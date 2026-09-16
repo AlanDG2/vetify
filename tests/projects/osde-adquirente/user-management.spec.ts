@@ -1,5 +1,6 @@
-import { SiteId } from '@config/environment';
+import { getRealMailboxCredentials, SiteId } from '@config/environment';
 import { getRandomEmail, getRandomIdentificationNumber, getRandomPassword } from '@helpers/automation-utils';
+import { requestResetLink, restorePassword } from '@helpers/passwordResetFlow';
 import { NetworkOutageSimulator } from '@helpers/simulateOutage';
 import { VetifyWebappRegistrationPage } from '@pages/vetify/webapp';
 import { expect, type Response } from '@playwright/test';
@@ -354,8 +355,16 @@ test.describe('Gestión de Usuario Test Suite', () => {
                 await container.vetify.webapp.policyValidationPage.expectLoaded();
             });
             await step('El selector muestra al menos una opción de tipo de documento válida (ej. DNI)', async () => {
-                const options = await container.vetify.webapp.policyValidationPage.documentTypeSelect.locator('option').allTextContents();
-                expect(options.map((o) => o.trim())).toContain('DNI');
+                // expectLoaded() solo espera el cambio de URL, no la respuesta de
+                // /api/brand/.../identification-types que puebla este <select> -- sin el poll, leer las
+                // opciones puede ganarle a esa respuesta y encontrar solo el placeholder duplicado
+                // (mismo bug confirmado en vetify-b2c/user-management.spec.ts, 2026-09-05).
+                await expect
+                    .poll(async () => {
+                        const options = await container.vetify.webapp.policyValidationPage.documentTypeSelect.locator('option').allTextContents();
+                        return options.map((o) => o.trim());
+                    })
+                    .toContain('DNI');
             });
         });
     });
@@ -529,13 +538,15 @@ test.describe('Gestión de Usuario Test Suite', () => {
     });
 
     // =========================================================================
-    // CATEGORY: TS-04 IMAS-3215 - Olvidé contraseña (CP01-CP05, reusa el diseño de
+    // CATEGORY: TS-04 IMAS-3218 - Olvidé contraseña (CP01-CP05, reusa el diseño de
     // docs/user-stories/IMAS-3215-reseteo-contrasena-b2c-vetify.tests.md — OSDE Adquirente comparte la
     // misma pantalla /auth/login y el mismo VetifyWebappLoginPage que Vetify B2C, solo cambia el pool
-    // de usuarios (SiteId.OSDE_ADQUIRENTE). CP06-CP09 (contenido/recepción del email) siguen bloqueados
-    // por falta de infraestructura de lectura de inbox (IMP-006), igual que en B2C.
+    // de usuarios (SiteId.OSDE_ADQUIRENTE). Corregido 2026-09-06: el título decía "IMAS-3215" (el
+    // ticket de Vetify B2C) por copiar el diseño sin actualizar la referencia — el ticket propio de
+    // este producto es IMAS-3218. La infraestructura de lectura de inbox (IMP-006) ya no bloquea a
+    // este producto — ver TS-05 más abajo, ahora con casilla real propia (adquirenteosde@gmail.com).
     // =========================================================================
-    test.describe('TS-04 IMAS-3215 - Olvidé contraseña', () => {
+    test.describe('TS-04 IMAS-3218 - Olvidé contraseña', () => {
         test.beforeEach(async ({ container }) => {
             await container.vetify.webapp.loginPage.load();
             await container.vetify.webapp.loginPage.openForgotPassword();
@@ -606,48 +617,246 @@ test.describe('Gestión de Usuario Test Suite', () => {
             });
         });
 
-        test('CP04 [Bug conocido] [Negativo] Campo email obligatorio', { tag: ['@critical'] }, async ({ container, page }) => {
+        test('CP04 [Negativo] Campo email obligatorio', { tag: ['@critical'] }, async ({ container }) => {
             await setAllureDetails({
                 preconditions: ['Usuario con el sub-formulario de reseteo expandido, campo email vacío.'],
                 steps: ['Presionar "Enviar" sin ingresar email.'],
                 expectedResult: [
-                    'El backend responde 400 "email es requerido". BUG: el frontend no muestra ese mensaje — en su lugar muestra un mensaje genérico de "problemas técnicos" engañoso para un simple campo vacío.',
+                    'Fix IMAS-4198 (verificado en vivo 2026-08-31): el campo se marca inválido con "El correo electrónico no es válido" sin llamar al backend — ya no muestra el mensaje genérico de "problemas técnicos".',
                 ],
             });
 
-            let response: Response;
             await step('1. Presionar "Enviar" sin ingresar email.', async () => {
-                [response] = await Promise.all([
-                    page.waitForResponse((r) => r.url().includes('/api/passrecovery')),
-                    container.vetify.webapp.loginPage.sendRecoveryButton.click(),
-                ]);
+                await container.vetify.webapp.loginPage.sendRecoveryButton.click();
             });
-            await step('El backend responde 400 "email es requerido".', async () => {
-                expect.soft(response.status()).toBe(400);
-                expect.soft(await response.json()).toStrictEqual({ message: 'email es requerido' });
+            await step('El campo se marca inválido con "El correo electrónico no es válido".', async () => {
+                await expect(container.vetify.webapp.loginPage.recoveryInvalidEmailErrorLbl).toBeVisible();
+                await expect(container.vetify.webapp.loginPage.recoveryInvalidEmailErrorLbl).toHaveText('El correo electrónico no es válido');
             });
-            await step('BUG: el frontend muestra un mensaje genérico de "problemas técnicos" en vez de indicar el campo obligatorio.', async () => {
-                await expect(container.vetify.webapp.loginPage.recoveryGenericErrorLbl).toBeVisible();
+            await step('Ya no se muestra el mensaje genérico de "problemas técnicos".', async () => {
+                await expect(container.vetify.webapp.loginPage.recoveryGenericErrorLbl).toBeHidden();
             });
         });
 
-        test('CP05 [Bug conocido] [Negativo] Formato de email inválido no se valida', { tag: ['@critical'] }, async ({ container }) => {
+        test('CP05 [Negativo] Formato de email inválido', { tag: ['@critical'] }, async ({ container }) => {
             await setAllureDetails({
                 preconditions: ['Usuario con el sub-formulario de reseteo expandido.'],
                 steps: ['Ingresar un valor sin formato de email válido (sin "@") y presionar "Enviar".'],
                 expectedResult: [
-                    'BUG: no hay validación de formato — el backend responde 200 con el mismo mensaje de éxito genérico, igual que un email válido.',
+                    'Fix IMAS-4199 (verificado en vivo 2026-08-31): el campo se marca inválido con "El correo electrónico no es válido" sin llamar al backend — ya no se envía como si fuera un email válido.',
                 ],
             });
 
-            let response: Response;
             await step('1. Ingresar un valor sin formato de email válido y presionar "Enviar".', async () => {
-                response = await container.vetify.webapp.loginPage.requestPasswordRecovery('noesunemail');
+                await container.vetify.webapp.loginPage.emailPassRecoveryInput.fill('noesunemail');
+                await container.vetify.webapp.loginPage.sendRecoveryButton.click();
             });
-            await step('BUG: no hay validación de formato — el backend responde 200 con el mismo mensaje de éxito genérico.', async () => {
-                expect.soft(response.status()).toBe(200);
-                await expect(container.vetify.webapp.loginPage.recoverySuccessLbl).toBeVisible();
+            await step('El campo se marca inválido con "El correo electrónico no es válido".', async () => {
+                await expect(container.vetify.webapp.loginPage.recoveryInvalidEmailErrorLbl).toBeVisible();
+                await expect(container.vetify.webapp.loginPage.recoveryInvalidEmailErrorLbl).toHaveText('El correo electrónico no es válido');
             });
+            await step('Ya no se muestra el mensaje de éxito como si fuera válido.', async () => {
+                await expect(container.vetify.webapp.loginPage.recoverySuccessLbl).toBeHidden();
+            });
+        });
+    });
+
+    // =========================================================================
+    // CATEGORY: TS-05 IMAS-3218 - Cambio de contraseña (tras el link del correo)
+    // =========================================================================
+    // Cuenta real dedicada (2026-09-06, `adquirenteosde@gmail.com`, ya existía en el pool con
+    // producto real OSDE Adquirente confirmado — ver docs/bugs/BUG-024 — solo estaba tageada
+    // VETIFY_ADQUIRENTE por error de bookkeeping, corregido en pooled-users.json). Mismo diseño que
+    // `osde-capitado/user-management.spec.ts` TS-05, solo cambia SiteId/cuenta/casilla IMAP.
+    // Confirmado en vivo 2026-09-08: el correo real de reseteo para OSDE Adquirente tarda ~10min11s
+    // en llegar (medido: solicitado 06:02:23 UTC, recibido 06:13:34 UTC) -- muchísimo más lento que
+    // los otros 3 productos (que siempre llegan dentro del timeout default de 60s de EmailClient).
+    // No es que el correo no llegue (así se documentó por error en un primer momento, ver BUG-037
+    // corregido) -- es que este sitio en particular es mucho más lento. Con margen de seguridad.
+    const OSDE_ADQUIRENTE_EMAIL_TIMEOUT_MS = 780_000; // ~13 min
+    test.describe('TS-05 IMAS-3218 - Cambio de contraseña', () => {
+        test.describe.configure({ mode: 'serial' });
+
+        test('TC-01 - OSDE Adquirente - Redirección al link del correo y campos de contraseña obligatorios', { tag: ['@critical'] }, async ({ container, page }) => {
+            test.setTimeout(OSDE_ADQUIRENTE_EMAIL_TIMEOUT_MS + 60_000);
+            const user = await UserProvider.getUser({ source: UserSource.Pooled, siteId: SiteId.OSDE_ADQUIRENTE, tags: [UserTag.REAL_EMAIL], reserve: true });
+            test.skip(!user, 'No hay una cuenta con casilla de correo real disponible (UserTag.REAL_EMAIL).');
+            const mailbox = getRealMailboxCredentials(SiteId.OSDE_ADQUIRENTE);
+
+            await setAllureDetails({
+                preconditions: ['Se solicitó un reseteo de contraseña y se recibió el correo real.'],
+                steps: ['Navegar al link de reset recibido por correo.', 'Presionar "Restablecer contraseña" sin completar ningún campo.'],
+                expectedResult: [
+                    'El sistema redirige a la pantalla "Introduzca una nueva contraseña" (no a error ni a login).',
+                    'Ambos campos se marcan obligatorios: "Introduzca una nueva contraseña." y "Debe introducir la contraseña una segunda vez".',
+                ],
+            });
+
+            try {
+                await step('1. Navegar al link de reset recibido por correo.', async () => {
+                    const resetLink = await requestResetLink(container, user!.email, mailbox, OSDE_ADQUIRENTE_EMAIL_TIMEOUT_MS);
+                    await page.goto(resetLink);
+                });
+                await step('El sistema redirige a la pantalla "Introduzca una nueva contraseña".', async () => {
+                    await expect(container.vetify.webapp.resetPasswordPage.headingLbl).toBeVisible();
+                });
+                await step('2. Presionar "Restablecer contraseña" sin completar ningún campo.', async () => {
+                    await container.vetify.webapp.resetPasswordPage.submit();
+                });
+                await step('Ambos campos se marcan obligatorios.', async () => {
+                    await expect(container.vetify.webapp.resetPasswordPage.newPasswordErrorLbl).toBeVisible();
+                    await expect(container.vetify.webapp.resetPasswordPage.confirmPasswordErrorLbl).toBeVisible();
+                });
+            } finally {
+                UserProvider.releaseUser(user!);
+            }
+        });
+
+        test('TC-02 - [Negativo] OSDE Adquirente - Rechazo de contraseña débil', { tag: ['@critical'] }, async ({ container, page }) => {
+            test.setTimeout(OSDE_ADQUIRENTE_EMAIL_TIMEOUT_MS + 60_000);
+            const user = await UserProvider.getUser({ source: UserSource.Pooled, siteId: SiteId.OSDE_ADQUIRENTE, tags: [UserTag.REAL_EMAIL], reserve: true });
+            test.skip(!user, 'No hay una cuenta con casilla de correo real disponible (UserTag.REAL_EMAIL).');
+            const mailbox = getRealMailboxCredentials(SiteId.OSDE_ADQUIRENTE);
+
+            await setAllureDetails({
+                preconditions: ['Se solicitó un reseteo de contraseña y se recibió el correo real.'],
+                steps: ['Navegar al link de reset.', 'Ingresar una contraseña débil ("abc") en ambos campos y confirmar.'],
+                expectedResult: [
+                    'El envío queda bloqueado — no avanza a la pantalla de éxito.',
+                    'El checklist en vivo de la política muestra únicamente "Letras minúsculas (a-z)" cumplido.',
+                ],
+            });
+
+            try {
+                await step('1. Navegar al link de reset.', async () => {
+                    const resetLink = await requestResetLink(container, user!.email, mailbox, OSDE_ADQUIRENTE_EMAIL_TIMEOUT_MS);
+                    await page.goto(resetLink);
+                });
+                await step('2. Ingresar una contraseña débil ("abc") en ambos campos y confirmar.', async () => {
+                    await container.vetify.webapp.resetPasswordPage.resetPassword('abc');
+                });
+                await step('El envío queda bloqueado y el checklist muestra un único criterio cumplido.', async () => {
+                    await expect(container.vetify.webapp.resetPasswordPage.headingLbl).toBeVisible();
+                    await expect.poll(() => container.vetify.webapp.resetPasswordPage.isPolicyCriterionChecked('minusculas')).toBe(true);
+                    await expect.poll(() => container.vetify.webapp.resetPasswordPage.isPolicyCriterionChecked('longitud')).toBe(false);
+                });
+            } finally {
+                UserProvider.releaseUser(user!);
+            }
+        });
+
+        test('TC-03 - [Negativo] OSDE Adquirente - Contraseñas no coinciden', { tag: ['@critical'] }, async ({ container, page }) => {
+            test.setTimeout(OSDE_ADQUIRENTE_EMAIL_TIMEOUT_MS + 60_000);
+            const user = await UserProvider.getUser({ source: UserSource.Pooled, siteId: SiteId.OSDE_ADQUIRENTE, tags: [UserTag.REAL_EMAIL], reserve: true });
+            test.skip(!user, 'No hay una cuenta con casilla de correo real disponible (UserTag.REAL_EMAIL).');
+            const mailbox = getRealMailboxCredentials(SiteId.OSDE_ADQUIRENTE);
+
+            await setAllureDetails({
+                preconditions: ['Se solicitó un reseteo de contraseña y se recibió el correo real.'],
+                steps: ['Navegar al link de reset.', 'Ingresar contraseñas distintas en "Nueva contraseña" y "Reintroduzca contraseña".'],
+                expectedResult: ['El sistema rechaza el envío y muestra "Las contraseñas no coinciden" en ambos campos.'],
+            });
+
+            try {
+                await step('1. Navegar al link de reset.', async () => {
+                    const resetLink = await requestResetLink(container, user!.email, mailbox, OSDE_ADQUIRENTE_EMAIL_TIMEOUT_MS);
+                    await page.goto(resetLink);
+                });
+                await step('2. Ingresar contraseñas distintas.', async () => {
+                    await container.vetify.webapp.resetPasswordPage.fillPasswords('Hola123#', 'Hola123$');
+                    await container.vetify.webapp.resetPasswordPage.submit();
+                });
+                await step('El sistema muestra "Las contraseñas no coinciden" en ambos campos.', async () => {
+                    await expect(container.vetify.webapp.resetPasswordPage.mismatchErrorLbl.first()).toBeVisible();
+                });
+            } finally {
+                UserProvider.releaseUser(user!);
+            }
+        });
+
+        test('TC-04 - OSDE Adquirente - Cambio exitoso, login con la nueva contraseña, la anterior invalidada y el link reusado rechazado', { tag: ['@critical'] }, async ({ container, page }) => {
+            // Este test hace 2 round-trips de email real (flujo principal + restorePassword() en el
+            // finally), y requestResetLink() tiene un cooldown de 90s por cuenta (ver
+            // passwordResetFlow.ts) para evitar un bug ya conocido de link caducado. Con el correo de
+            // este sitio tardando ~10-13 min en llegar (confirmado en vivo 2026-09-08, ver
+            // OSDE_ADQUIRENTE_EMAIL_TIMEOUT_MS más arriba), 2 round-trips completos necesitan bastante
+            // más que los 300s que alcanzaban en los otros 3 productos (ahí el correo llega en <60s).
+            test.setTimeout(OSDE_ADQUIRENTE_EMAIL_TIMEOUT_MS * 2 + 180_000);
+            const user = await UserProvider.getUser({ source: UserSource.Pooled, siteId: SiteId.OSDE_ADQUIRENTE, tags: [UserTag.REAL_EMAIL], reserve: true });
+            test.skip(!user, 'No hay una cuenta con casilla de correo real disponible (UserTag.REAL_EMAIL).');
+            const mailbox = getRealMailboxCredentials(SiteId.OSDE_ADQUIRENTE);
+
+            await setAllureDetails({
+                preconditions: ['Se solicitó un reseteo de contraseña y se recibió el correo real.'],
+                steps: [
+                    'Navegar al link de reset y establecer una nueva contraseña cumpliendo la política.',
+                    'Iniciar sesión con la nueva contraseña.',
+                    'Intentar iniciar sesión con la contraseña anterior.',
+                    'Reintentar el mismo link de reset ya usado.',
+                ],
+                expectedResult: [
+                    'El sistema confirma el cambio ("¡Contraseña cambiada!") y permite loguearse con la nueva contraseña.',
+                    'La contraseña anterior queda invalidada — el login con ella es rechazado.',
+                    'El link ya usado queda rechazado ("Enlace inválido") si se reintenta.',
+                ],
+            });
+
+            const oldPassword = user!.password;
+            const newPassword = getRandomPassword();
+            let usedResetLink = '';
+
+            try {
+                await step('1. Navegar al link de reset y establecer una nueva contraseña.', async () => {
+                    usedResetLink = await requestResetLink(container, user!.email, mailbox, OSDE_ADQUIRENTE_EMAIL_TIMEOUT_MS);
+                    await page.goto(usedResetLink);
+                    await container.vetify.webapp.resetPasswordPage.resetPassword(newPassword);
+                });
+                await step('El sistema confirma el cambio.', async () => {
+                    await expect(container.vetify.webapp.resetPasswordPage.successHeadingLbl).toBeVisible();
+                    await expect(container.vetify.webapp.resetPasswordPage.successMessageLbl).toBeVisible();
+                });
+
+                // Se verifica la respuesta de /oauth/token en vez de un elemento de Home: esta cuenta
+                // tiene un plan real ocupado (mascota Gati, ver pooled-users.json) pero el login en sí
+                // es lo único que importa acá, no a dónde aterriza después.
+                let newPasswordLoginResponse: Response;
+                await step('2. Iniciar sesión con la nueva contraseña.', async () => {
+                    await container.vetify.webapp.loginPage.load();
+                    await container.vetify.webapp.loginPage.emailInput.fill(user!.email);
+                    await container.vetify.webapp.loginPage.passwordInput.fill(newPassword);
+                    newPasswordLoginResponse = await container.vetify.webapp.loginPage.clickLoginButton();
+                });
+                await step('El login es exitoso.', async () => {
+                    expect(newPasswordLoginResponse!.status()).toBe(200);
+                });
+
+                let oldPasswordLoginResponse: Response;
+                await step('3. Intentar iniciar sesión con la contraseña anterior.', async () => {
+                    await page.context().clearCookies();
+                    await container.vetify.webapp.loginPage.load();
+                    await container.vetify.webapp.loginPage.emailInput.fill(user!.email);
+                    await container.vetify.webapp.loginPage.passwordInput.fill(oldPassword);
+                    oldPasswordLoginResponse = await container.vetify.webapp.loginPage.clickLoginButton();
+                });
+                await step('El login con la contraseña anterior es rechazado.', async () => {
+                    expect(oldPasswordLoginResponse!.status()).toBe(403);
+                });
+
+                await step('4. Reintentar el mismo link de reset ya usado.', async () => {
+                    await page.goto(usedResetLink);
+                });
+                await step('El link ya usado queda rechazado ("Enlace inválido").', async () => {
+                    await expect(container.vetify.webapp.resetPasswordPage.alreadyUsedHeadingLbl).toBeVisible();
+                });
+            } finally {
+                try {
+                    await restorePassword(container, page, user!.email, oldPassword, mailbox, OSDE_ADQUIRENTE_EMAIL_TIMEOUT_MS);
+                } catch (restoreError) {
+                    console.error(`No se pudo restaurar la contraseña de ${user!.email} a la del pool. Verificar manualmente. Error:`, restoreError);
+                } finally {
+                    UserProvider.releaseUser(user!);
+                }
+            }
         });
     });
 });

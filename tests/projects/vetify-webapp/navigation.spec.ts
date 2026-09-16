@@ -1,5 +1,6 @@
 import { SiteId } from '@config/environment';
 import { expect } from '@playwright/test';
+import { mockNoAutocompleteResults } from '@helpers/mockPlacesAutocomplete';
 import { UserTag } from '@providers/user/tags';
 import { UserSource } from '@providers/user/user-provider';
 import { setAllureDetails, step, test } from '@tests/framework/base-test';
@@ -129,6 +130,71 @@ test.describe('Navegación Test Suite', () => {
                 });
                 await step('Aparecen sugerencias reales de ubicación.', async () => {
                     await expect(container.vetify.webapp.veterinariasSearchModal.locationSuggestions.first()).toBeVisible();
+                });
+            });
+
+            // IMP-021 (docs/impedimentos-bloqueos.md): los resultados del buscador se pintan como pines
+            // dentro de un iframe cross-origin de Google Maps -- Playwright no puede leer ese DOM. Se
+            // verifica en cambio el request/response real que el buscador dispara contra la API de
+            // Google Places (confirmado en vivo 2026-09-10: GET a
+            // maps/api/place/js/AutocompletionService.GetPredictionsJson, JSONP).
+            test('TC-03 - Vetify - La búsqueda de veterinarias envía la ubicación correcta a la API de Google Places', async ({ container }) => {
+                await setAllureDetails({
+                    preconditions: ['Modal "Buscar veterinaria" abierto.'],
+                    steps: ['Escribir una ubicación real en el buscador.'],
+                    expectedResult: ['Se envía una request real a la API de autocomplete de Google Places con esa ubicación.'],
+                });
+
+                await step('1. Cargar Home y abrir el modal de veterinarias.', async () => {
+                    await container.vetify.webapp.homePage.load();
+                    await container.vetify.webapp.homePage.dismissErrorDialogIfPresent();
+                    await container.vetify.webapp.homePage.openSideMenu();
+                    await container.vetify.webapp.sideMenuSection.veterinariasEntry.click();
+                });
+
+                // pressSequentially() dispara una request de autocomplete por cada tecla -- no alcanza
+                // con esperar la primera (waitForRequest resuelve con la de "P" solo). Se acumulan todas
+                // y se busca la que tiene el texto completo, que es la que realmente importa.
+                const autocompleteRequestUrls: string[] = [];
+                const page = container.vetify.webapp.veterinariasSearchModal.locationInput.page();
+                page.on('request', (req) => {
+                    if (req.url().includes('maps/api/place/js/AutocompletionService.GetPredictionsJson')) {
+                        autocompleteRequestUrls.push(req.url());
+                    }
+                });
+                await step('2. Escribir una ubicación real.', async () => {
+                    await container.vetify.webapp.veterinariasSearchModal.searchLocation('Palermo, Buenos Aires');
+                });
+                await step('Se envía una request real a la API de autocomplete de Google Places con esa ubicación.', async () => {
+                    const fullQueryRequest = autocompleteRequestUrls.find((url) => decodeURIComponent(url).includes('Palermo, Buenos Aires'));
+                    expect(fullQueryRequest, `Ninguna de las ${autocompleteRequestUrls.length} requests de autocomplete tenía el texto completo`).toBeDefined();
+                    expect(decodeURIComponent(fullQueryRequest!)).toContain('country:ar');
+                });
+            });
+
+            test('TC-04 - Vetify - Mapa sin resultados de búsqueda', async ({ container, page }) => {
+                await setAllureDetails({
+                    preconditions: ['Modal "Buscar veterinaria" abierto.', 'La API de Google Places no encuentra ninguna ubicación (simulado).'],
+                    steps: ['Escribir una ubicación en el buscador.'],
+                    expectedResult: ['No aparece ninguna sugerencia de ubicación para elegir.'],
+                });
+
+                await step('0. Simular que la API de Google Places no encuentra resultados.', async () => {
+                    await mockNoAutocompleteResults(page);
+                });
+                await step('1. Cargar Home y abrir el modal de veterinarias.', async () => {
+                    await container.vetify.webapp.homePage.load();
+                    await container.vetify.webapp.homePage.dismissErrorDialogIfPresent();
+                    await container.vetify.webapp.homePage.openSideMenu();
+                    await container.vetify.webapp.sideMenuSection.veterinariasEntry.click();
+                });
+                await step('2. Escribir una ubicación cualquiera.', async () => {
+                    await container.vetify.webapp.veterinariasSearchModal.locationInput.click();
+                    await container.vetify.webapp.veterinariasSearchModal.locationInput.pressSequentially('xyzxyzxyz', { delay: 100 });
+                    await page.waitForTimeout(1_500);
+                });
+                await step('No aparece ninguna sugerencia de ubicación para elegir.', async () => {
+                    await expect(container.vetify.webapp.veterinariasSearchModal.locationSuggestions).toHaveCount(0);
                 });
             });
         });

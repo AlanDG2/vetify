@@ -1,5 +1,5 @@
 import { GENERAL_COOKIES_STORAGE_STATE_PATH } from '@config/test-configuration';
-import { VetifyWebappLoginPage, VetifyWebappPolicyValidationPage, VetifyWebappRegistrationPage } from '@pages/vetify/webapp';
+import { AccountAlreadyExistsError, VetifyWebappLoginPage, VetifyWebappPolicyValidationPage, VetifyWebappRegistrationPage } from '@pages/vetify/webapp';
 import { chromium } from '@playwright/test';
 import { TestUser, UserTag } from '@providers/user';
 import { UserFactory } from '@providers/user/user-factory';
@@ -24,17 +24,40 @@ async function activateAccount(account: TestUser, page: any) {
         // Navigate to the login page and fill in the form
         await registrationPage.load();
 
-        await registrationPage.register({
-            email,
-            password,
-        });
+        let alreadyPastPolicyValidation = false;
 
-        // Enter the DNI used in the purchase flow
-        await policyValidationPage.validatePolicy({
-            firstName: 'Test',
-            lastName: 'AUTOMATION',
-            identification,
-        });
+        try {
+            await registrationPage.register({
+                email,
+                password,
+            });
+        } catch (error) {
+            if (!(error instanceof AccountAlreadyExistsError)) {
+                throw error;
+            }
+            // Confirmado en vivo 2026-09-04: varias cuentas "fresh" quedaron con la cuenta de la webapp
+            // ya creada pero un paso posterior sin completar (un intento anterior se cortó a mitad de
+            // camino) — sin esto, quedaban tageadas UNREGISTERED para siempre y cada corrida volvía a
+            // intentar el mismo registro condenado a fallar (ver docs/impedimentos-bloqueos.md). En vez
+            // de descartarlas, logueamos directo y retomamos desde donde haya quedado.
+            console.log(`  ↪ ${email} ya tenía cuenta creada — retomando desde login en vez de registrar de nuevo`);
+            await loginPage.load();
+            await loginPage.login(email, password);
+            // Las cuentas Capitado (registradas por cupón, no por DNI) no pasan por esta pantalla en
+            // absoluto — y una cuenta Adquirente ya podría haberla completado en el intento anterior.
+            // Confirmado en vivo: el login redirige a Home ("/") directo en ambos casos, nunca se queda
+            // en /auth/login. Sin este chequeo, validatePolicy() cuelga 30s buscando un campo que no existe.
+            alreadyPastPolicyValidation = !page.url().endsWith('/validation/policy');
+        }
+
+        if (!alreadyPastPolicyValidation) {
+            // Enter the DNI used in the purchase flow
+            await policyValidationPage.validatePolicy({
+                firstName: 'Test',
+                lastName: 'AUTOMATION',
+                identification,
+            });
+        }
         // Save the storage state to a file
 
         await Promise.all([loginPage.waitForPageLoaded(), loginPage.load()]);

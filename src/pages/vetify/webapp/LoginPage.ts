@@ -15,6 +15,7 @@ export class VetifyWebappLoginPage extends VetifyWebappBasePage {
     readonly sendRecoveryButton: Locator;
     readonly recoverySuccessLbl: Locator;
     readonly recoveryGenericErrorLbl: Locator;
+    readonly recoveryInvalidEmailErrorLbl: Locator;
 
     constructor(page: Page) {
         super(page, '/auth/login');
@@ -27,10 +28,15 @@ export class VetifyWebappLoginPage extends VetifyWebappBasePage {
         this.emailPassRecoveryInput = this.page.locator('#emailPassRecovery');
         this.sendRecoveryButton = this.page.getByRole('button', { name: 'Enviar' });
         this.recoverySuccessLbl = this.page.getByText('Te hemos enviado un correo para que puedas resetear tu contraseña');
-        // Copy real confirmado en vivo (2026-08-07): mensaje genérico de "problemas técnicos" — el
-        // frontend lo muestra incluso para un simple error de validación (campo vacío), no solo caídas
-        // reales de sistema. Ver CP04 en docs/user-stories/IMAS-3215-reseteo-contrasena-b2c-vetify.tests.md.
+        // Copy real confirmado en vivo (2026-08-07): mensaje genérico de "problemas técnicos" — antes del
+        // fix de IMAS-4198/IMAS-4199 (confirmado resuelto 2026-08-31), el frontend lo mostraba incluso
+        // para un simple error de validación (campo vacío), no solo caídas reales de sistema. Se conserva
+        // el locator para probar que YA NO aparece en ese caso (ver CP04).
         this.recoveryGenericErrorLbl = this.page.getByText('En este momento estamos con problemas técnicos');
+        // Fix IMAS-4198/IMAS-4199 (confirmado en vivo 2026-08-31): ahora valida en el cliente antes de
+        // llamar a /api/passrecovery — mismo mensaje que ya usaba el formulario de registro, tanto para
+        // campo vacío como para formato inválido. data-cy="textErrorMessage" (Chakra field error text).
+        this.recoveryInvalidEmailErrorLbl = this.page.locator('[data-cy="textErrorMessage"]');
     }
 
     async openForgotPassword(): Promise<void> {

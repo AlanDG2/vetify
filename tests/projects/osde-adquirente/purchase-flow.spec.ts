@@ -325,6 +325,23 @@ test.describe('Registración y Adquisición Test Suite', () => {
             await checkout.continueButton.click();
             await expect(page).not.toHaveURL(/\/checkout\/billing$/);
         });
+
+        test('TC-04 Regresar a la landing', async ({ container, page }) => {
+            await setAllureDetails({
+                preconditions: ['Usuario seleccionó un plan y se encuentra en el paso 1 del checkout.'],
+                steps: ['Presionar el botón "Regresar"'],
+                expectedResult: ['El sistema sale del formulario de compra y redirecciona a la web institucional'],
+            });
+            const institutional = container.osdeAdquiriente.landingPage;
+            const checkout = container.osdeAdquiriente.checkoutPage;
+
+            await institutional.load();
+            await institutional.plans.scrollIntoView();
+            await institutional.plans.contractRandomPlan();
+
+            await checkout.backButton.click();
+            await expect(page).not.toHaveURL(/\/checkout\//);
+        });
     });
 
     // Portado de documentation/Casos de Prueba.xlsx, hoja "Flujo de Compra", TS-06 Formulario -

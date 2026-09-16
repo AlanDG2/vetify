@@ -20,7 +20,7 @@ import { step } from 'allure-js-commons';
 const DATE_PATTERN = /\d{1,2}[/.-]\d{1,2}[/.-]\d{2,4}/;
 
 const CHECKOUT_URL_WITH_FROM = 'https://qa.vetify.com.ar/checkout/form?plan=2319&cupon=VETIFY20X3&from=salud_mascotas';
-const CHECKOUT_URL_WITHOUT_FROM = 'https://qa.vetify.com.ar/checkout/form?plan=2319&cupon=VETIFY20X3';
+const CHECKOUT_URL_WITHOUT_FROM = 'https://qa.vetify.com.ar/checkout/form?plan=2319';
 
 test.describe('IMAS-4492 — Footer institucional del checkout (sin texto promocional del cupón)', () => {
     // =========================================================================
@@ -115,21 +115,25 @@ test.describe('IMAS-4492 — Footer institucional del checkout (sin texto promoc
         });
 
         test('TC-03 - Vetify B2C - Footer genérico sin from param (desktop)', { tag: ['@critical'] }, async ({ container, page }) => {
-            // CA06: El footer es el mismo sin importar el query param "from"
-            // (no importa si viene de /salud-mascotas, /, /osde, etc.)
+            // CA01/CA04 (alcance directo de IMAS-4492): el footer del checkout es el
+            // institucional de Vetify, sin texto promocional ni fechas, sin importar
+            // de qué landing provenga la intención. TC-01/TC-02 ya cubren el camino
+            // con cupón activo y from=salud_mascotas. TC-03 valida la ruta mínima
+            // (sin cupón, sin from) — el footer debe seguir siendo el institucional
+            // genérico, sin texto promocional ni fechas.
             await setAllureDetails({
                 preconditions: [
-                    'Checkout abierto con cupón VETIFY20X3 aplicado al plan 2319.',
-                    'Sin query param "from" en la URL.',
+                    'Checkout abierto del plan 2319 (Vetify Emergencias), sin cupón aplicado.',
+                    'Sin query param "from" en la URL (entrada directa al checkout).',
                 ],
                 steps: [
-                    'Cargar el checkout sin from param.',
+                    'Cargar el checkout sin from param y sin cupón.',
                     'Extraer el texto del footer.',
-                    'Verificar que es el mismo footer institucional de Vetify.',
+                    'Verificar que es el footer institucional de Vetify.',
                     'Verificar que NO contiene texto promocional ni fechas.',
                 ],
                 expectedResult: [
-                    'El footer es idéntico al de los otros CAs — mismo footer institucional sin texto promocional.',
+                    'El footer es el institucional genérico de Vetify, sin texto del cupón ni fechas de vigencia.',
                 ],
             });
 

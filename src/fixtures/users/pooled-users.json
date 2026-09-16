@@ -341,10 +341,10 @@
         "registration": true,
         "tags": [
           "ACTIVE",
-          "NO_PET",
-          "PLAN_WITHOUT_PET"
+          "WITH_PET",
+          "NO_EMPTY_PLAN"
         ],
-        "_note": "2026-08-07: generada para retest de CP-21 (credentials.spec.ts, formato de archivo invalido) — el upload deberia ser rechazado y NO consumir la cuenta.",
+        "_note": "2026-08-07: generada para retest de CP-21 (credentials.spec.ts, formato de archivo invalido) — el upload deberia ser rechazado y NO consumir la cuenta. Corregido 2026-09-06: confirmado en vivo (getUserPets()) que el plan está OCUPADO (tiene mascota real) — las tags NO_PET/PLAN_WITHOUT_PET quedaron desactualizadas (probablemente un upload válido la consumió en algún momento). Retageada a WITH_PET/NO_EMPTY_PLAN para que sirva para videocall.spec.ts (pool vacío para esta combinación, ver docs/impedimentos-bloqueos.md).",
         "reserved": false
       },
       {
@@ -367,9 +367,503 @@
         ],
         "_note": "2026-08-12: provisionada para llenar el gap ACTIVE+WITH_PET+PLAN_WITHOUT_PET (credentials.spec.ts TS-01 TC-04 / mobile TS-07 TC-02) — 1 de 2 planes con mascota completada vía mobile, el otro queda deliberadamente vacío. Colocada AL FINAL del array a propósito (2026-08-13): el match de tags es por subconjunto (UserPool.matchesTags), así que si quedara primera le robaría la cuenta a cualquier query sin `numberOfPlans` que solo pida ACTIVE+PLAN_WITHOUT_PET (ver credential-wizard.spec.ts TC-01, que espera un botón distinto al que esta cuenta ya muestra). Ver qa-workspace/decision-log.md 2026-08-12.",
         "reserved": false
+      },
+      {
+        "id": "88db40ff-de7c-4274-8082-b4408161aef1",
+        "siteId": "VETIFY_ADQUIRENTE",
+        "email": "acastellano@ikeasistencia.com.ar",
+        "password": "Veti123*",
+        "identification": {
+          "type": "DNI",
+          "number": "20000001"
+        },
+        "numberOfPlans": 1,
+        "source": "pooled",
+        "registration": true,
+        "leadIds": [],
+        "tags": [
+          "ACTIVE",
+          "WITH_PET",
+          "REGISTERED",
+          "REAL_EMAIL"
+        ],
+        "_note": "2026-09-01: usuario real de QA. Compartido con backoffice Reintegros (acastellano@) - mismo mail para ambos sistemas. DNI pendiente verificar.",
+        "reserved": false
+      },
+      {
+        "id": "0eb4f64d-102f-4dfd-b95f-b0577448d2c8",
+        "siteId": "VETIFY_ADQUIRENTE",
+        "email": "mariano.caresia@hotmail.com",
+        "password": "Agrabah1",
+        "identification": {
+          "type": "DNI",
+          "number": "77654321"
+        },
+        "numberOfPlans": 1,
+        "source": "pooled",
+        "registration": true,
+        "leadIds": [],
+        "tags": [
+          "ACTIVE",
+          "WITH_PET",
+          "REGISTERED",
+          "REAL_EMAIL"
+        ],
+        "_note": "2026-09-01: usuario real Adquirente (hotmail). Datos: Jazmin Aladdin, DNI 77654321.",
+        "reserved": false
+      },
+      {
+        "id": "f6d310b0-9df6-4197-b82e-954cba32e9bf",
+        "siteId": "VETIFY_ADQUIRENTE",
+        "email": "caresia.mariano@saint-gobain.com",
+        "password": "Eltiti01",
+        "identification": {
+          "type": "DNI",
+          "number": "44789456"
+        },
+        "numberOfPlans": 1,
+        "source": "pooled",
+        "registration": true,
+        "leadIds": [],
+        "tags": [
+          "ACTIVE",
+          "WITH_PET",
+          "REGISTERED",
+          "REAL_EMAIL"
+        ],
+        "_note": "2026-09-01: usuario real Adquirente (Saint-Gobain corporativo). Datos: Poca Hontas, DNI 44789456.",
+        "reserved": false
+      },
+      {
+        "id": "da89c632-c19f-4903-921d-386d2aa3a98a",
+        "siteId": "VETIFY_ADQUIRENTE",
+        "email": "ayeperez@ikeasistencia.com.ar",
+        "password": "Guatemala02!",
+        "identification": {
+          "type": "DNI",
+          "number": "5578955"
+        },
+        "numberOfPlans": 1,
+        "source": "pooled",
+        "registration": true,
+        "leadIds": [],
+        "tags": [
+          "ACTIVE",
+          "WITH_PET",
+          "REGISTERED",
+          "REAL_EMAIL",
+          "B2C"
+        ],
+        "_note": "2026-09-01: usuario real B2C (Guatemala02!). Datos: Thanos HDP, DNI 5578955.",
+        "reserved": false
+      },
+      {
+        "id": "383838a3-b5a7-441b-9cd9-b5a9a59897ec",
+        "siteId": "VETIFY_ADQUIRENTE",
+        "email": "cyntiaamaribel@hotmail.com",
+        "password": "Vetify123!",
+        "identification": {
+          "type": "DNI",
+          "number": "0"
+        },
+        "numberOfPlans": 1,
+        "source": "pooled",
+        "registration": true,
+        "leadIds": [],
+        "tags": [
+          "ACTIVE",
+          "REGISTERED",
+          "REAL_EMAIL",
+          "B2C"
+        ],
+        "_note": "2026-09-01: usuario real B2C. DNI no provisto. Cyntia Amaribel. Usar solo para tests que no dependan de DNI.",
+        "reserved": false
+      },
+      {
+        "id": "466639f2-146a-485b-a9d7-c935ad790866",
+        "siteId": "VETIFY_ADQUIRENTE",
+        "email": "68.sandra@gmail.com",
+        "password": "Bajoelmar01",
+        "identification": {
+          "type": "DNI",
+          "number": "88765432"
+        },
+        "numberOfPlans": 1,
+        "source": "pooled",
+        "registration": true,
+        "leadIds": [],
+        "tags": [
+          "ACTIVE",
+          "WITH_PET",
+          "REGISTERED",
+          "REAL_EMAIL"
+        ],
+        "_note": "Adquirente QA. Mascota Sebastian.",
+        "reserved": false
+      },
+      {
+        "id": "388b5fb0-aade-48e9-9476-6509c4a3001d",
+        "siteId": "VETIFY_ADQUIRENTE",
+        "email": "mrossi@ikeasistencia.com.ar",
+        "password": "Scaloni26",
+        "identification": {
+          "type": "DNI",
+          "number": "99099099"
+        },
+        "numberOfPlans": 1,
+        "source": "pooled",
+        "registration": true,
+        "leadIds": [],
+        "tags": [
+          "ACTIVE",
+          "REGISTERED",
+          "REAL_EMAIL"
+        ],
+        "_note": "Adquirente QA. DNI 8 dígitos.",
+        "reserved": false
+      },
+      {
+        "id": "18b67f57-a4f4-4d7c-bd6f-f69011b251d0",
+        "siteId": "VETIFY_ADQUIRENTE",
+        "email": "ignacio@buda.tv",
+        "password": "Atun1806",
+        "identification": {
+          "type": "DNI",
+          "number": "35992280"
+        },
+        "numberOfPlans": 1,
+        "source": "pooled",
+        "registration": true,
+        "leadIds": [],
+        "tags": [
+          "ACTIVE",
+          "REGISTERED",
+          "REAL_EMAIL",
+          "PROD"
+        ],
+        "_note": "Adquirente PROD. Plan Emergencia.",
+        "reserved": false
+      },
+      {
+        "id": "1d71d06b-d7c1-4e7c-88a5-13bf792bf254",
+        "siteId": "VETIFY_ADQUIRENTE",
+        "email": "prueba321@hotmail.com",
+        "password": "Escaloni12!",
+        "identification": {
+          "type": "DNI",
+          "number": "88899955"
+        },
+        "numberOfPlans": 1,
+        "source": "pooled",
+        "registration": true,
+        "leadIds": [],
+        "tags": [
+          "ACTIVE",
+          "REGISTERED",
+          "REAL_EMAIL"
+        ],
+        "_note": "Adquirente QA.",
+        "reserved": false
+      },
+      {
+        "id": "bdf8f8ef-9588-4506-bc20-0e7c1ecd1e0b",
+        "siteId": "VETIFY_ADQUIRENTE",
+        "email": "lilipicinotti@gmail.com",
+        "password": "Vetify15%",
+        "identification": {
+          "type": "DNI",
+          "number": "30123456"
+        },
+        "numberOfPlans": 1,
+        "source": "pooled",
+        "registration": true,
+        "leadIds": [],
+        "tags": [
+          "ACTIVE",
+          "WITH_PET",
+          "REGISTERED",
+          "REAL_EMAIL"
+        ],
+        "_note": "Adquirente QA PO. Múltiples mascotas.",
+        "reserved": false
+      },
+      {
+        "id": "fb659bdf-d59c-47c0-bebe-7b2aded6cf4c",
+        "siteId": "VETIFY_ADQUIRENTE",
+        "email": "lpicinotti@ikeasistencia.com.ar",
+        "password": "Vetify15%",
+        "identification": {
+          "type": "DNI",
+          "number": "80123456"
+        },
+        "numberOfPlans": 1,
+        "source": "pooled",
+        "registration": true,
+        "leadIds": [],
+        "tags": [
+          "ACTIVE",
+          "REGISTERED",
+          "REAL_EMAIL"
+        ],
+        "_note": "Adquirente QA cuenta corporativa Iké.",
+        "reserved": false
+      },
+      {
+        "id": "13435411-bc5f-4286-9789-80ac6324b35d",
+        "siteId": "VETIFY_ADQUIRENTE",
+        "email": "cristiancastro@gmail.com",
+        "password": "Vetify15%",
+        "identification": {
+          "type": "DNI",
+          "number": "78123456"
+        },
+        "numberOfPlans": 1,
+        "source": "pooled",
+        "registration": true,
+        "leadIds": [],
+        "tags": [
+          "ACTIVE",
+          "REGISTERED",
+          "REAL_EMAIL"
+        ],
+        "_note": "Adquirente QA.",
+        "reserved": false
+      },
+      {
+        "id": "e0e45435-41aa-42c2-9acc-0b230e02f32c",
+        "siteId": "VETIFY_ADQUIRENTE",
+        "email": "cieloestrellado@gmail.com",
+        "password": "Vetify15%",
+        "identification": {
+          "type": "DNI",
+          "number": "50785421"
+        },
+        "numberOfPlans": 1,
+        "source": "pooled",
+        "registration": true,
+        "leadIds": [],
+        "tags": [
+          "ACTIVE",
+          "REGISTERED",
+          "REAL_EMAIL"
+        ],
+        "_note": "Adquirente QA.",
+        "reserved": false
+      },
+      {
+        "id": "424f2c05-961a-4d73-9cf8-1082f111fd10",
+        "siteId": "VETIFY_ADQUIRENTE",
+        "email": "martin.anchordoqui@gmail.com",
+        "password": "Indioeterno26",
+        "identification": {
+          "type": "DNI",
+          "number": "12345678"
+        },
+        "numberOfPlans": 1,
+        "source": "pooled",
+        "registration": true,
+        "leadIds": [],
+        "tags": [
+          "ACTIVE",
+          "REGISTERED",
+          "REAL_EMAIL"
+        ],
+        "_note": "Adquirente QA. Plan Cachorros 2 planes.",
+        "reserved": false
+      },
+      {
+        "id": "eed04cff-8d71-4a74-9250-41f2e2936ff2",
+        "siteId": "VETIFY_ADQUIRENTE",
+        "email": "delfina.galeano@hotmail.com",
+        "password": "Probando123!",
+        "identification": {
+          "type": "DNI",
+          "number": "99998888"
+        },
+        "numberOfPlans": 1,
+        "source": "pooled",
+        "registration": true,
+        "leadIds": [],
+        "tags": [
+          "ACTIVE",
+          "REGISTERED",
+          "REAL_EMAIL"
+        ],
+        "_note": "Adquirente QA. 2 planes.",
+        "reserved": false
+      },
+      {
+        "id": "b6a5a938-b9a4-4264-924f-c621c85e8987",
+        "siteId": "VETIFY_ADQUIRENTE",
+        "email": "jimedelcanto@live.com.ar",
+        "password": "PENDING_NO_EXCEL",
+        "identification": {
+          "type": "DNI",
+          "number": "35066783"
+        },
+        "numberOfPlans": 1,
+        "source": "pooled",
+        "registration": true,
+        "leadIds": [],
+        "tags": [
+          "ACTIVE",
+          "REGISTERED",
+          "REAL_EMAIL"
+        ],
+        "_note": "Adquirente QA. Password NO provisto en Excel.",
+        "reserved": false
+      },
+      {
+        "id": "64b20ff2-c66f-48d9-8749-12422ddfb4a3",
+        "siteId": "VETIFY_ADQUIRENTE",
+        "email": "pruebasadquirentes@gmail.com",
+        "password": "Vetify15%",
+        "identification": {
+          "type": "DNI",
+          "number": "42521456"
+        },
+        "numberOfPlans": 1,
+        "source": "pooled",
+        "registration": true,
+        "leadIds": [],
+        "tags": [
+          "ACTIVE",
+          "REGISTERED",
+          "REAL_EMAIL",
+          "PROD"
+        ],
+        "_note": "Adquirente PROD.",
+        "reserved": false
+      },
+      {
+        "id": "fc9659aa-ef62-407d-85f3-6d347245154e",
+        "siteId": "VETIFY_ADQUIRENTE",
+        "email": "prueba@gmail.com",
+        "password": "Vetify15%",
+        "identification": {
+          "type": "DNI",
+          "number": "40123678"
+        },
+        "numberOfPlans": 1,
+        "source": "pooled",
+        "registration": true,
+        "leadIds": [],
+        "tags": [
+          "ACTIVE",
+          "REGISTERED",
+          "REAL_EMAIL"
+        ],
+        "_note": "Adquirente. Mascota El Michi.",
+        "reserved": false
+      },
+      {
+        "id": "4bc57647-61c4-448e-951d-c1be93accf05",
+        "siteId": "VETIFY_ADQUIRENTE",
+        "email": "pruebasb2c@gmail.com",
+        "password": "Vetify15%",
+        "identification": {
+          "type": "DNI",
+          "number": "21456789"
+        },
+        "numberOfPlans": 1,
+        "source": "pooled",
+        "registration": true,
+        "leadIds": [],
+        "tags": [
+          "ACTIVE",
+          "REGISTERED",
+          "REAL_EMAIL",
+          "B2C"
+        ],
+        "_note": "B2C. Mascota Snoopy.",
+        "reserved": false
+      },
+      {
+        "id": "a2eb7e6e-b029-4dc5-af5c-8cb0b952d8f2",
+        "siteId": "VETIFY_ADQUIRENTE",
+        "email": "julietatestpoggio@gmail.com",
+        "password": "Vetify15%",
+        "identification": {
+          "type": "DNI",
+          "number": "42321654"
+        },
+        "numberOfPlans": 1,
+        "source": "pooled",
+        "registration": true,
+        "leadIds": [],
+        "tags": [
+          "ACTIVE",
+          "REGISTERED",
+          "REAL_EMAIL"
+        ],
+        "_note": "Adquirente QA. Plan Emergencia.",
+        "reserved": false
+      },
+      {
+        "id": "2ae52e7c-9a52-482e-97b8-b49cd7fc1224",
+        "siteId": "VETIFY_ADQUIRENTE",
+        "email": "aline.brunet@hotmail.fr",
+        "password": "Vetify15%",
+        "identification": {
+          "type": "DNI",
+          "number": "96490191"
+        },
+        "numberOfPlans": 1,
+        "source": "pooled",
+        "registration": true,
+        "leadIds": [],
+        "tags": [
+          "ACTIVE",
+          "REGISTERED",
+          "REAL_EMAIL",
+          "B2C"
+        ],
+        "_note": "Adquirente B2C. Plan Classic. Mascota Popi.",
+        "reserved": false
       }
     ],
     "OSDE_ADQUIRENTE": [
+      {
+        "id": "623a8cd8-9617-4eaa-b91a-54e6d86daa8b",
+        "siteId": "OSDE_ADQUIRENTE",
+        "email": "adquirenteosde@gmail.com",
+        "password": "Vetify15%",
+        "identification": {
+          "type": "DNI",
+          "number": "45285456"
+        },
+        "numberOfPlans": 1,
+        "source": "pooled",
+        "registration": true,
+        "leadIds": [],
+        "tags": [
+          "ACTIVE",
+          "REGISTERED"
+        ],
+        "_note": "Retageada 2026-09-06 de VETIFY_ADQUIRENTE a OSDE_ADQUIRENTE -- confirmado en vivo (getUserPets()) que el producto real de esta cuenta es cuenta 2364 'Vetify Emergencias x1' (OSDE Adquirente, ver docs/bugs/BUG-024). 2026-09-08: sacado el tag REAL_EMAIL -- confirmado por el usuario del proyecto que esta cuenta NUNCA debio usarse para probar el reseteo de contrasena de OSDE Adquirente (IMAS-3218); la unica casilla real destinada a esto siempre fue alandgg975@gmail.com (agregada abajo). No es un bug de la cuenta ni del producto, fue un error de tagging de datos de prueba. Ver docs/bugs/BUG-037 (marcado resuelto/no-bug).",
+        "reserved": false
+      },
+      {
+        "id": "f2e4a9c1-6b3d-4a8e-9f7c-2d5b8e1a3c60",
+        "siteId": "OSDE_ADQUIRENTE",
+        "email": "alandgg975@gmail.com",
+        "password": "Vetify15%",
+        "identification": {
+          "type": "DNI",
+          "number": "1472014880"
+        },
+        "numberOfPlans": 1,
+        "source": "pooled",
+        "registration": true,
+        "leadIds": [],
+        "tags": [
+          "ACTIVE",
+          "REGISTERED",
+          "REAL_EMAIL"
+        ],
+        "_note": "Creada 2026-09-08: compra real de OSDE Adquirente (plan Emergencias, producto 2364, poliza 20359393) hecha por front-end automatizado con este email. Confirmado en vivo que el flujo completo de TS-05 IMAS-3218 funciona de punta a punta con esta cuenta (pedido de reset -> correo real en ~28s -> link https://ike-webapp-staging.us.auth0.com/u/reset-verify?ticket=... -> nueva contrasena -> login 200 OK), a diferencia de adquirenteosde@gmail.com que nunca genera el correo. Password ya seteada a la del pool (Vetify15%) tras el reset de prueba. Misma casilla que ya se usaba para leer por IMAP (TEST_MAILBOX_OSDE_ADQUIRENTE_EMAIL en .env) -- ahora cumple ambos roles (login + lectura).",
+        "reserved": false
+      },
       {
         "id": "aab3f335-f742-47d2-95c7-3b7b754eebac",
         "siteId": "OSDE_ADQUIRENTE",
@@ -412,6 +906,29 @@
           "NO_PET",
           "PLAN_WITHOUT_PET"
         ],
+        "reserved": false
+      },
+      {
+        "id": "27ce4b0b-56cc-437c-a3d5-2214ce19963e",
+        "siteId": "OSDE_ADQUIRENTE",
+        "email": "user_1788192447095_142c8da5@automation.com",
+        "password": "Te1!26044057",
+        "identification": {
+          "type": "DNI",
+          "number": "1668472081"
+        },
+        "numberOfPlans": 1,
+        "source": "pooled",
+        "registration": true,
+        "leadIds": [
+          "00QO200000WmXdZMAV"
+        ],
+        "tags": [
+          "ACTIVE",
+          "NO_PET",
+          "PLAN_WITHOUT_PET"
+        ],
+        "_note": "2026-08-31: creada en vivo via compra real por UI en OSDE Adquirente (plan Cachorros) + registro/activacion en webapp, para validar si IMAS-4431 (500 'Error al calcular precio del producto') tambien afecta a OSDE Adquirente -- NO reprodujo, compra aprobada normalmente. Ver qa-workspace/decision-log.md 2026-08-31.",
         "reserved": false
       }
     ],
@@ -475,6 +992,304 @@
           "PLAN_WITHOUT_PET"
         ],
         "reserved": false
+      },
+      {
+        "id": "b8e0b27d-ff01-4981-b1a2-fa63fcd29025",
+        "siteId": "OSDE_CAPITADO",
+        "email": "alandgg972@gmail.com",
+        "password": "Hola123#",
+        "identification": {
+          "type": "DNI",
+          "number": "00000000"
+        },
+        "numberOfPlans": 0,
+        "leadIds": [],
+        "registration": true,
+        "source": "pooled",
+        "tags": [
+          "REGISTERED",
+          "REAL_EMAIL",
+          "NO_PET"
+        ],
+        "reserved": false,
+        "_note": "2026-09-01: cuenta Gmail real dedicada (no alias) para TS-05 Cambio de Contrasena via email real. Registro basico (email+password), sin DNI/poliza validada -- no hace falta para el flujo de reseteo de contrasena. Ver qa-workspace/decision-log.md."
+      },
+      {
+        "id": "c0e179cd-d4c7-4cef-a297-98a64b60836e",
+        "siteId": "OSDE_CAPITADO",
+        "email": "patriciacarpinacci@gmail.com",
+        "password": "Dalmatas101",
+        "identification": {
+          "type": "DNI",
+          "number": "98765499"
+        },
+        "numberOfPlans": 1,
+        "source": "pooled",
+        "registration": true,
+        "leadIds": [],
+        "tags": [
+          "ACTIVE",
+          "WITH_PET",
+          "REGISTERED",
+          "REAL_EMAIL"
+        ],
+        "_note": "2026-09-01: usuario real OSDE Capitado (gmail). Datos: Cruella Devil, DNI 98765499. Candidato prioritario para CP02 de IMAS-4092 (Alta nueva Capitado) - DNI válido 8 dígitos, escapa al bug BUG-007/IMAS-4279.",
+        "reserved": false
+      },
+      {
+        "id": "2450d927-69fe-4acb-924c-f3cf968d3c24",
+        "siteId": "OSDE_CAPITADO",
+        "email": "susanacarpinacci@gmail.com",
+        "password": "Durmiente01",
+        "identification": {
+          "type": "DNI",
+          "number": "98765488"
+        },
+        "numberOfPlans": 1,
+        "source": "pooled",
+        "registration": true,
+        "leadIds": [],
+        "tags": [
+          "ACTIVE",
+          "WITH_PET",
+          "REGISTERED",
+          "REAL_EMAIL"
+        ],
+        "_note": "2026-09-01: usuario real OSDE Capitado (gmail). Datos: Male Fica, DNI 98765488. Candidato prioritario para CP02 de IMAS-4092.",
+        "reserved": false
+      },
+      {
+        "id": "fdcd21ca-0d30-492f-a9c4-f91deaf436d4",
+        "siteId": "OSDE_CAPITADO",
+        "email": "alazo@ikeasistencia.com.ar",
+        "password": "Gotica01",
+        "identification": {
+          "type": "DNI",
+          "number": "89765489"
+        },
+        "numberOfPlans": 1,
+        "source": "pooled",
+        "registration": true,
+        "leadIds": [],
+        "tags": [
+          "ACTIVE",
+          "WITH_PET",
+          "REGISTERED",
+          "REAL_EMAIL"
+        ],
+        "_note": "OSDE Capitado QA. Plan Esencial.",
+        "reserved": false
+      },
+      {
+        "id": "4a3bed71-3f64-4adc-a5fe-fbb92a5775ed",
+        "siteId": "OSDE_CAPITADO",
+        "email": "ayelenlaso@hotmail.com",
+        "password": "Amargo01",
+        "identification": {
+          "type": "DNI",
+          "number": "87777878"
+        },
+        "numberOfPlans": 1,
+        "source": "pooled",
+        "registration": true,
+        "leadIds": [],
+        "tags": [
+          "ACTIVE",
+          "REGISTERED",
+          "REAL_EMAIL",
+          "PROD"
+        ],
+        "_note": "OSDE Capitado PROD.",
+        "reserved": false
+      },
+      {
+        "id": "3613f1c3-79fe-4b27-aad5-980349e89829",
+        "siteId": "OSDE_CAPITADO",
+        "email": "cx@ikeasistencia.com.ar",
+        "password": "Elmatedegerardo!",
+        "identification": {
+          "type": "DNI",
+          "number": "35066784"
+        },
+        "numberOfPlans": 1,
+        "source": "pooled",
+        "registration": true,
+        "leadIds": [],
+        "tags": [
+          "ACTIVE",
+          "REGISTERED",
+          "REAL_EMAIL"
+        ],
+        "_note": "OSDE Capitado QA.",
+        "reserved": false
+      },
+      {
+        "id": "03fb5dc9-48bb-47fe-8960-e74e1767ca23",
+        "siteId": "OSDE_CAPITADO",
+        "email": "carlabagnati@yahoo.com.ar",
+        "password": "Bugsbunny1",
+        "identification": {
+          "type": "DNI",
+          "number": "99999990"
+        },
+        "numberOfPlans": 1,
+        "source": "pooled",
+        "registration": true,
+        "leadIds": [],
+        "tags": [
+          "ACTIVE",
+          "REGISTERED",
+          "REAL_EMAIL"
+        ],
+        "_note": "OSDE Capitado QA.",
+        "reserved": false
+      },
+      {
+        "id": "d2aa232d-52ad-4ce3-9e6b-eaad985b607c",
+        "siteId": "OSDE_CAPITADO",
+        "email": "picssaras@gmail.com",
+        "password": "Otromas123!",
+        "identification": {
+          "type": "DNI",
+          "number": "17525143"
+        },
+        "numberOfPlans": 1,
+        "source": "pooled",
+        "registration": true,
+        "leadIds": [],
+        "tags": [
+          "ACTIVE",
+          "REGISTERED",
+          "REAL_EMAIL"
+        ],
+        "_note": "OSDE Capitado QA. Mascota Scooby Doo.",
+        "reserved": false
+      },
+      {
+        "id": "a114f821-7257-4641-8a78-35d9a16cb18a",
+        "siteId": "OSDE_CAPITADO",
+        "email": "cferrari908@gmail.com",
+        "password": "Antoteamo26",
+        "identification": {
+          "type": "DNI",
+          "number": "22333777"
+        },
+        "numberOfPlans": 1,
+        "source": "pooled",
+        "registration": true,
+        "leadIds": [],
+        "tags": [
+          "ACTIVE",
+          "REGISTERED",
+          "REAL_EMAIL"
+        ],
+        "_note": "OSDE Capitado QA.",
+        "reserved": false
+      },
+      {
+        "id": "14e4e7da-82b4-40f8-b32f-760965eac35e",
+        "siteId": "OSDE_CAPITADO",
+        "email": "juanamolina@gmail.com",
+        "password": "Vetify15%",
+        "identification": {
+          "type": "DNI",
+          "number": "7856231"
+        },
+        "numberOfPlans": 1,
+        "source": "pooled",
+        "registration": true,
+        "leadIds": [],
+        "tags": [
+          "ACTIVE",
+          "REGISTERED",
+          "REAL_EMAIL"
+        ],
+        "_note": "OSDE Capitado QA.",
+        "reserved": false
+      },
+      {
+        "id": "ee75560b-7f09-4a46-a37f-77f20112bb2d",
+        "siteId": "OSDE_CAPITADO",
+        "email": "marcelotesttinelli@gmail.com",
+        "password": "Vetify15%",
+        "identification": {
+          "type": "DNI",
+          "number": "17456789"
+        },
+        "numberOfPlans": 1,
+        "source": "pooled",
+        "registration": true,
+        "leadIds": [],
+        "tags": [
+          "ACTIVE",
+          "REGISTERED",
+          "REAL_EMAIL"
+        ],
+        "_note": "OSDE Capitado QA. PRUEBA1.",
+        "reserved": false
+      },
+      {
+        "id": "e68907dd-1dd1-4c20-b760-240a88eb976f",
+        "siteId": "OSDE_CAPITADO",
+        "email": "mirthalegrand@gmail.com",
+        "password": "Vetify15%",
+        "identification": {
+          "type": "DNI",
+          "number": "1456789"
+        },
+        "numberOfPlans": 1,
+        "source": "pooled",
+        "registration": true,
+        "leadIds": [],
+        "tags": [
+          "ACTIVE",
+          "REGISTERED",
+          "REAL_EMAIL"
+        ],
+        "_note": "OSDE Capitado QA. DNI 7 dígitos.",
+        "reserved": false
+      },
+      {
+        "id": "df0ac2ad-c206-4e68-a9d9-4c44f4ddb1e5",
+        "siteId": "OSDE_CAPITADO",
+        "email": "mauroicardi@gmail.com",
+        "password": "Vetify15%",
+        "identification": {
+          "type": "DNI",
+          "number": "52356789"
+        },
+        "numberOfPlans": 1,
+        "source": "pooled",
+        "registration": true,
+        "leadIds": [],
+        "tags": [
+          "ACTIVE",
+          "REGISTERED",
+          "REAL_EMAIL"
+        ],
+        "_note": "OSDE Capitado QA. Plan Esencial OSDE.",
+        "reserved": false
+      },
+      {
+        "id": "085511f6-808e-4a17-a85d-03bb9b104d65",
+        "siteId": "OSDE_CAPITADO",
+        "email": "pruebacapitadoosde@gmail.com",
+        "password": "Vetify15%",
+        "identification": {
+          "type": "DNI",
+          "number": "13123456"
+        },
+        "numberOfPlans": 1,
+        "source": "pooled",
+        "registration": true,
+        "leadIds": [],
+        "tags": [
+          "ACTIVE",
+          "REGISTERED",
+          "REAL_EMAIL"
+        ],
+        "_note": "OSDE Capitado QA. Mascota Otis.",
+        "reserved": false
       }
     ],
     "FLUX_CAPITADO": [
@@ -496,6 +1311,217 @@
           "NO_PET",
           "PLAN_WITHOUT_PET"
         ],
+        "reserved": false
+      },
+      {
+        "id": "c1c3e430-5aea-40e8-bc33-e5823f2ba9a9",
+        "siteId": "FLUX_CAPITADO",
+        "email": "alandgg973@gmail.com",
+        "password": "Hola123#",
+        "identification": {
+          "type": "DNI",
+          "number": "00000000"
+        },
+        "numberOfPlans": 0,
+        "leadIds": [],
+        "registration": true,
+        "source": "pooled",
+        "tags": [
+          "REGISTERED",
+          "REAL_EMAIL",
+          "NO_PET"
+        ],
+        "reserved": false,
+        "_note": "2026-09-01: cuenta Gmail real dedicada (no alias) para TS-05 Cambio de Contrasena via email real. Registro basico (email+password), sin DNI/poliza validada -- no hace falta para el flujo de reseteo de contrasena. Ver qa-workspace/decision-log.md."
+      },
+      {
+        "id": "4bfac4d1-0fd0-40d3-8bd1-ae6acd6c60b2",
+        "siteId": "FLUX_CAPITADO",
+        "email": "lucianayelengodoy@gmail.com",
+        "password": "Minnieteamo04",
+        "identification": {
+          "type": "DNI",
+          "number": "99888778"
+        },
+        "numberOfPlans": 1,
+        "source": "pooled",
+        "registration": true,
+        "leadIds": [],
+        "tags": [
+          "ACTIVE",
+          "REGISTERED",
+          "REAL_EMAIL"
+        ],
+        "_note": "Flux Capitado QA.",
+        "reserved": false
+      },
+      {
+        "id": "cd19610a-7c5e-45b8-a0a3-2160263aff44",
+        "siteId": "FLUX_CAPITADO",
+        "email": "lgodoy@ikeasistencia.com.ar",
+        "password": "Vilma26!",
+        "identification": {
+          "type": "DNI",
+          "number": "0"
+        },
+        "numberOfPlans": 1,
+        "source": "pooled",
+        "registration": true,
+        "leadIds": [],
+        "tags": [
+          "ACTIVE",
+          "REGISTERED",
+          "REAL_EMAIL"
+        ],
+        "_note": "Flux Capitado QA. DNI no provisto.",
+        "reserved": false
+      },
+      {
+        "id": "64335615-8468-496b-bf0e-b38c3835ad63",
+        "siteId": "FLUX_CAPITADO",
+        "email": "manuelbelgrano@gmail.com",
+        "password": "Vetify15",
+        "identification": {
+          "type": "DNI",
+          "number": "30458789"
+        },
+        "numberOfPlans": 1,
+        "source": "pooled",
+        "registration": true,
+        "leadIds": [],
+        "tags": [
+          "ACTIVE",
+          "WITH_PET",
+          "REGISTERED",
+          "REAL_EMAIL"
+        ],
+        "_note": "Flux Capitado QA. Mascota Banderín.",
+        "reserved": false
+      },
+      {
+        "id": "148849bd-4346-47c9-a115-694ecc3b6b8b",
+        "siteId": "FLUX_CAPITADO",
+        "email": "corneliosaavedra@gmail.com",
+        "password": "Vetify 15",
+        "identification": {
+          "type": "DNI",
+          "number": "45123456"
+        },
+        "numberOfPlans": 1,
+        "source": "pooled",
+        "registration": true,
+        "leadIds": [],
+        "tags": [
+          "ACTIVE",
+          "REGISTERED",
+          "REAL_EMAIL"
+        ],
+        "_note": "Flux Capitado QA. Mascota Escarapela.",
+        "reserved": false
+      },
+      {
+        "id": "7b9d6346-4e6c-47d3-8ac1-c8cd6fc680c2",
+        "siteId": "FLUX_CAPITADO",
+        "email": "mafalda@gmail.com",
+        "password": "Vetify15%",
+        "identification": {
+          "type": "DNI",
+          "number": "78123963"
+        },
+        "numberOfPlans": 1,
+        "source": "pooled",
+        "registration": true,
+        "leadIds": [],
+        "tags": [
+          "ACTIVE",
+          "REGISTERED",
+          "REAL_EMAIL"
+        ],
+        "_note": "Flux Capitado QA. Mascota Boby.",
+        "reserved": false
+      },
+      {
+        "id": "a7043849-204e-4c64-97bc-6e9f5889d39a",
+        "siteId": "FLUX_CAPITADO",
+        "email": "gale38sofia@gmail.com",
+        "password": "Renatateamo!",
+        "identification": {
+          "type": "DNI",
+          "number": "44285735"
+        },
+        "numberOfPlans": 1,
+        "source": "pooled",
+        "registration": true,
+        "leadIds": [],
+        "tags": [
+          "ACTIVE",
+          "REGISTERED",
+          "REAL_EMAIL"
+        ],
+        "_note": "Flux Capitado QA. Mascota Garfield.",
+        "reserved": false
+      },
+      {
+        "id": "6320a906-0ec0-44c9-85fa-64ea4a741271",
+        "siteId": "FLUX_CAPITADO",
+        "email": "jesicacirio@gmail.com",
+        "password": "Vetify15%",
+        "identification": {
+          "type": "DNI",
+          "number": "56126458"
+        },
+        "numberOfPlans": 1,
+        "source": "pooled",
+        "registration": true,
+        "leadIds": [],
+        "tags": [
+          "ACTIVE",
+          "REGISTERED",
+          "REAL_EMAIL"
+        ],
+        "_note": "Flux Capitado QA. PRUEBA2.",
+        "reserved": false
+      },
+      {
+        "id": "1c117416-4c4d-4a79-af54-14e040e471f7",
+        "siteId": "FLUX_CAPITADO",
+        "email": "wandanara@gmail.com",
+        "password": "Vetify15%",
+        "identification": {
+          "type": "DNI",
+          "number": "40325126"
+        },
+        "numberOfPlans": 1,
+        "source": "pooled",
+        "registration": true,
+        "leadIds": [],
+        "tags": [
+          "ACTIVE",
+          "REGISTERED",
+          "REAL_EMAIL"
+        ],
+        "_note": "Flux Capitado QA. Plan Esencial Flux.",
+        "reserved": false
+      },
+      {
+        "id": "fa1a3e68-7537-4679-844d-625c46e1a501",
+        "siteId": "FLUX_CAPITADO",
+        "email": "pruebacapitadoflux@gmail.com",
+        "password": "Vetify15%",
+        "identification": {
+          "type": "DNI",
+          "number": "28123456"
+        },
+        "numberOfPlans": 1,
+        "source": "pooled",
+        "registration": true,
+        "leadIds": [],
+        "tags": [
+          "ACTIVE",
+          "REGISTERED",
+          "REAL_EMAIL"
+        ],
+        "_note": "Flux Capitado QA. Mascota Droppy.",
         "reserved": false
       }
     ]

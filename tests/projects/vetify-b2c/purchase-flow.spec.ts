@@ -848,6 +848,23 @@ test.describe('Flujo de Compra', () => {
             await checkout.continueButton.click();
             await expect(page).not.toHaveURL(/\/checkout\/billing$/);
         });
+
+        test('TC-04 Regresar a la landing', async ({ container, page }) => {
+            await setAllureDetails({
+                preconditions: ['Usuario seleccionó un plan y se encuentra en el paso 1 del checkout.'],
+                steps: ['Presionar el botón "Regresar"'],
+                expectedResult: ['El sistema sale del formulario de compra y redirecciona a la web institucional'],
+            });
+            const institutional = container.b2c.landingPage;
+            const checkout = container.b2c.checkoutPage;
+
+            await institutional.load();
+            await institutional.plans.scrollIntoView();
+            await institutional.plans.contractRandomPlan();
+
+            await checkout.backButton.click();
+            await expect(page).not.toHaveURL(/\/checkout\//);
+        });
     });
 
     // Portado de documentation/Casos de Prueba.xlsx, hoja "Flujo de Compra", TS-06 Formulario -
@@ -1025,14 +1042,14 @@ test.describe('Flujo de Compra', () => {
     });
 
     // Portado de documentation/Casos de Prueba.xlsx, hoja "Flujo de Compra", TS-04 Cupones.
-    // Solo TC-01 (cupón inexistente) se automatiza hoy — TC-02 a TC-07 necesitan un código de cupón
-    // real y válido para probar, y los 2 códigos del fixture del proyecto (src/fixtures/cupons/
-    // reusable-cupons.json, "UNIVERSAL-REUSE-10"/"OSDE-REUSE-20") se confirmaron FALSOS en vivo
-    // 2026-08-14 — ambos dan error real de "cupón inválido" contra el checkout real. Investigado:
-    // esos códigos solo aparecen en tests/unit-tests/cupon-provider.unit.spec.ts, que los escribe
-    // temporalmente para probar la lógica de CuponPool y los revierte después — nunca fueron
-    // sembrados como cupones reales en el backend. Sin un código real, TC-02-07 quedan bloqueados
-    // (ver qa-workspace/decision-log.md 2026-08-14 para el detalle completo).
+    // TC-01 (cupón inexistente) ya estaba automatizado. Los 2 códigos del fixture del proyecto
+    // (src/fixtures/cupons/reusable-cupons.json, "UNIVERSAL-REUSE-10"/"OSDE-REUSE-20") se
+    // confirmaron FALSOS en vivo 2026-08-14 — nunca fueron sembrados como cupones reales en el
+    // backend, solo existen como datos temporales de tests/unit-tests/cupon-provider.unit.spec.ts.
+    // TC-02 quedó bloqueado hasta que se confirmó en vivo 2026-09-10 que "VETIFY20X3" (el mismo
+    // código ya usado en checkout-footer-cupon.spec.ts para verificar el footer, pero nunca antes
+    // probado contra el checkout de Vetify B2C completo) SÍ es un cupón real: aplica un descuento
+    // genuino de "20% OFF los primeros 3 meses" sobre el subtotal, no solo texto promocional.
     test.describe('TS-04 Cupones', () => {
         test('TC-01 Aplicar cupón no existente', async ({ container, page }) => {
             await setAllureDetails({
@@ -1058,6 +1075,118 @@ test.describe('Flujo de Compra', () => {
             // El usuario puede agregar otro cupón si lo desea: el input sigue habilitado.
             await checkout.applyCoupon('OTRO-CUPON-INEXISTENTE');
             await expect(page.getByText('Cupón no encontrado')).toBeVisible();
+        });
+
+        test('TC-02 Aplicar un cupón válido', async ({ container, page }) => {
+            await setAllureDetails({
+                preconditions: ['Usuario seleccionó el plan Vetify Emergencias en la landing de Vetify.'],
+                steps: ['Ingresar el cupón válido "VETIFY20X3"'],
+                expectedResult: [
+                    'El sistema acepta correctamente el cupón ingresado',
+                    'El subtotal no es modificado',
+                    'El total refleja el porcentaje de descuento aplicado por el cupón (20% OFF)',
+                ],
+            });
+
+            const institutional = container.b2c.landingPage;
+            const checkout = container.b2c.checkoutPage;
+            // No hay un locator dedicado a "Subtotal" en el POM (solo Total, ya usado en TC-01) --
+            // se lee acá directo, mismo patrón de getOrderTotalText(). Mismo caso ya documentado en
+            // planQuantitySelect: 2 elementos en el DOM (resumen responsive duplicado, uno oculto por
+            // CSS) -- el índice 1 (segundo) es el real/visible.
+            const subtotalAmount = () => page.getByText('Subtotal').nth(1).locator('..').innerText();
+
+            let totalBefore = '';
+            let subtotalBefore = '';
+
+            await step('1. Seleccionar el plan Vetify Emergencias en la landing.', async () => {
+                await institutional.load();
+                await institutional.plans.scrollIntoView();
+                await institutional.plans.plan('Emergencias').contract();
+                await page.waitForURL(/\/checkout\/form$/);
+                totalBefore = await checkout.getOrderTotalText();
+                subtotalBefore = await subtotalAmount();
+            });
+
+            await step('2. Ingresar el cupón válido "VETIFY20X3".', async () => {
+                await checkout.applyCoupon('VETIFY20X3');
+            });
+
+            await step('El sistema acepta el cupón, el subtotal no cambia y el total refleja el descuento.', async () => {
+                // .first(): el mismo texto "20% OFF los primeros 3 meses" también aparece en las
+                // bases y condiciones del footer -- el de la orden de compra es el primero en el DOM.
+                await expect(page.getByText('20% OFF los primeros 3 meses').first()).toBeVisible();
+                expect.soft(await subtotalAmount()).toBe(subtotalBefore);
+                expect.soft(await checkout.getOrderTotalText()).not.toBe(totalBefore);
+            });
+        });
+
+        // SKIP [IMP-029]: el checkout institucional bloquea la carga de la landing (queda en
+        // blanco, solo header + reCAPTCHA) tras ~2 interacciones reales seguidas en la misma
+        // sesión de test -- confirmado 2 veces (paralelo y serial), ver docs/impedimentos-bloqueos.md.
+        test.skip('TC-03 Eliminar el cupón agregado', async ({ container, page }) => {
+            await setAllureDetails({
+                preconditions: ['Usuario seleccionó el plan Vetify Emergencias y aplicó el cupón "VETIFY20X3".'],
+                steps: ['Eliminar el cupón ingresado'],
+                expectedResult: ['El sistema elimina correctamente el cupón del formulario', 'El monto total ahorrado por el cupón desaparece', 'El total vuelve a reflejar el subtotal (precio del plan)'],
+            });
+
+            const institutional = container.b2c.landingPage;
+            const checkout = container.b2c.checkoutPage;
+
+            await institutional.load();
+            await institutional.plans.scrollIntoView();
+            await institutional.plans.plan('Emergencias').contract();
+            await page.waitForURL(/\/checkout\/form$/);
+
+            const totalBefore = await checkout.getOrderTotalText();
+            await checkout.applyCoupon('VETIFY20X3');
+            const totalWithCoupon = await checkout.getOrderTotalText();
+            expect(totalWithCoupon).not.toBe(totalBefore);
+
+            await checkout.removeCoupon();
+
+            await expect(page.getByText('20% OFF los primeros 3 meses').first()).toBeHidden();
+            expect(await checkout.getOrderTotalText()).toBe(totalBefore);
+        });
+
+        // SKIP [IMP-029]: mismo bloqueo que TC-03 (ver comentario arriba).
+        test.skip('TC-05 Agregar cupón en paso 1', async ({ container, page }) => {
+            await setAllureDetails({
+                preconditions: ['Usuario seleccionó el plan Vetify Emergencias y se encuentra en el paso 1 del checkout.'],
+                steps: ['Ingresar el cupón válido "VETIFY20X3"', 'Navegar al paso 2', 'Navegar al paso 3'],
+                expectedResult: ['El cupón ingresado es recordado durante todos los pasos', 'El monto de descuento se mantiene hasta el paso de pago'],
+            });
+
+            const institutional = container.b2c.landingPage;
+            const checkout = container.b2c.checkoutPage;
+
+            await institutional.load();
+            await institutional.plans.scrollIntoView();
+            await institutional.plans.plan('Emergencias').contract();
+            await page.waitForURL(/\/checkout\/form$/);
+
+            await checkout.applyCoupon('VETIFY20X3');
+            const totalWithCoupon = await checkout.getOrderTotalText();
+
+            await checkout.completePersonalData({
+                firstName: 'Test',
+                lastName: `Automation ${Date.now()}`,
+                email: getRandomEmail(),
+                phone: '1161898707',
+                documentType: 'DNI',
+                documentNumber: getRandomIdentificationNumber(),
+            });
+            await checkout.completeBillingData({
+                province: 'Ciudad Autónoma de Buenos Aires',
+                localitySearch: 'Ciudad',
+                locality: 'CIUDAD AUTONOMA DE BUENOS AIRES',
+                address: 'Av Corrientes 123',
+                zipCode: '1414',
+            });
+
+            await expect(page.getByText('20% OFF los primeros 3 meses').first()).toBeVisible();
+            expect(await checkout.getOrderTotalText()).toBe(totalWithCoupon);
         });
     });
 });

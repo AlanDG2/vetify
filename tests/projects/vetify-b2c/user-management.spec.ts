@@ -1,59 +1,12 @@
 import { SiteId } from '@config/environment';
 import { getRandomEmail, getRandomIdentificationNumber, getRandomPassword } from '@helpers/automation-utils';
+import { requestResetLink, restorePassword } from '@helpers/passwordResetFlow';
 import { NetworkOutageSimulator } from '@helpers/simulateOutage';
-import { EmailClient } from '@integrations/email/EmailClient';
 import { VetifyWebappRegistrationPage } from '@pages/vetify/webapp';
 import { expect, type Response } from '@playwright/test';
 import { TestUser, UserProvider, UserSource, UserTag } from '@providers/user';
-import { TestContainer, setAllureDetails, test } from '@tests/framework/base-test';
+import { setAllureDetails, test } from '@tests/framework/base-test';
 import { step } from 'allure-js-commons';
-
-// 2026-08-29: pedir /api/passrecovery dos veces seguidas para el mismo email en poco tiempo
-// reproducía "Enlace caducado" en el link recién recibido (confirmado en vivo, no es un bug del
-// test: el flujo manual pausado funcionó 2/2 veces, el mismo flujo corrido en secuencia rápida
-// falló consistentemente). Cooldown real entre requests para esta cuenta compartida hasta
-// confirmar la ventana exacta con dev — ver qa-workspace/decision-log.md.
-const RESET_REQUEST_COOLDOWN_MS = 90_000;
-let lastResetRequestAt = 0;
-
-async function waitForResetCooldown(): Promise<void> {
-    const elapsed = Date.now() - lastResetRequestAt;
-    if (lastResetRequestAt !== 0 && elapsed < RESET_REQUEST_COOLDOWN_MS) {
-        await new Promise((resolve) => setTimeout(resolve, RESET_REQUEST_COOLDOWN_MS - elapsed));
-    }
-    lastResetRequestAt = Date.now();
-}
-
-/** Único uso: si `resetPassword` falla a mitad de camino, deja la cuenta compartida (UserTag.REAL_EMAIL)
- * con una contraseña desconocida para el resto de la suite — hay que restaurarla siempre. */
-async function requestResetLink(container: TestContainer, email: string): Promise<string> {
-    await waitForResetCooldown();
-    const since = new Date();
-    await container.vetify.webapp.loginPage.load();
-    await container.vetify.webapp.loginPage.openForgotPassword();
-    await container.vetify.webapp.loginPage.requestPasswordRecovery(email);
-    const receivedEmail = await EmailClient.waitForEmail({
-        from: 'webapp@vetify.com.ar',
-        subjectContains: 'Recuperá tu contraseña',
-        since,
-    });
-    // El link de reset aparece repetido varias veces en el cuerpo del correo (botón + fallback de
-    // texto plano) — dedupe y filtrar por dominio, ignora otras URLs del correo (ej. el logo).
-    const links = [...new Set(EmailClient.extractLinks(receivedEmail))].filter((link) => link.includes('reset-verify'));
-    if (!links[0]) {
-        throw new Error(`No se encontró el link de reset (reset-verify) en el correo recibido. Asunto: "${receivedEmail.subject}".`);
-    }
-    return links[0];
-}
-
-/** Restaura la contraseña conocida de la cuenta compartida vía un reset real adicional — nunca
- * asumir que la cuenta soporta quedar en una contraseña distinta a la del pool entre corridas. */
-async function restorePassword(container: TestContainer, page: import('@playwright/test').Page, email: string, knownPassword: string): Promise<void> {
-    const resetLink = await requestResetLink(container, email);
-    await page.goto(resetLink);
-    await container.vetify.webapp.resetPasswordPage.resetPassword(knownPassword);
-    await expect(container.vetify.webapp.resetPasswordPage.successHeadingLbl).toBeVisible();
-}
 
 test.describe('Gestión de Usuario Test Suite', () => {
     test.describe('TS-01 Registración', () => {
@@ -407,8 +360,16 @@ test.describe('Gestión de Usuario Test Suite', () => {
                 await container.vetify.webapp.policyValidationPage.expectLoaded();
             });
             await step('El selector muestra al menos una opción de tipo de documento válida (ej. DNI)', async () => {
-                const options = await container.vetify.webapp.policyValidationPage.documentTypeSelect.locator('option').allTextContents();
-                expect(options.map((o) => o.trim())).toContain('DNI');
+                // expectLoaded() solo espera el cambio de URL, no la respuesta de
+                // /api/brand/.../identification-types que puebla este <select> -- sin el poll, leer las
+                // opciones puede ganarle a esa respuesta y encontrar solo el placeholder duplicado
+                // (confirmado en vivo 2026-09-05).
+                await expect
+                    .poll(async () => {
+                        const options = await container.vetify.webapp.policyValidationPage.documentTypeSelect.locator('option').allTextContents();
+                        return options.map((o) => o.trim());
+                    })
+                    .toContain('DNI');
             });
         });
     });
@@ -656,47 +617,46 @@ test.describe('Gestión de Usuario Test Suite', () => {
             });
         });
 
-        test('CP04 [Bug conocido] [Negativo] Campo email obligatorio', { tag: ['@critical'] }, async ({ container, page }) => {
+        test('CP04 [Negativo] Campo email obligatorio', { tag: ['@critical'] }, async ({ container }) => {
             await setAllureDetails({
                 preconditions: ['Usuario con el sub-formulario de reseteo expandido, campo email vacío.'],
                 steps: ['Presionar "Enviar" sin ingresar email.'],
                 expectedResult: [
-                    'El backend responde 400 "email es requerido". BUG: el frontend no muestra ese mensaje — en su lugar muestra un mensaje genérico de "problemas técnicos" engañoso para un simple campo vacío.',
+                    'Fix IMAS-4198 (verificado en vivo 2026-08-31): el campo se marca inválido con "El correo electrónico no es válido" sin llamar al backend — ya no muestra el mensaje genérico de "problemas técnicos".',
                 ],
             });
 
-            let response: Response;
             await step('1. Presionar "Enviar" sin ingresar email.', async () => {
-                [response] = await Promise.all([
-                    page.waitForResponse((r) => r.url().includes('/api/passrecovery')),
-                    container.vetify.webapp.loginPage.sendRecoveryButton.click(),
-                ]);
+                await container.vetify.webapp.loginPage.sendRecoveryButton.click();
             });
-            await step('El backend responde 400 "email es requerido".', async () => {
-                expect.soft(response.status()).toBe(400);
-                expect.soft(await response.json()).toStrictEqual({ message: 'email es requerido' });
+            await step('El campo se marca inválido con "El correo electrónico no es válido".', async () => {
+                await expect(container.vetify.webapp.loginPage.recoveryInvalidEmailErrorLbl).toBeVisible();
+                await expect(container.vetify.webapp.loginPage.recoveryInvalidEmailErrorLbl).toHaveText('El correo electrónico no es válido');
             });
-            await step('BUG: el frontend muestra un mensaje genérico de "problemas técnicos" en vez de indicar el campo obligatorio.', async () => {
-                await expect(container.vetify.webapp.loginPage.recoveryGenericErrorLbl).toBeVisible();
+            await step('Ya no se muestra el mensaje genérico de "problemas técnicos".', async () => {
+                await expect(container.vetify.webapp.loginPage.recoveryGenericErrorLbl).toBeHidden();
             });
         });
 
-        test('CP05 [Bug conocido] [Negativo] Formato de email inválido no se valida', { tag: ['@critical'] }, async ({ container }) => {
+        test('CP05 [Negativo] Formato de email inválido', { tag: ['@critical'] }, async ({ container }) => {
             await setAllureDetails({
                 preconditions: ['Usuario con el sub-formulario de reseteo expandido.'],
                 steps: ['Ingresar un valor sin formato de email válido (sin "@") y presionar "Enviar".'],
                 expectedResult: [
-                    'BUG: no hay validación de formato — el backend responde 200 con el mismo mensaje de éxito genérico, igual que un email válido.',
+                    'Fix IMAS-4199 (verificado en vivo 2026-08-31): el campo se marca inválido con "El correo electrónico no es válido" sin llamar al backend — ya no se envía como si fuera un email válido.',
                 ],
             });
 
-            let response: Response;
             await step('1. Ingresar un valor sin formato de email válido y presionar "Enviar".', async () => {
-                response = await container.vetify.webapp.loginPage.requestPasswordRecovery('noesunemail');
+                await container.vetify.webapp.loginPage.emailPassRecoveryInput.fill('noesunemail');
+                await container.vetify.webapp.loginPage.sendRecoveryButton.click();
             });
-            await step('BUG: no hay validación de formato — el backend responde 200 con el mismo mensaje de éxito genérico.', async () => {
-                expect.soft(response.status()).toBe(200);
-                await expect(container.vetify.webapp.loginPage.recoverySuccessLbl).toBeVisible();
+            await step('El campo se marca inválido con "El correo electrónico no es válido".', async () => {
+                await expect(container.vetify.webapp.loginPage.recoveryInvalidEmailErrorLbl).toBeVisible();
+                await expect(container.vetify.webapp.loginPage.recoveryInvalidEmailErrorLbl).toHaveText('El correo electrónico no es válido');
+            });
+            await step('Ya no se muestra el mensaje de éxito como si fuera válido.', async () => {
+                await expect(container.vetify.webapp.loginPage.recoverySuccessLbl).toBeHidden();
             });
         });
     });
@@ -772,8 +732,8 @@ test.describe('Gestión de Usuario Test Suite', () => {
                 });
                 await step('El envío queda bloqueado y el checklist muestra un único criterio cumplido.', async () => {
                     await expect(container.vetify.webapp.resetPasswordPage.headingLbl).toBeVisible();
-                    await expect(container.vetify.webapp.resetPasswordPage.policyCriterionChecked('minusculas')).toBeVisible();
-                    await expect(container.vetify.webapp.resetPasswordPage.policyCriterionChecked('longitud')).toBeHidden();
+                    await expect.poll(() => container.vetify.webapp.resetPasswordPage.isPolicyCriterionChecked('minusculas')).toBe(true);
+                    await expect.poll(() => container.vetify.webapp.resetPasswordPage.isPolicyCriterionChecked('longitud')).toBe(false);
                 });
             } finally {
                 UserProvider.releaseUser(user!);
@@ -808,6 +768,12 @@ test.describe('Gestión de Usuario Test Suite', () => {
         });
 
         test('TC-04 - Vetify - Cambio exitoso, login con la nueva contraseña, la anterior invalidada y el link reusado rechazado (CP13/16/17/18/12)', { tag: ['@critical'] }, async ({ container, page }) => {
+            // Este test hace 2 round-trips de email real (flujo principal + restorePassword() en el
+            // finally), y requestResetLink() tiene un cooldown de 90s por cuenta (ver
+            // passwordResetFlow.ts) para evitar un bug ya conocido de link caducado. 2×90s de cooldown
+            // + la entrega real de cada correo supera el timeout global de 180s -- mismo patrón
+            // confirmado en vivo 2026-09-06 en flux-capitado/user-management.spec.ts TC-04.
+            test.setTimeout(300_000);
             const user = await UserProvider.getUser({ source: UserSource.Pooled, siteId: SiteId.VETIFY_ADQUIRENTE, tags: [UserTag.REAL_EMAIL], reserve: true });
             test.skip(!user, 'No hay una cuenta con casilla de correo real disponible (UserTag.REAL_EMAIL).');
 
@@ -822,7 +788,7 @@ test.describe('Gestión de Usuario Test Suite', () => {
                 expectedResult: [
                     'El sistema confirma el cambio ("¡Contraseña cambiada!") y permite loguearse con la nueva contraseña.',
                     'La contraseña anterior queda invalidada — el login con ella es rechazado.',
-                    'El link ya usado queda rechazado ("Enlace caducado") si se reintenta.',
+                    'El link ya usado queda rechazado ("Enlace inválido") si se reintenta.',
                 ],
             });
 
@@ -866,8 +832,8 @@ test.describe('Gestión de Usuario Test Suite', () => {
                 await step('4. Reintentar el mismo link de reset ya usado.', async () => {
                     await page.goto(usedResetLink);
                 });
-                await step('El link ya usado queda rechazado ("Enlace caducado").', async () => {
-                    await expect(container.vetify.webapp.resetPasswordPage.expiredHeadingLbl).toBeVisible();
+                await step('El link ya usado queda rechazado ("Enlace inválido").', async () => {
+                    await expect(container.vetify.webapp.resetPasswordPage.alreadyUsedHeadingLbl).toBeVisible();
                 });
             } finally {
                 // SIEMPRE restaurar la contraseña conocida del pool, incluso si algo de arriba falló —

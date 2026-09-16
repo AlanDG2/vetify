@@ -138,13 +138,13 @@ test.describe('Sesión Test Suite', () => {
         test.describe(() => {
             // El tour es un flag de backend por cuenta, no de browser -- una vez que este test corre en
             // verde, esa cuenta queda "vista" para siempre y el proximo run necesita otra cuenta ACTIVE
-            // que nunca haya logueado. PLAN_WITHOUT_PET (sin filtrar por WITH_PET) amplia el universo de
-            // candidatas -- no verificar manualmente cuales "vieron" el tour antes de correr el test:
-            // loguearse a mano para chequear consume la cuenta igual que la corrida real (lección
-            // aprendida en el momento, 2026-08-30 -- mismo patron que IMP-003).
+            // que nunca haya logueado -- con Pooled esto termina agotando el pool tarde o temprano
+            // (confirmado 2026-09-04, ver docs/impedimentos-bloqueos.md). UserSource.Fresh resuelve la
+            // causa de raíz: cada corrida pide una cuenta recién activada que por construcción nunca
+            // vio el tour, en vez de competir por las pocas cuentas pooled "vírgenes" que van quedando.
             test.use({
                 userRequest: {
-                    source: UserSource.Pooled,
+                    source: UserSource.Fresh,
                     siteId: SiteId.VETIFY_ADQUIRENTE,
                     tags: [UserTag.ACTIVE, UserTag.PLAN_WITHOUT_PET],
                     reserve: true,

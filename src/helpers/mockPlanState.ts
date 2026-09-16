@@ -29,3 +29,46 @@ export async function mockAccountWithNoOperablePlan(page: Page): Promise<void> {
         await route.fulfill({ status: 200, contentType: 'application/json', body: '[]' });
     });
 }
+
+/**
+ * Simula "Plan sin condicionado disponible" (IMP-020, roadmap QA-AUTO-062): fuerza
+ * `pathCondicionado: null` en el primer plan real de la cuenta, dejando el resto de los campos
+ * (precio, grupo, código de producto, etc.) intactos -- a diferencia de `mockAccountWithNoOperablePlan`
+ * de arriba, acá SÍ hace falta la respuesta real primero (`route.fetch()`), porque no se conoce el
+ * schema completo del endpoint para fabricarlo a mano sin arriesgar romper otro campo (ver IMP-014:
+ * campos faltantes como priceAmount/priceLabel ya rompieron el render de esta misma pantalla antes).
+ *
+ * `GET /api/services/plans/engage/{dni}` es el mismo endpoint con outages intermitentes documentados
+ * en IMP-017 -- se reintenta unas pocas veces adentro del propio handler en vez de dejar que una sola
+ * llamada 500 tire abajo el test por una causa no relacionada a lo que se está probando.
+ *
+ * No confirmado visualmente en producción qué texto/estado exacto muestra la UI para este caso (el
+ * outage de IMP-017 estaba activo el día que se escribió este mock) -- el test que lo usa solo afirma
+ * que "Condiciones del Servicio" deja de estar disponible, no un mensaje puntual. Revisar si aparece
+ * algún mensaje visible ("Condicionado no disponible" o similar) la próxima vez que se corra con el
+ * ambiente sano, y sumar esa aserción.
+ */
+export async function mockFirstPlanWithoutCondicionado(page: Page): Promise<void> {
+    await page.route('**/api/services/plans/engage/**', async (route) => {
+        let response;
+        let json: any;
+        for (let attempt = 0; attempt < 4; attempt++) {
+            response = await route.fetch();
+            if (response.ok()) {
+                json = await response.json();
+                break;
+            }
+        }
+        if (!json) {
+            // El endpoint no respondió 200 en ningún intento -- no hay nada real que mockear, se deja
+            // pasar la última respuesta tal cual (probablemente el mismo 500 de IMP-017) en vez de
+            // fabricar un cuerpo inventado.
+            await route.fulfill({ response: response! });
+            return;
+        }
+        if (Array.isArray(json.elements) && json.elements.length > 0) {
+            json.elements[0].pathCondicionado = null;
+        }
+        await route.fulfill({ response: response!, json });
+    });
+}

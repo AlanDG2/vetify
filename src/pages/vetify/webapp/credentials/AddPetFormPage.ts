@@ -31,6 +31,7 @@ export class VetifyWebappAddPetFormPage extends VetifyWebappLoggedBasePage {
     readonly petPhotoFileInput: Locator;
     readonly petPhotoFileLbl: Locator;
     readonly petPhotoCameraInput: Locator;
+    readonly usarCamaraBtn: Locator;
     readonly petPhotoPreviewImg: Locator;
     readonly changePhotoBtn: Locator;
     // Congrats Step
@@ -75,6 +76,11 @@ export class VetifyWebappAddPetFormPage extends VetifyWebappLoggedBasePage {
         this.petPhotoFileInput = this.page.locator('input[id="pet-photo-file-input"]');
         this.petPhotoFileLbl = this.page.locator('label[for="pet-photo-file-input"]');
         this.petPhotoCameraInput = this.page.locator('input[id="pet-photo-camera-input"]');
+        // Confirmado en vivo 2026-09-07: es un <label for="pet-photo-camera-input"> con texto "Usar
+        // cámara" que dispara el input de archivo oculto de arriba (atributo HTML `capture="environment"`,
+        // sin lógica propia de la webapp para habilitar/deshabilitar según disponibilidad real de cámara
+        // -- delega 100% en el selector nativo del SO). Nunca está disabled/oculto en el DOM.
+        this.usarCamaraBtn = this.page.locator('label[for="pet-photo-camera-input"]');
         this.petPhotoPreviewImg = this.page.locator('img[alt="Foto de tu mascota"]');
         this.changePhotoBtn = this.page.locator('label[for="pet-photo-file-input"]');
         // Congrats Step
@@ -186,6 +192,23 @@ export class VetifyWebappAddPetFormPage extends VetifyWebappLoggedBasePage {
         const [response] = await Promise.all([
             this.page.waitForResponse((response) => response.url().includes('/api/files/upload/pets') && response.status() === 200),
             this.petPhotoFileInput.setInputFiles(filePath),
+        ]);
+
+        if (!response.ok()) {
+            throw new Error(`Failed to upload file: ${response.statusText()}`);
+        }
+
+        const data: any = await response.json();
+        return data.id;
+    }
+
+    // Mismo endpoint y comportamiento que uploadPetFilePhoto -- confirmado en vivo 2026-09-07 que
+    // "Usar cámara" y "Cargá el archivo" son 2 inputs de archivo distintos que alimentan el mismo
+    // POST /api/files/upload/pets, sin diferencia de backend entre ambos caminos.
+    async uploadPetCameraPhoto(filePath: string): Promise<string> {
+        const [response] = await Promise.all([
+            this.page.waitForResponse((response) => response.url().includes('/api/files/upload/pets') && response.status() === 200),
+            this.petPhotoCameraInput.setInputFiles(filePath),
         ]);
 
         if (!response.ok()) {

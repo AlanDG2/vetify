@@ -114,6 +114,16 @@ export async function searchIssues(jql, maxResults = 50) {
   });
 }
 
+// ⚠️ CONFIRMADO 2026-09-11: el campo `description` que arma esta función NO es necesariamente lo
+// que la UI de Jira muestra como "la" descripción de una Tarea/Subtarea -- para esos issuetypes,
+// el panel real (Objetivo / Descripción / Entregable esperado / Dependencias) vive en un
+// customfield_* propio del proyecto (acá, `customfield_11620`), con estructura de `panel`+`heading`
+// por sección. Si el campo real sigue mostrando el placeholder ("[Describí...]") después de crear/
+// editar un issue con esta función, escribir el contenido real en ese customfield en vez de (o
+// además de) `description` -- ver ejemplo de armado de panels en el historial de sync-log.ndjson
+// (2026-09-11, IMAS-4658/4675/4676). Es la contraparte, del lado de escritura, del problema ya
+// conocido de lectura (`findFilledDescriptionFields()` más abajo, que ya escanea todos los
+// customfield_* porque la HISTORIA de contenido real puede vivir en cualquiera de varios).
 export async function createChildTask({ parentKey, summary, description, assigneeAccountId }) {
   const parent = await getIssue(parentKey);
   const fields = {
@@ -215,16 +225,65 @@ export async function findUserByEmail(email) {
 
 // ── Shared helpers ────────────────────────────────────────────────────────────
 
+// Splits a single line on **bold** and `code` markers into ADF text nodes, applying `strong`/
+// `code` marks to the matched segments. Plain text with neither returns a single text node, same
+// as before this function existed -- doesn't change behavior for callers that never used markdown.
+function parseInlineMarks(line) {
+  const parts = line.split(/(\*\*[^*]+\*\*|`[^`]+`)/g).filter((p) => p !== '');
+  if (parts.length === 0) return [{ type: 'text', text: '' }];
+  return parts.map((part) => {
+    const bold = part.match(/^\*\*([^*]+)\*\*$/);
+    if (bold) return { type: 'text', text: bold[1], marks: [{ type: 'strong' }] };
+    const code = part.match(/^`([^`]+)`$/);
+    if (code) return { type: 'text', text: code[1], marks: [{ type: 'code' }] };
+    return { type: 'text', text: part };
+  });
+}
+
+// toDoc() converts plain-ish text (optionally with **bold** and "- "/"1. " list lines) into ADF.
+// Blocks are separated by a blank line, same as before. A block renders as a real bulletList/
+// orderedList only if EVERY non-empty line in it starts with a list marker -- a block that mixes
+// list and non-list lines falls back to a plain paragraph (with the markers left as literal text)
+// rather than guessing, since Jira has no "partial list" concept.
 export function toDoc(text) {
   const blocks = String(text).split(/\n{2,}/).map((b) => b.trim()).filter(Boolean);
   return {
     type: 'doc', version: 1,
-    content: blocks.map((block) => ({
-      type: 'paragraph',
-      content: block.split('\n').flatMap((line, i, lines) =>
-        i < lines.length - 1 ? [{ type: 'text', text: line }, { type: 'hardBreak' }] : [{ type: 'text', text: line }],
-      ),
-    })),
+    content: blocks.map((block) => {
+      if (/^-{3,}$/.test(block.trim())) return { type: 'rule' };
+
+      const lines = block.split('\n').filter((l) => l.trim() !== '');
+
+      const isBulleted = lines.length > 0 && lines.every((l) => /^[-*]\s+/.test(l));
+      if (isBulleted) {
+        return {
+          type: 'bulletList',
+          content: lines.map((l) => ({
+            type: 'listItem',
+            content: [{ type: 'paragraph', content: parseInlineMarks(l.replace(/^[-*]\s+/, '')) }],
+          })),
+        };
+      }
+
+      const isOrdered = lines.length > 0 && lines.every((l) => /^\d+\.\s+/.test(l));
+      if (isOrdered) {
+        return {
+          type: 'orderedList',
+          content: lines.map((l) => ({
+            type: 'listItem',
+            content: [{ type: 'paragraph', content: parseInlineMarks(l.replace(/^\d+\.\s+/, '')) }],
+          })),
+        };
+      }
+
+      return {
+        type: 'paragraph',
+        content: block.split('\n').flatMap((line, i, allLines) => {
+          const nodes = parseInlineMarks(line);
+          return i < allLines.length - 1 ? [...nodes, { type: 'hardBreak' }] : nodes;
+        }),
+      };
+    }),
   };
 }
 

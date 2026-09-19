@@ -2380,3 +2380,8 @@ Reabrir si: el proyecto necesita setear Playwright en un contexto nuevo desde ce
 Decisión: se posteó el comentario de cierre (CP01-CP06 + casos especiales 03/05 + pregunta abierta del caso especial 04) en IMAS-4717 ("Pruebas en QA") y se transicionó de "In Validation" a "Pending Validation".
 Razón: la validación de QA quedó completa y sin bugs encontrados en el comportamiento de la historia (verificado con Alan), pero IMAS-4546 no puede pasar a "Hecho" todavía porque IMAS-4718 ("Pasaje a Producción") sigue en Backlog — "Pending Validation" es el estado correcto según el flujo de 5 estados del equipo (ya validado, esperando deploy).
 Reabrir si: llega la respuesta del dev sobre el caso especial 04 y cambia algo de lo documentado, o si el deploy a Producción revela un comportamiento distinto al validado en QA.
+
+## 2026-09-19 - IMAS-4303: retest en vivo, el bug sigue reproduciendo
+Decisión: se posteó evidencia de retest en IMAS-4306 (subtarea "Pruebas QA") confirmando que el bug original sigue activo pese a que Análisis (IMAS-4304) y Desarrollo (IMAS-4305) figuran "Hecho". Medido con getComputedStyle en vivo, mobile y desktop por separado: ícono de reloj en 27x27px (esperado 24x24), texto de rango horario en 14px (esperado 16px). Se identificó causa técnica probable en ambos casos (prop de tamaño del ícono forzando 27 en vez de 24; uso del token fontSize="sm" de Chakra en vez de "md") para agilizar el fix real.
+Razón: Alan pidió validar esta HU asumiendo que estaba lista; la medición en vivo (no a simple vista) reveló que no lo está.
+Reabrir si: el dev aplica un nuevo fix y hay que reverificar las medidas.

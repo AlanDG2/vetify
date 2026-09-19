@@ -229,3 +229,4 @@
 {"timestamp":"2026-09-19T03:19:35.021Z","action":"transition","key":"IMAS-4476","summary":"In Validation -> Hecho","result":"ok"}
 {"timestamp":"2026-09-19T15:17:54.234Z","action":"comment","key":"IMAS-4717","summary":"Casos de prueba (CP01-CP06 + casos especiales 03/05 + pregunta abierta caso especial 04) posteados como cierre de QA para IMAS-4546","result":"success"}
 {"timestamp":"2026-09-19T15:17:54.235Z","action":"transition","key":"IMAS-4717","summary":"In Validation -> Pending Validation (QA completa, pasaje a Produccion IMAS-4718 sigue en Backlog)","result":"success"}
+{"timestamp":"2026-09-19T16:48:02.446Z","action":"comment","key":"IMAS-4306","summary":"Retest de IMAS-4303 (Bottom Sheet dia/horario): sigue reproduciendo -- icono 27px vs 24px esperado, texto 14px vs 16px esperado, con detalle tecnico (size prop del icono, fontSize sm vs md)","result":"success"}

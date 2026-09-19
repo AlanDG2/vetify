@@ -227,3 +227,5 @@
 {"timestamp":"2026-09-19T03:19:35.021Z","action":"transition","key":"IMAS-4504","summary":"Tareas Por Hacer -> Hecho","result":"ok"}
 {"timestamp":"2026-09-19T03:19:35.021Z","action":"comment","key":"IMAS-4476","summary":"Retest final confirmado: 2 gastos aprobados desde Calidad (decision-calidad 204 x2), derivados a Finanzas","result":"ok"}
 {"timestamp":"2026-09-19T03:19:35.021Z","action":"transition","key":"IMAS-4476","summary":"In Validation -> Hecho","result":"ok"}
+{"timestamp":"2026-09-19T15:17:54.234Z","action":"comment","key":"IMAS-4717","summary":"Casos de prueba (CP01-CP06 + casos especiales 03/05 + pregunta abierta caso especial 04) posteados como cierre de QA para IMAS-4546","result":"success"}
+{"timestamp":"2026-09-19T15:17:54.235Z","action":"transition","key":"IMAS-4717","summary":"In Validation -> Pending Validation (QA completa, pasaje a Produccion IMAS-4718 sigue en Backlog)","result":"success"}

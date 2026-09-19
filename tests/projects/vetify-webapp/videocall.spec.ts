@@ -1089,5 +1089,311 @@ test.describe('Videollamada Test Suite', () => {
             });
         });
     });
+
+    // =========================================================================
+    // CATEGORY: TS-06 IMAS-4546 - Cupo de videollamadas parametrizable por plan
+    // =========================================================================
+    // A diferencia de TS-04 (IMAS-3909, previo a esta HU), que ya automatizaba el "motor" del bloqueo
+    // por límite de turnos (mismo modal, mismo texto exacto), esta categoría cubre lo que IMAS-4546
+    // agrega de nuevo: el contador "Cupo disponible: X de Y" visible en la pantalla de Motivo y en el
+    // selector multi-mascota, el estado ilimitado sin ningún contador (AC1), y la regla de cancelación
+    // que restituye el cupo. Todo confirmado vía MCP contra QA real 2026-09-18/19 antes de automatizar
+    // (ver docs/user-stories/IMAS-4546-limitar-videollamadas.tests.md).
+    test.describe('TS-06 IMAS-4546 - Cupo de videollamadas parametrizable por plan', () => {
+        test.describe(() => {
+            test.use({
+                userRequest: {
+                    source: UserSource.Pooled,
+                    siteId: SiteId.VETIFY_ADQUIRENTE,
+                    tags: [UserTag.ACTIVE, UserTag.WITH_PET],
+                    numberOfPlans: 1,
+                    reserve: false,
+                    ignoreReserved: true,
+                },
+            });
+
+            test('TC-01 - Videollamada - Vetify - Plan ilimitado no muestra contador de cupo (AC1 IMAS-4546)', { tag: ['@critical'] }, async ({ container, page }) => {
+                const apiClient = await container.vetify.getApiClient(page);
+                const pets = (await apiClient.getUserPets()).filter((p: any) => p.mascota);
+                const unlimitedPets = [];
+                for (const pet of pets) {
+                    const cobertura = await apiClient.getVideollamadaCobertura(pet.id);
+                    if (cobertura.limite >= 100) unlimitedPets.push(pet);
+                }
+                // El pool no distingue plan Emergencias/Cachorro (ilimitado) de otros planes Vetify
+                // Adquirente limitados bajo el mismo tag ACTIVE+WITH_PET (confirmado: ningún tag del
+                // fixture captura el producto/plan real) — se verifica en vivo contra el endpoint real
+                // de cobertura en vez de asumir el producto por el tag.
+                test.skip(unlimitedPets.length === 0, 'La cuenta asignada por el pool no tiene ninguna mascota con plan ilimitado (limite:100) ahora mismo.');
+                const targetPet = unlimitedPets[0];
+
+                await setAllureDetails({
+                    preconditions: ['Usuario con una mascota en un plan de videollamadas ilimitado (ej. Emergencias/Cachorro).'],
+                    steps: ['Iniciar una nueva solicitud de videollamada.', 'Llegar a la pantalla de motivo con esa mascota seleccionada.'],
+                    expectedResult: ['No se muestra ningún contador ni límite de videollamadas — se mantiene la experiencia actual.'],
+                });
+
+                await step('1. Iniciar una nueva solicitud de videollamada.', async () => {
+                    await container.vetify.webapp.videocallFormPage.load();
+                    await container.vetify.webapp.videocallFormPage.startNewVideocallRequest();
+                });
+                await step('2. Llegar a la pantalla de motivo con esa mascota seleccionada.', async () => {
+                    // La cuenta puede tener más de 1 mascota real pese al tag del pool (ver nota
+                    // arriba) — si aparece el selector, se elige puntualmente la mascota ilimitada ya
+                    // verificada por API en vez de confiar en cuál queda primera en la lista.
+                    if (await container.vetify.webapp.videocallFormPage.petSelectorHeadingLbl.isVisible().catch(() => false)) {
+                        await container.vetify.webapp.videocallFormPage.selectPet(targetPet.mascota.nombre);
+                        await container.vetify.webapp.videocallFormPage.clickContinue();
+                    }
+                    await container.vetify.webapp.videocallFormPage.verifyReasonScreenVisible();
+                });
+                await step('No se muestra ningún contador ni límite de videollamadas — se mantiene la experiencia actual.', async () => {
+                    await container.vetify.webapp.videocallFormPage.verifyNoCupoCounterShown();
+                });
+            });
+        });
+
+        test.describe(() => {
+            // TC-02/03/04 comparten el mismo usuario pooled (reserve: false) y cada uno depende del
+            // conteo EXACTO de turnos agendados sobre esa mascota en un momento dado — mismo patrón
+            // que TS-05 (IMAS-3894): una carrera real entre tests hermanos rompe la aserción (ya
+            // reprodujo en la primera corrida: TC-03 chocó con turnos que TC-02/TC-04 agendaban en
+            // paralelo sobre el mismo petId). Serial evita esa carrera.
+            test.describe.configure({ retries: 0, mode: 'serial' });
+
+            test.use({
+                userRequest: {
+                    source: UserSource.Pooled,
+                    siteId: SiteId.OSDE_CAPITADO,
+                    tags: [UserTag.ACTIVE, UserTag.WITH_PET, UserTag.NO_EMPTY_PLAN],
+                    numberOfPlans: 1,
+                    reserve: false,
+                    ignoreReserved: true,
+                },
+            });
+
+            let limite = 0;
+            let disponibleBaseline = 0;
+            let petId = '';
+
+            test.beforeEach(async ({ container, page }) => {
+                const apiClient = await container.vetify.getApiClient(page);
+                await apiClient.cancelAllScheduledVideocalls();
+                const [pet] = await apiClient.getUserPets();
+                petId = pet.id;
+                const cobertura = await apiClient.getVideollamadaCobertura(petId);
+                // OSDE Capitado Esencial es el único producto con límite real hoy (ver HU) — un skip
+                // honesto si la cuenta del pool resultara ilimitada, en vez de asumirlo ciegamente.
+                test.skip(cobertura.limite >= 100, 'La cuenta OSDE Capitado asignada por el pool tiene un plan ilimitado ahora mismo, no sirve para validar el contador de cupo.');
+                limite = cobertura.limite;
+                // No se asume que "sin turnos agendados" (tras cancelAllScheduledVideocalls) equivale a
+                // "cupo completo" — confirmado en vivo 2026-09-19: esta cuenta compartida del pool quedó
+                // con 1 de 2 disponible por uso acumulado de sesiones anteriores de QA sobre esta misma
+                // HU (una videollamada real ya CONSUMIDA no libera cupo, a diferencia de una cancelada a
+                // tiempo). Se lee el baseline real por API en vez de asumirlo, y TC-02 se salta si ya no
+                // queda margen para mostrar el delta "sin consumidas → con consumidas".
+                disponibleBaseline = cobertura.disponible;
+            });
+
+            test('TC-02 - Videollamada - Vetify - Contador de cupo "sin consumidas" y "con consumidas" (AC2 IMAS-4546)', { tag: ['@critical'] }, async ({ container, page }) => {
+                // Con disponibleBaseline < 2, agendar 1 más lleva el cupo a 0 — y en 0 el flujo bloquea
+                // en la pantalla de entrada (mismo modal de TC-03/TS-04) antes de llegar a la pantalla
+                // de Motivo, así que nunca se ve el texto "Cupo disponible: 0 de X" (confirmado en vivo
+                // 2026-09-19: el locator no encuentra el párrafo en absoluto en ese estado). Hace falta
+                // al menos 2 disponibles para demostrar la transición N→N-1 sin caer en ese borde.
+                test.skip(disponibleBaseline < 2, 'La cuenta OSDE Capitado del pool no tiene margen (≥2 disponibles) por uso acumulado de sesiones previas — agendar 1 más caería directo al estado "sin disponibles" (ver TC-03) en vez de mostrar "con consumidas".');
+
+                await setAllureDetails({
+                    preconditions: ['Usuario OSDE Capitado Esencial con cupo disponible (no necesariamente el máximo del plan, ver nota en el beforeEach).'],
+                    steps: [
+                        'Iniciar una nueva solicitud de videollamada y llegar a la pantalla de motivo.',
+                        'Agendar 1 videollamada sin consumirla y volver a "Agendar nueva videollamada".',
+                    ],
+                    expectedResult: [
+                        'El contador informa el disponible real reportado por el backend.',
+                        'El contador baja en 1 apenas se agenda el turno, aunque no se haya consumido (Caso especial 01).',
+                    ],
+                });
+
+                await step('1. Iniciar una nueva solicitud de videollamada y llegar a la pantalla de motivo.', async () => {
+                    await container.vetify.webapp.videocallFormPage.load();
+                    await container.vetify.webapp.videocallFormPage.startNewVideocallRequest();
+                });
+                await step('El contador informa el disponible real reportado por el backend.', async () => {
+                    await container.vetify.webapp.videocallFormPage.verifyCupoDisponible(disponibleBaseline, limite);
+                });
+
+                await step('2. Agendar 1 videollamada sin consumirla y volver a "Agendar nueva videollamada".', async () => {
+                    const apiClient = await container.vetify.getApiClient(page);
+                    await expect(async () => {
+                        await apiClient.scheduleVideocall({ petId, date: DateTime.now().plus({ days: 5 }).toISO()! });
+                    }).toPass();
+                    await container.vetify.webapp.videocallFormPage.load();
+                    await container.vetify.webapp.videocallFormPage.startNewVideocallRequest();
+                });
+                await step('El contador baja en 1 apenas se agenda el turno, aunque no se haya consumido (Caso especial 01).', async () => {
+                    await container.vetify.webapp.videocallFormPage.verifyCupoDisponible(disponibleBaseline - 1, limite);
+                });
+            });
+
+            test('TC-03 - Videollamada - Vetify - Sin disponibles bloquea el agendado, en OSDE Capitado (AC2 IMAS-4546)', { tag: ['@critical'] }, async ({ container, page }) => {
+                test.skip(disponibleBaseline === 0, 'El cupo ya está en 0 antes de empezar este test — nada que agotar (probablemente ya bloquea, pero no demuestra la transición).');
+
+                // Hay 2 modales de bloqueo distintos, confirmados en vivo 2026-09-19 — cuál aparece
+                // depende de si además de agotarse el cupo anual también se llega a 2 turnos
+                // CONCURRENTEMENTE agendados: con disponibleBaseline===limite (cuenta "fresca", ej. 2
+                // de 2) ambas condiciones se cumplen a la vez y gana el modal viejo de IMAS-3909
+                // ("Superaste el límite... por mascota", ya automatizado en TS-04 — esto confirma que
+                // ese mecanismo también aplica a OSDE Capitado, no solo a Vetify Adquirente). Con
+                // disponibleBaseline<limite (cuenta con cupo ya parcialmente usado de antes) se agendan
+                // menos turnos concurrentes que el máximo, y el que se ve es el modal NUEVO de esta HU
+                // ("Alcanzaste el límite de X videollamadas anuales").
+                const expectAnnualCupoModal = disponibleBaseline < limite;
+
+                await setAllureDetails({
+                    preconditions: ['Usuario OSDE Capitado Esencial con el límite de videollamadas ya alcanzado.'],
+                    steps: ['Agotar el cupo disponible agendando esa cantidad de videollamadas.', 'Intentar agendar una nueva videollamada.'],
+                    expectedResult: [
+                        'El backend confirma 0 disponibles para esa mascota.',
+                        'El sistema bloquea con el modal correspondiente según si también se llega a 2 turnos concurrentes.',
+                    ],
+                });
+
+                const apiClient = await container.vetify.getApiClient(page);
+                let petName = '';
+                await step('1. Agotar el cupo disponible agendando esa cantidad de videollamadas.', async () => {
+                    const [pet] = await apiClient.getUserPets();
+                    petName = pet.mascota.nombre;
+                    for (let i = 0; i < disponibleBaseline; i++) {
+                        await expect(async () => {
+                            await apiClient.scheduleVideocall({ petId, date: DateTime.now().plus({ days: 3 + i }).toISO()! });
+                        }).toPass();
+                    }
+                });
+                await step('El backend confirma 0 disponibles para esa mascota.', async () => {
+                    const cobertura = await apiClient.getVideollamadaCobertura(petId);
+                    expect(cobertura.disponible).toBe(0);
+                });
+
+                await step('2. Intentar agendar una nueva videollamada.', async () => {
+                    await container.vetify.webapp.videocallFormPage.load();
+                });
+                await step('El sistema bloquea con el modal correspondiente según si también se llega a 2 turnos concurrentes.', async () => {
+                    if (expectAnnualCupoModal) {
+                        await container.vetify.webapp.videocallFormPage.attemptScheduleAndVerifyAnnualCupoBlocked();
+                    } else {
+                        await container.vetify.webapp.videocallFormPage.attemptScheduleAndVerifyPetLimitBlocked(petName);
+                    }
+                });
+            });
+
+            test('TC-04 - Videollamada - Vetify - Cancelar con más de 30 min de anticipación restituye el cupo (AC2 IMAS-4546)', { tag: ['@critical'] }, async ({ container, page }) => {
+                test.skip(disponibleBaseline === 0, 'El cupo ya está en 0 antes de empezar este test — no se puede agendar el turno que después se cancela.');
+
+                await setAllureDetails({
+                    preconditions: ['Usuario OSDE Capitado Esencial con 1 videollamada agendada con varios días de anticipación.'],
+                    steps: ['Agendar una videollamada futura.', 'Cancelarla desde el detalle del turno.'],
+                    expectedResult: [
+                        'El cupo disponible baja en 1 al agendar.',
+                        'Al cancelar con más de 30 minutos de anticipación, el cupo disponible vuelve a su valor previo al agendado.',
+                    ],
+                });
+
+                const apiClient = await container.vetify.getApiClient(page);
+                let assistanceId = '';
+                await step('1. Agendar una videollamada futura.', async () => {
+                    await expect(async () => {
+                        const result = await apiClient.scheduleVideocall({ petId, date: DateTime.now().plus({ days: 5 }).toISO()! });
+                        assistanceId = result.assistanceId;
+                    }).toPass();
+                });
+                await step('El cupo disponible baja en 1 al agendar.', async () => {
+                    const cobertura = await apiClient.getVideollamadaCobertura(petId);
+                    expect(cobertura.disponible).toBe(disponibleBaseline - 1);
+                });
+
+                await step('2. Cancelarla desde el detalle del turno.', async () => {
+                    const detailPage = container.vetify.webapp.createVideocallViewPage(assistanceId);
+                    await detailPage.load();
+                    await detailPage.waitForPageLoaded();
+                    await detailPage.startCancel();
+                    const cancelModal = container.vetify.webapp.createCancelVideocallModal(assistanceId);
+                    await cancelModal.confirmCancelation();
+                    await cancelModal.verifyCancellationConfirmed();
+                });
+                await step('Al cancelar con más de 30 minutos de anticipación, el cupo disponible vuelve a su valor previo al agendado.', async () => {
+                    await expect(async () => {
+                        const cobertura = await apiClient.getVideollamadaCobertura(petId);
+                        expect(cobertura.disponible).toBe(disponibleBaseline);
+                    }).toPass();
+                });
+            });
+        });
+
+        test.describe(() => {
+            test.use({
+                userRequest: {
+                    source: UserSource.Pooled,
+                    siteId: SiteId.OSDE_CAPITADO,
+                    tags: [UserTag.ACTIVE, UserTag.WITH_PET, UserTag.NO_EMPTY_PLAN],
+                    numberOfPlans: 2,
+                    reserve: false,
+                    ignoreReserved: true,
+                },
+            });
+
+            test.beforeEach(async ({ container, page }) => {
+                const apiClient = await container.vetify.getApiClient(page);
+                await apiClient.cancelAllScheduledVideocalls();
+                const pets = await apiClient.getUserPets();
+                // Mismo patrón de skip honesto que TS-04/TC-02: la cuenta multi-mascota es compartida,
+                // puede tener menos de 2 mascotas reales en este momento.
+                test.skip(pets.length < 2, `La cuenta de prueba tiene ${pets.length} mascota(s) reales ahora mismo, se necesitan 2+ para Caso especial 02.`);
+            });
+
+            test('TC-05 - Videollamada - Vetify - Cupo independiente por mascota en cuentas multi-mascota (Caso especial 02, IMAS-4546)', { tag: ['@critical'] }, async ({ container, page }) => {
+                await setAllureDetails({
+                    preconditions: ['Usuario con 2+ mascotas, todas en plan OSDE Esencial (limitado), sin videollamadas consumidas.'],
+                    steps: [
+                        'Abrir el selector de mascota al agendar una videollamada y verificar el cupo de cada una.',
+                        'Agendar 1 videollamada para la primera mascota (sin consumirla).',
+                        'Volver a abrir el selector y verificar que solo bajó el cupo de esa mascota.',
+                    ],
+                    expectedResult: [
+                        'Cada mascota muestra su propio cupo completo, de forma independiente.',
+                        'Tras agendar, solo la mascota agendada baja su cupo — la otra queda intacta.',
+                    ],
+                });
+
+                const apiClient = await container.vetify.getApiClient(page);
+                const pets = await apiClient.getUserPets();
+                const [petA, petB] = pets;
+                const [coberturaA, coberturaB] = await Promise.all([apiClient.getVideollamadaCobertura(petA.id), apiClient.getVideollamadaCobertura(petB.id)]);
+
+                await step('1. Abrir el selector de mascota al agendar una videollamada y verificar el cupo de cada una.', async () => {
+                    await container.vetify.webapp.videocallFormPage.load();
+                    await container.vetify.webapp.videocallFormPage.startNewVideocallRequest();
+                    await container.vetify.webapp.videocallFormPage.openPetSelectorDialog();
+                });
+                await step('Cada mascota muestra su propio cupo completo, de forma independiente.', async () => {
+                    await container.vetify.webapp.videocallFormPage.verifyCupoInPetSelectorDialog(petA.mascota.nombre, `Cupo disponible: ${coberturaA.limite} de ${coberturaA.limite}`);
+                    await container.vetify.webapp.videocallFormPage.verifyCupoInPetSelectorDialog(petB.mascota.nombre, `Cupo disponible: ${coberturaB.limite} de ${coberturaB.limite}`);
+                });
+
+                await step('2. Agendar 1 videollamada para la primera mascota (sin consumirla).', async () => {
+                    await expect(async () => {
+                        await apiClient.scheduleVideocall({ petId: petA.id, date: DateTime.now().plus({ days: 5 }).toISO()! });
+                    }).toPass();
+                    await container.vetify.webapp.videocallFormPage.load();
+                    await container.vetify.webapp.videocallFormPage.startNewVideocallRequest();
+                    await container.vetify.webapp.videocallFormPage.openPetSelectorDialog();
+                });
+                await step('Tras agendar, solo la mascota agendada baja su cupo — la otra queda intacta.', async () => {
+                    await container.vetify.webapp.videocallFormPage.verifyCupoInPetSelectorDialog(petA.mascota.nombre, `Cupo disponible: ${coberturaA.limite - 1} de ${coberturaA.limite}`);
+                    await container.vetify.webapp.videocallFormPage.verifyCupoInPetSelectorDialog(petB.mascota.nombre, `Cupo disponible: ${coberturaB.limite} de ${coberturaB.limite}`);
+                });
+            });
+        });
+    });
 });
 

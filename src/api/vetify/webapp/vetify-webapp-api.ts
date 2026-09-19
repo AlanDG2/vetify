@@ -131,6 +131,24 @@ export class VetifyWebappApiClient extends BaseApiClient {
         return response.json();
     }
 
+    // IMAS-4546: cobertura real de videollamadas por mascota. `limite:100` es el valor sentinela que
+    // usa el backend para "sin límite" (plan ilimitado) — confirmado vía MCP contra QA real
+    // 2026-09-19 (cuenta B2C Emergencias/Cachorro, ambas devuelven {"disponible":100,"limite":100}),
+    // a diferencia de un plan limitado real (ej. OSDE Esencial, {"disponible":N,"limite":2}).
+    async getVideollamadaCobertura(petId: string): Promise<{ disponible: number; limite: number }> {
+        const response = await super.get(`/api/services/pets/pet/${petId}/videollamada/cobertura`, {
+            headers: {
+                Authorization: `Bearer ${this.authToken}`,
+            },
+        });
+
+        if (!response.ok()) {
+            throw new Error(`Error getting videollamada coverage: ${response.status()} ${await response.text()}`);
+        }
+
+        return response.json();
+    }
+
     async getScheduleTimeAvailability(date: string) {
         const response = await super.get(`/api/services/pets/available-time-schedules?date=${date}`, {
             headers: {

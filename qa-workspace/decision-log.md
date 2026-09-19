@@ -2295,3 +2295,83 @@ Se hizo un chequeo directo (script puntual con `webdriverio` conectando a una se
 Razón: pedido del usuario de avanzar con la validación en iOS del set estable, tras resolver IMP-027.
 
 Qué NO se hizo: no se investigó spec por spec (son 6 fallas del mismo síntoma + 1 distinta, cada una necesitaría su propio diagnóstico) — se priorizó reportar el hallazgo real (login/Home funcionan, hay una diferencia real WebKit/Chrome en el flujo de dismiss) en vez de aplicar fixes a ciegas sin verificarlos uno por uno, mismo criterio de honestidad del resto del proyecto.
+
+## 2026-09-17 - CORRECCIÓN: IMAS-4663 (ARCA no revalida sola) NO era un bug — regla de negocio esperada, confirmado por Mariana Navarro
+
+> ⚠️ **La entrada "2026-09-10 - CONFIRMADO: el reintento automático de ARCA... bloqueo real" queda refutada en su conclusión de "bug".** El síntoma observado (botón "Validar manualmente" nunca se habilita solo) era real y se reprodujo correctamente, pero la causa NO es un bug — ver corrección abajo.
+
+Decisión: se había creado el Defect **IMAS-4663** ("Reintegros en QA no se pueden validar a mano — quedan trabados sin aviso"), linkeado `Blocks -> IMAS-4471`, en una parte anterior de esta sesión (no visible en el resumen actual). Mariana Navarro (dev asignada) investigó y confirmó en los comentarios del ticket (2026-09-17): **no es un bug** — los expedientes necesitan que se "distribuyan los gastos" del expediente para habilitar los botones de validación, una regla de negocio que existe desde antes de la migración de reintegros. Antes esto no era bloqueante porque los expedientes venían con un total precargado; ahora, sin esa precarga, la regla se nota como si fuera un bloqueo. Mariana consultó con el equipo y decidieron dejar el comportamiento igual (no van a cambiar el backend), aunque evalúa un cambio de frontend aparte para permitir validar ARCA manualmente sin tocar el resto.
+
+Estado real de IMAS-4663 en Jira: `Hecho`, con subtareas Análisis=Hecho, Desarrollo/Deploy/Pruebas=Cancelado (consistente con "se analizó, se decidió no tocar nada").
+
+**Impacto en IMAS-4471**: `checkClosable('IMAS-4471')` ahora devuelve `{closable: true, missing: []}` — el criterio 6 del DoD (0 bugs abiertos vinculados) ya no bloquea, porque IMAS-4663 está en estado final (Hecho).
+
+Razón: Alan trajo la actualización de Mariana y pidió revisar el cierre de IMAS-4471.
+
+Verificado: comentarios completos de IMAS-4663 releídos en vivo (6 comentarios, últimos 3 del mismo día 2026-09-17), estado y subtareas confirmados vía `jira-client.mjs get`, `checkClosable` corrido en vivo.
+
+Reabrir si: Mariana efectivamente avanza con el cambio de frontend que mencionó (permitir validar ARCA manualmente) — ahí sí habría que reverificar el flujo.
+
+## 2026-09-17 (cierre) - IMAS-4471 y su subtarea IMAS-4582 pasadas a Hecho
+
+Decisión: con el criterio 6 del DoD ya desbloqueado (ver entrada anterior, corrección IMAS-4663) y la evidencia del flujo manual ya recolectada en sesiones previas (expediente 3397-1, ciclo completo Calidad->Validado->Finanzas->Pagado, y Nexus doble-click confirmado con permisos correctos), Alan pidió cerrar. Se posteó evidencia de cierre en IMAS-4582 (subtarea "Pruebas a QA") y un comentario de cierre en IMAS-4471 (HU padre), y se transicionaron ambos a "Hecho".
+
+Razón: pedido explícito de Alan ("ciérralo").
+
+Verificado: estado "Hecho" confirmado en los 2 tickets vía `jira-client.mjs get`, `checkClosable('IMAS-4471')` sigue `true`. 4 entradas en sync-log.
+
+**IMAS-4471: CERRADO.** Épica original de esta HU (empezada muy temprano en la sesión, con múltiples rondas de VPN inestable, regresiones en cuentas de control, y el descubrimiento del doble-click en Nexus) queda formalmente completa en Jira.
+
+## 2026-09-17 - IMAS-4310 (editar Motivo/Adjuntos/Fecha desde confirmación de Videollamada) — retest en QA, PASS
+
+Decisión: HU devuelta por Mariana Navarro ("Se validó en qa", tras un bloqueo previo por caída de la API de gestión cliente). Reverificado en vivo, independiente de la evidencia de Mariana: se armó una videollamada completa (Motivo + 1 adjunto + fecha/hora), se llegó a la pantalla de confirmación, y se confirmó que los 3 campos (Fecha y hora, Motivo, Adjuntos) tienen su propio lápiz de edición -- antes solo lo tenía Fecha y hora. Se probó cada uno de punta a punta (editar Motivo, editar Adjuntos agregando un 2do archivo, editar Fecha y hora cambiando el horario), y se confirmó que los 3 cambios conviven sin pisarse entre sí en la confirmación final.
+
+No se tocó "Confirmar videollamada" para no crear un turno real innecesario en la cuenta de prueba -- no hacía falta para validar la funcionalidad de edición.
+
+Hallazgo aparte, no bloqueante y fuera del alcance de esta HU: al reabrir el selector de horario, tocar la franja "Noche" no cambia la lista mostrada (queda en "Tarde"). Documentado para referencia futura, no reportado como bug de esta HU.
+
+Razón: pedido explícito de Alan ("me devolvieron esta, ya se puede probar IMAS-4310").
+
+Verificado: 5 CPs ejecutados en vivo, evidencia posteada en IMAS-4723 (subtarea "Prueba a QA"), transicionada a Hecho.
+
+**IMAS-4310: PASS, subtarea de pruebas cerrada. Queda pendiente solo IMAS-4724 (Deploy a Prod), fuera del alcance de QA.**
+
+## 2026-09-18 - IMAS-4546 (Limitar Videollamadas) — validación en vivo completa, 2 AC + 4 casos especiales confirmados, 1 fuera de alcance formal
+
+Decisión: HU grande (16 subtareas) devuelta con evidencia previa de Paula Scalzo (9 escenarios, 3 screenshots + 7 videos). Se revisaron los 3 screenshots de Paula (casos especiales 03 y 05) y se validó todo lo demás en vivo, independiente:
+
+- AC1 (plan ilimitado, sin contador): PASS -- cuenta B2C "Ian", sin ningún cupo mostrado.
+- AC2 los 4 sub-estados: PASS -- "Cupo disponible: 2 de 2" (sin consumidas), "1 de 2" tras agendar sin consumir (con consumidas + Caso especial 01), modal "Superaste el límite" (sin disponibles), cupo restaurado a "1 de 2" tras cancelar con +30min de anticipación (cancelación, complementa el caso <30min de Paula).
+- Confirmado que la parametrización funciona en más de un producto (no solo OSDE Capitado Esencial) -- Flux Capitado Esencial mostró el mismo patrón "2 de 2".
+- Caso especial 02 (multi-mascota, cobertura en tandem): PASS -- se creó una cuenta real nueva con 2 mascotas (Rocky, Luna, ambas OSDE Esencial, ver entrada anterior del mismo día) y se confirmó que agotar el cupo de una NO afecta a la otra (selector mostró "Rocky: 1 de 2" / "Luna: 2 de 2" simultáneamente).
+- Caso especial 04 (plan sin videollamada): sin cerrar. Se confirmó primero que NO es parte del AC formal de la HU (es una subtarea técnica aparte, IMAS-4712/4713, uno de 5 "casos especiales" del dev). Se intentó simular el estado con 5 variantes técnicas de interceptación/mock del endpoint real (`videollamada/cobertura`), incluyendo desregistrar y bloquear el Service Worker -- ninguna cambió el resultado visual ("Cupo ilimitado" siempre). Queda como pregunta para el dev, a enviar el lunes: qué cuenta/producto real dispara este caso.
+
+Razón: pedido explícito de Alan de validar "al 100%", y luego de confirmar que no se pudo, de documentar todo y dejar la pregunta pendiente para el equipo de dev el lunes.
+
+Verificado: cada estado confirmado en vivo con capturas (imas4546-cupo-2de2.png, imas4546-cupo-1de2.png, imas4546-sin-cupo.png, imas4546-cupo-restaurado.png, imas4546-plan-ilimitado.png, imas4546-multi-mascota-selector.png, imas4546-multi-mascota-aislado.png, imas4546-flux-esencial-2de2.png). Endpoint real documentado: `GET /api/services/pets/pet/{petId}/videollamada/cobertura` -> `{"disponible":N,"limite":M}`.
+
+Reabrir si: el dev confirma qué cuenta/producto dispara el Caso especial 04, o si se decide intentar la simulación con otra herramienta (ej. DevTools Local Overrides, no disponible en esta sesión).
+
+**IMAS-4546: 2/2 AC formales + 4/5 casos especiales (01, 02, 03, 05) confirmados en vivo. Caso especial 04 queda pendiente de dato real del dev, documentado como pregunta abierta, no como bug.**
+
+## 2026-09-18 - IMAS-4546: validación de automatización existente (sin escribir specs nuevos)
+Decisión: antes de escribir automatización nueva para IMAS-4546 se auditó qué ya existe. Hallazgo: `tests/projects/vetify-webapp/videocall.spec.ts` TS-04 (IMAS-3909, previa a esta HU) ya automatiza el modal de bloqueo por límite de turnos (mismo texto exacto "Ya tenés 2 videollamadas programadas para {mascota}.") y el aislamiento multi-mascota — el "motor" del límite ya estaba cubierto. Lo que IMAS-4546 agrega (contador "Cupo disponible: X de Y", estado ilimitado sin contador, regla de restitución por cancelación a los 30 min) NO tiene automatización: cero menciones de "cupo"/"ilimitado" en los 4 POMs de videocall. No se escribió spec nuevo esta sesión — toda la validación de IMAS-4546 fue manual vía MCP.
+Razón: Alan pidió explícitamente "validar que pude automatizar la HU" — la respuesta honesta es que no se automatizó nada nuevo, pero sí se identificó con precisión qué parte del comportamiento ya estaba cubierta (heredada de IMAS-3909) y qué parte es el gap real.
+Reabrir si: se decide escribir los specs nuevos para el contador de cupo y la regla de cancelación (candidato natural: nueva categoría TS-06 o extender TS-04 en videocall.spec.ts).
+
+## 2026-09-19 - IMAS-4546: automatización nueva (TS-06), 3/5 TCs verdes contra QA real
+Decisión: con OK de Alan, se escribió `TS-06 IMAS-4546 - Cupo de videollamadas parametrizable por plan` en `videocall.spec.ts` (5 TCs) más `getVideollamadaCobertura()` en la API de webapp y locators/métodos nuevos en `VideocallFormPage.ts`. Corrida real (`--workers=1`): TC-03 (sin disponibles), TC-04 (cancelación restituye cupo) y TC-05 (Caso especial 02, cupo independiente por mascota) pasaron en verde. TC-01 (AC1 ilimitado) y TC-02 (sin→con consumidas) dieron skip honesto por estado real de las cuentas pooled asignadas (sin plan ilimitado disponible / cupo ya parcialmente consumido por sesiones previas de QA sobre esta misma HU) — la lógica de ambos ya había sido confirmada manualmente en la sección 4 del doc de la HU.
+Hallazgos de paso: (1) hay 2 modales de bloqueo distintos no documentados antes — el viejo de IMAS-3909 ("Superaste el límite... por mascota", 2 turnos concurrentes) y uno nuevo de esta HU ("Alcanzaste el límite de X videollamadas anuales", cupo anual en 0 con <2 concurrentes) — confirmados en vivo con 2 cuentas reales antes de automatizar; (2) el modal "Seleccioná tu mascota" (rediseño de esta HU) necesita un 2do click en su propio botón "Seleccionar" que `selectPet()` no hacía — candidato a causa raíz de la flakiness `@unstable` histórica de TC-05/TC-06 (TS-03) y TC-02 (TS-04), corregido en `selectPet()`/`changeSelectedPetFromReview()`, pero sin corrida de regresión limpia porque esas cuentas pooled no tienen 2 mascotas reales ahora mismo (drift de pool, no relacionado). (3) se agregó la cuenta multi-mascota `multipet.qa.1789770402655@automation.com` a `pooled-users.json` (antes solo en qa-accounts.md, invisible para el framework) y se corrigieron tags `WITH_PET`/`NO_EMPTY_PLAN` faltantes en 2 cuentas OSDE Capitado con mascota real (`carlabagnati@yahoo.com.ar`, `picssaras@gmail.com`).
+Razón: instrucción explícita de Alan de automatizar lo que se pudiera de esta HU tras el reporte inicial de "gap real, sin código nuevo".
+Reabrir si: se quiere forzar TC-01/TC-02 a pasar siempre — requeriría reservar una cuenta OSDE Capitado con cupo intacto de forma exclusiva (`reserve: true`) para no competir con el resto de QA, o resetear manualmente el cupo anual de una cuenta dedicada.
+
+## 2026-09-19 - Evaluadas y descartadas 3 skills externas de QA/testing (aitmpl.com)
+Decisión: no se trajo ninguna skill nueva a este repo desde el catálogo de `davila7/claude-code-templates` (`senior-qa`, `playwright-e2e-builder`, `e2e-testing-patterns`).
+Razón: las 3 son genéricas o resuelven "setear Playwright desde cero en un proyecto que no lo tiene" — este repo ya tiene un framework Playwright maduro y a medida (POMs de 3 niveles, pool de usuarios, convenciones TS-XX/TC-XX, 10 skills QA propias) muy por encima de lo que ofrecían. `senior-qa` en particular es boilerplate genérico (asume stack React/Next/Node con Docker/K8s, scripts Python sin sustancia real). Sí se trajeron 2 skills a `vetify-squad-knowledge` (`mermaid-diagrams`, `theme-factory`) para la idea de la página del proyecto — ver ese repo's `.claude/skills/THIRD-PARTY-NOTICES.md`.
+
+## 2026-09-18 - IMAS-4476/BUG-029: retest final confirma el fix (2 gastos, decision-calidad)
+Decisión: con IMAS-4476 en "In Validation" y todas las subtareas de dev ya "Hecho" (solo faltaba IMAS-4504 "Pruebas en QA"), se hizo el retest en vivo definitivo contra `reintegros-backoffice.ike.qa` con `acastellano@ikeasistencia.com.ar` (VPN conectada a pedido, backoffice no resuelve DNS sin ella). Se usó un caso nuevo de la cola de Pendientes: solicitud `VETI-8832-9c0f1e50` (2 gastos, 1 factura $647.374,35 dividida en Consulta en centro veterinario + Estudios bioquímicos, expedientes `3131802`/`3131801`). Tras "Distribuir factura" (nota: el campo de monto no acepta punto decimal, solo coma o entero — se corrigió sobre la marcha), ambos `POST decision-calidad` dieron **204**, ambos con toast "Derivamos el expediente para su aprobación final", bandeja de Pendientes 47→45. Los 3 AC de IMAS-4476 quedaron confirmados. Actualizado `docs/bugs/BUG-029-*.md` (sección "Retest final 2026-09-18") y `docs/user-stories/IMAS-4476-*.md`.
+Razón: intake de la HU IMAS-4476 (`qa-hu-intake`), que arrancó de cero desde el link de Jira que pasó Alan.
+Nota aparte: durante el intake, un `Grep`/`Read` sobre `docs/impedimentos-bloqueos.md` devolvió contenido de BUG-029 que en realidad vivía en `docs/bugs/BUG-029-*.md` (confusión de resultados entre 2 tool calls en paralelo, no un cambio real del archivo) — se verificó con un `Grep` fresco antes de editar y se confirmó que `impedimentos-bloqueos.md` no menciona IMAS-4476/BUG-029 en absoluto, así que no se tocó. Sirve como recordatorio de doble-chequear con una lectura fresca antes de editar cuando un resultado de búsqueda "no cierra" con el contenido esperado del archivo.
+Reabrir si: Jira aporta evidencia de que el fix no cubre otros escenarios de 2+ gastos (ej. 3+ gastos, gastos de distinto tipo de cobertura, o el caso original con expediente pre-migración `3300-1`).
+Reabrir si: el proyecto necesita setear Playwright en un contexto nuevo desde cero (no aplica hoy, ya está armado).

@@ -12,6 +12,17 @@ export class VetifyWebappVideocallFormPage extends VetifyWebappLoggedBasePage {
     readonly petSelectorHeadingLbl: Locator;
     readonly petSelectorOpenBtn: Locator;
     readonly petSelectorOptionBtns: Locator;
+    // Modal "Seleccioná tu mascota" (rediseño IMAS-4546) que se abre al tocar petSelectorOpenBtn —
+    // confirmado vía MCP contra QA real 2026-09-19: a diferencia de lo que este POM asumía, clickear
+    // una mascota NO cierra el modal solo, hace falta confirmar con este botón propio del modal
+    // (mismo texto "Seleccionar" que el placeholder de afuera, por eso se lo scopea al modal).
+    readonly petSelectorDialog: Locator;
+    readonly petSelectorDialogConfirmBtn: Locator;
+
+    // IMAS-4546: contador de cupo de videollamadas, en el mismo bloque que el nombre de la mascota en
+    // la pantalla de Motivo — "Cupo disponible: X de Y" (plan limitado) o ausente (plan ilimitado).
+    // Confirmado vía MCP contra QA real 2026-09-18/19.
+    readonly cupoTextLbl: Locator;
 
     // Missing-credential screen ("Completá su credencial")
     readonly completeCredentialBtn: Locator;
@@ -62,6 +73,15 @@ export class VetifyWebappVideocallFormPage extends VetifyWebappLoggedBasePage {
     readonly limitReachedDialogMessageLbl: Locator;
     readonly closeLimitReachedDialogBtn: Locator;
 
+    // IMAS-4546: modal DISTINTO al de arriba, confirmado vía MCP contra QA real 2026-09-19 — se
+    // dispara cuando el cupo ANUAL (disponible:0 vía /videollamada/cobertura) se agota aunque haya
+    // menos de 2 turnos concurrentemente agendados (ej. 1 turno agendado + 1 videollamada ya
+    // consumida en el pasado). El modal de arriba ("Superaste el límite... Ya tenés 2 videollamadas
+    // programadas") es específico de 2 turnos SIMULTÁNEOS agendados — mecanismo heredado de
+    // IMAS-3909, no del cupo anual parametrizable que agrega esta HU.
+    readonly annualCupoLimitDialogHeadingLbl: Locator;
+    readonly annualCupoLimitDialogMessageLbl: Locator;
+
     // Shared
     readonly continueBtn: Locator;
     readonly backBtn: Locator;
@@ -79,6 +99,10 @@ export class VetifyWebappVideocallFormPage extends VetifyWebappLoggedBasePage {
         // position next to the "Mascota" label (not by accessible name) so it matches in both states.
         this.petSelectorOpenBtn = page.locator('p:text-is("Mascota")').locator('xpath=following-sibling::*[1]');
         this.petSelectorOptionBtns = page.locator('button').filter({ hasText: /^(?!Seleccionar$|Continuar$).+$/ });
+        this.petSelectorDialog = page.locator('div[role="dialog"]').filter({ hasText: 'Seleccioná tu mascota' });
+        this.petSelectorDialogConfirmBtn = this.petSelectorDialog.getByRole('button', { name: 'Seleccionar' });
+
+        this.cupoTextLbl = page.locator('p:text-is("Mascota")').locator('xpath=following-sibling::*[1]').getByText(/^Cupo (disponible|ilimitado)/);
 
         this.completeCredentialBtn = page.getByRole('button', { name: 'Completar credencial' });
         this.missingCredentialHeadingLbl = page.getByRole('heading', { name: 'Completá su credencial' });
@@ -140,6 +164,9 @@ export class VetifyWebappVideocallFormPage extends VetifyWebappLoggedBasePage {
         this.limitReachedDialogMessageLbl = page.getByText(/Ya tenés 2 videollamadas programadas para/);
         this.closeLimitReachedDialogBtn = page.getByRole('button', { name: 'Cerrar' });
 
+        this.annualCupoLimitDialogHeadingLbl = page.getByText(/Alcanzaste el límite de \d+ videollamadas anuales/);
+        this.annualCupoLimitDialogMessageLbl = page.getByText('Para agendar una nueva, tendrás que esperar que se renueve tu cupo.');
+
         this.continueBtn = page.getByRole('button', { name: 'Continuar' });
         this.backBtn = page.locator('button[data-cy="backButton"]');
     }
@@ -160,6 +187,21 @@ export class VetifyWebappVideocallFormPage extends VetifyWebappLoggedBasePage {
         await this.petSelectorOpenBtn.click();
         const option = petName ? this.petSelectorOptionBtns.filter({ hasText: petName }) : this.petSelectorOptionBtns;
         await option.first().click();
+        // IMAS-4546: ver nota de petSelectorDialogConfirmBtn — sin este 2do click el modal queda
+        // abierto y "Continuar" (el de afuera) nunca se habilita. Candidato a causa raíz de la
+        // flakiness @unstable histórica de este flujo (TC-05/TC-06 más abajo).
+        await this.petSelectorDialogConfirmBtn.click();
+    }
+
+    @step('Abrir el modal "Seleccioná tu mascota" sin confirmar ninguna selección todavía')
+    async openPetSelectorDialog(): Promise<void> {
+        await this.petSelectorOpenBtn.click();
+        await expect(this.petSelectorDialog).toBeVisible();
+    }
+
+    @step('Verificar el cupo mostrado para una mascota puntual dentro del modal de selección (Caso especial 02 IMAS-4546)')
+    async verifyCupoInPetSelectorDialog(petName: string, expectedCupoText: string): Promise<void> {
+        await expect(this.petSelectorOptionBtns.filter({ hasText: petName }).getByText(expectedCupoText)).toBeVisible();
     }
 
     @step('Verificar que la mascota seleccionada se muestra correctamente')
@@ -195,6 +237,16 @@ export class VetifyWebappVideocallFormPage extends VetifyWebappLoggedBasePage {
     async verifyReasonScreenWithSelectedPet(): Promise<void> {
         await expect(this.reasonHeadingLbl).toBeVisible();
         await this.verifySelectedPetDisplayed();
+    }
+
+    @step('Verificar el contador de cupo de videollamadas disponible para la mascota (AC2 IMAS-4546)')
+    async verifyCupoDisponible(disponible: number, limite: number): Promise<void> {
+        await expect(this.cupoTextLbl).toHaveText(`Cupo disponible: ${disponible} de ${limite}`);
+    }
+
+    @step('Verificar que no se muestra ningún contador de cupo, mascota con plan ilimitado (AC1 IMAS-4546)')
+    async verifyNoCupoCounterShown(): Promise<void> {
+        await expect(this.cupoTextLbl).toBeHidden();
     }
 
     @step('Ingresar un motivo de texto libre no listado')
@@ -318,6 +370,8 @@ export class VetifyWebappVideocallFormPage extends VetifyWebappLoggedBasePage {
         await this.editMascotaBtn.click();
         await this.petSelectorOpenBtn.click();
         await this.petSelectorOptionBtns.filter({ hasNotText: currentPetName }).first().click();
+        // Ver nota de petSelectorDialogConfirmBtn en selectPet() — mismo modal, mismo 2do click.
+        await this.petSelectorDialogConfirmBtn.click();
         await this.clickContinue();
         await this.clickContinue();
         await this.skipAttachments();
@@ -370,5 +424,14 @@ export class VetifyWebappVideocallFormPage extends VetifyWebappLoggedBasePage {
     async closeLimitReachedDialog(): Promise<void> {
         await this.closeLimitReachedDialogBtn.click();
         await expect(this.limitReachedDialogHeadingLbl).toBeHidden();
+    }
+
+    // IMAS-4546: intentar agendar con el cupo ANUAL en 0 (pero <2 turnos concurrentemente agendados)
+    // muestra este modal en vez del de arriba — ver nota de annualCupoLimitDialogHeadingLbl.
+    @step('Intentar agendar una nueva videollamada y verificar el bloqueo por cupo anual agotado')
+    async attemptScheduleAndVerifyAnnualCupoBlocked(): Promise<void> {
+        await this.scheduleNewVideocallBtn.click();
+        await expect(this.annualCupoLimitDialogHeadingLbl).toBeVisible();
+        await expect(this.annualCupoLimitDialogMessageLbl).toBeVisible();
     }
 }

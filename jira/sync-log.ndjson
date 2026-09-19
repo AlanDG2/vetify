@@ -217,3 +217,13 @@
 {"timestamp":"2026-09-16T16:57:05.499Z","action":"comment","key":"IMAS-4464","summary":"Evidencia de reapertura: reproducido en QA (3x) y PROD (2x, cuentas reales de cliente)","result":"ok"}
 {"timestamp":"2026-09-16T16:57:05.499Z","action":"transition","key":"IMAS-4464","summary":"Cancelado -> Tareas Por Hacer (reabierto)","result":"ok"}
 {"timestamp":"2026-09-16T16:57:05.499Z","action":"comment","key":"IMAS-4652","summary":"Impedimento documentado en la HU bloqueada, referenciando IMAS-4464","result":"ok"}
+{"timestamp":"2026-09-17T14:07:55.664Z","action":"comment","key":"IMAS-4582","summary":"Evidencia de cierre: flujo manual validado de punta a punta (Calidad->Validado->Finanzas->Pagado, Nexus doble-click confirmado)","result":"ok"}
+{"timestamp":"2026-09-17T14:07:55.664Z","action":"transition","key":"IMAS-4582","summary":"Tareas Por Hacer -> Hecho","result":"ok"}
+{"timestamp":"2026-09-17T14:07:55.664Z","action":"comment","key":"IMAS-4471","summary":"Comentario de cierre: mejora decidida como no-implementar, flujo manual validado","result":"ok"}
+{"timestamp":"2026-09-17T14:07:55.664Z","action":"transition","key":"IMAS-4471","summary":"Tareas Por Hacer -> Hecho","result":"ok"}
+{"timestamp":"2026-09-17T17:29:07.200Z","action":"comment","key":"IMAS-4723","summary":"Casos de prueba QA (5 CP, PASS) posteados -- IMAS-4310 edicion Motivo/Adjuntos/Fecha desde confirmacion","result":"ok"}
+{"timestamp":"2026-09-17T17:29:07.200Z","action":"transition","key":"IMAS-4723","summary":"Tareas Por Hacer -> Hecho","result":"ok"}
+{"timestamp":"2026-09-19T03:19:35.021Z","action":"comment","key":"IMAS-4504","summary":"Retest final confirmado: 2 gastos aprobados desde Calidad (decision-calidad 204 x2), derivados a Finanzas","result":"ok"}
+{"timestamp":"2026-09-19T03:19:35.021Z","action":"transition","key":"IMAS-4504","summary":"Tareas Por Hacer -> Hecho","result":"ok"}
+{"timestamp":"2026-09-19T03:19:35.021Z","action":"comment","key":"IMAS-4476","summary":"Retest final confirmado: 2 gastos aprobados desde Calidad (decision-calidad 204 x2), derivados a Finanzas","result":"ok"}
+{"timestamp":"2026-09-19T03:19:35.021Z","action":"transition","key":"IMAS-4476","summary":"In Validation -> Hecho","result":"ok"}

@@ -1139,9 +1139,11 @@
         "tags": [
           "ACTIVE",
           "REGISTERED",
-          "REAL_EMAIL"
+          "REAL_EMAIL",
+          "WITH_PET",
+          "NO_EMPTY_PLAN"
         ],
-        "_note": "OSDE Capitado QA.",
+        "_note": "OSDE Capitado QA. 2026-09-19: agregados tags WITH_PET/NO_EMPTY_PLAN — confirmado en vivo vía API (mascota Moa, Vetify Esencial OSDE, videollamada/cobertura {disponible:2,limite:2}), el fixture no los tenía pese a tener mascota real.",
         "reserved": false
       },
       {
@@ -1160,9 +1162,11 @@
         "tags": [
           "ACTIVE",
           "REGISTERED",
-          "REAL_EMAIL"
+          "REAL_EMAIL",
+          "WITH_PET",
+          "NO_EMPTY_PLAN"
         ],
-        "_note": "OSDE Capitado QA. Mascota Scooby Doo.",
+        "_note": "OSDE Capitado QA. Mascota Scooby Doo. 2026-09-19: agregados tags WITH_PET/NO_EMPTY_PLAN — confirmado en vivo vía API (Vetify Esencial OSDE, videollamada/cobertura {disponible:2,limite:2}), el fixture no los tenía pese a tener mascota real.",
         "reserved": false
       },
       {
@@ -1289,6 +1293,27 @@
           "REAL_EMAIL"
         ],
         "_note": "OSDE Capitado QA. Mascota Otis.",
+        "reserved": false
+      },
+      {
+        "id": "3991514b-0259-483d-97db-57780d5f679c",
+        "siteId": "OSDE_CAPITADO",
+        "email": "multipet.qa.1789770402655@automation.com",
+        "password": "Vetify15!",
+        "identification": {
+          "type": "DNI",
+          "number": "89631449"
+        },
+        "numberOfPlans": 2,
+        "source": "pooled",
+        "registration": true,
+        "leadIds": [],
+        "tags": [
+          "ACTIVE",
+          "WITH_PET",
+          "NO_EMPTY_PLAN"
+        ],
+        "_note": "2026-09-18/19: creada para IMAS-4546 (Caso especial 02, 2 mascotas con plan limitado). 2 registros reales bajo el mismo DNI/email vía 2 tokens TESTOSDE. Mascotas: Rocky y Luna, ambas OSDE Esencial. Detalle completo en qa-workspace/qa-accounts.md.",
         "reserved": false
       }
     ],

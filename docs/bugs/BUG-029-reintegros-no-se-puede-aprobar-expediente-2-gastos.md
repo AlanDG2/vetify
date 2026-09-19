@@ -71,3 +71,24 @@ Flujo ejecutado:
 **Resultado de la bandeja**: 3131924 desapareció de Pendientes. La bandeja pasó de 39 → 38 (los 2 exptes de esta solicitud de 2 gastos salieron juntos, ambos con 204).
 
 **Conclusión reforzada**: 2/2 aprobaciones Calidad de expedientes que pertenecen a una solicitud de 2 gastos cargados, ambos `decision-calidad` con 204. El bug no reproduce. La causa más probable hoy es que el fix ya está aplicado en QA; el síntoma original (400 con "reimbursement request must have an expense type amount before approval to finance") ya no se observa.
+
+## ✅ Retest final 2026-09-18 — CONFIRMADO ARREGLADO (IMAS-4504)
+
+Retomado con IMAS-4476 en "In Validation" y todas las subtareas de desarrollo (`IMAS-4501` Desarrollo, `IMAS-4503` Deploy QA, `IMAS-4528` Reunión Core, `IMAS-4643` Validar diseño) ya "Hecho" — solo faltaba `IMAS-4504` (Pruebas en QA).
+
+Caso nuevo, distinto de los 2 retests de 2026-09-02 (esos expedientes ya estaban aprobados/fuera de la cola): solicitud `VETI-8832-9c0f1e50` (titular CASTELLANO GUTIERREZ ALEXIS SEBASTIAN, mascota Mishi), factura única $647.374,35 dividida en 2 gastos:
+- Expediente `3131802` — Consulta en centro veterinario
+- Expediente `3131801` — Estudios bioquímicos
+
+Flujo ejecutado completo con `acastellano@ikeasistencia.com.ar`:
+1. "Distribuir factura" en `3131802` → 2 líneas (Consulta $347.374 / Estudios bioquímicos $300.000), diferencia $0,00 → Confirmar distribución → `PUT lineas-factura` → 200 OK. El monto de `3131801` (el otro expediente de la misma solicitud) se completó automáticamente con la línea correspondiente.
+2. "Validar" en `3131802` → dialog "Confirmar validación" → Confirmar y enviar → `POST /api/bff/reintegros/backoffice/expedientes/3131802/decision-calidad` → **204 No Content**. Toast: "¡Envío exitoso! Derivamos el expediente para su aprobación final." (monto liquidado $15.000, tope por evento).
+3. "Validar" en `3131801` → mismo diálogo → Confirmar y enviar → `POST .../3131801/decision-calidad` → **204 No Content**. Toast igual de éxito (monto liquidado $0,00 por tope de cobertura ya consumido — comportamiento de negocio esperado, no error).
+4. Bandeja de Pendientes bajó de 47 a 45 (los 2 expedientes de la solicitud salieron juntos).
+
+**Ningún error "reimbursement request must have an expense type amount before approval to finance", ningún "Algo salió mal".** Los 3 criterios de aceptación de IMAS-4476 se cumplen:
+1. ✅ Caso con 2 gastos se aprueba desde Calidad sin error (2/2 `decision-calidad` → 204).
+2. ✅ Cada expediente mantiene su monto/tipo de gasto correcto (Consulta $347.374 vs Estudios bioquímicos $300.000, sin mezcla entre expedientes).
+3. ✅ El flujo llega a Finanzas (toast "Derivamos el expediente para su aprobación final" en ambos, confirmado también por la baja de la bandeja de Pendientes).
+
+**Veredicto: BUG-029 / IMAS-4476 confirmado arreglado.** Corresponde comentar IMAS-4504 (Pruebas en QA) con este resultado y transicionarlo a Hecho, siguiendo la regla del proyecto (bug confirmado → comentario + cerrar).

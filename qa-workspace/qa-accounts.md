@@ -21,12 +21,12 @@
 
 ## Webapp — Iké (IKE_WEBAPP)
 
-| Email | Password | Notas |
-|---|---|---|
-| `iketest@mail.com` | `Hola123#` | Dadas por Alan 2026-09-21. No confirmado todavía: DNI, plan/producto asociado, ni si están activadas — verificar en vivo antes de asumir estado. |
-| `iketest3@mail.com` | `Hola123#` | Dadas por Alan 2026-09-21. Mismas salvedades que la de arriba. |
+| Email | Password | Plan | Notas |
+|---|---|---|---|
+| `iketest@mail.com` | `Hola123#` | Solo Iké | Dadas por Alan 2026-09-21. No confirmado todavía: DNI ni si está activada — verificar en vivo antes de asumir estado. |
+| `iketest3@mail.com` | `Hola123#` | Iké + Vetify (ambos planes) | Dadas por Alan 2026-09-21. Mismas salvedades que la de arriba. |
 
-**Notas**: primeras cuentas registradas para este site — todavía no hay ninguna en `pooled-users.json` bajo `IKE_WEBAPP`. Si se confirma su estado (DNI, plan, tags) y se decide usarlas en la automatización, agregarlas también ahí siguiendo el mismo formato que las demás cuentas del pool.
+**Notas**: primeras cuentas registradas para este site — todavía no hay ninguna en `pooled-users.json` bajo `IKE_WEBAPP`. La columna "Plan" confirmada directo por Alan (no verificada en vivo todavía). Relevante para `tests/projects/ike-webapp/access-control.spec.ts` (CA01 plan exclusivo Vetify, CA02 plan Iké, CA03 ambos planes, CA04 sin ningún plan) — `iketest@mail.com` cubriría el caso "solo Iké" y `iketest3@mail.com` el caso "ambos planes", ver `docs/impedimentos-bloqueos.md` IMP-005 para el estado de ese bloqueo. Si se confirma el resto del estado (DNI, tags) y se decide usarlas en la automatización, agregarlas también a `pooled-users.json` siguiendo el mismo formato que las demás cuentas del pool.
 
 ---
 

@@ -19,6 +19,17 @@
 
 ---
 
+## Webapp — Iké (IKE_WEBAPP)
+
+| Email | Password | Notas |
+|---|---|---|
+| `iketest@mail.com` | `Hola123#` | Dadas por Alan 2026-09-21. No confirmado todavía: DNI, plan/producto asociado, ni si están activadas — verificar en vivo antes de asumir estado. |
+| `iketest3@mail.com` | `Hola123#` | Dadas por Alan 2026-09-21. Mismas salvedades que la de arriba. |
+
+**Notas**: primeras cuentas registradas para este site — todavía no hay ninguna en `pooled-users.json` bajo `IKE_WEBAPP`. Si se confirma su estado (DNI, plan, tags) y se decide usarlas en la automatización, agregarlas también ahí siguiendo el mismo formato que las demás cuentas del pool.
+
+---
+
 ## Cuentas creadas en la sesión 2026-09-04/06 (Fuente 2: `fresh-users.json` + Fuente 3: manuales)
 
 | Email | Password | DNI | Segmento | Origen | Notas |

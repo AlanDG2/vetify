@@ -24,9 +24,11 @@
 | Email | Password | Plan | Notas |
 |---|---|---|---|
 | `iketest@mail.com` | `Hola123#` | Solo Iké | Dadas por Alan 2026-09-21. No confirmado todavía: DNI ni si está activada — verificar en vivo antes de asumir estado. |
+| `iketest2@mail.com` | `Hola123#` | **Sin confirmar** | Dada por Alan 2026-09-21 junto con las otras 3, sin etiqueta de plan — no asumido, confirmar con Alan o verificar en vivo antes de usarla en un caso que dependa del tipo de plan. |
 | `iketest3@mail.com` | `Hola123#` | Iké + Vetify (ambos planes) | Dadas por Alan 2026-09-21. Mismas salvedades que la de arriba. |
+| `iketest4@mail.com` | `Hola123#` | Solo Iké | Dada por Alan 2026-09-21. Mismas salvedades que `iketest@mail.com`. |
 
-**Notas**: primeras cuentas registradas para este site — todavía no hay ninguna en `pooled-users.json` bajo `IKE_WEBAPP`. La columna "Plan" confirmada directo por Alan (no verificada en vivo todavía). Relevante para `tests/projects/ike-webapp/access-control.spec.ts` (CA01 plan exclusivo Vetify, CA02 plan Iké, CA03 ambos planes, CA04 sin ningún plan) — `iketest@mail.com` cubriría el caso "solo Iké" y `iketest3@mail.com` el caso "ambos planes", ver `docs/impedimentos-bloqueos.md` IMP-005 para el estado de ese bloqueo. Si se confirma el resto del estado (DNI, tags) y se decide usarlas en la automatización, agregarlas también a `pooled-users.json` siguiendo el mismo formato que las demás cuentas del pool.
+**Notas**: primeras cuentas registradas para este site — todavía no hay ninguna en `pooled-users.json` bajo `IKE_WEBAPP`. La columna "Plan" confirmada directo por Alan (no verificada en vivo todavía), salvo `iketest2@mail.com` que quedó sin etiqueta. Relevante para `tests/projects/ike-webapp/access-control.spec.ts` (CA01 plan exclusivo Vetify, CA02 plan Iké, CA03 ambos planes, CA04 sin ningún plan) — `iketest@mail.com`/`iketest4@mail.com` cubren el caso "solo Iké" y `iketest3@mail.com` el caso "ambos planes" (2 cuentas para ese caso da margen si una se rompe en el camino), ver `docs/impedimentos-bloqueos.md` IMP-005 para el estado de ese bloqueo. Si se confirma el resto del estado (DNI, tags, y el plan de `iketest2@mail.com`) y se decide usarlas en la automatización, agregarlas también a `pooled-users.json` siguiendo el mismo formato que las demás cuentas del pool.
 
 ---
 

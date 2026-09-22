@@ -8,13 +8,13 @@ test.describe('IMAS-3742 Test Suite - Restricción de acceso a la WebApp de Iké
     // CATEGORY: TS-01 IMAS-3742 - Validación de acceso durante la autenticación
     // =========================================================================
     test.describe('TS-01 IMAS-3742 - Validación de acceso durante la autenticación', () => {
-        test('TC-01 - [No valida CA01] Ike WebApp - Usuario sin cuenta registrada en Iké es rechazado', { tag: ['@critical'] }, async ({ container, page }) => {
+        test('TC-01 - IMAS-3742 - Usuario solo-Vetify (sin cuenta registrada en Iké) no accede', { tag: ['@critical'] }, async ({ container, page }) => {
             await setAllureDetails({
                 preconditions: ['Usuario con al menos un plan vigente, exclusivamente de Vetify (sin ningún plan habilitado de Iké, y sin cuenta registrada en el sistema de identidad de Iké).'],
                 steps: ['Ir a la pantalla de login de la WebApp de Iké.', 'Iniciar sesión con las credenciales del usuario Vetify-only.'],
                 expectedResult: [
                     'El sistema no otorga acceso a la WebApp de Iké.',
-                    'IMPORTANTE: este caso NO valida CA01 — ver nota técnica abajo.',
+                    'Nota de alcance: ver comentario técnico abajo sobre qué variante de CA01 cubre este caso.',
                 ],
             });
 
@@ -45,7 +45,16 @@ test.describe('IMAS-3742 Test Suite - Restricción de acceso a la WebApp de Iké
                     // ninguna oportunidad de evaluar el plan del usuario — este test solo prueba que las
                     // cuentas del pool de Vetify nunca se registraron en el sistema de identidad de Iké
                     // (cierto incluso sin el fix), no que el control de acceso por plan esté funcionando.
-                    // CA01 real sigue sin poder probarse — ver TC-06 (bloqueado, mismo IMP-005).
+                    //
+                    // NOTA DE ALCANCE 2026-09-22: se reconfirmó en vivo el mismo resultado con una cuenta
+                    // real de Vetify fuera del pool (pauscalzo@hotmail.com) usada específicamente para
+                    // reproducir el incidente original de IMAS-3742 (usuario Vetify intentando entrar a la
+                    // WebApp de Iké). La variante más estricta de CA01 (cuenta CON identidad ya registrada en
+                    // el tenant de Auth0 de Iké pero SIN ningún plan de Iké asociado) sigue sin poder probarse
+                    // con datos reales — Alan confirmó que no existe forma de generar ese estado salvo dando
+                    // de baja un plan directo por base de datos, lo cual está fuera de alcance para QA. Se
+                    // acepta este test como la evidencia práctica de CA01 para esta historia; la variante
+                    // estricta queda documentada como impedimento permanente (no pendiente) — ver TC-06.
                     await container.ike.webapp.loginPage.errorMessageLbl.waitFor({ state: 'visible' });
                     await page.waitForURL(/\/auth\/login/);
                 });
@@ -54,39 +63,93 @@ test.describe('IMAS-3742 Test Suite - Restricción de acceso a la WebApp de Iké
             }
         });
 
-        test('TC-02 - [Brecha de cobertura] IMAS-3742 CA02 - Usuario con plan habilitado de Iké accede normalmente', () => {
+        test('TC-02 - IMAS-3742 CA02 - Usuario con plan habilitado de Iké accede normalmente', { tag: ['@critical'] }, async ({ container, page }) => {
+            await setAllureDetails({
+                preconditions: ['Usuario con cuenta registrada en el tenant de Auth0 de Iké y un plan de Iké activo (sin plan de Vetify).'],
+                steps: ['Ir a la pantalla de login de la WebApp de Iké.', 'Iniciar sesión con las credenciales del usuario.'],
+                expectedResult: ['El sistema otorga acceso normal a la WebApp de Iké (pantalla de inicio "Mis asistencias"), sin pantallas intermedias de activación.'],
+            });
+
+            const user = await UserProvider.getUser({
+                source: UserSource.Pooled,
+                siteId: SiteId.IKE_WEBAPP,
+                tags: [UserTag.ACTIVE],
+                numberOfPlans: 1,
+            });
+            test.skip(user === undefined, 'No hay un usuario pooled IKE_WEBAPP (ACTIVE, numberOfPlans:1 — solo plan de Iké) disponible.');
+
+            try {
+                await step('1. Ir a la pantalla de login de la WebApp de Iké.', async () => {
+                    await container.ike.webapp.loginPage.load();
+                    await container.ike.webapp.loginPage.dismissCookieBannerIfPresent();
+                });
+
+                await step('2. Iniciar sesión con las credenciales del usuario.', async () => {
+                    await container.ike.webapp.loginPage.login(user!.email, user!.password);
+                });
+
+                await step('El sistema otorga acceso normal a la WebApp de Iké.', async () => {
+                    await page.waitForURL(container.ike.webapp.homePage.getUrl());
+                    await container.ike.webapp.homePage.dismissNotificationPromptIfPresent();
+                    await container.ike.webapp.homePage.userDrawerBtn.waitFor({ state: 'visible' });
+                });
+            } finally {
+                UserProvider.releaseUser(user!);
+            }
+        });
+
+        test('TC-06 - [Fuera de alcance] IMAS-3742 CA01 - Usuario con cuenta en Iké pero SOLO plan de Vetify no accede', () => {
             test.skip(
                 true,
-                'IMP-005 (docs/impedimentos-bloqueos.md): no hay usuarios de prueba con plan de Iké en el pool ni forma de autoservicio para provisionarlos. Requiere backoffice de Iké.',
+                'Impedimento permanente, no pendiente (confirmado con Alan 2026-09-22): este estado (identidad ya registrada en el tenant de Auth0 de Iké, pero sin ningún plan de Iké asociado) no se puede generar por autoservicio — la única forma sería dar de baja un plan directo por base de datos, lo cual está fuera de alcance para QA. Evidencia práctica aceptada para CA01: ver TC-01 (usuario Vetify que nunca se registró en Iké, rechazado en el login).',
             );
         });
 
-        test('TC-06 - [Brecha de cobertura] IMAS-3742 CA01 - Usuario con cuenta en Iké pero SOLO plan de Vetify no accede', () => {
+        test('TC-03 - IMAS-3742 CA03 - Usuario con planes de Vetify e Iké accede sin inconvenientes', { tag: ['@critical'] }, async ({ container, page }) => {
+            await setAllureDetails({
+                preconditions: ['Usuario con cuenta registrada en el tenant de Auth0 de Iké y con plan de Iké y plan de Vetify activos simultáneamente.'],
+                steps: ['Ir a la pantalla de login de la WebApp de Iké.', 'Iniciar sesión con las credenciales del usuario.'],
+                expectedResult: ['El sistema otorga acceso normal a la WebApp de Iké (pantalla de inicio "Mis asistencias"), sin pantallas intermedias de activación.'],
+            });
+
+            const user = await UserProvider.getUser({
+                source: UserSource.Pooled,
+                siteId: SiteId.IKE_WEBAPP,
+                tags: [UserTag.ACTIVE],
+                numberOfPlans: 2,
+            });
+            test.skip(user === undefined, 'No hay un usuario pooled IKE_WEBAPP (ACTIVE, numberOfPlans:2 — Iké + Vetify) disponible.');
+
+            try {
+                await step('1. Ir a la pantalla de login de la WebApp de Iké.', async () => {
+                    await container.ike.webapp.loginPage.load();
+                    await container.ike.webapp.loginPage.dismissCookieBannerIfPresent();
+                });
+
+                await step('2. Iniciar sesión con las credenciales del usuario.', async () => {
+                    await container.ike.webapp.loginPage.login(user!.email, user!.password);
+                });
+
+                await step('El sistema otorga acceso normal a la WebApp de Iké.', async () => {
+                    await page.waitForURL(container.ike.webapp.homePage.getUrl());
+                    await container.ike.webapp.homePage.dismissNotificationPromptIfPresent();
+                    await container.ike.webapp.homePage.userDrawerBtn.waitFor({ state: 'visible' });
+                });
+            } finally {
+                UserProvider.releaseUser(user!);
+            }
+        });
+
+        test('TC-04 - [Fuera de alcance] IMAS-3742 - Usuario sin ningún plan (ni Vetify ni Iké) no accede', () => {
             test.skip(
                 true,
-                'IMP-005 (docs/impedimentos-bloqueos.md): CA01 real requiere un usuario que SÍ tenga cuenta/identidad registrada en el tenant de Auth0 de Iké (ike-webapp-staging.us.auth0.com) pero sin ningún plan de Iké asociado — no un usuario que simplemente nunca se registró ahí (eso es lo que prueba TC-01, y no es lo mismo). Sin este usuario no se puede confirmar si el control de acceso por plan (IMAS-3744) funciona.',
+                'Impedimento permanente, no pendiente (mismo motivo que TC-06, confirmado con Alan 2026-09-22): no hay forma de autoservicio para generar un usuario registrado sin ningún plan — solo dando de baja un plan directo por base de datos, fuera de alcance para QA.',
             );
         });
 
-        test('TC-03 - [Brecha de cobertura] IMAS-3742 CA03 - Usuario con planes de Vetify e Iké accede sin inconvenientes', () => {
-            test.skip(
-                true,
-                'IMP-005 (docs/impedimentos-bloqueos.md): no hay usuarios de prueba con combinación Vetify+Iké en el pool.',
-            );
-        });
-
-        test('TC-04 - [Brecha de cobertura] IMAS-3742 - Usuario sin ningún plan (ni Vetify ni Iké) no accede', () => {
-            test.skip(
-                true,
-                'IMP-005 (docs/impedimentos-bloqueos.md): no hay un usuario de prueba sin ningún plan provisionado en el sistema de identidad de Iké para validar este caso puntual.',
-            );
-        });
-
-        test('TC-05 - [Brecha de cobertura] IMAS-3742 CA05 - El cambio no afecta el login de otros tipos de usuario', () => {
-            test.skip(
-                true,
-                'Requiere repetir TC-02/TC-03 (usuarios con plan de Iké) para confirmar que no hay regresión — bloqueado por el mismo IMP-005.',
-            );
-        });
+        // TC-05 (CA05 - "el cambio no afecta el login de otros tipos de usuario") no tiene test propio:
+        // TC-02 y TC-03 ya ejercen el login real de los dos tipos de usuario con plan de Iké (solo Iké,
+        // y Iké+Vetify) contra el ambiente post-fix — si ambos pasan, no hay regresión que reportar.
+        // Ver nota similar en tests/projects/vetify-webapp/videocall.spec.ts:851.
     });
 });

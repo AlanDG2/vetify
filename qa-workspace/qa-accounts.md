@@ -21,14 +21,19 @@
 
 ## Webapp — Iké (IKE_WEBAPP)
 
-| Email | Password | Plan | Notas |
-|---|---|---|---|
-| `iketest@mail.com` | `Hola123#` | Solo Iké | Dadas por Alan 2026-09-21. No confirmado todavía: DNI ni si está activada — verificar en vivo antes de asumir estado. |
-| `iketest2@mail.com` | `Hola123#` | **Sin confirmar** | Dada por Alan 2026-09-21 junto con las otras 3, sin etiqueta de plan — no asumido, confirmar con Alan o verificar en vivo antes de usarla en un caso que dependa del tipo de plan. |
-| `iketest3@mail.com` | `Hola123#` | Iké + Vetify (ambos planes) | Dadas por Alan 2026-09-21. Mismas salvedades que la de arriba. |
-| `iketest4@mail.com` | `Hola123#` | Solo Iké | Dada por Alan 2026-09-21. Mismas salvedades que `iketest@mail.com`. |
+**Ya agregadas a `pooled-users.json` (siteId `IKE_WEBAPP`)** — usar vía `UserProvider.getUser({ siteId: SiteId.IKE_WEBAPP, numberOfPlans: 1|2 })`, no hardcodear en specs nuevos.
 
-**Notas**: primeras cuentas registradas para este site — todavía no hay ninguna en `pooled-users.json` bajo `IKE_WEBAPP`. La columna "Plan" confirmada directo por Alan (no verificada en vivo todavía), salvo `iketest2@mail.com` que quedó sin etiqueta. Relevante para `tests/projects/ike-webapp/access-control.spec.ts` (CA01 plan exclusivo Vetify, CA02 plan Iké, CA03 ambos planes, CA04 sin ningún plan) — `iketest@mail.com`/`iketest4@mail.com` cubren el caso "solo Iké" y `iketest3@mail.com` el caso "ambos planes" (2 cuentas para ese caso da margen si una se rompe en el camino), ver `docs/impedimentos-bloqueos.md` IMP-005 para el estado de ese bloqueo. Si se confirma el resto del estado (DNI, tags, y el plan de `iketest2@mail.com`) y se decide usarlas en la automatización, agregarlas también a `pooled-users.json` siguiendo el mismo formato que las demás cuentas del pool.
+| Email | Password | DNI | Plan | Notas |
+|---|---|---|---|---|
+| `iketest@mail.com` | `Hola123#` | 12121212 | Solo Iké (numberOfPlans:1) | Confirmada en vivo 2026-09-21/22: `GET /api/users/me` → `isClient:true`, `policyId` real (addressType CAPITADO). Acceso completo sin pantalla de activación. En pool, usada en TC-02. |
+| `iketest2@mail.com` | `Hola123#` | 23456789 | Iké + Vetify (numberOfPlans:2) | Ambigüedad resuelta en vivo: el apellido real de la cuenta es "VETIFY USSER" (visible en los links de upsell) — confirma que es la combo, no "solo Iké". `isClient:true`, acceso completo. En pool, usada en TC-03. |
+| `iketest3@mail.com` | `Hola123#` | — | Iké + Vetify (pensada) | **Descartada** — nunca completó activación: el DNI que se probó (34343434, "creo que es este" de Alan) ya pertenecía a otra cuenta ("Ya existe usuario asociado al numero de identificación", 400 real en `update_for_signup`). Reemplazada por `iketest5@mail.com`. No usar salvo que Alan confirme un DNI real distinto. |
+| `iketest4@mail.com` | `Hola123#` | 90909090 | Solo Iké (numberOfPlans:1) | Confirmada en vivo 2026-09-21/22, mismo patrón que `iketest@mail.com` (`isClient:true`, addressType CAPITADO). Categorías más ricas visibles en Home (Viajes, Legal, Siniestros, etc.) — probablemente por tener más productos Iké asociados, no afecta el caso de uso QA. En pool, usada en TC-02. |
+| `iketest5@mail.com` | `Hola123#` | 78787878 | Iké + Vetify (numberOfPlans:2) | Dada por Alan 2026-09-21 para reemplazar a `iketest3@mail.com`. Confirmada en vivo: activada sin pantalla intermedia, `isClient:true`, `policyId` real (addressType ADQUIRIENTE — nombre de segmento típico de Vetify, consistente con la combinación). En pool, usada en TC-03. |
+
+**Caso "solo Vetify, sin Iké" (CA01/TC-01 de IMAS-3742)**: no usa una cuenta de esta tabla — se prueba con cualquier cuenta pooled `VETIFY_ADQUIRENTE` (`ACTIVE`), o se reconfirmó en vivo 2026-09-22 con `pauscalzo@hotmail.com` (cuenta real de Vetify, fuera del pool — ver sección Adquirente más abajo). El login a la WebApp de Iké la rechaza directo (nunca se registró en el tenant de Auth0 de Iké).
+
+**Caso fuera de alcance permanente**: cuenta con identidad YA registrada en el tenant de Auth0 de Iké pero SIN ningún plan de Iké asociado (necesaria para la variante estricta de CA01/TC-06 y para CA04/TC-04, "sin ningún plan"). Confirmado con Alan 2026-09-22: no hay forma de generar ese estado por autoservicio, solo dando de baja un plan directo por base de datos — fuera de alcance para QA. Ver `docs/impedimentos-bloqueos.md` IMP-005 para el detalle completo y el estado final de los 6 casos de `access-control.spec.ts`.
 
 ---
 
@@ -61,6 +66,7 @@
 | `ayeperez@ikeasistencia.com.ar` | `Guatemala02!` | 5578955 | Thanos HDP | B2C |
 | `cyntiaamaribel@hotmail.com` | `Vetify123!` | — | Cyntia | B2C |
 | `alan.gonzalez@ingenia.la` | `Hola123#` | 16525485 | — | Vetify B2C. Usada constantemente en esta sesión para verificar el outage transversal — a veces se degrada a `[]` en mascotas, reintentar si falla |
+| `pauscalzo@hotmail.com` | `Elo2014!Ama2017!` | — | — | Cuenta solo-Vetify (sin ningún plan/identidad de Iké) — nota previa: "degradó" en el contexto de IMAS-4408. Usada 2026-09-22 para reconfirmar en vivo el caso "Vetify-only rechazado" de IMAS-3742 (TC-01) — login a la WebApp de Iké la rechaza directo. |
 
 ### Cuentas del Excel Pruebas OSDE.xlsx (QA)
 

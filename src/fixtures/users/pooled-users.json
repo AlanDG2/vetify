@@ -1549,6 +1549,88 @@
         "_note": "Flux Capitado QA. Mascota Droppy.",
         "reserved": false
       }
+    ],
+    "IKE_WEBAPP": [
+      {
+        "id": "50139482-43b0-48aa-a2f4-255eb5fd1b6e",
+        "siteId": "IKE_WEBAPP",
+        "email": "iketest@mail.com",
+        "password": "Hola123#",
+        "identification": {
+          "type": "DNI",
+          "number": "12121212"
+        },
+        "numberOfPlans": 1,
+        "source": "pooled",
+        "registration": true,
+        "leadIds": [],
+        "tags": [
+          "ACTIVE",
+          "REGISTERED"
+        ],
+        "_note": "Dada por Alan 2026-09-21. Solo plan de Iké (numberOfPlans:1). Confirmada en vivo 2026-09-21/22: isClient:true, acceso completo a la Webapp de Iké sin pantalla de activación. Usada para IMAS-3742 TC-02 (CA02).",
+        "reserved": false
+      },
+      {
+        "id": "e735b9c7-d5fd-430e-985d-28db47c3c742",
+        "siteId": "IKE_WEBAPP",
+        "email": "iketest4@mail.com",
+        "password": "Hola123#",
+        "identification": {
+          "type": "DNI",
+          "number": "90909090"
+        },
+        "numberOfPlans": 1,
+        "source": "pooled",
+        "registration": true,
+        "leadIds": [],
+        "tags": [
+          "ACTIVE",
+          "REGISTERED"
+        ],
+        "_note": "Dada por Alan 2026-09-21. Solo plan de Iké (numberOfPlans:1). Confirmada en vivo 2026-09-21/22: isClient:true, acceso completo a la Webapp de Iké sin pantalla de activación. Usada para IMAS-3742 TC-02 (CA02).",
+        "reserved": false
+      },
+      {
+        "id": "9330d1b4-8219-47c1-8cb9-0ea703ccb5a8",
+        "siteId": "IKE_WEBAPP",
+        "email": "iketest2@mail.com",
+        "password": "Hola123#",
+        "identification": {
+          "type": "DNI",
+          "number": "23456789"
+        },
+        "numberOfPlans": 2,
+        "source": "pooled",
+        "registration": true,
+        "leadIds": [],
+        "tags": [
+          "ACTIVE",
+          "REGISTERED"
+        ],
+        "_note": "Dada por Alan 2026-09-21. Plan de Iké + Vetify (numberOfPlans:2, apellido de la cuenta real es 'VETIFY USSER'). Confirmada en vivo 2026-09-21/22: isClient:true, acceso completo a la Webapp de Iké sin pantalla de activación. Usada para IMAS-3742 TC-03 (CA03).",
+        "reserved": false
+      },
+      {
+        "id": "e956f652-8da7-454d-b94b-7967436c7ea3",
+        "siteId": "IKE_WEBAPP",
+        "email": "iketest5@mail.com",
+        "password": "Hola123#",
+        "identification": {
+          "type": "DNI",
+          "number": "78787878"
+        },
+        "numberOfPlans": 2,
+        "source": "pooled",
+        "registration": true,
+        "leadIds": [],
+        "tags": [
+          "ACTIVE",
+          "REGISTERED"
+        ],
+        "_note": "Dada por Alan 2026-09-21. Plan de Iké + Vetify (numberOfPlans:2). Reemplaza a iketest3@mail.com (quedó bloqueada, el DNI de prueba ya pertenecía a otra cuenta). Confirmada en vivo 2026-09-21/22: isClient:true, acceso completo a la Webapp de Iké sin pantalla de activación. Usada para IMAS-3742 TC-03 (CA03).",
+        "reserved": false
+      }
     ]
   }
 }

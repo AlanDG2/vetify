@@ -428,7 +428,12 @@ test.describe('Credenciales Test Suite', () => {
                 });
                 // Resultado esperado:
                 await step('El sistema redirecciona al usuario a la pantalla de home.', async () => {
-                    expect(await container.vetify.webapp.addPetFormPage.getStepNumber()).toBe(0);
+                    // No se usa getStepNumber() acá a propósito: para cuentas con 2+ planes libres
+                    // (ver comentario en AddPetFormPage.getStepNumber()), "atrás" desde el paso 1
+                    // aterriza en el paso de selección de plan, no en "¡Vamos a empezar!" — ambas son
+                    // pantallas sin datos ingresados, cualquiera de las 2 confirma el resultado real
+                    // (volver al principio, sin arrastrar nada del paso 1).
+                    await expect(container.vetify.webapp.addPetFormPage.stepTitleLbl).toHaveText(/^(¡Vamos a empezar!|Asigná el plan de la credencial)$/);
                 });
             });
 

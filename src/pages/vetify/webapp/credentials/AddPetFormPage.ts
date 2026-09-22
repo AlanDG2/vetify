@@ -37,6 +37,8 @@ export class VetifyWebappAddPetFormPage extends VetifyWebappLoggedBasePage {
     // Congrats Step
     readonly congratsHeadingLbl: Locator;
     readonly goToHomeBtn: Locator;
+    // Paso condicional "Asigná el plan de la credencial" (ver getStepNumber())
+    readonly planSelectionDropdown: Locator;
 
     private petId: string | undefined;
     private petName: string | undefined;
@@ -86,6 +88,8 @@ export class VetifyWebappAddPetFormPage extends VetifyWebappLoggedBasePage {
         // Congrats Step
         this.congratsHeadingLbl = this.page.getByRole('heading', { name: /ya tiene su credencial lista/ });
         this.goToHomeBtn = this.page.getByRole('button', { name: 'Ir al inicio' });
+        // Paso condicional "Asigná el plan de la credencial" — único combobox visible en ese paso.
+        this.planSelectionDropdown = this.page.getByRole('combobox');
     }
 
     async waitForPageLoaded() {
@@ -138,6 +142,18 @@ export class VetifyWebappAddPetFormPage extends VetifyWebappLoggedBasePage {
         const stepTitleText = await this.stepTitleLbl.textContent();
         if (!stepTitleText) {
             throw new Error('Step title label is empty');
+        }
+
+        // Paso condicional, sin HU asociada (confirmado en vivo vía MCP 2026-09-22): si la cuenta
+        // tiene 2+ "planes libres" (estado LIBRE sin mascota, ver VetifyWebappApiClient.getUserPets()),
+        // el wizard inserta este paso de desambiguación entre el paso 0 y el paso 1 — no aparece para
+        // cuentas con un único plan libre (mayoría del pool). Se resuelve acá mismo (cualquier plan
+        // disponible sirve, el test no valida a qué plan queda asociada la credencial) para que el
+        // resto del flujo y todos los callers de este método no necesiten saber que este paso existe.
+        if (stepTitleText.trim() === 'Asigná el plan de la credencial') {
+            await this.planSelectionDropdown.selectOption({ index: 1 }); // index 0 = "Seleccionar" (placeholder deshabilitado)
+            await this.continueButton.click();
+            return this.getStepNumber();
         }
 
         const STEP_TITLES: { [key: string]: number } = {

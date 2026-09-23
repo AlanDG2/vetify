@@ -1,14 +1,6 @@
 {
   "cupons": [
     {
-      "code": "TESTOSDE325330",
-      "type": "one-time",
-      "universal": false,
-      "projects": [
-        "OSDE_CAPITADO"
-      ]
-    },
-    {
       "code": "TESTFLUX626415",
       "type": "one-time",
       "universal": false,
@@ -18,14 +10,6 @@
     },
     {
       "code": "TESTFLUX929671",
-      "type": "one-time",
-      "universal": false,
-      "projects": [
-        "FLUX_CAPITADO"
-      ]
-    },
-    {
-      "code": "TESTFLUX672194",
       "type": "one-time",
       "universal": false,
       "projects": [

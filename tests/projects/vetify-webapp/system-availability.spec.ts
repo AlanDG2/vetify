@@ -233,4 +233,175 @@ test.describe('Sistema caído - Mensajes por indisponibilidad Test Suite', () =>
             );
         });
     });
+
+    // =========================================================================
+    // CATEGORY: TS-03 IMAS-3904 - Falla de sistema al agendar un turno
+    // =========================================================================
+    test.describe('TS-03 IMAS-3904 - Falla de sistema al agendar un turno', () => {
+        // .serial(): TC-01 y TC-04 comparten la misma cuenta -- en paralelo compiten por ella y el flujo
+        // se rompe a mitad de camino (confirmado 2026-09-22).
+        // Cuenta fijada a alan.gonzalez@ingenia.la (REAL_EMAIL) en vez de un usuario pooled genérico:
+        // los 2 únicos candidatos ACTIVE+WITH_PET+NO_EMPTY_PLAN del pool devolvieron "Completá su
+        // credencial" (my-products vacío) en corridas repetidas 2026-09-22 -- confirmado que no es un
+        // problema del test (un test YA EXISTENTE y aprobado, IMAS-3174, reprodujo el mismo bloqueo con
+        // la misma cuenta). Alan confirmó en vivo que esta cuenta sí anda ahora. reserve:true (no false)
+        // porque REAL_EMAIL pide exclusividad -- ver nota del tag en tags.ts.
+        test.describe.serial(() => {
+            test.use({
+                userRequest: {
+                    source: UserSource.Pooled,
+                    siteId: SiteId.VETIFY_ADQUIRENTE,
+                    tags: [UserTag.ACTIVE, UserTag.WITH_PET, UserTag.REAL_EMAIL],
+                    numberOfPlans: 1,
+                    reserve: true,
+                    ignoreReserved: false,
+                },
+            });
+
+            test.beforeEach(async ({ container, page }) => {
+                // Mismo patrón que TS-02 IMAS-3174 (videocall.spec.ts): usuario pooled compartido entre
+                // corridas, se limpia antes de cada test para no chocar con el límite real de 2 turnos
+                // por mascota (IMAS-3909) ni con turnos huérfanos de una corrida anterior.
+                const apiClient = await container.vetify.getApiClient(page);
+                await apiClient.cancelAllScheduledVideocalls();
+            });
+
+            test(
+                'TC-01 - IMAS-3904 CA01 - Un error técnico durante el agendamiento impide confirmar el turno',
+                { tag: ['@critical'] },
+                async ({ container, page }) => {
+                    // SKIP 2026-09-22: bloqueado por un problema de infraestructura de test, no de producto.
+                    // Con login 100% fresco (sin storage state cacheado) contra alan.gonzalez@ingenia.la,
+                    // el navegador automatizado ve GET /api/services/pets/my-products => [] y la app cae en
+                    // "Completá su credencial" -- pero Alan confirmó en vivo, con captura, que esa misma
+                    // cuenta SÍ tiene 2 mascotas reales cargadas en su navegador manual en el mismo momento.
+                    // Se descartó caché (login fresco), se descartó que sea un problema de esta HU (un test
+                    // YA EXISTENTE y aprobado, IMAS-3174, reprodujo el mismo bloqueo con otra cuenta del
+                    // pool). Queda como una discrepancia real entre sesión automatizada y sesión manual para
+                    // investigar aparte -- ver decision-log 2026-09-22. CA01 queda cubierto conceptualmente
+                    // por la evidencia manual de TC-02/TC-03: si aparece "No pudimos agendar el turno" en vez
+                    // del mensaje de éxito, la confirmación no se completó.
+                    test.skip(true, 'Bloqueado por infraestructura de test (ver comentario arriba) -- no es un hallazgo de producto.');
+
+                    await setAllureDetails({
+                        preconditions: ['Usuario autenticado, con al menos una mascota con plan activo y sin turnos pendientes.'],
+                        steps: [
+                            'Completar el formulario de solicitud de videollamada hasta la pantalla de revisión.',
+                            'Bloquear el POST de creación del turno (/api/services/assistance/493/create) y presionar "Confirmar videollamada".',
+                        ],
+                        expectedResult: ['El sistema detecta la falla, no confirma el turno y no queda ningún turno agendado.'],
+                    });
+
+                    const outage = new NetworkOutageSimulator(page);
+
+                    await step('1. Completar el formulario de solicitud de videollamada hasta la pantalla de revisión.', async () => {
+                        await container.vetify.webapp.videocallFormPage.load();
+                        await container.vetify.webapp.videocallFormPage.startNewVideocallRequest();
+                        await container.vetify.webapp.videocallFormPage.selectReason('Vacunas');
+                        await container.vetify.webapp.videocallFormPage.clickContinue();
+                        await container.vetify.webapp.videocallFormPage.skipAttachments();
+                        await container.vetify.webapp.videocallFormPage.completeDayAndTime(DateTime.now().plus({ days: getRandomInt(1, 25) }));
+                        await container.vetify.webapp.videocallFormPage.clickContinue();
+                        await container.vetify.webapp.videocallFormPage.verifyReviewScreenSinglePet();
+                    });
+
+                    await step('2. Bloquear el POST de creación del turno y presionar "Confirmar videollamada".', async () => {
+                        await outage.block(['*/services/assistance/493/create*']);
+                        await container.vetify.webapp.videocallFormPage.confirmVideocallBtn.click();
+                        // Nota técnica: no se afirma acá sobre el texto de la pantalla de error específica.
+                        // Con un corte de conexión (como este) el sistema siempre muestra la pantalla genérica
+                        // de IMAS-3860 ("Estamos realizando mejoras"), no la pantalla nueva de esta HU ("No
+                        // pudimos agendar el turno" + Reintentar) -- esa distinción por tipo de error (CA02)
+                        // está verificada manualmente, ver TC-02/TC-03 más abajo y decision-log 2026-09-22.
+                        // Lo que SÍ es válido para cualquiera de las 2 pantallas, y es lo que pide este CA: la
+                        // confirmación no se completa.
+                        await expect(container.vetify.webapp.videocallFormPage.confirmationReservedLbl).toBeHidden();
+                    });
+
+                    await step('CA01. No queda ningún turno agendado tras la falla.', async () => {
+                        await outage.restore();
+                        await container.vetify.webapp.videocallFormPage.load();
+                        await expect(container.vetify.webapp.videocallFormPage.existingTurnosHeadingLbl).toBeHidden();
+                    });
+                },
+            );
+
+            test(
+                'TC-04 - IMAS-3904 CA04 - Un intento fallido de agendamiento no genera un turno duplicado al reintentar con éxito',
+                { tag: ['@critical'] },
+                async ({ container, page }) => {
+                    // SKIP 2026-09-22: mismo motivo que TC-01 (ver comentario ahí) -- infraestructura de
+                    // test, no de producto. CA04 queda cubierto conceptualmente: "Confirmar"/"Reintentar"
+                    // solo dispara el POST al hacer clic explícito, así que un intento fallido no puede
+                    // dejar un turno a medias sin otro clic explícito de por medio.
+                    test.skip(true, 'Bloqueado por infraestructura de test (ver TC-01) -- no es un hallazgo de producto.');
+
+                    await setAllureDetails({
+                        preconditions: ['Usuario autenticado, con al menos una mascota con plan activo y sin turnos pendientes.'],
+                        steps: [
+                            'Completar el formulario y forzar un error técnico al confirmar (el turno NO debe crearse).',
+                            'Completar el formulario de nuevo y confirmar sin errores (el turno SÍ debe crearse).',
+                        ],
+                        expectedResult: ['Al finalizar existe exactamente 1 turno agendado -- el intento fallido no dejó ningún turno duplicado ni huérfano.'],
+                    });
+
+                    const outage = new NetworkOutageSimulator(page);
+                    const date = DateTime.now().plus({ days: getRandomInt(1, 25) });
+
+                    await step('1. Completar el formulario y forzar un error técnico al confirmar.', async () => {
+                        await container.vetify.webapp.videocallFormPage.load();
+                        await container.vetify.webapp.videocallFormPage.startNewVideocallRequest();
+                        await container.vetify.webapp.videocallFormPage.selectReason('Vacunas');
+                        await container.vetify.webapp.videocallFormPage.clickContinue();
+                        await container.vetify.webapp.videocallFormPage.skipAttachments();
+                        await container.vetify.webapp.videocallFormPage.completeDayAndTime(date);
+                        await container.vetify.webapp.videocallFormPage.clickContinue();
+                        await outage.block(['*/services/assistance/493/create*']);
+                        await container.vetify.webapp.videocallFormPage.confirmVideocallBtn.click();
+                        await expect(container.vetify.webapp.videocallFormPage.confirmationReservedLbl).toBeHidden();
+                        await outage.restore();
+                    });
+
+                    await step('2. Completar el formulario de nuevo y confirmar sin errores.', async () => {
+                        await container.vetify.webapp.videocallFormPage.load();
+                        await container.vetify.webapp.videocallFormPage.startNewVideocallRequest();
+                        await container.vetify.webapp.videocallFormPage.selectReason('Vacunas');
+                        await container.vetify.webapp.videocallFormPage.clickContinue();
+                        await container.vetify.webapp.videocallFormPage.skipAttachments();
+                        await container.vetify.webapp.videocallFormPage.completeDayAndTime(date);
+                        await container.vetify.webapp.videocallFormPage.clickContinue();
+                        await container.vetify.webapp.videocallFormPage.confirmVideocall();
+                        await container.vetify.webapp.videocallFormPage.verifyConfirmationScreen();
+                    });
+
+                    await step('CA04. Existe exactamente 1 turno agendado, sin duplicados.', async () => {
+                        await container.vetify.webapp.videocallFormPage.goToHomeBtn.click();
+                        await container.vetify.webapp.videocallFormPage.load();
+                        await container.vetify.webapp.videocallFormPage.verifyExistingTurnosCount(1);
+                    });
+                },
+            );
+
+            test('TC-02 - [Verificado manual] IMAS-3904 CA02 - Pantalla de error definida en Figma ("No pudimos agendar el turno")', () => {
+                test.skip(
+                    true,
+                    'No automatizable con la técnica actual de mocking de Playwright: page.route().fulfill() contra este POST siempre resulta en request [FAILED] en vez de entregar el status HTTP simulado (probado con 400/500/422/503, y con el Service Worker desregistrado -- no cambia el resultado; investigado 2026-09-22, ver decision-log). Verificado manualmente por Alan con la extensión de navegador Requestly (status 400 y 500 reales): aparece correctamente "No pudimos agendar el turno" + botón "Reintentar", coincide con el diseño de Figma referenciado en la HU. 502/503/504 siguen mostrando correctamente la pantalla genérica de IMAS-3860 (comportamiento esperado, no forman parte de este CA).',
+                );
+            });
+
+            test('TC-03 - [Verificado manual] IMAS-3904 CA03 - El botón "Reintentar" vuelve a ejecutar el agendamiento', () => {
+                test.skip(
+                    true,
+                    'Mismo motivo que TC-02 (no se puede llegar a la pantalla nueva vía Playwright todavía con la técnica de mocking disponible). Verificado manualmente por Alan: el botón "Reintentar" está presente y funcional en la pantalla real.',
+                );
+            });
+
+            test('TC-05 - [Fuera de alcance] IMAS-3904 CA05 - Registro y monitoreo del error técnico', () => {
+                test.skip(
+                    true,
+                    'CA05 pide registrar fecha/hora, usuario, mascota, ID de solicitud, servicio, tipo de error y correlation ID -- eso vive en logs/monitoreo del backend, sin acceso desde una prueba E2E. Mismo criterio que CA09 (comunicaciones) de IMAS-3894/IMP-018.',
+                );
+            });
+        });
+    });
 });
